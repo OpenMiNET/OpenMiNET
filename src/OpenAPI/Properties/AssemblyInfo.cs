@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("OpenAPI")]
 [assembly: AssemblyDescription("Custom MiNET Plugin API - Making it easier for multiple plugins to work together nicely.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Open MiNET")]
+[assembly: AssemblyCompany("OpenMiNET")]
 [assembly: AssemblyProduct("OpenAPI")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
