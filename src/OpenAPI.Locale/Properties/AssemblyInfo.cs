@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("OpenAPI.Locale")]
+[assembly: AssemblyTitle("OpenMiNET.API.Locale")]
 [assembly: AssemblyDescription("Localization for OpenAPI")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("OpenMiNET")]
-[assembly: AssemblyProduct("OpenAPI.Locale")]
+[assembly: AssemblyProduct("OpenMiNET.API.Locale")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
