@@ -42,6 +42,9 @@ platform: Any CPU
 # build Configuration, i.e. Debug, Release, etc.
 configuration: Release
 
+before_build:
+  - nuget restore src
+
 build:
   project: src/OpenAPI.sln    # path to Visual Studio solution or project
   publish_nuget: true             # package projects with .nuspec files and push to artifacts
