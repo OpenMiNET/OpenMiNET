@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>OpenAPI.Locale</RootNamespace>
-    <AssemblyName>OpenAPI.Locale</AssemblyName>
+    <AssemblyName>OpenMiNET.API.Locale</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>OpenAPI.TestPlugin</RootNamespace>
-    <AssemblyName>OpenAPI.TestPlugin</AssemblyName>
+    <AssemblyName>OpenMiNET.API.TestPlugin</AssemblyName>
     <RuntimeIdentifier>win</RuntimeIdentifier>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
