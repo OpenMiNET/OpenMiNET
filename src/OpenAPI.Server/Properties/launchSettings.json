@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "OpenAPI.Server": {
+      "commandName": "Project",
+      "workingDirectory": "bin\\Debug\\netcoreapp2.1\\"
+    }
+  }
+}

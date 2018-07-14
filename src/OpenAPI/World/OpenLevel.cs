@@ -46,7 +46,7 @@ namespace OpenAPI.World
 		}
 
 		private bool _closed;
-		public override void AddEntity(Entity entity)
+	/*	public override void AddEntity(Entity entity)
 		{
 		    if (Entities == null) return;
 
@@ -85,7 +85,7 @@ namespace OpenAPI.World
 
 				entity.DespawnFromPlayers(GetAllPlayers());
 			}
-		}
+		}*/
 
 		public override void AddPlayer(MiNET.Player newPlayer, bool spawn)
 		{
@@ -160,7 +160,7 @@ namespace OpenAPI.World
 			}
 		}
 
-		protected override bool OnBlockPlace(BlockPlaceEventArgs e)
+		public override bool OnBlockPlace(BlockPlaceEventArgs e)
 		{
 			if (e.Player == null) return true;
 			BlockPlaceEvent bb = new BlockPlaceEvent((OpenPlayer) e.Player, e.TargetBlock);
@@ -179,8 +179,8 @@ namespace OpenAPI.World
 					message.type = 0;
 					message.source = ""; //sender == null ? "" : (sender.DisplayName ?? sender.Username);
 					message.message =$"{sen}{line}";
-				    message.parameters = new string[0];
-				    message.islocalized = false;
+				    //message.parameters = new string[0];
+				  //  message.islocalized = false;
 
                     RelayBroadcast(sendList, message);
 				}
@@ -192,8 +192,8 @@ namespace OpenAPI.World
 			    message.type = (byte)type;
 			    message.source = sender == null ? "" : sender.Username;
 			    message.message = text;
-                message.parameters = new string[0];
-			    message.islocalized = false;
+             //   message.parameters = new string[0];
+			 //   message.islocalized = false;
 
 			    RelayBroadcast(sendList, message);
 			}

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using log4net;
+using Mono.Cecil;
 
 namespace OpenAPI.Plugins
 {
@@ -37,15 +38,15 @@ namespace OpenAPI.Plugins
 		        }
 	        }
 
-			AppDomain.CurrentDomain.AssemblyResolve += PluginManagerOnAssemblyResolve;
+			//AppDomain.CurrentDomain.AssemblyResolve += PluginManagerOnAssemblyResolve;
         }
 
 	    private Assembly PluginManagerOnAssemblyResolve(object sender, ResolveEventArgs args)
 	    {
 		    try
 		    {
-			    AssemblyName name = new AssemblyName(args.Name);
-
+			  //  AssemblyName name = new AssemblyName(args.Name);
+				AssemblyNameReference name = AssemblyNameReference.Parse(args.Name);
 			    if (IsLoaded(name, out Assembly loadedPluginAssembly))
 			    {
 				    lock (_pluginLock)
@@ -66,7 +67,7 @@ namespace OpenAPI.Plugins
 			    }
 
 			    Assembly result = null;
-			    if (TryFindAssemblyPath(name, rootPath, out string resultPath))
+			    if (TryFindAssemblyPath(new AssemblyName(name.Name), rootPath, out string resultPath))
 			    {
 				    result = Assembly.LoadFile(resultPath);
 			    }
@@ -237,6 +238,7 @@ namespace OpenAPI.Plugins
 			List<OpenPlugin> plugins = new List<OpenPlugin>();
 	        foreach (var assembly in loadedAssemblies)
 	        {
+				if (assembly != null)
 		        if (LoadAssembly(assembly, out OpenPlugin[] pluginInstances, out Assembly[] requiredAssemblies))
 		        {
 			        LoadedAssemblies.Add(assembly, new LoadedAssembly(assembly, pluginInstances, requiredAssemblies));
@@ -267,12 +269,12 @@ namespace OpenAPI.Plugins
 	        Log.Info($"Enabled {enabled} plugins!");
         }
 
-	    private bool IsLoaded(AssemblyName assembly, out Assembly outAssembly)
+	    private bool IsLoaded(AssemblyNameReference assembly, out Assembly outAssembly)
 	    {
 		    Assembly[] loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
 		    Assembly ooutAssembly =
-			    loadedAssemblies.FirstOrDefault(x =>  x.GetName().Name
-			    .Equals(assembly.Name, StringComparison.InvariantCultureIgnoreCase));
+			    loadedAssemblies.FirstOrDefault(x => x != null && x.GetName().Name
+			   	    .Equals(assembly.Name, StringComparison.InvariantCultureIgnoreCase));
 
 		    if (ooutAssembly != null)
 		    {
@@ -283,15 +285,23 @@ namespace OpenAPI.Plugins
 		    return false;
 	    }
 
+	    private bool ReferencesHost(ModuleDefinition assembly)
+	    {
+		    var hostName = HostAssembly.GetName();
+
+			return assembly.AssemblyReferences
+			    .Any(x => x.Name.Equals(hostName.Name, StringComparison.InvariantCultureIgnoreCase));
+	    }
+
 	    private bool ReferencesHost(Assembly assembly)
 	    {
 		    var hostName = HostAssembly.GetName();
 
-			return assembly.GetReferencedAssemblies()
+		    return assembly.GetReferencedAssemblies()
 			    .Any(x => x.Name.Equals(hostName.Name, StringComparison.InvariantCultureIgnoreCase));
 	    }
 
-        private void ProcessFile(string directory, string file, out AppDomain domain, out Assembly[] pluginAssemblies)
+		private void ProcessFile(string directory, string file, out AppDomain domain, out Assembly[] pluginAssemblies)
         {
 	        pluginAssemblies = null;
 
@@ -319,12 +329,14 @@ namespace OpenAPI.Plugins
 		            if (AssemblyReferences.ContainsKey(assemblyName.Name))
 			            return;
 
-		            Assembly raw = Assembly.ReflectionOnlyLoadFrom(file);
-
-		            if (!ReferencesHost(raw))
+		            var assemblyInfo = ModuleDefinition.ReadModule(file);
+					//Assembly raw = Assembly.ReflectionOnlyLoadFrom(file);
+					//  var raw = Assembly.LoadFrom(file);
+					if (!ReferencesHost(assemblyInfo))
 			            return;
 
-		            var references = raw.GetReferencedAssemblies();
+		            var references = assemblyInfo.AssemblyReferences.Select(x => new AssemblyName(x.Name));
+		         //   var references = raw.GetReferencedAssemblies();
 
 		            if (TryResolve(domain, directory, references, out Assembly[] loadedReferences))
 		            {
@@ -375,6 +387,22 @@ namespace OpenAPI.Plugins
 			    return false;
 		    }
 
+		    public bool IsLoaded(AssemblyNameReference assembly, out Assembly outAssembly)
+		    {
+			    Assembly[] loadedAssemblies = Domain.GetAssemblies();
+			    Assembly ooutAssembly =
+				    loadedAssemblies.FirstOrDefault(x => x.GetName().Name
+					    .Equals(assembly.Name, StringComparison.InvariantCultureIgnoreCase));
+
+			    if (ooutAssembly != null)
+			    {
+				    outAssembly = ooutAssembly;
+				    return true;
+			    }
+			    outAssembly = null;
+			    return false;
+		    }
+
 			public Assembly GetAssembly(string assemblyPath)
 		    {
 			    try
@@ -401,11 +429,14 @@ namespace OpenAPI.Plugins
 
 			public static Proxy CreateProxy(AppDomain domain)
 		    {
-			    Type type = typeof(Proxy);
-			    var proxy = (Proxy)domain.CreateInstanceAndUnwrap(
-				    type.Assembly.FullName,
-				    type.FullName);
+			   // Type type = typeof(Proxy);
+				Proxy proxy = new Proxy();
 			    proxy.Domain = domain;
+
+			   // var proxy = (Proxy)domain.CreateInstanceAndUnwrap(
+			//	    type.Assembly.FullName,
+			//	    type.FullName);
+			 //   proxy.Domain = domain;
 
 			    return proxy;
 		    }

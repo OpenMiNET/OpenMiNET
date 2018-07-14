@@ -15,26 +15,26 @@ namespace OpenAPI.Player
 
 		public override Item GetItemInHand()
 		{
-			if (CursorItem != null && CursorItem.Id > 0)
-			{
-				return CursorItem;
-			}
+		//	if (CursorItem != null && CursorItem.Id > 0)
+		//	{
+		//		return CursorItem;
+		//	}
 
 			var index = InHandSlot;
-			if (index == -1 || index >= Slots.Length) return new ItemAir();
+			if (index == -1 || index >= Slots.Count) return new ItemAir();
 
 			return Slots[index] ?? new ItemAir();
 		}
 
-	    public override bool HasItem(Item item)
+	  /*  public override bool HasItem(Item item)
 	    {
 	        return HasItems(item.Id, item.Metadata, item.Count);
-	    }
+	    }*/
 
 	    public bool HasItems(short itemId, short meta, int count)
 		{
 			int c = 0;
-			for (byte i = 0; i < Slots.Length; i++)
+			for (byte i = 0; i < Slots.Count; i++)
 			{
 				var slot = (Slots[i]);
 				if (slot.Id == itemId && slot.Metadata == meta)
@@ -49,7 +49,7 @@ namespace OpenAPI.Player
 		public void TakeItems(short itemId, short meta, int count)
 		{
 			int remaining = count;
-			for (byte i = 0; i < Slots.Length; i++)
+			for (byte i = 0; i < Slots.Count; i++)
 			{
 				var slot = (Slots[i]);
 				if (slot.Id == itemId && slot.Metadata == meta)

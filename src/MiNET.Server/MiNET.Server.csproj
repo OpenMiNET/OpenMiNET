@@ -157,12 +157,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OpenAPI\OpenAPI.csproj">
-      <Project>{10355c5f-fee7-4151-afb0-c633dc3a5eea}</Project>
-      <Name>OpenAPI</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.2">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.6.2 %28x86 and x64%29</ProductName>

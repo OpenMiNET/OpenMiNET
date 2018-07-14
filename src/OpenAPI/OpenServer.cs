@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
@@ -25,7 +26,7 @@ namespace OpenAPI
             OpenApi = new OpenAPI();
         }
 
-        public override bool StartServer()
+        public new bool StartServer()
         {
             UdpClient c = GetPrivateFieldValue<UdpClient>(typeof(MiNetServer), this, "_listener");
             if (c != null) return false;
@@ -50,7 +51,7 @@ namespace OpenAPI
                 if (ServerRole == ServerRole.Full || ServerRole == ServerRole.Node)
                 {
                     PluginManager = new PluginManager();
-                    openInfo = new OpenServerInfo(OpenApi, PlayerSessions);
+                    openInfo = new OpenServerInfo(OpenApi, GetPrivateFieldValue<ConcurrentDictionary<IPEndPoint, PlayerNetworkSession>>(typeof(MiNetServer), this, "_playerSessions"), OpenApi.LevelManager);
                     ServerInfo = openInfo;
                     openInfo.Init();
 
@@ -133,10 +134,21 @@ namespace OpenAPI
           
         }
 
-        protected override void OnServerShutdown()
-        {
-            OpenApi?.OnDisable();
-        }
+	    public new bool StopServer()
+	    {
+		    if (base.StopServer())
+		    {
+				OpenApi?.OnDisable();
+			    return true;
+		    }
+
+		    return false;
+	    }
+
+      //  protected override void OnServerShutdown()
+     //   {
+      //      OpenApi?.OnDisable();
+      //  }
 
         /*     private string _currentPath;
         private Assembly MyResolveEventHandler(object sender, ResolveEventArgs args)

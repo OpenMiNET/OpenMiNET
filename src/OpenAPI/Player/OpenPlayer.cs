@@ -14,6 +14,7 @@ using log4net;
 using MiNET;
 using MiNET.BlockEntities;
 using MiNET.Blocks;
+using MiNET.Entities;
 using MiNET.Items;
 using MiNET.Net;
 using MiNET.Plugins;
@@ -60,22 +61,29 @@ namespace OpenAPI.Player
 
         public override void InitializePlayer()
         {
-            base.InitializePlayer();
+	        PlayerLoginCompleteEvent e = new PlayerLoginCompleteEvent(this, DateTime.UtcNow);
+	        EventDispatcher.DispatchEvent(e);
+	        if (e.IsCancelled)
+	        {
+		        Disconnect("Error #357. Please report this error.");
+	        }
+
+			base.InitializePlayer();
 
             Culture = CultureInfo.CreateSpecificCulture(PlayerInfo.LanguageCode.Replace('_', '-'));
 
             HungerManager = new OpenHungerManager(this);
 	        HealthManager = new OpenHealthManager(this);
-            HealthManager.PlayerTakeHit += HealthManagerOnPlayerTakeHit;
+		   // HealthManager.PlayerTakeHit += HealthManagerOnPlayerTakeHit;
         }
 
-        private void HealthManagerOnPlayerTakeHit(object sender, HealthEventArgs e)
+       /* private void HealthManagerOnPlayerTakeHit(object sender, HealthEventArgs e)
 	    {
 	        if (!FormsOpened.IsEmpty)
 	        {
                 CloseAllForms();
 	        }
-	    }
+	    }*/
 
 	    private bool _previousIsSpawned = false;
         protected override void OnTicking(PlayerEventArgs e)
@@ -123,15 +131,6 @@ namespace OpenAPI.Player
         }
 
 		private bool _hasJoinedServer = false;
-		protected override void OnLoginComplete()
-		{
-			PlayerLoginCompleteEvent e = new PlayerLoginCompleteEvent(this, DateTime.UtcNow);
-			EventDispatcher.DispatchEvent(e);
-			if (e.IsCancelled)
-			{
-				Disconnect("Error #357. Please report this error.");
-			}
-		}
 
         protected override void OnPlayerJoin(PlayerEventArgs e)
         {
@@ -180,7 +179,7 @@ namespace OpenAPI.Player
 			McpeTransfer transfer = McpeTransfer.CreateObject();
 			transfer.port = (ushort) endpoint.Port;
 			transfer.serverAddress = endpoint.Address.ToString();
-			SendPackage(transfer);
+			SendPacket(transfer);
 		}
 
         public override void HandleMcpeText(McpeText message)
@@ -196,11 +195,15 @@ namespace OpenAPI.Player
 	        Level.BroadcastMessage(text, sender: this);
 		}
 
-        protected override void HandleItemUseOnEntity(Transaction transaction)
+	    protected override void HandleItemUseOnEntityTransactions(Transaction transaction)
         {
-            var entity = Level.GetEntity(transaction.EntityId);
-            if (entity == null || !entity.IsSpawned || entity.HealthManager.IsDead || entity.HealthManager.IsInvulnerable)
-                return;
+	        if (!Level.TryGetEntity<Entity>(transaction.EntityId, out var entity) || !entity.IsSpawned || entity.HealthManager.IsDead || entity.HealthManager.IsInvulnerable)
+	        {
+		        return;
+	        }
+       //     var entity = Level.GetEntity(transaction.EntityId);
+          //  if (entity == null || !entity.IsSpawned || entity.HealthManager.IsDead || entity.HealthManager.IsInvulnerable)
+          //      return;
 
 			var actionType = (McpeInventoryTransaction.ItemUseOnEntityAction) transaction.ActionType;
 			
@@ -208,41 +211,57 @@ namespace OpenAPI.Player
 			EventDispatcher.DispatchEvent(interactEvent);
 			if (interactEvent.IsCancelled) return;
 
-            base.HandleItemUseOnEntity(transaction);
+            base.HandleItemUseOnEntityTransactions(transaction);
         }
 
-		protected override void DropItem(Item droppedItem, Item newInventoryItem)
+	    protected override void HandleItemReleaseTransactions(Transaction transaction)
+	    {
+		    Item itemInHand = Inventory.GetItemInHand();
+			switch ((McpeInventoryTransaction.ItemReleaseAction) transaction.ActionType)
+		    {
+			    case McpeInventoryTransaction.ItemReleaseAction.Release:
+					Log.Debug($"Item release action, drop item?");
+				   // if (!DropItem(itemInHand, ))
+					//    return;
+				    break;
+		    }
+
+		    base.HandleItemReleaseTransactions(transaction);
+	    }
+
+		private bool DropItem(Item droppedItem, Item newInventoryItem)
 		{
 			PlayerItemDropEvent dropEvent = new PlayerItemDropEvent(this, this.KnownPosition, droppedItem, newInventoryItem);
 			EventDispatcher.DispatchEvent(dropEvent);
 			if (dropEvent.IsCancelled)
 			{
 				SendPlayerInventory();
-				return;
+				return false;
 			}
 
-			base.DropItem(droppedItem, newInventoryItem);
+			return true;
+			//base.DropItem(droppedItem, newInventoryItem);
 		}
 
-		public override bool VerifyItemStack(Item itemStack)
+		/*public override bool VerifyItemStack(Item itemStack)
 		{
 			return true;
-		}
+		}*/
 
 		public override void DropInventory()
 		{
 			base.DropInventory();
 		}
 
-		protected override void HandleItemUse(Transaction transaction)
+	/*	protected override void HandleItemUse(Transaction transaction)
 		{
 			/*var act = (McpeInventoryTransaction.ItemUseAction) transaction.ActionType;
 			if (act == McpeInventoryTransaction.ItemUseAction.Use)
 			{	
 				Log.Info($"{Username} used item an item! Transaction: {transaction.Item} Inventory: {Inventory.GetItemInHand()}");
-			}*/
+			}
 			base.HandleItemUse(transaction);
-		}
+		}*/
 
 		public override void HandleMcpeServerSettingsRequest(McpeServerSettingsRequest message)
 		{
@@ -255,39 +274,49 @@ namespace OpenAPI.Player
 		private double BlockBreakTime { get; set; } = -1;
 		private Stopwatch BlockBreakTimer = new Stopwatch();
 		private BlockCoordinates BreakingBlockCoordinates { get; set; }
-		protected override void BlockBreakChanged(Block block, PlayerAction action, double breakTime)
-		{
+
+	    public override void HandleMcpePlayerAction(McpePlayerAction message)
+	    {
+		    var action = (PlayerAction)message.actionId;
+
 			lock (_breakSync)
 			{
-			    if (GameMode == GameMode.Creative)
-			    {			       
-			        return;
-			    }
+				if (GameMode == GameMode.Creative)
+				{
+					return;
+				}
 
+				Block block;
 				if (action == PlayerAction.StartBreak)
 				{
-				    var blockStartBreak = new BlockStartBreakEvent(this, block);
-                    EventDispatcher.DispatchEvent(blockStartBreak);
+					block = Level.GetBlock(message.coordinates);
+					var drops = block.GetDrops(Inventory.GetItemInHand());
+					float tooltypeFactor = drops == null || drops.Length == 0 ? 5f : 1.5f; // 1.5 if proper tool
+					double breakTime = Math.Ceiling(block.Hardness * tooltypeFactor * 20);
 
-				    if (blockStartBreak.IsCancelled)
-				    {
-                        SendBlockBreakEnd(block.Coordinates);
-                        return;
-				    }
+					var blockStartBreak = new BlockStartBreakEvent(this, block);
+					EventDispatcher.DispatchEvent(blockStartBreak);
 
-                    IsBreakingBlock = true;
+					if (blockStartBreak.IsCancelled)
+					{
+						SendBlockBreakEnd(block.Coordinates);
+						return;
+					}
+
+					IsBreakingBlock = true;
 					BlockBreakTimer.Restart();
 					BreakingBlockCoordinates = block.Coordinates;
 					BlockBreakTime = breakTime;
 				}
 				else if (action == PlayerAction.AbortBreak)
 				{
+					block = Level.GetBlock(message.coordinates);
 					if (IsBreakingBlock && BreakingBlockCoordinates == block.Coordinates)
 					{
 						IsBreakingBlock = false;
 						BlockBreakTimer.Reset();
 
-                        EventDispatcher.DispatchEvent(new BlockAbortBreakEvent(this, block));
+						EventDispatcher.DispatchEvent(new BlockAbortBreakEvent(this, block));
 					}
 				}
 				else if (action == PlayerAction.StopBreak)
@@ -309,13 +338,15 @@ namespace OpenAPI.Player
 					}
 				}
 			}
-		}
+
+			base.HandleMcpePlayerAction(message);
+	    }
 
 	    private void SendBlockBreakEnd(BlockCoordinates coordinates)
 	    {
 	        McpeLevelEvent levelEvent = McpeLevelEvent.CreateObject();
 	        levelEvent.position = coordinates;
-	        levelEvent.eventId = (int)LevelEventType.BlockStopCracking;
+	        levelEvent.eventId = 3601; //Block stop cracking
 	        levelEvent.data = 0;
 	        Level.RelayBroadcast(levelEvent);
         }
@@ -339,7 +370,21 @@ namespace OpenAPI.Player
             e.OnComplete();
 		}
 
-		protected override bool CanBreakBlock(Block block, Item itemInHand)
+	    protected override void HandleItemUseTransactions(Transaction transaction)
+	    {
+		    var itemInHand = Inventory.GetItemInHand();
+
+		    switch ((McpeInventoryTransaction.ItemUseAction) transaction.ActionType)
+		    {
+				case McpeInventoryTransaction.ItemUseAction.Destroy:
+
+					break;
+		    }
+
+		    base.HandleItemUseTransactions(transaction);
+	    }
+
+		/*protected override bool CanBreakBlock(Block block, Item itemInHand)
 		{
 		    if (GameMode == GameMode.Creative)
 		    {
@@ -354,7 +399,7 @@ namespace OpenAPI.Player
 		    }
 
 			return false;
-		}
+		}*/
 
 	    private Dictionary<PlayerInput, PlayerInputState> _inputStates = new Dictionary<PlayerInput, PlayerInputState>()
 	    {
@@ -406,7 +451,7 @@ namespace OpenAPI.Player
             //base.HandleMcpePlayerInput(message);
 	    }
 
-        public override void HandleMcpeRiderJump(McpeRiderJump message)
+      /*  public override void HandleMcpeRiderJump(McpeRiderJump message)
         {
             if (CapturePlayerInputMode)
             {
@@ -414,7 +459,7 @@ namespace OpenAPI.Player
                 return;
             }
             base.HandleMcpeRiderJump(message);
-        }
+        }*/
 
         public override void HandleMcpeInteract(McpeInteract message)
         {

@@ -10,5 +10,10 @@ namespace OpenAPI.Entities
 		{
 			OpenLevel = level;
 		}
+
+		public override void SpawnEntity()
+		{
+			base.SpawnEntity();
+		}
 	}
 }

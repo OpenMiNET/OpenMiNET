@@ -18,7 +18,7 @@ namespace OpenAPI
 		public long EventsDispatchedPerSecond;
 		public long Levels;
 		private OpenAPI Api { get; }
-		public OpenServerInfo(OpenAPI api, ConcurrentDictionary<IPEndPoint, PlayerNetworkSession> playerSessions) : base(playerSessions)
+		public OpenServerInfo(OpenAPI api, ConcurrentDictionary<IPEndPoint, PlayerNetworkSession> playerSessions, LevelManager levelManager) : base(levelManager, playerSessions)
 		{
 			Api = api;
 

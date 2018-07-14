@@ -9,7 +9,6 @@ using fNbt;
 using log4net;
 using MiNET.Utils;
 using MiNET.Worlds;
-using MiNET.Worlds.Generators;
 using OpenAPI.Events.Level;
 
 namespace OpenAPI.World
@@ -41,22 +40,26 @@ namespace OpenAPI.World
 
 			AnvilProvider = new AnvilWorldProvider(basePath);
 			foreach(var pair in chunks)
-			{
-				if (pair == null || !AnvilProvider._chunkCache.TryAdd(new ChunkCoordinates(pair.x, pair.z), new ChunkColumn()
-				{
-					x = pair.x,
-					z = pair.z,
-					chunks = pair.chunks.Select(x => (Chunk)x.Clone()).ToArray(),
-					biomeId = (byte[]) pair.biomeId.Clone(),
-					height = (short[]) pair.height.Clone(),
-					isAllAir = pair.isAllAir,
-					IsLoaded = pair.IsLoaded,
-					isGenerated = pair.isGenerated,
-					NeedSave = pair.NeedSave,
-					BlockEntities = CloneDictionaryCloningValues(pair.BlockEntities),
-					isDirty = pair.isDirty,
-					isNew = pair.isNew
-				}))
+			{//pair.
+				var chunk = (ChunkColumn)pair.Clone();
+			 /*
+			  * new ChunkColumn()
+			 {
+				 x = pair.x,
+				 z = pair.z,
+				 //chunks = pair.chunks.Select(x => (Chunk)x.Clone()).ToArray(),
+				 biomeId = (byte[]) pair.biomeId.Clone(),
+				 height = (short[]) pair.height.Clone(),
+				 isAllAir = pair.isAllAir,
+				 IsLoaded = pair.IsLoaded,
+				 isGenerated = pair.isGenerated,
+				 NeedSave = pair.NeedSave,
+				 BlockEntities = CloneDictionaryCloningValues(pair.BlockEntities),
+				 isDirty = pair.isDirty,
+				 isNew = pair.isNew
+			 }
+			  */
+				if (pair == null || !AnvilProvider._chunkCache.TryAdd(new ChunkCoordinates(pair.x, pair.z), chunk))
 				{
 					Log.Warn("Could not load cached chunk to worldprovider!");
 				}
@@ -234,6 +237,11 @@ namespace OpenAPI.World
 			{
 				AnvilProvider = (AnvilWorldProvider) AnvilProvider.Clone()
 			};
+		}
+
+		public long GetDayTime()
+		{
+			return AnvilProvider.GetDayTime();
 		}
 	}
 }

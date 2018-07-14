@@ -9,7 +9,6 @@ using log4net;
 using MiNET;
 using MiNET.Utils;
 using MiNET.Worlds;
-using MiNET.Worlds.Generators;
 using OpenAPI.Entities;
 using OpenAPI.Events;
 using OpenAPI.Events.Level;
@@ -103,7 +102,8 @@ namespace OpenAPI.World
 			{
 				EnableBlockTicking = _enableBlockTicking,
 				EnableChunkTicking = _enableChunkTicking,
-				IsWorldTimeStarted = _isWorldTimeStarted
+				
+			//	IsWorldTimeStarted = _isWorldTimeStarted
 			};
 
 			LoadLevel(openLevel);
@@ -126,7 +126,7 @@ namespace OpenAPI.World
 			{
 				EnableBlockTicking = _enableBlockTicking,
 				EnableChunkTicking = _enableChunkTicking,
-				IsWorldTimeStarted = _isWorldTimeStarted
+				//IsWorldTimeStarted = _isWorldTimeStarted
 			};
 
 			LoadLevel(openLevel);
@@ -154,7 +154,7 @@ namespace OpenAPI.World
 			{
 				EnableBlockTicking = _enableBlockTicking,
 				EnableChunkTicking = _enableChunkTicking,
-				IsWorldTimeStarted = _isWorldTimeStarted
+			//	IsWorldTimeStarted = _isWorldTimeStarted
 			};
 
 			LoadLevel(openLevel);
