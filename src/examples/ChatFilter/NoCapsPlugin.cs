@@ -1,8 +1,7 @@
 ﻿using log4net;
-using OpenAPI.Player;
 using OpenAPI.Plugins;
 
-namespace NoCaps
+namespace ChatFilter
 {
     public class NoCapsPlugin : OpenPlugin
     {

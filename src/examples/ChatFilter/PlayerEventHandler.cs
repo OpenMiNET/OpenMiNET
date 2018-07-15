@@ -1,13 +1,7 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using MiNET;
-using OpenAPI.Events;
+﻿using OpenAPI.Events;
 using OpenAPI.Events.Player;
-using OpenAPI.Player;
 
-namespace NoCaps
+namespace ChatFilter
 {
     public class PlayerEventHandler : IEventHandler
     {

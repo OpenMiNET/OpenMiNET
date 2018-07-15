@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NoCaps.Properties {
+namespace ChatFilter.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace NoCaps.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NoCaps.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ChatFilter.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,72 +61,12 @@ namespace NoCaps.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 4r5e
-        ///5h1t
-        ///5hit
-        ///a55
-        ///anal
-        ///anus
-        ///ar5e
-        ///arrse
-        ///arse
-        ///ass
-        ///ass-fucker
-        ///asses
-        ///assfucker
-        ///assfukka
-        ///asshole
-        ///assholes
-        ///asswhole
-        ///a_s_s
-        ///b!tch
-        ///b00bs
-        ///b17ch
-        ///b1tch
-        ///ballbag
-        ///balls
-        ///ballsack
-        ///bastard
-        ///beastial
-        ///beastiality
-        ///bellend
-        ///bestial
-        ///bestiality
-        ///bi+ch
-        ///biatch
-        ///bitch
-        ///bitcher
-        ///bitchers
-        ///bitches
-        ///bitchin
-        ///bitching
-        ///bloody
-        ///blow job
-        ///blowjob
-        ///blowjobs
-        ///boiolas
-        ///bollock
-        ///bollok
-        ///boner
-        ///boob
-        ///boobs
-        ///booobs
-        ///boooobs
-        ///booooobs
-        ///booooooobs
-        ///breasts
-        ///buceta
-        ///bugger
-        ///bum
-        ///bunny fucker
-        ///butt
-        ///butthole
-        ///buttmuch
-        /// [rest of string was truncated]&quot;;.
+        ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static string profanity {
+        internal static byte[] profanity {
             get {
-                return ResourceManager.GetString("profanity", resourceCulture);
+                object obj = ResourceManager.GetObject("profanity", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }

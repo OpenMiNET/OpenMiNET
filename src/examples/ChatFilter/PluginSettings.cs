@@ -1,4 +1,4 @@
-﻿namespace NoCaps
+﻿namespace ChatFilter
 {
     public class PluginSettings
     {

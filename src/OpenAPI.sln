@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossReferencing", "example
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{EAC9ECCB-CF1C-468F-9CC3-EDF7CEED8993}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoCaps", "examples\InvSee\NoCaps.csproj", "{D3E7049D-6767-401C-B9E5-827465471E24}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatFilter", "examples\ChatFilter\ChatFilter.csproj", "{D3E7049D-6767-401C-B9E5-827465471E24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

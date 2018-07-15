@@ -33,11 +33,14 @@ namespace OpenAPI.Server
 
 	        var service = new OpenServer();
 	        log.Info("Starting MiNET");
-	        service.StartServer();
+	        service.StartServer(); 
 
-	        System.Console.WriteLine("MiNET running. Press <enter> to stop service.");
-	        System.Console.ReadLine();
-	        //service.StopServer();
+	        System.Console.WriteLine("MiNET is now running. Hold <CTRL+C> to stop the server gracefully.");
+			ConsoleHost.WaitForShutdown();
+
+	        System.Console.WriteLine("Stopping server...");
+
+			service.StopServer();
 		}
     }
 }

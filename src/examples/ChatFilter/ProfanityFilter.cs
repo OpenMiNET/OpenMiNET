@@ -1,28 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
-using NoCaps.Properties;
+using ChatFilter.Properties;
 
-namespace NoCaps
+namespace ChatFilter
 {
     public class ProfanityFilter
     {
-	    private static readonly string[] BadWords;
+	    private static readonly log4net.ILog Log =
+		    log4net.LogManager.GetLogger(typeof(ProfanityFilter));
+
+		private static readonly string[] BadWords;
 	    static ProfanityFilter()
 	    {
-		    BadWords = Resources.profanity.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+		    BadWords = Encoding.ASCII.GetString(Resources.profanity).Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
 	    }
 
 		public static string ReplaceBadWords(string data, out int badWordCount)
 		{
 			int count = 0;
-			Regex r;
 			string op = data;
 			foreach (var word in BadWords)
 			{
 				var expword = ExpandBadWordToIncludeIntentionalMisspellings(word);
-				r = new Regex(@"(?<Pre>\s+)(?<Word>" + expword + @")(?<Post>\s+|\!\?|\.)");
+				var expression = @"(?<Pre>\s*)(?<Word>" + expword + @")(?<Post>\s*|\!\?|\.)";
+				//Log.Info($"{word}= {expression}");
+
+				var r = new Regex(expression);
 				var matches = r.Matches(data);
 				foreach (Match match in matches)
 				{
@@ -39,7 +43,7 @@ namespace NoCaps
 
 		public static string ExpandBadWordToIncludeIntentionalMisspellings(string word)
 		{
-			var chars = word
+			var chars = word.Replace(@"\", @"\\")
 				.ToCharArray();
 
 			var op = "[" + string.Join("][", chars) + "]";
@@ -47,7 +51,7 @@ namespace NoCaps
 			return op
 				.Replace("[a]", "[a A @]")
 				.Replace("[b]", "[b B I3 l3 i3]")
-				.Replace("[c]", "(?:[c C \\(]|[k K])")
+				.Replace("[c]", @"(?:[c C \(]|[k K])")
 				.Replace("[d]", "[d D]")
 				.Replace("[e]", "[e E 3]")
 				.Replace("[f]", "(?:[f F]|[ph pH Ph PH])")
@@ -55,7 +59,7 @@ namespace NoCaps
 				.Replace("[h]", "[h H]")
 				.Replace("[i]", "[i I l ! 1]")
 				.Replace("[j]", "[j J]")
-				.Replace("[k]", "(?:[c C \\(]|[k K])")
+				.Replace("[k]", @"(?:[c C \(]|[k K])")
 				.Replace("[l]", "[l L 1 ! i]")
 				.Replace("[m]", "[m M]")
 				.Replace("[n]", "[n N]")

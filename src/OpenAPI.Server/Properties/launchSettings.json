@@ -2,7 +2,7 @@
   "profiles": {
     "OpenAPI.Server": {
       "commandName": "Project",
-      "workingDirectory": "..\\..\\build\\"
+      "workingDirectory": "..\\..\\build\\debug\\"
     }
   }
 }
