@@ -4,6 +4,7 @@ using System.Reflection;
 using log4net;
 using MiNET;
 using MiNET.Plugins;
+using MiNET.Worlds;
 using OpenAPI.Events;
 using OpenAPI.Items;
 using OpenAPI.Player;
@@ -42,6 +43,9 @@ namespace OpenAPI
 	    {
 	        MiNET = openServer;
 	        OpenServer = openServer;
+
+		    var lvl = this.LevelManager.GetLevel((MiNET.Player)null, Dimension.Overworld.ToString());
+			LevelManager.SetDefaultLevel((OpenLevel)lvl);
 
 			Log.InfoFormat("Enabling OpenAPI...");
 

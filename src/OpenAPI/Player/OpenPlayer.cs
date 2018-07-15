@@ -192,7 +192,7 @@ namespace OpenAPI.Player
 
 	        if (chatEvent.IsCancelled) return;
 
-	        Level.BroadcastMessage(text, sender: this);
+	        Level.BroadcastMessage(chatEvent.Message, sender: this);
 		}
 
 	    protected override void HandleItemUseOnEntityTransactions(Transaction transaction)
@@ -267,6 +267,9 @@ namespace OpenAPI.Player
 		{
 			PlayerSettingsRequestEvent e = new PlayerSettingsRequestEvent(this, message);
 			EventDispatcher.DispatchEvent(e);
+
+			if (!e.IsCancelled)
+				base.HandleMcpeServerSettingsRequest(message);
 		}
 
 		private object _breakSync = new object();
@@ -448,7 +451,7 @@ namespace OpenAPI.Player
 	               _inputStates[PlayerInput.S] = PlayerInputState.Up;
                 }
             }
-            //base.HandleMcpePlayerInput(message);
+            base.HandleMcpePlayerInput(message);
 	    }
 
       /*  public override void HandleMcpeRiderJump(McpeRiderJump message)

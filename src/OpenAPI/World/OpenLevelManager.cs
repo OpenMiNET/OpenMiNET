@@ -93,7 +93,7 @@ namespace OpenAPI.World
 
 			var worldProvider = new WrappedAnvilWorldProvider(Api)
 			{
-				MissingChunkProvider = new AirWorldGenerator(),
+				MissingChunkProvider = new FlatlandWorldProvider(),
 				ReadSkyLight = _readSkyLight,
 				ReadBlockLight = _readBlockLight
 			};
@@ -117,7 +117,7 @@ namespace OpenAPI.World
 
 			var worldProvider = new WrappedAnvilWorldProvider(Api, basepath, false, chunks)
 			{
-				MissingChunkProvider = new AirWorldGenerator(),
+				MissingChunkProvider = new FlatlandWorldProvider(),
 				ReadSkyLight = _readSkyLight,
 				ReadBlockLight = _readBlockLight
 			};
@@ -145,7 +145,7 @@ namespace OpenAPI.World
 
 			var worldProvider = new WrappedAnvilWorldProvider(Api, levelDirectory)
 			{
-				MissingChunkProvider = new AirWorldGenerator(),
+				MissingChunkProvider = new FlatlandWorldProvider(),
 				ReadSkyLight = !Config.GetProperty("CalculateLights", false),
 				ReadBlockLight = !Config.GetProperty("CalculateLights", false),
 			};

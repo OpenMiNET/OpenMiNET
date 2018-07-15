@@ -63,8 +63,7 @@ namespace OpenAPI
                     SessionManager = SessionManager ?? new SessionManager();
                     LevelManager = OpenApi.LevelManager;
                     PlayerFactory = OpenApi.PlayerManager;
-                   
-                }
+				}
 
                 MotdProvider = OpenApi.MotdProvider;
  
@@ -109,7 +108,13 @@ namespace OpenAPI
                 }
 
                 openInfo?.OnEnable();
-                Log.Info("Server open for business on port " + Endpoint?.Port + " ...");
+
+	            var a = typeof(MiNetServer).GetMethod("SendTick",
+		            BindingFlags.NonPublic | BindingFlags.Instance);
+
+				SetPrivateFieldValue(typeof(MiNetServer), this, "_tickerHighPrecisionTimer", new HighPrecisionTimer(10, (o) => a.Invoke(this, new object[]{o}), true, true));
+
+				Log.Info("Server open for business on port " + Endpoint?.Port + " ...");
 
                 return true;
             }
