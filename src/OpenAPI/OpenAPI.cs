@@ -50,7 +50,13 @@ namespace OpenAPI
 
 		    foreach (string dirPath in pluginDirectoryPaths.Split(new char[] {';'}, StringSplitOptions.RemoveEmptyEntries))
 		    {
-		        PluginManager.DiscoverPlugins(dirPath);
+			    string directory = dirPath;
+			    if (!Path.IsPathRooted(directory))
+			    {
+				    directory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), dirPath);
+			    }
+
+		        PluginManager.DiscoverPlugins(directory);
 		    }
 		}
 

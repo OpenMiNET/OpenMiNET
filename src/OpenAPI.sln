@@ -7,11 +7,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiNET.Server", "MiNET.Serve
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAPI", "OpenAPI\OpenAPI.csproj", "{DCD29428-21D4-4569-8AA1-CB77536748F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenAPI.Server", "OpenAPI.Server\OpenAPI.Server.csproj", "{4063A791-CD5E-411B-BA5B-C0518765F439}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAPI.Server", "OpenAPI.Server\OpenAPI.Server.csproj", "{4063A791-CD5E-411B-BA5B-C0518765F439}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAPI.Locale", "OpenAPI.Locale\OpenAPI.Locale.csproj", "{56ADAC69-779A-4766-B4F5-73BEA575D662}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenAPI.TestPlugin", "OpenAPI.TestPlugin\OpenAPI.TestPlugin.csproj", "{BE7D1CA1-25A1-4E1E-B110-ECDD89E70A71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAPI.TestPlugin", "OpenAPI.TestPlugin\OpenAPI.TestPlugin.csproj", "{BE7D1CA1-25A1-4E1E-B110-ECDD89E70A71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossReferencing", "examples\CrossReferencing\CrossReferencing.csproj", "{F604AF39-7B7C-4BB2-BE3A-EBD4A96203A6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{EAC9ECCB-CF1C-468F-9CC3-EDF7CEED8993}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,9 +65,20 @@ Global
 		{BE7D1CA1-25A1-4E1E-B110-ECDD89E70A71}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BE7D1CA1-25A1-4E1E-B110-ECDD89E70A71}.Release|x64.ActiveCfg = Release|Any CPU
 		{BE7D1CA1-25A1-4E1E-B110-ECDD89E70A71}.Release|x64.Build.0 = Release|Any CPU
+		{F604AF39-7B7C-4BB2-BE3A-EBD4A96203A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F604AF39-7B7C-4BB2-BE3A-EBD4A96203A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F604AF39-7B7C-4BB2-BE3A-EBD4A96203A6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F604AF39-7B7C-4BB2-BE3A-EBD4A96203A6}.Debug|x64.Build.0 = Debug|Any CPU
+		{F604AF39-7B7C-4BB2-BE3A-EBD4A96203A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F604AF39-7B7C-4BB2-BE3A-EBD4A96203A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F604AF39-7B7C-4BB2-BE3A-EBD4A96203A6}.Release|x64.ActiveCfg = Release|Any CPU
+		{F604AF39-7B7C-4BB2-BE3A-EBD4A96203A6}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F604AF39-7B7C-4BB2-BE3A-EBD4A96203A6} = {EAC9ECCB-CF1C-468F-9CC3-EDF7CEED8993}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {54A4A95E-F81B-40F9-A529-8E3A0D74B2D8}
