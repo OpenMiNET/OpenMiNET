@@ -1,7 +1,8 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-using ChatFilter.Properties;
 
 namespace ChatFilter
 {
@@ -11,28 +12,51 @@ namespace ChatFilter
 		    log4net.LogManager.GetLogger(typeof(ProfanityFilter));
 
 		private static readonly string[] BadWords;
+	    private static readonly ProfanityEntry[] Regexes;
 	    static ProfanityFilter()
 	    {
-		    BadWords = Encoding.ASCII.GetString(Resources.profanity).Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+		    string blacklistPath = Path.Combine(NoCapsPlugin.PluginDirectory, "blacklist.txt");
+		    string whitelistPath = Path.Combine(NoCapsPlugin.PluginDirectory, "whitelist.txt");
+
+		    if (File.Exists(blacklistPath))
+		    {
+			    BadWords = File.ReadAllText(blacklistPath).Split(new string[] {"\r\n", "\n"}, StringSplitOptions.None);
+			}
+		    else
+		    {
+				Log.Warn($"No profanity blacklist found!");
+				BadWords = new string[0];
+		    }
+		    //BadWords = Encoding.ASCII.GetString(Resources.profanity).Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+
+			Regexes = new ProfanityEntry[BadWords.Length];
+		    for (var index = 0; index < BadWords.Length; index++)
+		    {
+			    var word = BadWords[index];
+			    var expword = ExpandBadWordToIncludeIntentionalMisspellings(word);
+			    var expression = @"^(?<Pre>(?:.*\s|\s))(?<Word>" + expword + @")(?<Post>.*)$";
+
+			    var r = new Regex(expression);
+			    Regexes[index] = new ProfanityEntry()
+			    {
+				    RegexExpression = r,
+				    Length = word.Length
+			    };
+		    }
 	    }
 
 		public static string ReplaceBadWords(string data, out int badWordCount)
 		{
 			int count = 0;
 			string op = data;
-			foreach (var word in BadWords)
+			foreach (var r in Regexes)
 			{
-				var expword = ExpandBadWordToIncludeIntentionalMisspellings(word);
-				var expression = @"(?<Pre>\s*)(?<Word>" + expword + @")(?<Post>\s*|\!\?|\.)";
-				//Log.Info($"{word}= {expression}");
-
-				var r = new Regex(expression);
-				var matches = r.Matches(data);
+				var matches = r.RegexExpression.Matches(data);
 				foreach (Match match in matches)
 				{
 					string pre = match.Groups["Pre"].Value;
 					string post = match.Groups["Post"].Value;
-					string output = pre + new string('*', word.Length) + post;
+					string output = pre + new string('*', match.Value.Length) + post;
 					op = op.Replace(match.Value, output);
 					count++;
 				}
@@ -77,5 +101,11 @@ namespace ChatFilter
 				.Replace("[z]", "[z Z 2]")
 				;
 		}
+
+	    private class ProfanityEntry
+	    {
+		    public Regex RegexExpression;
+		    public int Length;
+	    }
 	}
 }

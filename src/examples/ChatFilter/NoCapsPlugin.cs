@@ -1,4 +1,6 @@
-﻿using log4net;
+﻿using System.IO;
+using System.Reflection;
+using log4net;
 using OpenAPI.Plugins;
 
 namespace ChatFilter
@@ -7,11 +9,15 @@ namespace ChatFilter
     {
 	    private static readonly ILog Log = LogManager.GetLogger(typeof(NoCapsPlugin));
 
+	    public static string PluginDirectory =
+		    Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "ChatFilter");
+
 		private PlayerEventHandler PlayerEventHandler { get; set; }
 		public NoCapsPlugin()
-	    {
-			
-	    }
+		{
+			if (!Directory.Exists(PluginDirectory))
+				Directory.CreateDirectory(PluginDirectory);
+		}
 
 	    public override void Enabled(OpenAPI.OpenAPI api)
 	    {
