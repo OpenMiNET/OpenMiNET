@@ -10,14 +10,24 @@ namespace OpenAPI.TestPlugin
 	{
 		private static readonly ILog Log = LogManager.GetLogger(typeof(TestPlugin));
 
+		private ExampleCommands CommandsClass { get; }
+
+		public TestPlugin()
+		{
+			CommandsClass = new ExampleCommands();
+		}
+
 		public override void Enabled(OpenAPI api)
 		{
 			api.PluginManager.SetReference<TestPlugin>(this); //By calling SetReference other plugins can talk to us. See the example "CrossReferencing"
+			api.CommandManager.LoadCommands(CommandsClass);
+
 			Log.InfoFormat("TestPlugin Enabled");
 		}
 
 		public override void Disabled(OpenAPI api)
 		{
+			api.CommandManager.UnloadCommands(CommandsClass);
 			Log.InfoFormat("TestPlugin Disabled");
 		}
 

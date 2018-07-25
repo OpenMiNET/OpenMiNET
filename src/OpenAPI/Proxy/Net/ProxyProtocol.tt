@@ -1,0 +1,240 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ output extension=".cs" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Xml"#>
+<#@ import namespace="System.Xml" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.IO" #>
+
+<#
+string path = Host.ResolvePath("Protocol.xml");
+XmlDocument doc = new XmlDocument();
+doc.Load(path);
+
+Dictionary<string, string> spoofedTypes = new Dictionary<string, string>();
+Dictionary<string, string> spoofedTypesClasses = new Dictionary<string, string>();
+foreach (XmlNode pdu in doc.SelectNodes("//type"))
+{
+	if (!spoofedTypes.ContainsKey(pdu.Attributes["name"].Value))
+	{
+		spoofedTypes.Add(pdu.Attributes["name"].Value, pdu.Attributes["stream"].Value);
+		spoofedTypesClasses.Add(pdu.Attributes["name"].Value, pdu.Attributes["class"].Value);
+	}
+}
+#>
+//
+// WARNING: T4 GENERATED CODE - DO NOT EDIT
+// Please edit "Protocol.xml" instead
+// 
+
+// ReSharper disable InconsistentNaming
+using OpenAPI.Utils;
+using System.Net;
+using System;
+using fNbt;
+
+namespace OpenAPI.Proxy.Net
+{
+	public class ProxyPacketFactory
+	{
+		public static ProxyPacket CreatePacket(int packetId, byte[] buffer, bool serverBound)
+		{
+			ProxyPacket packet; 
+			if (serverBound)
+			{
+					switch (packetId)
+					{
+<#
+foreach (XmlNode pdu in doc.SelectNodes("//pdu"))
+{
+	if (pdu.Attributes["serverbound"] == null || pdu.Attributes["serverbound"].Value == "false") continue;
+#>
+						case <#= pdu.Attributes["id"].Value #>:
+								packet = new Serverbound.<#= CodeTypeName(pdu.Attributes["name"].Value) #>();
+								packet.Read(buffer);
+								return packet;
+<#	
+} // foreach
+#>
+					}
+			}
+			else
+			{
+				switch (packetId)
+				{
+<#
+foreach (XmlNode pdu in doc.SelectNodes("//pdu"))
+{
+	if (pdu.Attributes["serverbound"] == null || pdu.Attributes["serverbound"].Value == "true") continue;
+#>
+						case <#= pdu.Attributes["id"].Value #>:
+								packet = new Clientbound.<#= CodeTypeName(pdu.Attributes["name"].Value) #>();
+								packet.Read(buffer);
+								return packet;
+<#	
+} // foreach
+#>
+				}
+			}
+			return null;
+		}
+	}
+}
+
+<#
+foreach (XmlNode pdu in doc.SelectNodes("//pdu"))
+{
+string subNameSpace = "Clientbound";
+if (pdu.Attributes["serverbound"] != null && pdu.Attributes["serverbound"].Value == "true"){
+	subNameSpace = "Serverbound";
+}
+string className = CodeTypeName(pdu.Attributes["name"].Value);
+#>
+namespace OpenAPI.Proxy.Net.<#= subNameSpace #>
+{
+	public class <#= className #> : ProxyPacket
+	{
+<#	
+
+	foreach (XmlNode field in pdu.ChildNodes)
+	{
+		if(field.NodeType != XmlNodeType.Element) continue;
+
+			string type = field.Attributes["type"].Value;
+
+			if (spoofedTypesClasses.ContainsKey(type)){
+				type = spoofedTypesClasses[type];
+			}
+
+			string fieldName = field.Attributes["name"].Value;
+			if (fieldName == className){
+				fieldName += "Id";
+			}
+
+			if (field.Attributes["value"] != null)
+			{
+				WriteLine(string.Format("\t\tpublic {0} {1}={2};", type, fieldName, field.Attributes["value"].Value));
+				continue;
+			}
+
+			WriteLine(string.Format("\t\tpublic {0} {1};", type, fieldName));
+
+	}
+
+#>
+		public <#= CodeTypeName(pdu.Attributes["name"].Value) #>()
+		{
+			PacketId = <#= CodeName(pdu.Attributes["id"].Value, true) #>;
+		}
+
+		public override void Write(PacketStream stream)
+		{
+<#	
+	foreach (XmlNode field in pdu.ChildNodes)
+	{
+		if(field.NodeType != XmlNodeType.Element) continue;
+
+		string type = field.Attributes["type"].Value;
+		if (spoofedTypes.ContainsKey(type)){
+			type = spoofedTypes[type];
+		}
+		type = UpperInitial(type);
+
+		string fieldName = field.Attributes["name"].Value;
+		if (fieldName == className){
+			fieldName += "Id";
+		}
+
+		WriteLine(string.Format("\t\t\tstream.Write{0}({1});", type, fieldName));
+	}
+#>
+		}
+
+		public override void Read(PacketStream stream)
+		{
+<#	
+	foreach (XmlNode field in pdu.ChildNodes)
+	{
+		if (field.NodeType != XmlNodeType.Element) continue;
+
+		string type = field.Attributes["type"].Value;
+		if (spoofedTypes.ContainsKey(type)){
+			type = spoofedTypes[type];
+		}
+		type = UpperInitial(type);
+
+		string fieldName = field.Attributes["name"].Value;
+		if (fieldName == className){
+			fieldName += "Id";
+		}
+
+		WriteLine(string.Format("\t\t\t{0} = stream.Read{1}({2});", fieldName, type, SafeToString(field.Attributes["size"])));
+	}
+#>
+		}
+	}
+}
+
+<#
+}
+#>
+
+<#+
+private string UpperInitial(string name)
+{ 
+	return name[0].ToString().ToUpperInvariant() + name.Substring(1).Replace(@"[]", "s"); 
+}
+
+private string CodeTypeName(string name) 
+{
+	if (name.StartsWith("ID_"))
+	{
+		name = name.Substring(3);
+	}
+	return CodeName(name, true);
+}
+
+private string CodeFieldName(string name) 
+{
+	return CodeName(name, false);
+}
+
+private string CodeName(string name, bool firstUpper = false)
+{
+    name = name.ToLowerInvariant();
+
+    string result = name;
+    bool upperCase = firstUpper;
+
+    result = string.Empty;
+    for (int i = 0; i < name.Length; i++)
+    {
+        if (name[i] == ' ' || name[i] == '_')
+        {
+            upperCase = true;
+        }
+        else
+        {
+            if ((i == 0 && firstUpper) || upperCase)
+            {
+                result += name[i].ToString().ToUpperInvariant();
+                upperCase = false;
+            }
+            else
+            {
+                result += name[i];
+            }
+        }
+    }
+
+	result = result.Replace(@"[]", "s");
+    return result;
+}
+
+public string SafeToString(XmlNode node)
+{
+	if(node == null) return "";
+
+	return node.Value;
+}
+#>

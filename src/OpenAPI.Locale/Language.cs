@@ -31,11 +31,19 @@ namespace OpenAPI.Locale
         private static string GetLanguageString(ILocalizable target, ResourceManager rm, string languageEntry, params object[] args)
 		{
 			string str = rm?.GetString(languageEntry, target.Culture) ??  "{{L:" + languageEntry + "}}";
+			if (args == null) args = new object[0];
 
 			var newArgs = new object[args.Length];
 			for (int i = 0; i < args.Length; i++)
 			{
-				newArgs[i] = GetLocalizedMessage(target, rm, args[i].ToString());
+				if (args[i] == null)
+				{
+					newArgs[i] = "";
+				}
+				else
+				{
+					newArgs[i] = GetLocalizedMessage(target, rm, args[i].ToString());
+				}
 			}
 			return string.Format(str, newArgs);
 		}

@@ -242,7 +242,8 @@ namespace OpenAPI.Plugins
 				if (assembly != null)
 		        if (LoadAssembly(assembly, out OpenPlugin[] pluginInstances, out Assembly[] requiredAssemblies))
 		        {
-			        LoadedAssemblies.Add(assembly, new LoadedAssembly(assembly, pluginInstances, requiredAssemblies));
+					
+			        LoadedAssemblies.Add(assembly, new LoadedAssembly(assembly, pluginInstances, requiredAssemblies, path));
 
 					if (pluginInstances.Length > 0)
 			        {

@@ -12,6 +12,7 @@ using MiNET.Items;
 using MiNET.Plugins;
 using MiNET.Utils;
 using MiNET.Worlds;
+using OpenAPI.Proxy;
 
 namespace OpenAPI
 {
@@ -20,7 +21,8 @@ namespace OpenAPI
         private static readonly ILog Log = LogManager.GetLogger(typeof(OpenServer));
 
         private OpenAPI OpenApi { get; set; }
-        public OpenServer()
+	    private ProxyServer _proxy = null;
+		public OpenServer()
         {
             OpenApi = new OpenAPI();
         }
@@ -43,7 +45,7 @@ namespace OpenAPI
                         SetPrivatePropertyValue(typeof(MiNetServer), this, "Endpoint", new IPEndPoint(ip, port));
                     }
                 }
-
+				
                 ServerManager = ServerManager ?? new DefaultServerManager(this);
                 OpenServerInfo openInfo = null;
 
@@ -107,6 +109,12 @@ namespace OpenAPI
 		            BindingFlags.NonPublic | BindingFlags.Instance);
 
 				SetPrivateFieldValue(typeof(MiNetServer), this, "_tickerHighPrecisionTimer", new HighPrecisionTimer(10, (o) => a.Invoke(this, new object[]{o}), true, true));
+
+	            if (ServerRole == ServerRole.Proxy)
+	            {
+		            _proxy = new ProxyServer(this, Endpoint);
+		            _proxy.Start();
+	            }
 
 				Log.Info("Server open for business on port " + Endpoint?.Port + " ...");
 

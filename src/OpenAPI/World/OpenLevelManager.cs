@@ -91,12 +91,12 @@ namespace OpenAPI.World
 				newLevelid = GetLevelId(levelId);
 			}
 
-			var worldProvider = new WrappedAnvilWorldProvider(Api)
+			/*var worldProvider = new WrappedAnvilWorldProvider(Api)
 			{
 				MissingChunkProvider = new FlatlandWorldProvider(),
 				ReadSkyLight = _readSkyLight,
 				ReadBlockLight = _readBlockLight
-			};
+			};*/ var worldProvider = new AnvilWorldProvider();
 
 			var openLevel = new OpenLevel(Api/*, Api.EventDispatcher*/, this, newLevelid, worldProvider, EntityManager, _gameMode, _difficulty, _viewDistance)
 			{
@@ -113,15 +113,16 @@ namespace OpenAPI.World
 
 		public OpenLevel GetLevel(string basepath, string levelId, ChunkColumn[] chunks)
 		{
+			
 			var newLevelId = GetLevelId(levelId);
 
-			var worldProvider = new WrappedAnvilWorldProvider(Api, basepath, false, chunks)
+			/*var worldProvider = new WrappedAnvilWorldProvider(Api, basepath, false, chunks)
 			{
 				MissingChunkProvider = new FlatlandWorldProvider(),
 				ReadSkyLight = _readSkyLight,
 				ReadBlockLight = _readBlockLight
-			};
-
+			};*/
+			var worldProvider = new AnvilWorldProvider(basepath);
 			var openLevel = new OpenLevel(Api/*, Api.EventDispatcher*/, this, newLevelId, worldProvider, EntityManager, _gameMode, _difficulty, _viewDistance)
 			{
 				EnableBlockTicking = _enableBlockTicking,
@@ -143,12 +144,13 @@ namespace OpenAPI.World
 		{
 			var newLevelId = GetLevelId(levelId);
 
-			var worldProvider = new WrappedAnvilWorldProvider(Api, levelDirectory)
-			{
-				MissingChunkProvider = new FlatlandWorldProvider(),
-				ReadSkyLight = !Config.GetProperty("CalculateLights", false),
-				ReadBlockLight = !Config.GetProperty("CalculateLights", false),
-			};
+			/*	var worldProvider = new WrappedAnvilWorldProvider(Api, levelDirectory)
+				{
+					MissingChunkProvider = new FlatlandWorldProvider(),
+					ReadSkyLight = !Config.GetProperty("CalculateLights", false),
+					ReadBlockLight = !Config.GetProperty("CalculateLights", false),
+				};*/
+			var worldProvider = new AnvilWorldProvider(levelDirectory);
 
 			var openLevel = new OpenLevel(Api/*, Api.EventDispatcher*/, this, newLevelId, worldProvider, EntityManager, _gameMode, _difficulty, _viewDistance)
 			{

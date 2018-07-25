@@ -9,12 +9,14 @@ namespace OpenAPI.Plugins
 		public Assembly Assembly { get; }
 		public List<OpenPlugin> PluginInstances { get; }
 		public List<Assembly> AssemblyReferences { get; }
-		public LoadedAssembly(/*PluginHost host,*/ Assembly assembly, IEnumerable<OpenPlugin> pluginInstances, IEnumerable<Assembly> referencedAssemblies)
+		public string Path { get; }
+		public LoadedAssembly(/*PluginHost host,*/ Assembly assembly, IEnumerable<OpenPlugin> pluginInstances, IEnumerable<Assembly> referencedAssemblies, string path)
 		{
 		//	PluginHost = host;
 			Assembly = assembly;
 			PluginInstances = new List<OpenPlugin>(pluginInstances);
 			AssemblyReferences = new List<Assembly>(referencedAssemblies);
+			Path = path;
 		}
 	}
 }
