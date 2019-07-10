@@ -168,7 +168,8 @@ namespace OpenAPI.World
 			return !bb.IsCancelled;
 		}
 
-		public override void BroadcastMessage(string text, MessageType type = MessageType.Chat, MiNET.Player sender = null, MiNET.Player[] sendList = null)
+		public override void BroadcastMessage(string text, MessageType type = MessageType.Chat, MiNET.Player sender = null, MiNET.Player[] sendList = null,
+			bool needsTranslation = false, string[] parameters = null)
 		{
 			if (type == MessageType.Chat || type == MessageType.Raw)
 			{
@@ -179,25 +180,24 @@ namespace OpenAPI.World
 					message.type = 0;
 					message.source = ""; //sender == null ? "" : (sender.DisplayName ?? sender.Username);
 					message.message =$"{sen}{line}";
-				    //message.parameters = new string[0];
-				  //  message.islocalized = false;
+					//message.parameters = new string[0];
+					//  message.islocalized = false;
 
-                    RelayBroadcast(sendList, message);
+					RelayBroadcast(sendList, message);
 				}
 				return;
 			}
 			else
 			{
-			    McpeText message = McpeText.CreateObject();
-			    message.type = (byte)type;
-			    message.source = sender == null ? "" : sender.Username;
-			    message.message = text;
-             //   message.parameters = new string[0];
-			 //   message.islocalized = false;
+				McpeText message = McpeText.CreateObject();
+				message.type = (byte)type;
+				message.source = sender == null ? "" : sender.Username;
+				message.message = text;
+				//   message.parameters = new string[0];
+				//   message.islocalized = false;
 
-			    RelayBroadcast(sendList, message);
+				RelayBroadcast(sendList, message);
 			}
-           // base.BroadcastMessage(text, type, sender, sendList);
 		}
 
 		public override void Close()
