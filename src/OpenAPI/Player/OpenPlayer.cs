@@ -263,14 +263,14 @@ namespace OpenAPI.Player
 			base.HandleItemUse(transaction);
 		}*/
 
-		public override void HandleMcpeServerSettingsRequest(McpeServerSettingsRequest message)
+		/*public override void HandleMcpeServerSettingsRequest(McpeServerSettingsRequest message)
 		{
 			PlayerSettingsRequestEvent e = new PlayerSettingsRequestEvent(this, message);
 			EventDispatcher.DispatchEvent(e);
 
 			if (!e.IsCancelled)
 				base.HandleMcpeServerSettingsRequest(message);
-		}
+		}*/
 
 		private object _breakSync = new object();
 		private bool IsBreakingBlock { get; set; } = false;

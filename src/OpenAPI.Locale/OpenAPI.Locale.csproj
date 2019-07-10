@@ -14,7 +14,7 @@
 	</PropertyGroup>
 	
   <ItemGroup>
-    <PackageReference Include="MiNET" Version="1.0.1821" />
+    <PackageReference Include="MiNET" Version="1.0.1861" />
   </ItemGroup>
 
 </Project>
