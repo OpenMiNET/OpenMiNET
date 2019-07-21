@@ -44,6 +44,10 @@ configuration: Release
 
 before_build:
   - nuget restore src
+  
+after_build:
+  - dotnet pack --no-build src/OpenAPI/OpenAPI.csproj
+  - dotnet pack --no-build src/OpenAPI.Locale/OpenAPI.Locale.csproj
 
 build:
   project: src/OpenAPI.sln    # path to Visual Studio solution or project
