@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiNET.Server", "MiNET.Server\MiNET.Server.csproj", "{C6099C92-1941-4C96-937D-77C206CC67E1}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAPI", "OpenAPI\OpenAPI.csproj", "{DCD29428-21D4-4569-8AA1-CB77536748F5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAPI.Server", "OpenAPI.Server\OpenAPI.Server.csproj", "{4063A791-CD5E-411B-BA5B-C0518765F439}"
@@ -29,14 +27,6 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C6099C92-1941-4C96-937D-77C206CC67E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C6099C92-1941-4C96-937D-77C206CC67E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C6099C92-1941-4C96-937D-77C206CC67E1}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{C6099C92-1941-4C96-937D-77C206CC67E1}.Debug|x64.Build.0 = Debug|Any CPU
-		{C6099C92-1941-4C96-937D-77C206CC67E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C6099C92-1941-4C96-937D-77C206CC67E1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C6099C92-1941-4C96-937D-77C206CC67E1}.Release|x64.ActiveCfg = Release|Any CPU
-		{C6099C92-1941-4C96-937D-77C206CC67E1}.Release|x64.Build.0 = Release|Any CPU
 		{DCD29428-21D4-4569-8AA1-CB77536748F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DCD29428-21D4-4569-8AA1-CB77536748F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCD29428-21D4-4569-8AA1-CB77536748F5}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -66,7 +56,6 @@ Global
 		{BE7D1CA1-25A1-4E1E-B110-ECDD89E70A71}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{BE7D1CA1-25A1-4E1E-B110-ECDD89E70A71}.Debug|x64.Build.0 = Debug|Any CPU
 		{BE7D1CA1-25A1-4E1E-B110-ECDD89E70A71}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BE7D1CA1-25A1-4E1E-B110-ECDD89E70A71}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BE7D1CA1-25A1-4E1E-B110-ECDD89E70A71}.Release|x64.ActiveCfg = Release|Any CPU
 		{BE7D1CA1-25A1-4E1E-B110-ECDD89E70A71}.Release|x64.Build.0 = Release|Any CPU
 		{F604AF39-7B7C-4BB2-BE3A-EBD4A96203A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -74,7 +63,6 @@ Global
 		{F604AF39-7B7C-4BB2-BE3A-EBD4A96203A6}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{F604AF39-7B7C-4BB2-BE3A-EBD4A96203A6}.Debug|x64.Build.0 = Debug|Any CPU
 		{F604AF39-7B7C-4BB2-BE3A-EBD4A96203A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F604AF39-7B7C-4BB2-BE3A-EBD4A96203A6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F604AF39-7B7C-4BB2-BE3A-EBD4A96203A6}.Release|x64.ActiveCfg = Release|Any CPU
 		{F604AF39-7B7C-4BB2-BE3A-EBD4A96203A6}.Release|x64.Build.0 = Release|Any CPU
 		{D3E7049D-6767-401C-B9E5-827465471E24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -82,7 +70,6 @@ Global
 		{D3E7049D-6767-401C-B9E5-827465471E24}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{D3E7049D-6767-401C-B9E5-827465471E24}.Debug|x64.Build.0 = Debug|Any CPU
 		{D3E7049D-6767-401C-B9E5-827465471E24}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D3E7049D-6767-401C-B9E5-827465471E24}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D3E7049D-6767-401C-B9E5-827465471E24}.Release|x64.ActiveCfg = Release|Any CPU
 		{D3E7049D-6767-401C-B9E5-827465471E24}.Release|x64.Build.0 = Release|Any CPU
 		{A31AA728-3AFF-4F1E-AB26-A80EF0D4731F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -90,7 +77,6 @@ Global
 		{A31AA728-3AFF-4F1E-AB26-A80EF0D4731F}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{A31AA728-3AFF-4F1E-AB26-A80EF0D4731F}.Debug|x64.Build.0 = Debug|Any CPU
 		{A31AA728-3AFF-4F1E-AB26-A80EF0D4731F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A31AA728-3AFF-4F1E-AB26-A80EF0D4731F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A31AA728-3AFF-4F1E-AB26-A80EF0D4731F}.Release|x64.ActiveCfg = Release|Any CPU
 		{A31AA728-3AFF-4F1E-AB26-A80EF0D4731F}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
