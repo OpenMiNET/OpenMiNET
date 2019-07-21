@@ -49,8 +49,8 @@ namespace OpenAPI.Entities
 
 		        player.SendUpdateAttributes();
                 player.BroadcastSetEntityData();
-
-                if (!player.KeepInventory)
+				//player.
+                if (!player.Level.KeepInventory)
 		        {
 		            player.DropInventory();
 		        }

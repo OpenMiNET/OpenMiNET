@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using log4net;
+using Mono.Cecil;
 
 namespace OpenAPI.Plugins
 {
@@ -37,15 +38,15 @@ namespace OpenAPI.Plugins
 		        }
 	        }
 
-			AppDomain.CurrentDomain.AssemblyResolve += PluginManagerOnAssemblyResolve;
+			//AppDomain.CurrentDomain.AssemblyResolve += PluginManagerOnAssemblyResolve;
         }
 
 	    private Assembly PluginManagerOnAssemblyResolve(object sender, ResolveEventArgs args)
 	    {
 		    try
 		    {
-			    AssemblyName name = new AssemblyName(args.Name);
-
+			  //  AssemblyName name = new AssemblyName(args.Name);
+				AssemblyNameReference name = AssemblyNameReference.Parse(args.Name);
 			    if (IsLoaded(name, out Assembly loadedPluginAssembly))
 			    {
 				    lock (_pluginLock)
@@ -95,7 +96,7 @@ namespace OpenAPI.Plugins
 		    }
 	    }
 
-	    internal bool TryFindAssemblyPath(AssemblyName name, string rootPath, out string resultingPath)
+	    internal bool TryFindAssemblyPath(AssemblyNameReference name, string rootPath, out string resultingPath)
 	    {
 			string dllName = name.Name + ".dll";
 
@@ -141,17 +142,17 @@ namespace OpenAPI.Plugins
 					}
 				}
 
-				AppDomain resolverDomain = AppDomain.CreateDomain("ResolverDomain");
+				/*AppDomain resolverDomain = AppDomain.CreateDomain("ResolverDomain");
 				try
 				{
-					Assembly loaded = resolverDomain.Load(name);
+					Assembly loaded = resolverDomain.Load(new AssemblyName(name.Name));
 					result = loaded.Location;
 				}
 				catch
 				{
 
 				}
-				AppDomain.Unload(resolverDomain);
+				AppDomain.Unload(resolverDomain);*/
 			}
 
 		    if (string.IsNullOrWhiteSpace(result))
@@ -173,13 +174,15 @@ namespace OpenAPI.Plugins
 			Match
 	    }
 
-	    private FileAssemblyComparisonResult CompareFileToAssemblyName(string file, AssemblyName name)
+	    private FileAssemblyComparisonResult CompareFileToAssemblyName(string file, AssemblyNameReference name)
 	    {
 		    if (!File.Exists(file))
 			    return FileAssemblyComparisonResult.FileNotFound;
 
-			AssemblyName fileAssemblyName = AssemblyName.GetAssemblyName(file);
-		    if (AssemblyName.ReferenceMatchesDefinition(fileAssemblyName, name))
+		    var module = ModuleDefinition.ReadModule(file);
+			//AssemblyName fileAssemblyName = AssemblyName.GetAssemblyName(file);
+				// if (AssemblyName.ReferenceMatchesDefinition(fileAssemblyName, new AssemblyName(name.FullName)))
+			if (name.Name.Equals(module.Assembly.Name.Name, StringComparison.InvariantCultureIgnoreCase))
 		    {
 			    return FileAssemblyComparisonResult.Match;
 			}
@@ -208,8 +211,7 @@ namespace OpenAPI.Plugins
 	                path = Path.GetDirectoryName(file);
 
 	                Assembly[] result;
-	                AppDomain domain;
-                    ProcessFile(path, file, out domain, out result);
+                    ProcessFile(path, file, out result);
 	                processed++;
 
 					if (result == null) 
@@ -237,9 +239,11 @@ namespace OpenAPI.Plugins
 			List<OpenPlugin> plugins = new List<OpenPlugin>();
 	        foreach (var assembly in loadedAssemblies)
 	        {
+				if (assembly != null)
 		        if (LoadAssembly(assembly, out OpenPlugin[] pluginInstances, out Assembly[] requiredAssemblies))
 		        {
-			        LoadedAssemblies.Add(assembly, new LoadedAssembly(assembly, pluginInstances, requiredAssemblies));
+					
+			        LoadedAssemblies.Add(assembly, new LoadedAssembly(assembly, pluginInstances, requiredAssemblies, path));
 
 					if (pluginInstances.Length > 0)
 			        {
@@ -265,14 +269,17 @@ namespace OpenAPI.Plugins
 	        }
 
 	        Log.Info($"Enabled {enabled} plugins!");
+
+	        
         }
 
-	    private bool IsLoaded(AssemblyName assembly, out Assembly outAssembly)
+	    private bool IsLoaded(AssemblyNameReference name, out Assembly outAssembly)
 	    {
 		    Assembly[] loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+
 		    Assembly ooutAssembly =
-			    loadedAssemblies.FirstOrDefault(x =>  x.GetName().Name
-			    .Equals(assembly.Name, StringComparison.InvariantCultureIgnoreCase));
+			    loadedAssemblies.FirstOrDefault(x => x != null && x.GetName().Name
+			   	    .Equals(name.Name, StringComparison.InvariantCultureIgnoreCase));
 
 		    if (ooutAssembly != null)
 		    {
@@ -283,22 +290,30 @@ namespace OpenAPI.Plugins
 		    return false;
 	    }
 
+	    private bool ReferencesHost(ModuleDefinition assembly)
+	    {
+		    var hostName = HostAssembly.GetName();
+
+			return assembly.AssemblyReferences
+			    .Any(x => x.Name.Equals(hostName.Name, StringComparison.InvariantCultureIgnoreCase));
+	    }
+
 	    private bool ReferencesHost(Assembly assembly)
 	    {
 		    var hostName = HostAssembly.GetName();
 
-			return assembly.GetReferencedAssemblies()
+		    return assembly.GetReferencedAssemblies()
 			    .Any(x => x.Name.Equals(hostName.Name, StringComparison.InvariantCultureIgnoreCase));
 	    }
 
-        private void ProcessFile(string directory, string file, out AppDomain domain, out Assembly[] pluginAssemblies)
+		private void ProcessFile(string directory, string file, out Assembly[] pluginAssemblies)
         {
 	        pluginAssemblies = null;
 
-	        domain = AppDomain.CurrentDomain;
+	       // domain = AppDomain.CurrentDomain;
 	        //domain = AppDomain.CreateDomain("OpenAPI.PluginManager.Plugin");
 
-			var proxy = Proxy.CreateProxy(domain);
+		        //	var proxy = Proxy.CreateProxy(domain);
 
 			List<Assembly> assemblies = new List<Assembly>();
 
@@ -309,9 +324,11 @@ namespace OpenAPI.Plugins
 
 	            try
 	            {
-		            var assemblyName = AssemblyName.GetAssemblyName(file);
+		            //var assemblyName = AssemblyName.GetAssemblyName(file);
+		            var module = ModuleDefinition.ReadModule(file);
 
-		            if (proxy.IsLoaded(assemblyName, out Assembly _))
+					AssemblyNameReference assemblyName = module.Assembly.Name;
+		            if (IsLoaded(assemblyName, out Assembly _))
 		            {
 			            return;
 		            }
@@ -319,14 +336,10 @@ namespace OpenAPI.Plugins
 		            if (AssemblyReferences.ContainsKey(assemblyName.Name))
 			            return;
 
-		            Assembly raw = Assembly.ReflectionOnlyLoadFrom(file);
-
-		            if (!ReferencesHost(raw))
+					if (!ReferencesHost(module))
 			            return;
 
-		            var references = raw.GetReferencedAssemblies();
-
-		            if (TryResolve(domain, directory, references, out Assembly[] loadedReferences))
+		            if (TryResolve(directory, module, out Assembly[] loadedReferences))
 		            {
 			            foreach (var reference in loadedReferences)
 			            {
@@ -336,10 +349,15 @@ namespace OpenAPI.Plugins
 				            }
 			            }
 
-			            var real = proxy.GetAssembly(file); // Assembly.Load(assemblyBytes);
+			           // var real = proxy.GetAssembly(file); // Assembly.Load(assemblyBytes);
+			            var real = Assembly.LoadFrom(file);
 			            assemblies.Add(real);
 
 			            AssemblyReferences.TryAdd(assemblyName.Name, real);
+					}
+		            else
+		            {
+						Log.Warn($"Could not resolve all references for \"{module.Name}\"");
 		            }
 	            }
 	            catch (Exception ex)
@@ -356,70 +374,15 @@ namespace OpenAPI.Plugins
 	        pluginAssemblies = assemblies.ToArray();
         }
 
-	    public class Proxy : MarshalByRefObject
-	    {
-			private AppDomain Domain { get; set; }
-		    public bool IsLoaded(AssemblyName assembly, out Assembly outAssembly)
-		    {
-			    Assembly[] loadedAssemblies = Domain.GetAssemblies();
-			    Assembly ooutAssembly =
-				    loadedAssemblies.FirstOrDefault(x => x.GetName().Name
-					    .Equals(assembly.Name, StringComparison.InvariantCultureIgnoreCase));
-
-			    if (ooutAssembly != null)
-			    {
-				    outAssembly = ooutAssembly;
-				    return true;
-			    }
-			    outAssembly = null;
-			    return false;
-		    }
-
-			public Assembly GetAssembly(string assemblyPath)
-		    {
-			    try
-			    {
-				    return Assembly.LoadFile(assemblyPath);
-			    }
-			    catch (Exception)
-			    {
-				    return null;
-			    }
-		    }
-
-		    public Assembly GetReflectionAssembly(string assemblyPath)
-		    {
-			    try
-			    {
-				    return Assembly.ReflectionOnlyLoadFrom(assemblyPath);
-			    }
-			    catch (Exception)
-			    {
-				    return null;
-			    }
-		    }
-
-			public static Proxy CreateProxy(AppDomain domain)
-		    {
-			    Type type = typeof(Proxy);
-			    var proxy = (Proxy)domain.CreateInstanceAndUnwrap(
-				    type.Assembly.FullName,
-				    type.FullName);
-			    proxy.Domain = domain;
-
-			    return proxy;
-		    }
-		}
-
-		private bool TryResolve(AppDomain domain, string path, IEnumerable<AssemblyName> assemblyNames, out Assembly[] assemblies)
+		private bool TryResolve( string path, ModuleDefinition module, out Assembly[] assemblies)
 		{
-			var proxy = Proxy.CreateProxy(domain);
-
-			Dictionary<AssemblyName, Assembly> resolvedAssemblies = new Dictionary<AssemblyName, Assembly>();
-			Dictionary<AssemblyName, string> resolvedPaths = new Dictionary<AssemblyName, string>();
+			//var proxy = Proxy.CreateProxy(domain);
+			IEnumerable<AssemblyNameReference> assemblyNames = module.AssemblyReferences;
+			Dictionary<AssemblyNameReference, Assembly> resolvedAssemblies = new Dictionary<AssemblyNameReference, Assembly>();
+			Dictionary<AssemblyNameReference, string> resolvedPaths = new Dictionary<AssemblyNameReference, string>();
 		    foreach (var assemblyName in assemblyNames)
 		    {
-			    if (proxy.IsLoaded(assemblyName, out Assembly loadedAssembly) || AssemblyReferences.TryGetValue(assemblyName.Name, out loadedAssembly))
+			    if (IsLoaded(assemblyName, out Assembly loadedAssembly) || AssemblyReferences.TryGetValue(assemblyName.Name, out loadedAssembly))
 			    {
 					resolvedAssemblies.Add(assemblyName, loadedAssembly);
 					continue;
@@ -433,14 +396,15 @@ namespace OpenAPI.Plugins
 				    }
 				    else
 				    {
-						Log.Warn($"Could not find path for {assemblyName}");
-					    assemblies = default(Assembly[]);
-					    return false;
+						Log.Warn($"Plugin \"{module.FileName}\" requires \"{assemblyName}\"");
+					  //  assemblies = default(Assembly[]);
+					   // return false;
 					}
 				}
-			    catch
+			    catch(Exception e)
 			    {
-				    assemblies = default(Assembly[]);
+				    Log.Warn($"Could not find path for {assemblyName} - {e.ToString()}");
+					assemblies = default(Assembly[]);
 				    return false;
 			    }
 		    }
@@ -449,8 +413,7 @@ namespace OpenAPI.Plugins
 		    {
 			    try
 			    {
-				    Assembly assembly = proxy.GetAssembly(resolved.Value);
-
+				    var assembly = Assembly.LoadFrom(resolved.Value);
 					resolvedAssemblies.Add(resolved.Key, assembly);
 				    AssemblyReferences.TryAdd(resolved.Key.Name, assembly);
 			    }
@@ -669,6 +632,18 @@ namespace OpenAPI.Plugins
 		    {
 			    throw new Exception("Type reference already set!");
 		    }
+	    }
+
+	    public bool TryGetReference<TType>(out TType result)
+	    {
+		    if (References.TryGetValue(typeof(TType), out object value))
+		    {
+			    result = (TType) value;
+			    return true;
+		    }
+
+		    result = default(TType);
+		    return false;
 	    }
 
 	    public LoadedPlugin[] GetLoadedPlugins()

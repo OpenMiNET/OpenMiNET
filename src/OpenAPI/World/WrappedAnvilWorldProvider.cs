@@ -9,7 +9,6 @@ using fNbt;
 using log4net;
 using MiNET.Utils;
 using MiNET.Worlds;
-using MiNET.Worlds.Generators;
 using OpenAPI.Events.Level;
 
 namespace OpenAPI.World
@@ -40,28 +39,46 @@ namespace OpenAPI.World
 			Api = api;
 
 			AnvilProvider = new AnvilWorldProvider(basePath);
+			if (chunks != null)
 			foreach(var pair in chunks)
-			{
-				if (pair == null || !AnvilProvider._chunkCache.TryAdd(new ChunkCoordinates(pair.x, pair.z), new ChunkColumn()
+			{//pair.
+				try
 				{
-					x = pair.x,
-					z = pair.z,
-					chunks = pair.chunks.Select(x => (Chunk)x.Clone()).ToArray(),
-					biomeId = (byte[]) pair.biomeId.Clone(),
-					height = (short[]) pair.height.Clone(),
-					isAllAir = pair.isAllAir,
-					IsLoaded = pair.IsLoaded,
-					isGenerated = pair.isGenerated,
-					NeedSave = pair.NeedSave,
-					BlockEntities = CloneDictionaryCloningValues(pair.BlockEntities),
-					isDirty = pair.isDirty,
-					isNew = pair.isNew
-				}))
+					if (pair == null) continue;
+
+					var cloned = pair.Clone();
+					if (cloned == null) continue;
+
+					var chunk = (ChunkColumn) cloned;
+					/*
+					 * new ChunkColumn()
+					{
+						x = pair.x,
+						z = pair.z,
+						//chunks = pair.chunks.Select(x => (Chunk)x.Clone()).ToArray(),
+						biomeId = (byte[]) pair.biomeId.Clone(),
+						height = (short[]) pair.height.Clone(),
+						isAllAir = pair.isAllAir,
+						IsLoaded = pair.IsLoaded,
+						isGenerated = pair.isGenerated,
+						NeedSave = pair.NeedSave,
+						BlockEntities = CloneDictionaryCloningValues(pair.BlockEntities),
+						isDirty = pair.isDirty,
+						isNew = pair.isNew
+					}
+					 */
+					if (pair == null || !AnvilProvider._chunkCache.TryAdd(new ChunkCoordinates(pair.x, pair.z), chunk))
+					{
+						Log.Warn("Could not load cached chunk to worldprovider!");
+					}
+				}
+				catch (Exception e)
 				{
-					Log.Warn("Could not load cached chunk to worldprovider!");
+
 				}
 			}
 		}
+
 		private  static IDictionary<TKey, TValue> CloneDictionaryCloningValues<TKey, TValue>
 			(IDictionary<TKey, TValue> original) where TValue : ICloneable
 		{
@@ -234,6 +251,11 @@ namespace OpenAPI.World
 			{
 				AnvilProvider = (AnvilWorldProvider) AnvilProvider.Clone()
 			};
+		}
+
+		public long GetDayTime()
+		{
+			return AnvilProvider.GetDayTime();
 		}
 	}
 }

@@ -4,6 +4,8 @@ using System.Reflection;
 using log4net;
 using MiNET;
 using MiNET.Plugins;
+using MiNET.Worlds;
+using OpenAPI.Commands;
 using OpenAPI.Events;
 using OpenAPI.Items;
 using OpenAPI.Player;
@@ -17,15 +19,16 @@ namespace OpenAPI
 	{
 		private static readonly ILog Log = LogManager.GetLogger(typeof(OpenAPI));
 
-		public MiNetServer MiNET { get; private set; }
 		public OpenItemFactory ItemFactory { get; }
 		public OpenLevelManager LevelManager { get; }
 		public OpenPlayerManager PlayerManager { get; }
 		public OpenMotdProvider MotdProvider { get; }
 		public OpenPluginManager PluginManager { get; }
 		public EventDispatcher EventDispatcher { get; }
+		public CommandManager CommandManager { get; private set; }
 		public OpenServerInfo ServerInfo { get; internal set; }
 	    public OpenServer OpenServer { get; set; }
+
         public OpenAPI()
 	    {
 	        ItemFactory = new OpenItemFactory();
@@ -40,8 +43,11 @@ namespace OpenAPI
         
 	    internal void OnEnable(OpenServer openServer)
 	    {
-	        MiNET = openServer;
 	        OpenServer = openServer;
+			CommandManager = new CommandManager(openServer.PluginManager);
+
+		    var lvl = this.LevelManager.GetLevel((MiNET.Player)null, Dimension.Overworld.ToString());
+			LevelManager.SetDefaultLevel((OpenLevel)lvl);
 
 			Log.InfoFormat("Enabling OpenAPI...");
 
@@ -50,7 +56,13 @@ namespace OpenAPI
 
 		    foreach (string dirPath in pluginDirectoryPaths.Split(new char[] {';'}, StringSplitOptions.RemoveEmptyEntries))
 		    {
-		        PluginManager.DiscoverPlugins(dirPath);
+			    string directory = dirPath;
+			    if (!Path.IsPathRooted(directory))
+			    {
+				    directory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), dirPath);
+			    }
+
+		        PluginManager.DiscoverPlugins(directory);
 		    }
 		}
 

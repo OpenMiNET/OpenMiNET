@@ -55,7 +55,7 @@ namespace OpenAPI.Plugins
 			//domain.AssemblyResolve += TryResolveAssembly;
 		}
 
-		public bool TryLoad(string path, IEnumerable<AssemblyName> assemblyNames, out Assembly[] assemblies)
+		/*public bool TryLoad(string path, IEnumerable<AssemblyName> assemblyNames, out Assembly[] assemblies)
 		{
 			Dictionary<AssemblyName, Assembly> resolvedAssemblies = new Dictionary<AssemblyName, Assembly>();
 			Dictionary<AssemblyName, string> resolvedPaths = new Dictionary<AssemblyName, string>();
@@ -108,7 +108,7 @@ namespace OpenAPI.Plugins
 			assemblies = resolvedAssemblies.Values.ToArray();
 			return true;
 		}
-
+		*/
 		/*private Assembly TryResolveAssembly(object sender, ResolveEventArgs args)
 		{
 			if (PluginManager.TryResolve(this, Domain.BaseDirectory, new[] {new AssemblyName(args.Name)},

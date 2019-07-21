@@ -18,10 +18,13 @@ namespace OpenAPI
 		public long EventsDispatchedPerSecond;
 		public long Levels;
 		private OpenAPI Api { get; }
-		public OpenServerInfo(OpenAPI api, ConcurrentDictionary<IPEndPoint, PlayerNetworkSession> playerSessions) : base(playerSessions)
+		private int Interval { get; } = 1000;
+		private Stopwatch _stopwatch = Stopwatch.StartNew();
+		public OpenServerInfo(OpenAPI api, ConcurrentDictionary<IPEndPoint, PlayerNetworkSession> playerSessions, LevelManager levelManager) : base(levelManager, playerSessions)
 		{
 			Api = api;
 
+			Interval = Config.GetProperty("InfoInterval", 1000);
 			MaxNumberOfPlayers = Config.GetProperty("MaxNumberOfPlayers", 1000);
 		    MaxNumberOfConcurrentConnects =
 		        Config.GetProperty("MaxNumberOfConcurrentConnects", Config.GetProperty("MaxNumberOfPlayers", 1000));
@@ -54,35 +57,41 @@ namespace OpenAPI
 			//var levels = Interlocked.Read(ref Levels);
 			var levels = Api.LevelManager.LevelCount;
 
-			if (Config.GetProperty("EnableThroughput", true))
+			var e = _stopwatch.ElapsedMilliseconds;
+			if (e >= Interval - ((Interval / 100) * 5))
 			{
-				Log.InfoFormat(
-					"{5} Pl(s) Pkt(#/s) (Out={0} In={2}) ACK/NAK/RESD/FTO(#/s) ({1}-{14})/{11}/{12}/{13} Tput(Mbit/s) ({3:F} {7:F}) Avail {8}kb Threads {9} Compl.ports {10}",
-					numbPacketsOutPerSeconds,
-					acks,
-					packetsIn,
-					kbitPerSecondOut,
-					0 /*_level.LastTickProcessingTime*/,
-					NumberOfPlayers,
-					Latency,
-					kbitPerSecondIn,
-					AvailableBytes / 1000,
-					availableWorkerThreads,
-					availablePortThreads,
-					nak,
-					resends,
-					fails,
-					acksSent
-				);
-			}
-			else if (Config.GetProperty("EnableOpenServerInfo", false))
-			{
-				Log.Info(
-					$"Players: {NumberOfPlayers} " +
-					$"Compl.ports: {maxPortThreads - availablePortThreads}/{maxPortThreads} " +
-					$"Threads: {maxWorkerThreads - availableWorkerThreads}/{maxWorkerThreads} " +
-					$"Events: {eventsDispatched} " +
-					$"Levels: {levels} ");
+				if (Config.GetProperty("EnableThroughput", true))
+				{
+					Log.InfoFormat(
+						"{5} Pl(s) Pkt(#/s) (Out={0} In={2}) ACK/NAK/RESD/FTO(#/s) ({1}-{14})/{11}/{12}/{13} Tput(Mbit/s) ({3:F} {7:F}) Avail {8}kb Threads {9} Compl.ports {10}",
+						numbPacketsOutPerSeconds,
+						acks,
+						packetsIn,
+						kbitPerSecondOut,
+						0 /*_level.LastTickProcessingTime*/,
+						NumberOfPlayers,
+						Latency,
+						kbitPerSecondIn,
+						AvailableBytes / 1000,
+						availableWorkerThreads,
+						availablePortThreads,
+						nak,
+						resends,
+						fails,
+						acksSent
+					);
+				}
+				else if (Config.GetProperty("EnableOpenServerInfo", false))
+				{
+					Log.Info(
+						$"Players: {NumberOfPlayers} " +
+						$"Compl.ports: {maxPortThreads - availablePortThreads}/{maxPortThreads} " +
+						$"Threads: {maxWorkerThreads - availableWorkerThreads}/{maxWorkerThreads} " +
+						$"Events: {eventsDispatched} " +
+						$"Levels: {levels} ");
+				}
+
+				_stopwatch.Restart();
 			}
 
 			Interlocked.Exchange(ref NumberOfDeniedConnectionRequestsPerSecond, 0);
@@ -99,7 +108,7 @@ namespace OpenAPI
 
 		public void OnEnable()
 		{
-            ThroughPut = new Timer(OnThroughPut, null, 1000, 1000);
+			ThroughPut = new Timer(OnThroughPut, null, 1000, 1000);
 		}
 
 		public void OnDisable()

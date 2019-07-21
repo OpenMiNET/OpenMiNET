@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading;
 using log4net;
 using MiNET;
@@ -10,6 +12,7 @@ using MiNET.Items;
 using MiNET.Plugins;
 using MiNET.Utils;
 using MiNET.Worlds;
+using OpenAPI.Proxy;
 
 namespace OpenAPI
 {
@@ -17,15 +20,14 @@ namespace OpenAPI
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(OpenServer));
 
-        private TcpListener _tcpListener { get; set; }
-
         private OpenAPI OpenApi { get; set; }
-        public OpenServer()
+	    private ProxyServer _proxy = null;
+		public OpenServer()
         {
             OpenApi = new OpenAPI();
         }
 
-        public override bool StartServer()
+        public new bool StartServer()
         {
             UdpClient c = GetPrivateFieldValue<UdpClient>(typeof(MiNetServer), this, "_listener");
             if (c != null) return false;
@@ -43,14 +45,14 @@ namespace OpenAPI
                         SetPrivatePropertyValue(typeof(MiNetServer), this, "Endpoint", new IPEndPoint(ip, port));
                     }
                 }
-
+				
                 ServerManager = ServerManager ?? new DefaultServerManager(this);
                 OpenServerInfo openInfo = null;
 
                 if (ServerRole == ServerRole.Full || ServerRole == ServerRole.Node)
                 {
                     PluginManager = new PluginManager();
-                    openInfo = new OpenServerInfo(OpenApi, PlayerSessions);
+                    openInfo = new OpenServerInfo(OpenApi, GetPrivateFieldValue<ConcurrentDictionary<IPEndPoint, PlayerNetworkSession>>(typeof(MiNetServer), this, "_playerSessions"), OpenApi.LevelManager);
                     ServerInfo = openInfo;
                     openInfo.Init();
 
@@ -62,23 +64,17 @@ namespace OpenAPI
                     SessionManager = SessionManager ?? new SessionManager();
                     LevelManager = OpenApi.LevelManager;
                     PlayerFactory = OpenApi.PlayerManager;
-                   
-                }
+				}
 
                 MotdProvider = OpenApi.MotdProvider;
  
                 OpenApi.OnEnable(this);
 
-                if (ServerRole == ServerRole.Node)
-                {
-                    _tcpListener = new TcpListener(Endpoint);
-                    _tcpListener.BeginAcceptSocket(SocketConnected, _tcpListener);
-                }
-
                 if (ServerRole == ServerRole.Full || ServerRole == ServerRole.Proxy)
                 {
                     var listener = new UdpClient(Endpoint);
-                    if (IsRunningOnMono())
+                    if (!System.Runtime.InteropServices.RuntimeInformation
+	                        .IsOSPlatform(OSPlatform.Windows))
                     {
                         listener.Client.ReceiveBufferSize = 1024 * 1024 * 3;
                         listener.Client.SendBufferSize = 4096;
@@ -108,7 +104,19 @@ namespace OpenAPI
                 }
 
                 openInfo?.OnEnable();
-                Log.Info("Server open for business on port " + Endpoint?.Port + " ...");
+
+	            var a = typeof(MiNetServer).GetMethod("SendTick",
+		            BindingFlags.NonPublic | BindingFlags.Instance);
+
+				SetPrivateFieldValue(typeof(MiNetServer), this, "_tickerHighPrecisionTimer", new HighPrecisionTimer(10, (o) => a.Invoke(this, new object[]{o}), true, true));
+
+	            if (ServerRole == ServerRole.Proxy)
+	            {
+		            _proxy = new ProxyServer(this, Endpoint);
+		            _proxy.Start();
+	            }
+
+				Log.Info("Server open for business on port " + Endpoint?.Port + " ...");
 
                 return true;
             }
@@ -121,67 +129,16 @@ namespace OpenAPI
             return false;
         }
 
-        private void SocketConnected(IAsyncResult ar)
-        {
-            Socket client = _tcpListener.EndAcceptSocket(ar);
-            _tcpListener.BeginAcceptSocket(SocketConnected, _tcpListener);
+	    public new bool StopServer()
+	    {
+		    if (base.StopServer())
+		    {
+				OpenApi?.OnDisable();
+			    return true;
+		    }
 
-        }
-
-        private void Callback(IAsyncResult ar)
-        {
-          
-        }
-
-        protected override void OnServerShutdown()
-        {
-            OpenApi?.OnDisable();
-        }
-
-        /*     private string _currentPath;
-        private Assembly MyResolveEventHandler(object sender, ResolveEventArgs args)
-        {
-            Assembly result;
-
-            AssemblyName name = new AssemblyName(args.Name);
-
-            if (TryLoadAssembly(Path.Combine(_currentPath, name.Name + ".dll"), out result))
-            {
-                return result;
-            }
-
-            if (TryLoadAssembly(Path.Combine(_currentPath, name.Name + ".exe"), out result))
-            {
-                return result;
-            }
-
-            if (TryLoadAssembly(args.Name + ".dll", out result))
-            {
-                return result;
-            }
-
-            return null;
-        }
-
-        private bool TryLoadAssembly(string file, out Assembly result)
-        {
-            try
-            {
-                if (File.Exists(file))
-                {
-                    result = Assembly.LoadFile(file);
-                    return true;
-                }
-            }
-            catch
-            {
-                result = null;
-                return false;
-            }
-
-            result = null;
-            return false;
-        }*/
+		    return false;
+	    }
 
         /// <summary>
         /// Returns a _private_ Property Value from a given Object. Uses Reflection.
