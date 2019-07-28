@@ -10,6 +10,7 @@ using OpenAPI.Events;
 using OpenAPI.Items;
 using OpenAPI.Player;
 using OpenAPI.Plugins;
+using OpenAPI.Utils;
 using OpenAPI.World;
 using Conf = MiNET.Utils.Config;
 
@@ -28,6 +29,7 @@ namespace OpenAPI
 		public CommandManager CommandManager { get; private set; }
 		public OpenServerInfo ServerInfo { get; internal set; }
 	    public OpenServer OpenServer { get; set; }
+	    public ResourcePackProvider ResourcePackProvider { get; }
 
         public OpenAPI()
 	    {
@@ -39,6 +41,7 @@ namespace OpenAPI
 	        PlayerManager = new OpenPlayerManager(this);
 
 	        PluginManager = new OpenPluginManager(this);
+	        ResourcePackProvider = new ResourcePackProvider(this);
         }
         
 	    internal void OnEnable(OpenServer openServer)

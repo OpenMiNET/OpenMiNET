@@ -20,6 +20,7 @@ using MiNET.Net;
 using MiNET.Plugins;
 using MiNET.Utils;
 using MiNET.Worlds;
+using Newtonsoft.Json;
 using OpenAPI.Entities;
 using OpenAPI.Events;
 using OpenAPI.Events.Block;
@@ -55,7 +56,10 @@ namespace OpenAPI.Player
 
             Permissions = new PermissionManager();
 	        Inventory = new OpenPlayerInventory(this);
-		}
+
+	        _serverHaveResources = api.ResourcePackProvider.HasData;
+	        //if (Config.GetProperty("useResourcePack"))
+        }
 
         public new OpenLevel Level => (OpenLevel)base.Level;
 
@@ -473,6 +477,113 @@ namespace OpenAPI.Player
             }
             base.HandleMcpeInteract(message);
         }
+
+        #region Resource Packs
+
+        private bool _serverHaveResources = false;
+
+        private uint _maxChunkSize = 1048576; //1MB
+        public override void HandleMcpeResourcePackChunkRequest(McpeResourcePackChunkRequest message)
+        {
+	       // var jsonSerializerSettings = new JsonSerializerSettings
+	       // {
+		   //     PreserveReferencesHandling = PreserveReferencesHandling.None,
+		    //    Formatting = Formatting.Indented,
+	       // };
+
+	      //  string result = JsonConvert.SerializeObject(message, jsonSerializerSettings);
+	       // Log.Debug($"{message.GetType().Name}\n{result}");
+	        
+	        var chunk = _plugin.ResourcePackProvider.GetResourcePackChunk(message.packageId, message.chunkIndex, _maxChunkSize);
+	        
+	       // var content = File.ReadAllBytes(@"D:\Temp\ResourcePackChunkData_8f760cf7-2ca4-44ab-ab60-9be2469b9777.zip");
+	        McpeResourcePackChunkData chunkData = McpeResourcePackChunkData.CreateObject();
+	        chunkData.packageId = message.packageId;
+	        chunkData.chunkIndex = message.chunkIndex; // Package index ?
+	        chunkData.progress = (_maxChunkSize * message.chunkIndex); // Long, maybe timestamp?
+	        chunkData.length = (uint) chunk.Length;
+	        chunkData.payload = chunk;
+	        SendPacket(chunkData);
+        }
+        
+        public override void HandleMcpeResourcePackClientResponse(McpeResourcePackClientResponse message)
+        {
+	        if (message.responseStatus == 2)
+	        {
+		        foreach (var a in message.resourcepackids)
+		        {
+			        string uuid = a.Split('_')[0];
+			        
+			        var chunkCount = _plugin.ResourcePackProvider.GetChunkCount(uuid, _maxChunkSize, out var manifest,
+				        out var size, out var hash);
+			        
+			        McpeResourcePackDataInfo dataInfo = McpeResourcePackDataInfo.CreateObject();
+			        dataInfo.maxChunkSize = _maxChunkSize;
+			        dataInfo.chunkCount = chunkCount;
+			        dataInfo.compressedPackageSize = size;
+			        dataInfo.hash = hash;
+			        dataInfo.packageId = manifest.Header.Uuid;
+			        
+			        SendPacket(dataInfo);
+		        }
+		     /*   McpeResourcePackDataInfo dataInfo = McpeResourcePackDataInfo.CreateObject();
+		        dataInfo.packageId = "5abdb963-4f3f-4d97-8482-88e2049ab149";
+		        dataInfo.maxChunkSize = _maxChunkSize;
+		        dataInfo.chunkCount = 1;
+		        dataInfo.compressedPackageSize = 359901; // Lenght of data
+		        dataInfo.hash = new byte[] { 57, 38, 13, 50, 39, 63, 88, 63, 59, 27, 63, 63, 63, 63, 6, 63, 54, 7, 84, 63, 47, 91, 63, 120, 63, 120, 42, 5, 104, 2, 63, 18 };
+		        SendPacket(dataInfo);*/
+		        return;
+	        }
+	        else if (message.responseStatus == 3)
+	        {
+		        //if (_serverHaveResources)
+		        {
+			        SendResourcePackStack();
+		        }
+		        //else
+		        //{
+		        //	MiNetServer.FastThreadPool.QueueUserWorkItem(() => { Start(null); });
+		        //}
+		        return;
+	        }
+	        else if (message.responseStatus == 4)
+	        {
+		        //if (_serverHaveResources)
+		        {
+			        OpenServer.FastThreadPool.QueueUserWorkItem(() => { Start(null); });
+		        }
+		        return;
+	        }
+        }
+
+        public override void SendResourcePacksInfo()
+        {
+	        McpeResourcePacksInfo info = McpeResourcePacksInfo.CreateObject();
+	        if (_serverHaveResources)
+	        {
+		        info.mustAccept = _plugin.ResourcePackProvider.MustAccept;
+		        info.resourcepackinfos = new ResourcePackInfos();
+		        info.resourcepackinfos.AddRange(_plugin.ResourcePackProvider.GetResourcePackInfos());
+	        }
+	        
+	        SendPacket(info);
+        }
+
+        public override void SendResourcePackStack()
+        {
+	        var info = McpeResourcePackStack.CreateObject();
+	        if (_serverHaveResources)
+	        {
+		        info.mustAccept = _plugin.ResourcePackProvider.MustAccept;
+		        info.resourcepackidversions = new ResourcePackIdVersions();
+		        info.resourcepackidversions.AddRange(_plugin.ResourcePackProvider.GetResourcePackInfos().Select(x => x.PackIdVersion));
+	        }
+
+	        SendPacket(info);
+        }
+
+        #endregion
 
         private EntityDisguise _disguise = null;
 

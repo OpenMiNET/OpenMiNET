@@ -22,6 +22,9 @@ namespace OpenAPI
 
         private OpenAPI OpenApi { get; set; }
 	    private ProxyServer _proxy = null;
+
+        public static DedicatedThreadPool FastThreadPool => GetPrivateStaticPropertyValue<DedicatedThreadPool>(typeof(MiNetServer), "FastThreadPool");
+        
 		public OpenServer()
         {
             OpenApi = new OpenAPI();
@@ -154,6 +157,13 @@ namespace OpenAPI
             PropertyInfo pi = t.GetProperty(propName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             if (pi == null) throw new ArgumentOutOfRangeException("propName", string.Format("Property {0} was not found in Type {1}", propName, obj.GetType().FullName));
             return (T)pi.GetValue(obj, null);
+        }
+        
+        private static T GetPrivateStaticPropertyValue<T>(Type t, string propName)
+        {
+            PropertyInfo pi = t.GetProperty(propName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+            if (pi == null) throw new ArgumentOutOfRangeException("propName", string.Format("Property {0} was not found in Type {1}", propName));
+            return (T)pi.GetValue(null, null);
         }
 
         /// <summary>
