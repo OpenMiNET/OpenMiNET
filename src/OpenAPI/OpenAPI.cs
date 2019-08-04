@@ -41,15 +41,15 @@ namespace OpenAPI
 	        PlayerManager = new OpenPlayerManager(this);
 
 	        PluginManager = new OpenPluginManager(this);
+	        CommandManager = new CommandManager(PluginManager);
 	        ResourcePackProvider = new ResourcePackProvider(this);
-        }
+	    }
         
 	    internal void OnEnable(OpenServer openServer)
 	    {
 	        OpenServer = openServer;
-			CommandManager = new CommandManager(openServer.PluginManager);
 
-		    var lvl = this.LevelManager.GetLevel((MiNET.Player)null, Dimension.Overworld.ToString());
+	        var lvl = this.LevelManager.GetLevel((MiNET.Player)null, Dimension.Overworld.ToString());
 			LevelManager.SetDefaultLevel((OpenLevel)lvl);
 
 			Log.InfoFormat("Enabling OpenAPI...");

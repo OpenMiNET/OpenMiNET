@@ -58,6 +58,7 @@ namespace OpenAPI.Player
 	        Inventory = new OpenPlayerInventory(this);
 
 	        _serverHaveResources = api.ResourcePackProvider.HasData;
+	        Commands = _plugin.CommandManager.GenerateCommandSet(this);
 	        //if (Config.GetProperty("useResourcePack"))
         }
 
@@ -81,7 +82,30 @@ namespace OpenAPI.Player
 		   // HealthManager.PlayerTakeHit += HealthManagerOnPlayerTakeHit;
         }
 
-       /* private void HealthManagerOnPlayerTakeHit(object sender, HealthEventArgs e)
+        public override void HandleMcpeCommandRequest(McpeCommandRequest message)
+        {
+	        var result = _plugin.CommandManager.HandleCommand(this, message.command);
+	        if (result is string)
+	        {
+		        string sRes = result as string;
+		        SendMessage(sRes);
+	        }
+        }
+
+        protected override void SendAvailableCommands()
+        {
+	        McpeAvailableCommands commands = McpeAvailableCommands.CreateObject();
+	        commands.CommandSet = Commands;
+	        
+	        SendPacket(commands);
+        }
+
+        protected override void SendSetCommandsEnabled()
+        {
+	        base.SendSetCommandsEnabled();
+        }
+
+        /* private void HealthManagerOnPlayerTakeHit(object sender, HealthEventArgs e)
 	    {
 	        if (!FormsOpened.IsEmpty)
 	        {

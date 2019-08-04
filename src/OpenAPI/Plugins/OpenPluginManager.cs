@@ -593,7 +593,8 @@ namespace OpenAPI.Plugins
 	            if (LoadedAssemblies.TryGetValue(assembly, out LoadedAssembly assemblyPlugins))
 	            {
 		            assemblyPlugins.PluginInstances.Remove(plugin);
-
+					Parent.CommandManager.UnloadCommands(plugin);
+					
 		            if (!assemblyPlugins.PluginInstances.Any())
 		            {
 			            LoadedAssemblies.Remove(assembly);
@@ -612,13 +613,13 @@ namespace OpenAPI.Plugins
             {
                 foreach (KeyValuePair<string, Assembly> pluginAssembly in AssemblyReferences.ToArray())
                 {
-                    if (LoadedAssemblies.ContainsKey(pluginAssembly.Value))
+                    if (LoadedAssemblies.TryGetValue(pluginAssembly.Value, out LoadedAssembly assembly))
                     {
-                        foreach (OpenPlugin pluginInstance in LoadedAssemblies[pluginAssembly.Value].PluginInstances)
+                        foreach (OpenPlugin pluginInstance in assembly.PluginInstances)
                         {
-                            pluginInstance.Disabled(Parent);
+	                        UnloadPlugin(pluginInstance);
                         }
-                        LoadedAssemblies.Remove(pluginAssembly.Value);
+                     //   LoadedAssemblies.Remove(pluginAssembly.Value);
                     }
 
                     AssemblyReferences.TryRemove(pluginAssembly.Key, out Assembly _);
