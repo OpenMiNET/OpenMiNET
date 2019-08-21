@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Resources;
+﻿using System.Reflection;
 using System.Text.RegularExpressions;
 using OpenAPI.Locale.Providers;
 
@@ -13,10 +8,7 @@ namespace OpenAPI.Locale
 	{
 		public static readonly Regex FindLanguageRegex = new Regex("{L:([A-Za-z0-9_.]*)}", RegexOptions.Compiled);
 
-	    public static ResourceManager Fallback = null;
-
-
-	    public static string GetLocalizedMessage(this ILocalizable target, string message, params object[] paramaters)
+		public static string GetLocalizedMessage(this ILocalizable target, string message, params object[] paramaters)
 	    {
 		    var localeProvider = LocaleManager.GetLocaleProvider(Assembly.GetCallingAssembly());
 		    
@@ -51,21 +43,5 @@ namespace OpenAPI.Locale
 			}
 			return string.Format(str, newArgs);
 		}
-
-	    public static ResourceManager GetResourceManager(Assembly assembly)
-	    {
-	        string[] resourceNames = assembly.GetManifestResourceNames();
-
-	        var resourceName = resourceNames.FirstOrDefault(x => x.Contains("Language"));
-	        if (!string.IsNullOrWhiteSpace(resourceName))
-	        {
-	            string baseName = Path.GetFileNameWithoutExtension(resourceName);
-	            ResourceManager resourceManager = new ResourceManager(baseName, assembly);
-
-	            return resourceManager;
-	        }
-
-	        return Fallback;
-	    }
 	}
 }
