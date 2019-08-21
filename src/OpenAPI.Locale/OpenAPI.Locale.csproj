@@ -6,6 +6,7 @@
 	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	  <Configurations>Debug;Release;AppVeyor</Configurations>
 	  <Platforms>AnyCPU</Platforms>
+	  <PackageId>OpenMiNET.OpenAPI.Locale</PackageId>
   </PropertyGroup>
 	
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -17,7 +18,6 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='AppVeyor|AnyCPU'">
-		<AssemblyName>OpenMiNET.OpenAPI.Locale</AssemblyName>
 		<OutputPath>..\..\build\appveyor\</OutputPath>
 	</PropertyGroup>
 	
