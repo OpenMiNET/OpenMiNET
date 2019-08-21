@@ -8,6 +8,7 @@ namespace OpenAPI.Events.Entity
 		public int PreviousHealth { get; }
 		public int NewHealth { get; }
 		public MiNET.Entities.Entity Attacker { get; }
+
 		public EntityDamageEvent(MiNET.Entities.Entity entity, MiNET.Entities.Entity source, DamageCause cause, int previousHealth, int newHealth) : base(entity)
 		{
 			Cause = cause;

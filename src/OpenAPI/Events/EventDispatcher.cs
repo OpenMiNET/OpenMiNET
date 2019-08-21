@@ -17,31 +17,71 @@ namespace OpenAPI.Events
 		private static readonly ThreadSafeList<Type> EventTypes = new ThreadSafeList<Type>
 		{
 			AppDomain.CurrentDomain.GetAssemblies()
-				.SelectMany(s => s.GetTypes())
-				.Where(p =>
+				.SelectMany(GetEventTypes)
+				.Select(p =>
 				{
-					if (p.IsClass && !p.IsAbstract && typeof(Event).IsAssignableFrom(p))
-					{
-						Log.Info($"Registered event type \"{p.Name}\"");
-						return true;
-					}
-
-					return false;
+					Log.Info($"Registered event type \"{p.Name}\"");
+					return p;
 				}).ToArray()
 		};
 
 		public void RegisterEventType<TEvent>() where TEvent : Event
 		{
 			Type t = typeof(TEvent);
-			if (RegisteredEvents.ContainsKey(t) || !EventTypes.TryAdd(t))
+			if (!RegisterEventType(t))
 			{
 				throw new DuplicateTypeException();
 			}
+		}
+
+		public bool RegisterEventType(Type type)
+		{
+			if (RegisteredEvents.ContainsKey(type) || !EventTypes.TryAdd(type))
+			{
+				return false;
+			}
 			else
 			{
-				RegisteredEvents.Add(t, new EventDispatcherValues());
-				Log.Info($"Registered event type \"{t.Name}\"");
+				RegisteredEvents.Add(type, new EventDispatcherValues());
+				Log.Info($"Registered event type \"{type.Name}\"");
+
+				return true;
 			}
+		}
+		
+		public void LoadFrom(Assembly assembly)
+		{
+			var count = GetEventTypes(assembly).Count(RegisterEventType);
+			Log.Info($"Registered {count} event types from assembly {assembly.ToString()}");
+		}
+
+		public void Unload(Assembly assembly)
+		{
+			int count = 0;
+			foreach (var eventType in (from eventType in EventTypes
+				where eventType.Assembly == assembly
+				select eventType))
+			{
+				if (EventTypes.Remove(eventType))
+					count++;
+
+				RegisteredEvents.Remove(eventType);
+			}
+			
+			Log.Info($"Unloaded {count} event types from assembly {assembly.ToString()}");
+		}
+		
+		private static IEnumerable<Type> GetEventTypes(Assembly assembly)
+		{
+			return assembly.GetTypes().Where(p =>
+			{
+				if (p.IsClass && !p.IsAbstract && typeof(Event).IsAssignableFrom(p))
+				{
+					return true;
+				}
+
+				return false;
+			});
 		}
 
 		private Dictionary<Type, EventDispatcherValues> RegisteredEvents { get; }
@@ -148,28 +188,21 @@ namespace OpenAPI.Events
 
 		/*public async Task<TEvent> DispatchEventAsync<TEvent>(TEvent e) where TEvent : Event
 		{
-			using (EventMetrics.ReportEvent(e))
+			try
 			{
-				Type type = typeof(TEvent);
-				if (RegisteredEvents.ContainsKey(type))
+				var type = typeof(TEvent);
+				if (RegisteredEvents.TryGetValue(type, out EventDispatcherValues v))
 				{
-					await RegisteredEvents[type].DispatchAsync(e);
-					if (Api.ServerInfo != null)
-					{
-						Interlocked.Increment(ref Api.ServerInfo.EventsDispatchedPerSecond);
-					}
+					v.Dispatch(e);
 				}
 				else
 				{
 					Log.Warn($"Unknown event type found! \"{type}\"");
 				}
-
-				foreach (var i in ExtraDispatchers)
-				{
-					await i.DispatchEventAsync(e);
-				}
-
-				return e;
+			}
+			catch (Exception ex)
+			{
+				Log.Error("Error while dispatching event!", ex);
 			}
 		}*/
 
@@ -261,7 +294,33 @@ namespace OpenAPI.Events
 					e
 				};
 
-				await Task.WhenAll(EventHandlers.Select(item => Task.Run(() => item.Value.Invoke(item.Key, args))));
+				foreach (var priority in Items)
+				{
+					Task[] tasks = new Task[priority.Value.Count];
+					for (var index = 0; index < priority.Value.Count; index++)
+					{
+						var p = priority.Value[index];
+						
+						var method = p.Method;
+						if (method.ReturnType == typeof(void))
+						{
+							tasks[index] = Task.Run(() =>
+							{
+								if (e.IsCancelled &&
+								    p.Attribute.IgnoreCanceled)
+									return;
+								
+								method.Invoke(p.Parent, args);
+							});
+						}
+						else if (typeof(Task).IsAssignableFrom(method.ReturnType))
+						{
+							tasks[index] = (Task) method.Invoke(p.Parent, args);
+						}
+					}
+
+					await Task.WhenAll(tasks);
+				}
 			}*/
 
 			private struct Item : IComparable<Item>
