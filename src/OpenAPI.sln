@@ -25,6 +25,7 @@ Global
 		Debug|x64 = Debug|x64
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
+		AppVeyor|Any CPU = AppVeyor|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{DCD29428-21D4-4569-8AA1-CB77536748F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -35,6 +36,9 @@ Global
 		{DCD29428-21D4-4569-8AA1-CB77536748F5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DCD29428-21D4-4569-8AA1-CB77536748F5}.Release|x64.ActiveCfg = Release|Any CPU
 		{DCD29428-21D4-4569-8AA1-CB77536748F5}.Release|x64.Build.0 = Release|Any CPU
+		{DCD29428-21D4-4569-8AA1-CB77536748F5}.AppVeyor|Any CPU.ActiveCfg = AppVeyor|Any CPU
+		{DCD29428-21D4-4569-8AA1-CB77536748F5}.AppVeyor|Any CPU.Build.0 = AppVeyor|Any CPU
+		{DCD29428-21D4-4569-8AA1-CB77536748F5}.AppVeyor|Any CPU.Deploy.0 = AppVeyor|Any CPU
 		{4063A791-CD5E-411B-BA5B-C0518765F439}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4063A791-CD5E-411B-BA5B-C0518765F439}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4063A791-CD5E-411B-BA5B-C0518765F439}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -43,6 +47,7 @@ Global
 		{4063A791-CD5E-411B-BA5B-C0518765F439}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4063A791-CD5E-411B-BA5B-C0518765F439}.Release|x64.ActiveCfg = Release|Any CPU
 		{4063A791-CD5E-411B-BA5B-C0518765F439}.Release|x64.Build.0 = Release|Any CPU
+		{4063A791-CD5E-411B-BA5B-C0518765F439}.AppVeyor|Any CPU.ActiveCfg = AppVeyor|Any CPU
 		{56ADAC69-779A-4766-B4F5-73BEA575D662}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{56ADAC69-779A-4766-B4F5-73BEA575D662}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56ADAC69-779A-4766-B4F5-73BEA575D662}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -51,6 +56,9 @@ Global
 		{56ADAC69-779A-4766-B4F5-73BEA575D662}.Release|Any CPU.Build.0 = Release|Any CPU
 		{56ADAC69-779A-4766-B4F5-73BEA575D662}.Release|x64.ActiveCfg = Release|Any CPU
 		{56ADAC69-779A-4766-B4F5-73BEA575D662}.Release|x64.Build.0 = Release|Any CPU
+		{56ADAC69-779A-4766-B4F5-73BEA575D662}.AppVeyor|Any CPU.ActiveCfg = AppVeyor|Any CPU
+		{56ADAC69-779A-4766-B4F5-73BEA575D662}.AppVeyor|Any CPU.Build.0 = AppVeyor|Any CPU
+		{56ADAC69-779A-4766-B4F5-73BEA575D662}.AppVeyor|Any CPU.Deploy.0 = AppVeyor|Any CPU
 		{BE7D1CA1-25A1-4E1E-B110-ECDD89E70A71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BE7D1CA1-25A1-4E1E-B110-ECDD89E70A71}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE7D1CA1-25A1-4E1E-B110-ECDD89E70A71}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -58,6 +66,7 @@ Global
 		{BE7D1CA1-25A1-4E1E-B110-ECDD89E70A71}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE7D1CA1-25A1-4E1E-B110-ECDD89E70A71}.Release|x64.ActiveCfg = Release|Any CPU
 		{BE7D1CA1-25A1-4E1E-B110-ECDD89E70A71}.Release|x64.Build.0 = Release|Any CPU
+		{BE7D1CA1-25A1-4E1E-B110-ECDD89E70A71}.AppVeyor|Any CPU.ActiveCfg = AppVeyor|Any CPU
 		{F604AF39-7B7C-4BB2-BE3A-EBD4A96203A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F604AF39-7B7C-4BB2-BE3A-EBD4A96203A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F604AF39-7B7C-4BB2-BE3A-EBD4A96203A6}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -65,6 +74,7 @@ Global
 		{F604AF39-7B7C-4BB2-BE3A-EBD4A96203A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F604AF39-7B7C-4BB2-BE3A-EBD4A96203A6}.Release|x64.ActiveCfg = Release|Any CPU
 		{F604AF39-7B7C-4BB2-BE3A-EBD4A96203A6}.Release|x64.Build.0 = Release|Any CPU
+		{F604AF39-7B7C-4BB2-BE3A-EBD4A96203A6}.AppVeyor|Any CPU.ActiveCfg = AppVeyor|Any CPU
 		{D3E7049D-6767-401C-B9E5-827465471E24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D3E7049D-6767-401C-B9E5-827465471E24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3E7049D-6767-401C-B9E5-827465471E24}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -72,6 +82,7 @@ Global
 		{D3E7049D-6767-401C-B9E5-827465471E24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3E7049D-6767-401C-B9E5-827465471E24}.Release|x64.ActiveCfg = Release|Any CPU
 		{D3E7049D-6767-401C-B9E5-827465471E24}.Release|x64.Build.0 = Release|Any CPU
+		{D3E7049D-6767-401C-B9E5-827465471E24}.AppVeyor|Any CPU.ActiveCfg = AppVeyor|Any CPU
 		{A31AA728-3AFF-4F1E-AB26-A80EF0D4731F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A31AA728-3AFF-4F1E-AB26-A80EF0D4731F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A31AA728-3AFF-4F1E-AB26-A80EF0D4731F}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -79,6 +90,7 @@ Global
 		{A31AA728-3AFF-4F1E-AB26-A80EF0D4731F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A31AA728-3AFF-4F1E-AB26-A80EF0D4731F}.Release|x64.ActiveCfg = Release|Any CPU
 		{A31AA728-3AFF-4F1E-AB26-A80EF0D4731F}.Release|x64.Build.0 = Release|Any CPU
+		{A31AA728-3AFF-4F1E-AB26-A80EF0D4731F}.AppVeyor|Any CPU.ActiveCfg = AppVeyor|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

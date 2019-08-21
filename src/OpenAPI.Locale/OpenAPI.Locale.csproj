@@ -4,6 +4,8 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
 	  <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	  <Configurations>Debug;Release;AppVeyor</Configurations>
+	  <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
 	
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -12,6 +14,11 @@
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 		<OutputPath>..\..\build\release\</OutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='AppVeyor|AnyCPU'">
+		<AssemblyName>OpenMiNET.OpenAPI.Locale</AssemblyName>
+		<OutputPath>..\..\build\appveyor\</OutputPath>
 	</PropertyGroup>
 	
   <ItemGroup>
