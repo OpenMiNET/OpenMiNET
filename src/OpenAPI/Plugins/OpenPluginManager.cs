@@ -635,6 +635,11 @@ namespace OpenAPI.Plugins
 		    }
 	    }
 
+	    public bool TryGetReference(Type type, out object result)
+	    {
+		    return References.TryGetValue(type, out result);
+	    }
+	    
 	    public bool TryGetReference<TType>(out TType result)
 	    {
 		    if (References.TryGetValue(typeof(TType), out object value))

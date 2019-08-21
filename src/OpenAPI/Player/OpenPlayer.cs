@@ -667,23 +667,23 @@ namespace OpenAPI.Player
         public void SendLocalizedTitle(string text, TitleType type = TitleType.Title, int fadeIn = 6, int fadeOut = 6,
             int stayTime = 20, MiNET.Player sender = null)
         {
-            SendTitle(this.GetLocalizedMessage(Language.GetResourceManager(Assembly.GetCallingAssembly()), text), type, fadeIn, fadeOut, stayTime, sender);
+            SendTitle(this.GetLocalizedMessage(LocaleManager.GetLocaleProvider(Assembly.GetCallingAssembly()), text), type, fadeIn, fadeOut, stayTime, sender);
         }
 
         public void SendLocalizedTitle(string text, object[] parameters = null, TitleType type = TitleType.Title, int fadeIn = 6, int fadeOut = 6,
             int stayTime = 20, MiNET.Player sender = null)
         {
-            SendTitle(this.GetLocalizedMessage(Language.GetResourceManager(Assembly.GetCallingAssembly()), text, parameters), type, fadeIn, fadeOut, stayTime, sender);
+            SendTitle(this.GetLocalizedMessage(LocaleManager.GetLocaleProvider(Assembly.GetCallingAssembly()), text, parameters), type, fadeIn, fadeOut, stayTime, sender);
         }
 
         public void SendLocalizedMessage(string text, MessageType type = MessageType.Chat, MiNET.Player sender = null)
         {
-            base.SendMessage(this.GetLocalizedMessage(Language.GetResourceManager(Assembly.GetCallingAssembly()), text), type, sender);
+            base.SendMessage(this.GetLocalizedMessage(LocaleManager.GetLocaleProvider(Assembly.GetCallingAssembly()), text), type, sender);
         }
 
         public void SendLocalizedMessage(string text, object[] parameters = null, MessageType type = MessageType.Chat, MiNET.Player sender = null)
         {
-            base.SendMessage(this.GetLocalizedMessage(Language.GetResourceManager(Assembly.GetCallingAssembly()), text, parameters), type, sender);
+            base.SendMessage(this.GetLocalizedMessage(LocaleManager.GetLocaleProvider(Assembly.GetCallingAssembly()), text, parameters), type, sender);
         }
 
         #region Player Attributes
