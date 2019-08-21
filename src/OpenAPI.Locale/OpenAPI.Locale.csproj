@@ -7,6 +7,11 @@
 	  <Configurations>Debug;Release;AppVeyor</Configurations>
 	  <Platforms>AnyCPU</Platforms>
 	  <PackageId>OpenMiNET.OpenAPI.Locale</PackageId>
+	  <Description>Part of OpenMiNET.OpenAPI, adds support for localization</Description>
+	  <PackageProjectUrl>https://github.com/OpenMiNET/OpenAPI</PackageProjectUrl>
+	  <PackageLicenseUrl>https://github.com/OpenMiNET/OpenAPI/blob/master/LICENSE</PackageLicenseUrl>
+	  <PackageIconUrl>https://avatars3.githubusercontent.com/u/35862549?s=200&amp;v=4</PackageIconUrl>
+	  <PackageTags>MiNET, OpenAPI, Plugin, API, MCPE, Minecraft, MCBE, PocketEdition, OpenMiNET, Localization</PackageTags>
   </PropertyGroup>
 	
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
