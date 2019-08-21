@@ -1,4 +1,6 @@
 # OpenAPI
+[![Build status](https://ci.appveyor.com/api/projects/status/rb6xfiogyt6sam30/branch/master?svg=true)](https://ci.appveyor.com/project/kennyvv/openapi/branch/master)
+
 Custom MiNET Plugin API - Making it easier for multiple plugins to work together nicely.
 
 Please feel free to join  our discord if you feel like contributing or need some help getting started.
