@@ -54,13 +54,13 @@ namespace OpenAPI.Entities
             }
         }
 
-        public void SpawnDesguise()
+        public void SpawnDisguise()
         {
             Disguise.Level = Parent.Level;
             Disguise.SpawnEntity();
         }
 
-        public void DespawnDesguise()
+        public void DespawnDisguise()
         {
             Disguise.DespawnEntity();
         }

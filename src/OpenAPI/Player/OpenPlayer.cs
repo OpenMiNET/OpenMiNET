@@ -248,16 +248,48 @@ namespace OpenAPI.Player
 			switch ((McpeInventoryTransaction.ItemReleaseAction) transaction.ActionType)
 		    {
 			    case McpeInventoryTransaction.ItemReleaseAction.Release:
-					Log.Debug($"Item release action, drop item?");
-				   // if (!DropItem(itemInHand, ))
-					//    return;
+			    {
+				    if (!DropItem(itemInHand, new ItemAir()))
+				    {
+					    HandleNormalTransactions(transaction);
+					    return;
+				    }
+
 				    break;
+			    }
+			    case McpeInventoryTransaction.ItemReleaseAction.Use:
+			    {
+				    if (!UseItem(itemInHand))
+				    {
+					    HandleNormalTransactions(transaction);
+					    return;
+				    }
+
+				    break;
+			    }
 		    }
 
 		    base.HandleItemReleaseTransactions(transaction);
 	    }
 
-		private bool DropItem(Item droppedItem, Item newInventoryItem)
+	    public override void DropItem(Item item)
+	    {
+		    base.DropItem(item);
+	    }
+
+	    private bool UseItem(Item usedItem)
+	    {
+		    PlayerItemUseEvent useEvent = new PlayerItemUseEvent(this, usedItem);
+		    EventDispatcher.DispatchEvent(useEvent);
+		    if (useEvent.IsCancelled)
+		    {
+			    return false;
+		    }
+
+		    return true;
+	    }
+
+	    private bool DropItem(Item droppedItem, Item newInventoryItem)
 		{
 			PlayerItemDropEvent dropEvent = new PlayerItemDropEvent(this, this.KnownPosition, droppedItem, newInventoryItem);
 			EventDispatcher.DispatchEvent(dropEvent);
@@ -271,34 +303,14 @@ namespace OpenAPI.Player
 			//base.DropItem(droppedItem, newInventoryItem);
 		}
 
-		/*public override bool VerifyItemStack(Item itemStack)
-		{
-			return true;
-		}*/
+	    /*public override void HandleMcpeServerSettingsRequest(McpeServerSettingsRequest message)
+	    {
+		    PlayerSettingsRequestEvent e = new PlayerSettingsRequestEvent(this, message);
+		    EventDispatcher.DispatchEvent(e);
 
-		public override void DropInventory()
-		{
-			base.DropInventory();
-		}
-
-	/*	protected override void HandleItemUse(Transaction transaction)
-		{
-			/*var act = (McpeInventoryTransaction.ItemUseAction) transaction.ActionType;
-			if (act == McpeInventoryTransaction.ItemUseAction.Use)
-			{	
-				Log.Info($"{Username} used item an item! Transaction: {transaction.Item} Inventory: {Inventory.GetItemInHand()}");
-			}
-			base.HandleItemUse(transaction);
-		}*/
-
-		/*public override void HandleMcpeServerSettingsRequest(McpeServerSettingsRequest message)
-		{
-			PlayerSettingsRequestEvent e = new PlayerSettingsRequestEvent(this, message);
-			EventDispatcher.DispatchEvent(e);
-
-			if (!e.IsCancelled)
-				base.HandleMcpeServerSettingsRequest(message);
-		}*/
+		    if (!e.IsCancelled)
+			    base.HandleMcpeServerSettingsRequest(message);
+	    }*/
 
 		private object _breakSync = new object();
 		private bool IsBreakingBlock { get; set; } = false;
@@ -407,9 +419,24 @@ namespace OpenAPI.Player
 
 		    switch ((McpeInventoryTransaction.ItemUseAction) transaction.ActionType)
 		    {
-				case McpeInventoryTransaction.ItemUseAction.Destroy:
+			    case McpeInventoryTransaction.ItemUseAction.Destroy:
+			    {
+				    break;
+			    }
+			    case McpeInventoryTransaction.ItemUseAction.Use:
+			    {
+				    if (!UseItem(itemInHand))
+				    {
+					    HandleNormalTransactions(transaction);
+					    return;
+				    }
 
+				    break;
+				}
+				case McpeInventoryTransaction.ItemUseAction.Place:
+				{
 					break;
+				}
 		    }
 
 		    base.HandleItemUseTransactions(transaction);
@@ -509,27 +536,17 @@ namespace OpenAPI.Player
         private uint _maxChunkSize = 1048576; //1MB
         public override void HandleMcpeResourcePackChunkRequest(McpeResourcePackChunkRequest message)
         {
-	       // var jsonSerializerSettings = new JsonSerializerSettings
-	       // {
-		   //     PreserveReferencesHandling = PreserveReferencesHandling.None,
-		    //    Formatting = Formatting.Indented,
-	       // };
-
-	      //  string result = JsonConvert.SerializeObject(message, jsonSerializerSettings);
-	       // Log.Debug($"{message.GetType().Name}\n{result}");
-	        
 	        var chunk = _plugin.ResourcePackProvider.GetResourcePackChunk(message.packageId, message.chunkIndex, _maxChunkSize);
 	        
-	       // var content = File.ReadAllBytes(@"D:\Temp\ResourcePackChunkData_8f760cf7-2ca4-44ab-ab60-9be2469b9777.zip");
 	        McpeResourcePackChunkData chunkData = McpeResourcePackChunkData.CreateObject();
 	        chunkData.packageId = message.packageId;
-	        chunkData.chunkIndex = message.chunkIndex; // Package index ?
-	        chunkData.progress = (_maxChunkSize * message.chunkIndex); // Long, maybe timestamp?
+	        chunkData.chunkIndex = message.chunkIndex;
+	        chunkData.progress = (_maxChunkSize * message.chunkIndex);
 	        chunkData.length = (uint) chunk.Length;
 	        chunkData.payload = chunk;
 	        SendPacket(chunkData);
         }
-        
+
         public override void HandleMcpeResourcePackClientResponse(McpeResourcePackClientResponse message)
         {
 	        if (message.responseStatus == 2)
@@ -537,46 +554,30 @@ namespace OpenAPI.Player
 		        foreach (var a in message.resourcepackids)
 		        {
 			        string uuid = a.Split('_')[0];
-			        
+
 			        var chunkCount = _plugin.ResourcePackProvider.GetChunkCount(uuid, _maxChunkSize, out var manifest,
 				        out var size, out var hash);
-			        
+
 			        McpeResourcePackDataInfo dataInfo = McpeResourcePackDataInfo.CreateObject();
 			        dataInfo.maxChunkSize = _maxChunkSize;
 			        dataInfo.chunkCount = chunkCount;
 			        dataInfo.compressedPackageSize = size;
 			        dataInfo.hash = hash;
 			        dataInfo.packageId = manifest.Header.Uuid;
-			        
+
 			        SendPacket(dataInfo);
 		        }
-		     /*   McpeResourcePackDataInfo dataInfo = McpeResourcePackDataInfo.CreateObject();
-		        dataInfo.packageId = "5abdb963-4f3f-4d97-8482-88e2049ab149";
-		        dataInfo.maxChunkSize = _maxChunkSize;
-		        dataInfo.chunkCount = 1;
-		        dataInfo.compressedPackageSize = 359901; // Lenght of data
-		        dataInfo.hash = new byte[] { 57, 38, 13, 50, 39, 63, 88, 63, 59, 27, 63, 63, 63, 63, 6, 63, 54, 7, 84, 63, 47, 91, 63, 120, 63, 120, 42, 5, 104, 2, 63, 18 };
-		        SendPacket(dataInfo);*/
+
 		        return;
 	        }
 	        else if (message.responseStatus == 3)
 	        {
-		        //if (_serverHaveResources)
-		        {
-			        SendResourcePackStack();
-		        }
-		        //else
-		        //{
-		        //	MiNetServer.FastThreadPool.QueueUserWorkItem(() => { Start(null); });
-		        //}
+		        SendResourcePackStack();
 		        return;
 	        }
 	        else if (message.responseStatus == 4)
 	        {
-		        //if (_serverHaveResources)
-		        {
-			        OpenServer.FastThreadPool.QueueUserWorkItem(() => { Start(null); });
-		        }
+		        OpenServer.FastThreadPool.QueueUserWorkItem(() => { Start(null); });
 		        return;
 	        }
         }
@@ -621,7 +622,7 @@ namespace OpenAPI.Player
 
                 if (_disguise != null)
                 {
-                    _disguise.DespawnDesguise();
+                    _disguise.DespawnDisguise();
                 }
 
                 _disguise = newValue;
@@ -629,7 +630,7 @@ namespace OpenAPI.Player
                 if (newValue != null)
                 {
                     this.IsInvisible = true;
-                    newValue.SpawnDesguise();
+                    newValue.SpawnDisguise();
                 }
                 else
                 {

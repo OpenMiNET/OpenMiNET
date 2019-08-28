@@ -19,7 +19,6 @@ namespace OpenAPI.TestPlugin
 
 		public override void Enabled(OpenAPI api)
 		{
-			api.PluginManager.SetReference<TestPlugin>(this); //By calling SetReference other plugins can talk to us. See the example "CrossReferencing"
 			api.CommandManager.LoadCommands(CommandsClass);
 
 			Log.InfoFormat("TestPlugin Enabled");

@@ -28,6 +28,7 @@ namespace OpenAPI.World
 		private OpenAPI Api { get; }
 		private readonly ConcurrentDictionary<string, OpenLevel> _levels = new ConcurrentDictionary<string, OpenLevel>();
 		public int LevelCount => _levels.Count;
+		public bool HasDefaultLevel => _defaultLevelSet;
 
 		private readonly GameMode _gameMode = Config.GetProperty("GameMode", GameMode.Survival);
 		private readonly Difficulty _difficulty = Config.GetProperty("Difficulty", Difficulty.Normal);
@@ -40,6 +41,7 @@ namespace OpenAPI.World
 
 		private string _defaultLevel = "Overworld";
 
+		private bool _defaultLevelSet = false;
 		//public new LevelCreated OnLevelCreated = null;
 		//public LevelDestroyed OnLevelDestroyed = null;
 		public OpenLevelManager(OpenAPI api)
@@ -218,6 +220,7 @@ namespace OpenAPI.World
 		public void SetDefaultLevel(OpenLevel level)
 		{
 			_defaultLevel = level.LevelId;
+			_defaultLevelSet = true;
 		}
 	}
 }

@@ -2,15 +2,48 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/rb6xfiogyt6sam30/branch/master?svg=true)](https://ci.appveyor.com/project/kennyvv/openapi/branch/master)
 [![nuget](https://img.shields.io/nuget/v/OpenMiNET.OpenAPI.svg)](https://www.nuget.org/packages/OpenMiNET.OpenAPI/)
 
-Custom MiNET Plugin API - Making it easier for multiple plugins to work together nicely.
+A Custom Plugin API for MiNET - Making it easier for multiple plugins to work together nicely.
 
 Please feel free to join  our discord if you feel like contributing or need some help getting started.
 * [Discord](https://discord.gg/J4ZfR87) - Join our Discord server
 
-Documentation
--------------
-Getting started documentation will be coming soon.
+##Setup & Getting Started
+
+Great to see you are interested in using OpenAPI.  
+The steps required to get a server running using OpenAPI are probably a little different then what you might expect.  
+No worries tho! Just follow the following steps closely and you'll have your server up & running within a few minutes.  
+
+####Step 1.
+Acquiring the required binaries.
+
+OpenAPI requires a custom MiNETServer instance to work properly, so the default MiNET.Server executables won't work.  
+You can either compile OpenAPI.Server yourself or you can download pre-compiled binaries [HERE](https://ci.appveyor.com/project/kennyvv/openapi/branch/master/artifacts)
+
+####Step 2.
+Setting up the server.
+
+You'll find a file named "server.conf", if you open this file in a text editor. You should see the following line:
+
+`PluginDirectory=Plugins`
+
+This property tells OpenAPI where to look for your installed plugins.  
+If you choose not to change the default value, the server will look for a folder called "Plugins" (Without quotes) in the directory containg the server binary. (OpenAPI.Server)  
+
+You can also provide multiple plugin folders by using the `;` character as a delimiter. 
+
+Any other configuration options can be found on [MiNET's WIKI](https://github.com/NiclasOlofsson/MiNET/wiki/Configuration)
+(Note: Some of these might not work.)
+
+####Step 3.
+Starting up the server.
+
+You can now start the server like you would with a normal MiNET server.  
+Only the executable name will be `OpenAPI.Server` instead of `MiNET.Server`
+
+## Documentation
+As of now, there is no documentation available yet.
 
 Interesting projects to check out
 ----------------------------------
-* [Alex](https://discord.gg/J4ZfR87) - A Minecraft Client written in C# aiming to be compatible with the Bedrock and Java edition.
+* [MiNET](https://github.com/NiclasOlofsson/MiNET) - The server software making all of this possible.
+* [Alex](https://github.com/kennyvv/Alex) - A Minecraft Client written in C# aiming to be compatible with the Bedrock and Java edition.

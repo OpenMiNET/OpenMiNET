@@ -49,9 +49,6 @@ namespace OpenAPI
 	    {
 	        OpenServer = openServer;
 
-	        var lvl = this.LevelManager.GetLevel((MiNET.Player)null, Dimension.Overworld.ToString());
-			LevelManager.SetDefaultLevel((OpenLevel)lvl);
-
 			Log.InfoFormat("Enabling OpenAPI...");
 
 		    string pluginDirectoryPaths = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
@@ -67,7 +64,14 @@ namespace OpenAPI
 
 		        PluginManager.DiscoverPlugins(directory);
 		    }
-		}
+
+		    //Only set the default level if it hasn't been set already.
+		    if (!LevelManager.HasDefaultLevel)
+		    {
+			    var lvl = this.LevelManager.GetLevel((MiNET.Player) null, Dimension.Overworld.ToString());
+			    LevelManager.SetDefaultLevel((OpenLevel) lvl);
+		    }
+	    }
 
 		internal void OnDisable()
 		{
