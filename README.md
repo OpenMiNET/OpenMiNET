@@ -7,19 +7,19 @@ A Custom Plugin API for MiNET - Making it easier for multiple plugins to work to
 Please feel free to join  our discord if you feel like contributing or need some help getting started.
 * [Discord](https://discord.gg/J4ZfR87) - Join our Discord server
 
-##Setup & Getting Started
+## Setup & Getting Started
 
 Great to see you are interested in using OpenAPI.  
 The steps required to get a server running using OpenAPI are probably a little different then what you might expect.  
 No worries tho! Just follow the following steps closely and you'll have your server up & running within a few minutes.  
 
-####Step 1.
+#### Step 1.
 Acquiring the required binaries.
 
 OpenAPI requires a custom MiNETServer instance to work properly, so the default MiNET.Server executables won't work.  
 You can either compile OpenAPI.Server yourself or you can download pre-compiled binaries [HERE](https://ci.appveyor.com/project/kennyvv/openapi/branch/master/artifacts)
 
-####Step 2.
+#### Step 2.
 Setting up the server.
 
 You'll find a file named "server.conf", if you open this file in a text editor. You should see the following line:
@@ -34,7 +34,7 @@ You can also provide multiple plugin folders by using the `;` character as a del
 Any other configuration options can be found on [MiNET's WIKI](https://github.com/NiclasOlofsson/MiNET/wiki/Configuration)
 (Note: Some of these might not work.)
 
-####Step 3.
+#### Step 3.
 Starting up the server.
 
 You can now start the server like you would with a normal MiNET server.  
