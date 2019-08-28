@@ -1,5 +1,6 @@
 # OpenAPI
 [![Build status](https://ci.appveyor.com/api/projects/status/rb6xfiogyt6sam30/branch/master?svg=true)](https://ci.appveyor.com/project/kennyvv/openapi/branch/master)
+[![nuget](https://img.shields.io/nuget/v/OpenMiNET.OpenAPI.svg)](https://www.nuget.org/packages/OpenMiNET.OpenAPI/)
 
 Custom MiNET Plugin API - Making it easier for multiple plugins to work together nicely.
 
