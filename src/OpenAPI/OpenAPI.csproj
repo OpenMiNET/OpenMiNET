@@ -30,7 +30,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MiNET" Version="1.0.2015" />
+    <PackageReference Include="MiNET" Version="1.0.2031" />
     <PackageReference Include="Mono.Cecil" Version="0.10.0" />
   </ItemGroup>
 
