@@ -15,6 +15,11 @@ namespace OpenAPI.Permission
 
         }
 
+        public void AddPermissionGroup(PermissionGroup group)
+        {
+            Groups.Add(group);
+        }
+
         public bool HasPermission(string permission)
         {
             // Check if we have a cached copy

@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using log4net;
 using OpenAPI.Plugins;
+using OpenAPI.TestPlugin.FactionsExample;
 
 namespace OpenAPI.TestPlugin
 {
@@ -12,6 +13,8 @@ namespace OpenAPI.TestPlugin
 
 		private ExampleCommands CommandsClass { get; }
 
+        private FactionManager FactionManager = new FactionManager();
+
 		public TestPlugin()
 		{
 			CommandsClass = new ExampleCommands();
@@ -19,7 +22,10 @@ namespace OpenAPI.TestPlugin
 
 		public override void Enabled(OpenAPI api)
 		{
+            api.CommandManager.RegisterPermissionChecker(typeof(FactionPermissionAttribute), new FactionPermissionChecker(FactionManager));
+
 			api.CommandManager.LoadCommands(CommandsClass);
+            api.CommandManager.LoadCommands(new FactionCommands(FactionManager));
 
 			Log.InfoFormat("TestPlugin Enabled");
 		}

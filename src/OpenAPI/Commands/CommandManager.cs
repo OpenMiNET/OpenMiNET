@@ -30,10 +30,18 @@ namespace OpenAPI.Commands
 		
 		private readonly Dictionary<MethodInfo, CommandData> _pluginCommands = new Dictionary<MethodInfo, CommandData>();
 		private OpenPluginManager PluginManager { get; }
-		public CommandManager(OpenPluginManager pluginManager)
+        private Dictionary<Type, CommandPermissionChecker> permissionCheckers = new Dictionary<Type, CommandPermissionChecker>();
+
+        public CommandManager(OpenPluginManager pluginManager)
 		{
 			PluginManager = pluginManager;
+            RegisterPermissionChecker(typeof(StringPermissionAttribute), new StringPermissionChecker());
 		}
+
+        public void RegisterPermissionChecker(Type type, CommandPermissionChecker permissionChecker)
+        {
+            permissionCheckers[type] = permissionChecker;
+        }
 
 	    public void LoadCommands(object instance)
 	    {
@@ -54,9 +62,17 @@ namespace OpenAPI.Commands
 				DescriptionAttribute descriptionAttribute = Attribute.GetCustomAttribute(method, typeof(DescriptionAttribute), false) as DescriptionAttribute;
 				if (descriptionAttribute != null) commandAttribute.Description = descriptionAttribute.Description;
 
+                CommandPermissionAttribute permissionAttribute = Attribute.GetCustomAttribute(method, typeof(CommandPermissionAttribute), true) as CommandPermissionAttribute;
+
+                // Overwrite custom permissions if command permission is supplied
+                if(!string.IsNullOrEmpty(commandAttribute.Permission))
+                {
+                    permissionAttribute = new StringPermissionAttribute(commandAttribute.Permission);
+                }
+
 				try
 				{
-					_pluginCommands.Add(method, new CommandData(commandAttribute, instance));
+					_pluginCommands.Add(method, new CommandData(commandAttribute, instance, permissionAttribute));
 				}
 				catch (ArgumentException e)
 				{
@@ -88,8 +104,8 @@ namespace OpenAPI.Commands
 	    internal CommandSet GenerateCommandSet(OpenPlayer player)
 	    {
 		    return GenerateCommandSet(_pluginCommands
-			    .Where(x => string.IsNullOrWhiteSpace(x.Value.Attribute.Permission) ||
-			                player.Permissions.HasPermission(x.Value.Attribute.Permission)).Select(x => x.Key).ToArray());
+			    .Where(x => x.Value.PermissionAttribute == null || 
+                    (permissionCheckers[x.Value.PermissionAttribute.GetType()] != null && permissionCheckers[x.Value.PermissionAttribute.GetType()].HasPermission(x.Value.PermissionAttribute, player))).Select(x => x.Key).ToArray());
 	    }
 
 	    private CommandSet GenerateCommandSet(MethodInfo[] methods)
@@ -101,6 +117,7 @@ namespace OpenAPI.Commands
 				CommandAttribute commandAttribute = Attribute.GetCustomAttribute(method, typeof(CommandAttribute), false) as CommandAttribute;
 				if (commandAttribute == null) continue;
 
+                // TODO: Do we need the authorize attribute with the new permission system?
 				AuthorizeAttribute authorizeAttribute = Attribute.GetCustomAttribute(method, typeof(AuthorizeAttribute), false) as AuthorizeAttribute ?? new AuthorizeAttribute();
 
 				if (string.IsNullOrEmpty(commandAttribute.Name))
@@ -367,16 +384,17 @@ namespace OpenAPI.Commands
 					args = args.Skip(1).ToArray();
 				}
 
-				int requiredPermission = command.Versions.First().CommandPermission;
+                // TODO: Do we need the authorize attribute with the new permission system?
+                int requiredPermission = command.Versions.First().CommandPermission;
 				if (player.CommandPermission < requiredPermission)
 				{
 					Log.Debug($"Insufficient permissions. Require {requiredPermission} but player had {player.CommandPermission}");
 					return string.Format(command.Versions.First().ErrorMessage, player.CommandPermission.ToString().ToLowerInvariant(), requiredPermission.ToString().ToLowerInvariant());
 				}
 
-				MethodInfo method = overload.Method;
+                MethodInfo method = overload.Method;
 
-				if (ExecuteCommand(method, player, args, out object retVal))
+                if (ExecuteCommand(method, player, args, out object retVal))
 				{
 					return retVal;
 				}

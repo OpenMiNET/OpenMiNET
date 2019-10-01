@@ -105,6 +105,12 @@ namespace OpenAPI.Player
 	        base.SendSetCommandsEnabled();
         }
 
+        public void RefreshCommands()
+        {
+            Commands = _plugin.CommandManager.GenerateCommandSet(this);
+            SendAvailableCommands();
+        }
+
         /* private void HealthManagerOnPlayerTakeHit(object sender, HealthEventArgs e)
 	    {
 	        if (!FormsOpened.IsEmpty)
