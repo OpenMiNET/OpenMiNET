@@ -548,7 +548,7 @@ namespace OpenAPI.Player
 	        chunkData.packageId = message.packageId;
 	        chunkData.chunkIndex = message.chunkIndex;
 	        chunkData.progress = (_maxChunkSize * message.chunkIndex);
-	        chunkData.length = (uint) chunk.Length;
+	        //chunkData.length = (uint) chunk.Length;
 	        chunkData.payload = chunk;
 	        SendPacket(chunkData);
         }
