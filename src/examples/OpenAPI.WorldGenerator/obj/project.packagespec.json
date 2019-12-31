@@ -1,0 +1,57 @@
+﻿{
+  "version": "1.0.0",
+  "restore": {
+    "projectUniqueName": "/home/kenny/github/OpenAPI/src/examples/OpenAPI.WorldGenerator/OpenAPI.WorldGenerator.csproj",
+    "projectName": "OpenAPI.WorldGenerator",
+    "projectPath": "/home/kenny/github/OpenAPI/src/examples/OpenAPI.WorldGenerator/OpenAPI.WorldGenerator.csproj",
+    "outputPath": "/home/kenny/github/OpenAPI/src/examples/OpenAPI.WorldGenerator/obj/",
+    "projectStyle": "PackageReference",
+    "fallbackFolders": [
+      "/usr/share/dotnet/sdk/NuGetFallbackFolder"
+    ],
+    "originalTargetFrameworks": [
+      "netcoreapp2.1"
+    ],
+    "sources": {
+      "https://api.nuget.org/v3/index.json": {},
+      "https://nuget.herobalancer.app/v3/index.json": {}
+    },
+    "frameworks": {
+      "netcoreapp2.1": {
+        "projectReferences": {
+          "/home/kenny/github/OpenAPI/src/OpenAPI/OpenAPI.csproj": {
+            "projectPath": "/home/kenny/github/OpenAPI/src/OpenAPI/OpenAPI.csproj"
+          }
+        }
+      }
+    },
+    "warningProperties": {
+      "warnAsError": [
+        "NU1605"
+      ]
+    }
+  },
+  "frameworks": {
+    "netcoreapp2.1": {
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "suppressParent": "All",
+          "target": "Package",
+          "version": "[2.1.0, )",
+          "autoReferenced": true
+        }
+      },
+      "imports": [
+        "net461",
+        "net462",
+        "net47",
+        "net471",
+        "net472",
+        "net48"
+      ],
+      "assetTargetFallback": true,
+      "warn": true,
+      "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.0.100/RuntimeIdentifierGraph.json"
+    }
+  }
+}
