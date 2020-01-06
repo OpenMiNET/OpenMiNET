@@ -37,22 +37,24 @@ namespace OpenAPI.WorldGenerator
                 var pos = player.KnownPosition.GetCoordinates3D();
                 var chunk = player.Level.GetChunk(pos, true);
 
+                if (chunk == null)
+                    continue;
+                
                 var biome = chunk.GetBiome(pos.X - (chunk.x * 16), pos.Z - (chunk.z * 16));
                 var result = BiomeUtils.GetBiomeById(biome);
                 
-                player.SendMessage($"Biome: {result.Name} | ", MessageType.JukeboxPopup);
+                player.SendTitle($"Biome: {result.Name} | ", TitleType.ActionBar, 0, 0, 25);
             }
         }
 
         public override void Enabled(OpenAPI api)
         {
             Api = api;
-            var level = new OpenLevel(api, api.LevelManager, "cool-level", new AnvilWorldProvider()
-            {
-                MissingChunkProvider = new OverworldGenerator()
-            }, api.LevelManager.EntityManager, GameMode.Creative, Difficulty.Peaceful);
+            var level = new OpenLevel(api, api.LevelManager, Dimension.Overworld.ToString(), new DebugWorldProvider(new OverworldGenerator()), api.LevelManager.EntityManager, GameMode.Creative, Difficulty.Peaceful);
 
             api.LevelManager.LoadLevel(level);
+            
+            api.LevelManager.SetDefaultLevel(level);
             
             api.EventDispatcher.RegisterEvents(this);
             
@@ -65,22 +67,18 @@ namespace OpenAPI.WorldGenerator
         {
             Log.Info($"WorldGenerator plugin disabled!");
         }
+        
 
         [EventHandler(EventPriority.Highest)]
-        public void OnPlayerJoin(PlayerSpawnedEvent e)
+        public void OnPlayerLoginComplete(PlayerSpawnedEvent e)
         {
-            var lvl = Api.LevelManager.GetLevel(e.Player, "cool-level");
-            e.Player.SpawnLevel(lvl, lvl.SpawnPoint, false, null, () =>
+            var lvl = Api.LevelManager.GetLevel(e.Player, Dimension.Overworld.ToString());
+            
+            e.Player.SpawnLevel(lvl, lvl.SpawnPoint, true, null, () =>
             {
                 e.Player.SetGameMode(GameMode.Creative);
                 e.Player.Teleport(new PlayerLocation(e.Player.KnownPosition.X, e.Player.Level.GetHeight(e.Player.KnownPosition.GetCoordinates3D()) + 3f, e.Player.KnownPosition.Z));
             });
-        }
-
-        [EventHandler(EventPriority.Monitor)]
-        public void OnPlayerMove(PlayerMoveEvent e)
-        {
-            
         }
     }
 }

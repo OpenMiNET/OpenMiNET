@@ -20,6 +20,20 @@ namespace OpenAPI.WorldGenerator.Utils
             return (newStart + ((value - originalStart) * scale));
         }
         
+        private static float Lerp(float t, float x1, float x2, float q00, float q01)
+        {
+            return ((x2 - t) / (x2 - x1)) * q00 + ((t - x1) / (x2 - x1)) * q01;
+        }
+
+        public static float BilinearLerp(float x, float y, float q11, float q12, float q21, float q22, float x1, float x2,
+            float y1, float y2)
+        {
+            float r1 = Lerp(x, x1, x2, q11, q21);
+            float r2 = Lerp(x, x1, x2, q12, q22);
+
+            return Lerp(y, y1, y2, r1, r2);
+        }
+        
         public static float Cmr(float p0, float p1, float p2, float p3, float t)
         {
             float a = 2f * p1;

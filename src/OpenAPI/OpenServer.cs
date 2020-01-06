@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Threading.Tasks;
 using log4net;
 using MiNET;
 using MiNET.Items;
@@ -13,6 +15,7 @@ using MiNET.Plugins;
 using MiNET.Utils;
 using MiNET.Worlds;
 using OpenAPI.Proxy;
+using OpenAPI.Utils;
 
 namespace OpenAPI
 {
@@ -23,16 +26,17 @@ namespace OpenAPI
         private OpenAPI OpenApi { get; set; }
 	    private ProxyServer _proxy = null;
 
-        public static DedicatedThreadPool FastThreadPool => GetPrivateStaticPropertyValue<DedicatedThreadPool>(typeof(MiNetServer), "FastThreadPool");
+        public static DedicatedThreadPool FastThreadPool => ReflectionHelper.GetPrivateStaticPropertyValue<DedicatedThreadPool>(typeof(MiNetServer), "FastThreadPool");
         
 		public OpenServer()
         {
             OpenApi = new OpenAPI();
         }
 
+        private BypassHighPrecisionTimer _unixTicker = null;
         public new bool StartServer()
         {
-            UdpClient c = GetPrivateFieldValue<UdpClient>(typeof(MiNetServer), this, "_listener");
+            UdpClient c = ReflectionHelper.GetPrivateFieldValue<UdpClient>(typeof(MiNetServer), this, "_listener");
             if (c != null) return false;
 
             try
@@ -45,17 +49,20 @@ namespace OpenAPI
                     {
                         var ip = IPAddress.Parse(Config.GetProperty("ip", "0.0.0.0"));
                         int port = Config.GetProperty("port", 19132);
-                        SetPrivatePropertyValue(typeof(MiNetServer), this, "Endpoint", new IPEndPoint(ip, port));
+                        ReflectionHelper.SetPrivatePropertyValue(typeof(MiNetServer), this, "Endpoint",
+                            new IPEndPoint(ip, port));
                     }
                 }
-				
+
                 ServerManager = ServerManager ?? new DefaultServerManager(this);
                 OpenServerInfo openInfo = null;
 
                 if (ServerRole == ServerRole.Full || ServerRole == ServerRole.Node)
                 {
                     PluginManager = new PluginManager();
-                    openInfo = new OpenServerInfo(OpenApi, GetPrivateFieldValue<ConcurrentDictionary<IPEndPoint, PlayerNetworkSession>>(typeof(MiNetServer), this, "_playerSessions"), OpenApi.LevelManager);
+                    openInfo = new OpenServerInfo(OpenApi,
+                        ReflectionHelper.GetPrivateFieldValue<ConcurrentDictionary<IPEndPoint, PlayerNetworkSession>>(
+                            typeof(MiNetServer), this, "_playerSessions"), OpenApi.LevelManager);
                     ServerInfo = openInfo;
                     openInfo.Init();
 
@@ -67,17 +74,17 @@ namespace OpenAPI
                     SessionManager = SessionManager ?? new SessionManager();
                     LevelManager = OpenApi.LevelManager;
                     PlayerFactory = OpenApi.PlayerManager;
-				}
+                }
 
                 MotdProvider = OpenApi.MotdProvider;
- 
+
                 OpenApi.OnEnable(this);
 
                 if (ServerRole == ServerRole.Full || ServerRole == ServerRole.Proxy)
                 {
                     var listener = new UdpClient(Endpoint);
                     if (!System.Runtime.InteropServices.RuntimeInformation
-	                        .IsOSPlatform(OSPlatform.Windows))
+                        .IsOSPlatform(OSPlatform.Windows))
                     {
                         listener.Client.ReceiveBufferSize = 1024 * 1024 * 3;
                         listener.Client.SendBufferSize = 4096;
@@ -92,34 +99,46 @@ namespace OpenAPI
                         uint IOC_IN = 0x80000000;
                         uint IOC_VENDOR = 0x18000000;
                         uint SIO_UDP_CONNRESET = IOC_IN | IOC_VENDOR | 12;
-                        listener.Client.IOControl((int)SIO_UDP_CONNRESET, new byte[] { Convert.ToByte(false) }, null);
+                        listener.Client.IOControl((int) SIO_UDP_CONNRESET, new byte[] {Convert.ToByte(false)}, null);
                     }
 
-                    SetPrivateFieldValue(typeof(MiNetServer), this, "_listener", listener);
+                    ReflectionHelper.SetPrivateFieldValue(typeof(MiNetServer), this, "_listener", listener);
 
+                    var processData = typeof(MiNetServer).GetMethod("ProcessDatagrams",
+                        BindingFlags.NonPublic | BindingFlags.Instance);
+                    
                     new Thread((l) =>
                     {
-                        var processData = typeof(MiNetServer).GetMethod("ProcessDatagrams",
-                            BindingFlags.NonPublic | BindingFlags.Instance);
-
-                        processData?.Invoke(this, new object[] { (UdpClient)l });
-                    }) { IsBackground = true }.Start(listener);
+                        processData?.Invoke(this, new object[] {(UdpClient) l});
+                    }) {IsBackground = true}.Start(listener);
                 }
 
                 openInfo?.OnEnable();
 
-	            var a = typeof(MiNetServer).GetMethod("SendTick",
-		            BindingFlags.NonPublic | BindingFlags.Instance);
+                //var a = typeof(MiNetServer).GetMethod("SendTick",
+                //    BindingFlags.NonPublic | BindingFlags.Instance);
 
-				SetPrivateFieldValue(typeof(MiNetServer), this, "_tickerHighPrecisionTimer", new HighPrecisionTimer(10, (o) => a.Invoke(this, new object[]{o}), true, true));
+                //ReflectionHelper.SetPrivateFieldValue(typeof(MiNetServer), this, "_tickerHighPrecisionTimer",
+                //    new HighPrecisionTimer(10, (o) => a.Invoke(this, new object[] {o}), true, true));
 
-	            if (ServerRole == ServerRole.Proxy)
-	            {
-		            _proxy = new ProxyServer(this, Endpoint);
-		            _proxy.Start();
-	            }
+                _unixTicker = new BypassHighPrecisionTimer(10, o =>
+                    {
+                        //ReflectionHelper.InvokePrivateMethod(this, "SendTick", new[] {o});
+                        var sessions =
+                            ReflectionHelper
+                                .GetPrivateFieldValue<ConcurrentDictionary<IPEndPoint, PlayerNetworkSession>>(
+                                    typeof(MiNetServer), this, "_playerSessions");
+                        
+                        Parallel.ForEach(sessions.Values, (session, state) => session.SendTick(null));
+                    }, true, true);
+                
+                if (ServerRole == ServerRole.Proxy)
+                {
+                    _proxy = new ProxyServer(this, Endpoint);
+                    _proxy.Start();
+                }
 
-				Log.Info("Server open for business on port " + Endpoint?.Port + " ...");
+                Log.Info("Server open for business on port " + Endpoint?.Port + " ...");
 
                 return true;
             }
@@ -132,7 +151,7 @@ namespace OpenAPI
             return false;
         }
 
-	    public new bool StopServer()
+        public new bool StopServer()
 	    {
 		    if (base.StopServer())
 		    {
@@ -142,89 +161,5 @@ namespace OpenAPI
 
 		    return false;
 	    }
-
-        /// <summary>
-        /// Returns a _private_ Property Value from a given Object. Uses Reflection.
-        /// Throws a ArgumentOutOfRangeException if the Property is not found.
-        /// </summary>
-        /// <typeparam name="T">Type of the Property</typeparam>
-        /// <param name="obj">Object from where the Property Value is returned</param>
-        /// <param name="propName">Propertyname as string.</param>
-        /// <returns>PropertyValue</returns>
-        private static T GetPrivatePropertyValue<T>(Type t, object obj, string propName)
-        {
-            if (obj == null) throw new ArgumentNullException("obj");
-            PropertyInfo pi = t.GetProperty(propName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-            if (pi == null) throw new ArgumentOutOfRangeException("propName", string.Format("Property {0} was not found in Type {1}", propName, obj.GetType().FullName));
-            return (T)pi.GetValue(obj, null);
-        }
-        
-        private static T GetPrivateStaticPropertyValue<T>(Type t, string propName)
-        {
-            PropertyInfo pi = t.GetProperty(propName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
-            if (pi == null) throw new ArgumentOutOfRangeException("propName", string.Format("Property {0} was not found in Type {1}", propName));
-            return (T)pi.GetValue(null, null);
-        }
-
-        /// <summary>
-        /// Returns a private Property Value from a given Object. Uses Reflection.
-        /// Throws a ArgumentOutOfRangeException if the Property is not found.
-        /// </summary>
-        /// <typeparam name="T">Type of the Property</typeparam>
-        /// <param name="obj">Object from where the Property Value is returned</param>
-        /// <param name="propName">Propertyname as string.</param>
-        /// <returns>PropertyValue</returns>
-        private static T GetPrivateFieldValue<T>(Type t, object obj, string propName)
-        {
-            if (obj == null) throw new ArgumentNullException("obj");
-           // Type t = obj.GetType();
-            FieldInfo fi = null;
-            while (fi == null && t != null)
-            {
-                fi = t.GetField(propName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-                t = t.BaseType;
-            }
-            if (fi == null) throw new ArgumentOutOfRangeException("propName", string.Format("Field {0} was not found in Type {1}", propName, obj.GetType().FullName));
-            return (T)fi.GetValue(obj);
-        }
-
-        /// <summary>
-        /// Sets a _private_ Property Value from a given Object. Uses Reflection.
-        /// Throws a ArgumentOutOfRangeException if the Property is not found.
-        /// </summary>
-        /// <typeparam name="T">Type of the Property</typeparam>
-        /// <param name="obj">Object from where the Property Value is set</param>
-        /// <param name="propName">Propertyname as string.</param>
-        /// <param name="val">Value to set.</param>
-        /// <returns>PropertyValue</returns>
-        private static void SetPrivatePropertyValue<T>(Type t, object obj, string propName, T val)
-        {
-           // Type t = obj.GetType();
-            if (t.GetProperty(propName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance) == null)
-                throw new ArgumentOutOfRangeException("propName", string.Format("Property {0} was not found in Type {1}", propName, obj.GetType().FullName));
-            t.InvokeMember(propName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.SetProperty | BindingFlags.Instance, null, obj, new object[] { val });
-        }
-
-        /// <summary>
-        /// Set a private Property Value on a given Object. Uses Reflection.
-        /// </summary>
-        /// <typeparam name="T">Type of the Property</typeparam>
-        /// <param name="obj">Object from where the Property Value is returned</param>
-        /// <param name="propName">Propertyname as string.</param>
-        /// <param name="val">the value to set</param>
-        /// <exception cref="ArgumentOutOfRangeException">if the Property is not found</exception>
-        private static void SetPrivateFieldValue<T>(Type t, object obj, string propName, T val)
-        {
-            if (obj == null) throw new ArgumentNullException("obj");
-           // Type t = obj.GetType();
-            FieldInfo fi = null;
-            while (fi == null && t != null)
-            {
-                fi = t.GetField(propName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-                t = t.BaseType;
-            }
-            if (fi == null) throw new ArgumentOutOfRangeException("propName", string.Format("Field {0} was not found in Type {1}", propName, obj.GetType().FullName));
-            fi.SetValue(obj, val);
-        }
     }
 }

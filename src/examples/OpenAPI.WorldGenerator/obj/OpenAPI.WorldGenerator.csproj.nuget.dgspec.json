@@ -42,7 +42,7 @@
           "dependencies": {
             "MiNET": {
               "target": "Package",
-              "version": "[1.0.2051, )"
+              "version": "[1.0.2054, )"
             },
             "Microsoft.NETCore.App": {
               "suppressParent": "All",
@@ -107,7 +107,7 @@
           "dependencies": {
             "MiNET": {
               "target": "Package",
-              "version": "[1.0.2051, )"
+              "version": "[1.0.2054, )"
             },
             "Microsoft.NETCore.App": {
               "suppressParent": "All",

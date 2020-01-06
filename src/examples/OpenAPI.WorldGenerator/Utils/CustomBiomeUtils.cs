@@ -407,9 +407,9 @@ namespace OpenAPI.WorldGenerator.Utils
 
 				SoilBlock = 179, //Soil = Red Sandstone
 			},
-			new Biome {Id = 127, Name = "The Void", Temperature = 0.8f, Downfall = 0.4f},
-			new Biome {Id = 128, Name = "Unknown Biome", Temperature = 0.8f, Downfall = 0.4f},
-			new Biome {Id = 129, Name = "Sunflower Plains", Temperature = 0.8f, Downfall = 0.4f},
+		//	new Biome {Id = 127, Name = "The Void", Temperature = 0.8f, Downfall = 0.4f},
+		//	new Biome {Id = 128, Name = "Unknown Biome", Temperature = 0.8f, Downfall = 0.4f},
+		//	new Biome {Id = 129, Name = "Sunflower Plains", Temperature = 0.8f, Downfall = 0.4f},
 			new Biome
 			{
 				Id = 130,
@@ -429,14 +429,14 @@ namespace OpenAPI.WorldGenerator.Utils
 				MinHeight = 0.2f,
 				MaxHeight = 0.8f
 			},
-			new Biome {Id = 132, Name = "Flower Forest", Temperature = 0.7f, Downfall = 0.8f},
+		/*	new Biome {Id = 132, Name = "Flower Forest", Temperature = 0.7f, Downfall = 0.8f},
 			new Biome {Id = 133, Name = "Taiga M", Temperature = 0.05f, Downfall = 0.8f},
 			new Biome {Id = 134, Name = "Swampland M", Temperature = 0.8f, Downfall = 0.9f},
 			new Biome {Id = 140, Name = "Ice Plains Spikes", Temperature = 0.0f, Downfall = 0.5f},
 			new Biome {Id = 149, Name = "Jungle M", Temperature = 1.2f, Downfall = 0.9f},
 			new Biome {Id = 150, Name = "Unknown Biome", Temperature = 0.8f, Downfall = 0.4f},
 			new Biome {Id = 151, Name = "JungleEdge M", Temperature = 0.95f, Downfall = 0.8f},
-			new Biome {Id = 155, Name = "Birch Forest M", Temperature = 0.6f, Downfall = 0.6f},
+			new Biome {Id = 155, Name = "Birch Forest M", Temperature = 0.6f, Downfall = 0.6f},*/
 			new Biome
 			{
 				Id = 156,
@@ -446,9 +446,9 @@ namespace OpenAPI.WorldGenerator.Utils
 				MinHeight = 0.2f,
 				MaxHeight = 0.8f
 			},
-			new Biome {Id = 157, Name = "Roofed Forest M", Temperature = 0.7f, Downfall = 0.8f},
+			/*new Biome {Id = 157, Name = "Roofed Forest M", Temperature = 0.7f, Downfall = 0.8f},
 			new Biome {Id = 158, Name = "Cold Taiga M", Temperature = -0.5f, Downfall = 0.4f},
-			new Biome {Id = 160, Name = "Mega Spruce Taiga", Temperature = 0.25f, Downfall = 0.8f},
+			new Biome {Id = 160, Name = "Mega Spruce Taiga", Temperature = 0.25f, Downfall = 0.8f},*/
 			// special exception, temperature not 0.3
 			new Biome
 			{
@@ -459,12 +459,12 @@ namespace OpenAPI.WorldGenerator.Utils
 				MinHeight = 0.2f,
 				MaxHeight = 0.8f
 			},
-			new Biome {Id = 162, Name = "Extreme Hills+ M", Temperature = 0.2f, Downfall = 0.3f},
+			/*new Biome {Id = 162, Name = "Extreme Hills+ M", Temperature = 0.2f, Downfall = 0.3f},
 			new Biome {Id = 163, Name = "Savanna M", Temperature = 1.2f, Downfall = 0.0f},
 			new Biome {Id = 164, Name = "Savanna Plateau M", Temperature = 1.0f, Downfall = 0.0f},
 			new Biome {Id = 165, Name = "Mesa (Bryce)", Temperature = 2.0f, Downfall = 0.0f},
 			new Biome {Id = 166, Name = "Mesa Plateau F M", Temperature = 2.0f, Downfall = 0.0f},
-			new Biome {Id = 167, Name = "Mesa Plateau M", Temperature = 2.0f, Downfall = 0.0f},
+			new Biome {Id = 167, Name = "Mesa Plateau M", Temperature = 2.0f, Downfall = 0.0f},*/
 		};
 
 		private struct BiomeCorner
@@ -482,11 +482,17 @@ namespace OpenAPI.WorldGenerator.Utils
 			float maxTemp = float.MinValue;
 			float minRain = float.MaxValue;
 			float maxRain = float.MinValue;
+
+			float minHeight = float.MaxValue;
+			float maxHeight = float.MinValue;
 			for (int i = 0; i < Biomes.Length; i++)
 			{
 				var biome = Biomes[i];
 				var min = MathF.Min(biome.MinHeight, biome.MaxHeight);
 				var max = MathF.Max(biome.MinHeight, biome.MaxHeight);
+
+				minHeight = Math.Min(minHeight, min);
+				maxHeight = Math.Max(maxHeight, max);
 
 				min = MathUtils.ConvertRange(-2f, 2f, 0f, 128f, biome.MinHeight);
 				max = MathUtils.ConvertRange(-2f, 2f, 0f, 128f, biome.MaxHeight);
@@ -510,10 +516,10 @@ namespace OpenAPI.WorldGenerator.Utils
 				{
 					maxRain = biome.Downfall;
 				}
-
+				
 				Biomes[i] = biome;
 			}
-			Console.WriteLine($"Temperature (min: {minTemp} max: {maxTemp}) Downfall (min:{minRain} max: {maxRain})");
+			Console.WriteLine($"Temperature (min: {minTemp} max: {maxTemp}) Downfall (min:{minRain} max: {maxRain}) Height (min: {minHeight} max: {maxHeight})");
 		}
 
 		//$c = self::interpolateColor(256, $x, $z, [0x47, 0xd0, 0x33], [0x6c, 0xb4, 0x93], [0xbf, 0xb6, 0x55], [0x80, 0xb4, 0x97]);
@@ -708,6 +714,12 @@ namespace OpenAPI.WorldGenerator.Utils
 			return biome;
 		}
 
+		public static Biome[] GetOrderedBiomes(float temp, float rain)
+		{
+			return Biomes.OrderBy(x => GetSquaredDistance(x, temp, rain)).ToArray();
+			//return Biomes.ToDictionary(x => GetSquaredDistance(x, temp, rain)).Where(x=> x.Key < 5).Select(x => x.Value).ToArray();
+		}
+		
 		public static Dictionary<Biome, double> GetBiomes(float temp, float rain)
 		{
 			if (temp < -1f || temp > 2f || rain < 0f || rain > 1f)
@@ -781,7 +793,7 @@ namespace OpenAPI.WorldGenerator.Utils
 			return closest;
 		}
 
-		private static float GetSquaredDistance(Biome biome, float temp, float rain)
+		public static float GetSquaredDistance(Biome biome, float temp, float rain)
 		{
 			return MathF.Abs((biome.Temperature - temp) * (biome.Temperature - temp) + (biome.Downfall - rain) * (biome.Downfall - rain));
 		}

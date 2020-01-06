@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Reflection;
 using System.Threading;
 using log4net;
 using MiNET;
@@ -43,6 +44,14 @@ namespace OpenAPI.World
 			TickScheduler = new TickScheduler();
 
 			EventDispatcher = new EventDispatcher(openApi, OpenAPI.EventDispatcher);
+		}
+
+		private BypassHighPrecisionTimer _unixTicker = null;
+
+		internal void InitUnix()
+		{
+			_unixTicker =
+				new BypassHighPrecisionTimer(50, (o) => { ReflectionHelper.InvokePrivateMethod(this, "WorldTick", new[] {o}); }, false, false);
 		}
 
 		private bool _closed;

@@ -340,14 +340,14 @@
           }
         }
       },
-      "MiNET/1.0.2051": {
+      "MiNET/1.0.2054": {
         "type": "package",
         "dependencies": {
           "CoreCompat.System.Drawing.v2": "5.2.0-preview1-r131",
           "LibNoise.NetStandart": "0.2.0",
           "MiNET.LevelDB": "1.0.14",
           "MiNET.astar": "1.0.14",
-          "MiNET.fnbt": "1.0.17",
+          "MiNET.fnbt": "1.0.22",
           "Microsoft.IO.RecyclableMemoryStream": "1.2.2",
           "Newtonsoft.Json": "12.0.2",
           "Portable.BouncyCastle": "1.8.5",
@@ -372,7 +372,7 @@
           "lib/netcoreapp2.1/AStarNavigator.dll": {}
         }
       },
-      "MiNET.fnbt/1.0.17": {
+      "MiNET.fnbt/1.0.22": {
         "type": "package",
         "compile": {
           "lib/netcoreapp2.1/fNbt.dll": {}
@@ -1892,7 +1892,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
-          "MiNET": "1.0.2051",
+          "MiNET": "1.0.2054",
           "Mono.Cecil": "0.10.0",
           "OpenMiNET.OpenAPI.Locale": "0.0.0"
         },
@@ -1907,7 +1907,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
-          "MiNET": "1.0.2051"
+          "MiNET": "1.0.2054"
         },
         "compile": {
           "bin/placeholder/OpenMiNET.OpenAPI.Locale.dll": {}
@@ -2438,15 +2438,15 @@
         "runtimes/win/lib/netstandard1.3/Microsoft.Win32.Registry.dll"
       ]
     },
-    "MiNET/1.0.2051": {
-      "sha512": "fq1ABmM62MMugQ5vq3q8+O/juxuJD4duI84pLERdT2jigF0gxqJkP5kk97xZuq4ZTUMlMSqNO62vEjicK9oJsg==",
+    "MiNET/1.0.2054": {
+      "sha512": "1DRAkq/dtfH2uxdTkU50JzroM/7d+hEtu9Y6A/QCox6XIQRqGjiKHJGDl9q4xltGxJjQRz5UI6WOF0Zzw6dIzA==",
       "type": "package",
-      "path": "minet/1.0.2051",
+      "path": "minet/1.0.2054",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netcoreapp2.1/MiNET.dll",
-        "minet.1.0.2051.nupkg.sha512",
+        "minet.1.0.2054.nupkg.sha512",
         "minet.nuspec"
       ]
     },
@@ -2462,15 +2462,15 @@
         "minet.astar.nuspec"
       ]
     },
-    "MiNET.fnbt/1.0.17": {
-      "sha512": "TT+q/lD7YD+axK0UCE3F22KfdsBBFe+ruKYzYjqDb5kEx/UDLO2Vz22+yx31iiw0N3QNBHXhFMpf8zdVS0PFCA==",
+    "MiNET.fnbt/1.0.22": {
+      "sha512": "gMEJPFWHJ+WXKLnfu5INM6Vn+tgsUpfwhYevnafCCOFDIKFJjCstDBUVYAbbtfe99ZM94Cd9OL2PBJ2pY3bhAA==",
       "type": "package",
-      "path": "minet.fnbt/1.0.17",
+      "path": "minet.fnbt/1.0.22",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netcoreapp2.1/fNbt.dll",
-        "minet.fnbt.1.0.17.nupkg.sha512",
+        "minet.fnbt.1.0.22.nupkg.sha512",
         "minet.fnbt.nuspec"
       ]
     },
