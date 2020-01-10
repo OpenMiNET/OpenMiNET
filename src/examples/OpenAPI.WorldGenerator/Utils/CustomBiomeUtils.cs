@@ -99,7 +99,7 @@ namespace OpenAPI.WorldGenerator.Utils
 				MinHeight = -0.5f,
 				MaxHeight = 0f
 			}, // default values of temp and rain
-			new Biome
+			/*new Biome
 			{
 				Id = 8,
 				Name = "Nether",
@@ -107,8 +107,8 @@ namespace OpenAPI.WorldGenerator.Utils
 				Downfall = 0.0f,
 				MinHeight = 0.1f,
 				MaxHeight = 0.2f, //TODO!
-			},
-			new Biome
+			},*/
+			/*new Biome
 			{
 				Id = 9,
 				Name = "End",
@@ -116,7 +116,7 @@ namespace OpenAPI.WorldGenerator.Utils
 				Downfall = 0.5f,
 				MinHeight = 0.1f,
 				MaxHeight = 0.2f, //TODO!
-			}, // default values of temp and rain
+			},*/ // default values of temp and rain
 			new Biome
 			{
 				Id = 10,

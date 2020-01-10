@@ -137,7 +137,7 @@ namespace OpenAPI.WorldGenerator.Generators
             var biomes = biomesTask.Result;
             var thresholdMap = thresholdMapTask.Result;
             
-            var heightMap = await GenerateHeightMap(biomes, coordinates.X, coordinates.X);
+            var heightMap = await GenerateHeightMap(biomes, coordinates.X, coordinates.Z);
 
             return (baseHeight, heightMap, thresholdMap, biomes);
         }
@@ -185,7 +185,7 @@ namespace OpenAPI.WorldGenerator.Generators
             }
         }
 
-        private async Task<float[]> GenerateSmoothMap(IModule2D noise, float noiseMin, float noiseMax, float rangeStart, float rangeEnd, int chunkX, int chunkZ)
+        public async Task<float[]> GenerateSmoothMap(IModule2D noise, float noiseMin, float noiseMax, float rangeStart, float rangeEnd, int chunkX, int chunkZ)
         {
             return await Task.Run(() =>
             {
@@ -306,6 +306,17 @@ namespace OpenAPI.WorldGenerator.Generators
                 int cx = (chunkX * 16);
                 int cz = (chunkZ * 16);
 
+                /*float q11 = MathUtils.Lerp(biomes[0].MinHeight, biomes[0].MaxHeight,
+                    MathUtils.ConvertRange(-1f, 1f, 0f, 1f, NoiseProvider.TerrainNoise.GetValue(minX, minZ)));
+                float q12 = MathUtils.Lerp(biomes[15].MinHeight, biomes[15].MaxHeight,
+                    MathUtils.ConvertRange(-1f, 1f, 0f, 1f, NoiseProvider.TerrainNoise.GetValue(minX, maxZ)));
+
+                float q21 = MathUtils.Lerp(biomes[240].MinHeight, biomes[240].MaxHeight,
+                    MathUtils.ConvertRange(-1f, 1f, 0f, 1f,NoiseProvider.TerrainNoise.GetValue(maxX, minZ)));
+                float q22 = MathUtils.Lerp(biomes[255].MinHeight, biomes[255].MaxHeight,
+                    MathUtils.ConvertRange(-1f, 1f, 0f, 1f, NoiseProvider.TerrainNoise.GetValue(maxX, maxZ)));*/
+
+                
                 float q11 = MathUtils.Lerp(biomes[0].MinHeight, biomes[0].MaxHeight,
                     NoiseProvider.TerrainNoise.GetValue(minX, minZ));
                 float q12 = MathUtils.Lerp(biomes[15].MinHeight, biomes[15].MaxHeight,
@@ -315,7 +326,7 @@ namespace OpenAPI.WorldGenerator.Generators
                     NoiseProvider.TerrainNoise.GetValue(maxX, minZ));
                 float q22 = MathUtils.Lerp(biomes[255].MinHeight, biomes[255].MaxHeight,
                     NoiseProvider.TerrainNoise.GetValue(maxX, maxZ));
-
+                
                 float[] heightMap = new float[16 * 16];
 
                 for (int x = 0; x < 16; x++)
@@ -344,7 +355,7 @@ namespace OpenAPI.WorldGenerator.Generators
             });
         }
 
-        private Biome GetBiome(float x, float z, float height)
+        public Biome GetBiome(float x, float z, float height)
         {
            // x /= CoordinateScale;
           //  z /= CoordinateScale;
@@ -356,12 +367,20 @@ namespace OpenAPI.WorldGenerator.Generators
             var rain = MathUtils.ConvertRange(-1f, 1f, 0, 1f, NoiseProvider.RainNoise.GetValue(mX, mZ));//MathUtils.ConvertRange(0f, 1f, 0f, 2f, _rainNoise.GetValue(mX, mZ));// _rainNoise.GetValue(mX, mZ);
 
             var terrainHeight = NoiseProvider.TerrainNoise.GetValue(mX, mZ);
+                //     terrainHeight = MathUtils.ConvertRange(-1f, 1f, 0f, 1f, terrainHeight);
 
-            return BiomeUtils.Biomes.OrderBy(biome =>
-           {
-               var avg = MathUtils.Lerp(biome.MinHeight, biome.MaxHeight, MathUtils.ConvertRange(-1f, 1f, 0f, 1f, terrainHeight));
-               return MathF.Abs((avg - height) * (avg - height));
-           }).ThenBy(bb => Math.Abs(bb.Temperature - temp)).ThenBy(bb => Math.Abs(bb.Downfall - rain)).FirstOrDefault();
+               /* return BiomeUtils.Biomes
+                    .OrderBy(biome =>
+                        MathF.Abs((MathUtils.Lerp(biome.MinHeight, biome.MaxHeight, terrainHeight) - height)))
+                    .ThenBy(biome => BiomeUtils.GetSquaredDistance(biome, temp, rain))
+                    //.ThenBy(bb => Math.Abs(bb.Temperature - temp)).ThenBy(bb => Math.Abs(bb.Downfall - rain))
+                    .FirstOrDefault();*/
+               
+               return BiomeUtils.Biomes
+                   .OrderBy(bb => Math.Abs(bb.Temperature - temp)).ThenBy(bb => Math.Abs(bb.Downfall - rain))
+                   .ThenBy(biome => MathF.Abs((MathUtils.Lerp(biome.MinHeight, biome.MaxHeight, terrainHeight) - height)))
+                   //.ThenBy(bb => Math.Abs(bb.Temperature - temp)).ThenBy(bb => Math.Abs(bb.Downfall - rain))
+                   .FirstOrDefault();
             
             //var upper = _upperLimit.GetValue(mX, mZ);
             //var lower = _lowerLimit.GetValue(mX, mZ);
@@ -378,7 +397,7 @@ namespace OpenAPI.WorldGenerator.Generators
            return  BiomeUtils.GetBiome(temp, rain);
         }
 
-        private async Task<Biome[]> CalculateBiomes(float[] baseHeight, int chunkX, int chunkZ)
+        public async Task<Biome[]> CalculateBiomes(float[] baseHeight, int chunkX, int chunkZ)
         {
            // chunkX *= 16;
            //
@@ -396,10 +415,10 @@ namespace OpenAPI.WorldGenerator.Generators
 
                 for (int x = 0; x < 16; x++)
                 {
-                    float rx = MathUtils.Lerp(minX, maxX, (1f / 15f) * x);
+                    float rx = MathUtils.Lerp(minX, maxX, (1f / 16f) * x);
                     for (int z = 0; z < 16; z++)
                     {
-                        var rz = MathUtils.Lerp(minZ, maxZ, (1f / 15f) * z);
+                        var rz = MathUtils.Lerp(minZ, maxZ, (1f / 16f) * z);
                         var idx = GetIndex(x, z);
                         
                         var biome = GetBiome(rx, rz, baseHeight[idx]);
