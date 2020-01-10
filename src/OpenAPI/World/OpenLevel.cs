@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Reflection;
 using System.Threading;
 using log4net;
 using MiNET;
@@ -28,21 +29,34 @@ namespace OpenAPI.World
 		public TickScheduler TickScheduler { get; }
 		public OpenAPI OpenAPI { get; }
 		private CancellationTokenSource CancelationToken { get; }
-		public OpenLevel(OpenAPI openApi, 
+
+		public OpenLevel(OpenAPI openApi,
 			OpenLevelManager levelManager,
 			string levelId,
-			IWorldProvider worldProvider, 
+			IWorldProvider worldProvider,
 			EntityManager entityManager,
 			GameMode gameMode = GameMode.Survival,
 			Difficulty difficulty = Difficulty.Normal,
-			int viewDistance = 11) 
-			: base(levelManager, levelId, worldProvider, entityManager, gameMode, difficulty, viewDistance)
+			int viewDistance = 11)
+			: base(levelManager, levelId,
+				(worldProvider is ICachingWorldProvider)
+					? new WrappedCachedWorldProvider(openApi, worldProvider)
+					: new WrappedWorldProvider(openApi, worldProvider), entityManager, gameMode, difficulty,
+				viewDistance)
 		{
 			OpenAPI = openApi;
 			CancelationToken = new CancellationTokenSource();
 			TickScheduler = new TickScheduler();
 
 			EventDispatcher = new EventDispatcher(openApi, OpenAPI.EventDispatcher);
+		}
+
+		private BypassHighPrecisionTimer _unixTicker = null;
+
+		internal void InitUnix()
+		{
+			_unixTicker =
+				new BypassHighPrecisionTimer(50, (o) => { ReflectionHelper.InvokePrivateMethod(this, "WorldTick", new[] {o}); }, false, false);
 		}
 
 		private bool _closed;

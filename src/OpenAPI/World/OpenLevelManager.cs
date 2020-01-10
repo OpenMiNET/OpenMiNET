@@ -168,17 +168,27 @@ namespace OpenAPI.World
 
 		public void LoadLevel(OpenLevel openLevel)
 		{
-			openLevel.Initialize();
-
-		/*	if (Config.GetProperty("CalculateLights", false) && openLevel.WorldProvider is WrappedAnvilWorldProvider wawp)
+			try
 			{
-				wawp.Locked = true;
+				openLevel.Initialize();
+			}
+			catch (DllNotFoundException ex)
+			{
+				if (ex.Message.Contains("winmm.dll"))
+				{
+					openLevel.InitUnix();
+				}
+			}
 
-				//SkyLightCalculations.Calculate(openLevel);
-				//RecalculateBlockLight(openLevel, wawp.AnvilProvider);
-
-				wawp.Locked = false;
-			}*/
+			/*	if (Config.GetProperty("CalculateLights", false) && openLevel.WorldProvider is WrappedAnvilWorldProvider wawp)
+				{
+					wawp.Locked = true;
+	
+					//SkyLightCalculations.Calculate(openLevel);
+					//RecalculateBlockLight(openLevel, wawp.AnvilProvider);
+	
+					wawp.Locked = false;
+				}*/
 
 			if (_levels.TryAdd(openLevel.LevelId, openLevel))
 			{

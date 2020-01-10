@@ -158,7 +158,8 @@ namespace OpenAPI.World
 			var schematicFile = new NbtFile();
 			schematicFile.LoadFromStream(stream, NbtCompression.AutoDetect);
 			stream.Close();
-			NbtCompound nbt = schematicFile.RootTag;
+
+			NbtCompound nbt = schematicFile.RootTag as NbtCompound;
 
 			Width = nbt["Width"].IntValue;
 			Height = nbt["Height"].IntValue;

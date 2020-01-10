@@ -229,26 +229,26 @@ namespace OpenAPI.Player
 	        Level.BroadcastMessage(chatEvent.Message, sender: this);
 		}
 
-	    protected override void HandleItemUseOnEntityTransactions(Transaction transaction)
+        protected override void HandleItemUseOnEntityTransaction(ItemUseOnEntityTransaction transaction)
         {
 	        if (!Level.TryGetEntity<Entity>(transaction.EntityId, out var entity) || !entity.IsSpawned || entity.HealthManager.IsDead || entity.HealthManager.IsInvulnerable)
 	        {
 		        return;
 	        }
-       //     var entity = Level.GetEntity(transaction.EntityId);
-          //  if (entity == null || !entity.IsSpawned || entity.HealthManager.IsDead || entity.HealthManager.IsInvulnerable)
-          //      return;
+	        //     var entity = Level.GetEntity(transaction.EntityId);
+	        //  if (entity == null || !entity.IsSpawned || entity.HealthManager.IsDead || entity.HealthManager.IsInvulnerable)
+	        //      return;
 
-			var actionType = (McpeInventoryTransaction.ItemUseOnEntityAction) transaction.ActionType;
+	        var actionType = (McpeInventoryTransaction.ItemUseOnEntityAction) transaction.ActionType;
 			
-			EntityInteractEvent interactEvent = new EntityInteractEvent(entity, this, actionType);
-			EventDispatcher.DispatchEvent(interactEvent);
-			if (interactEvent.IsCancelled) return;
+	        EntityInteractEvent interactEvent = new EntityInteractEvent(entity, this, actionType);
+	        EventDispatcher.DispatchEvent(interactEvent);
+	        if (interactEvent.IsCancelled) return;
 
-            base.HandleItemUseOnEntityTransactions(transaction);
+	        base.HandleItemUseOnEntityTransaction(transaction);
         }
-
-	    protected override void HandleItemReleaseTransactions(Transaction transaction)
+        
+        protected override void HandleItemReleaseTransaction(ItemReleaseTransaction transaction)
 	    {
 		    Item itemInHand = Inventory.GetItemInHand();
 			switch ((McpeInventoryTransaction.ItemReleaseAction) transaction.ActionType)
@@ -257,7 +257,8 @@ namespace OpenAPI.Player
 			    {
 				    if (!DropItem(itemInHand, new ItemAir()))
 				    {
-					    HandleNormalTransactions(transaction);
+					    //HandleNormalTransaction(transaction);
+					    HandleTransactionRecords(transaction.TransactionRecords);
 					    return;
 				    }
 
@@ -267,7 +268,8 @@ namespace OpenAPI.Player
 			    {
 				    if (!UseItem(itemInHand))
 				    {
-					    HandleNormalTransactions(transaction);
+					    HandleTransactionRecords(transaction.TransactionRecords);
+					    //HandleNormalTransaction(transaction);
 					    return;
 				    }
 
@@ -275,12 +277,37 @@ namespace OpenAPI.Player
 			    }
 		    }
 
-		    base.HandleItemReleaseTransactions(transaction);
+		    base.HandleItemReleaseTransaction(transaction);
 	    }
-
-	    public override void DropItem(Item item)
+	    
+	    protected override void HandleItemUseTransaction(ItemUseTransaction transaction)
 	    {
-		    base.DropItem(item);
+		    var itemInHand = Inventory.GetItemInHand();
+
+		    switch ((McpeInventoryTransaction.ItemUseAction) transaction.ActionType)
+		    {
+			    case McpeInventoryTransaction.ItemUseAction.Destroy:
+			    {
+				    break;
+			    }
+			    case McpeInventoryTransaction.ItemUseAction.Use:
+			    {
+				    if (!UseItem(itemInHand))
+				    {
+					    //HandleNormalTransaction(transaction);
+					    HandleTransactionRecords(transaction.TransactionRecords);
+					    return;
+				    }
+
+				    break;
+			    }
+			    case McpeInventoryTransaction.ItemUseAction.Place:
+			    {
+				    break;
+			    }
+		    }
+
+		    base.HandleItemUseTransaction(transaction);
 	    }
 
 	    private bool UseItem(Item usedItem)
@@ -419,51 +446,22 @@ namespace OpenAPI.Player
             e.OnComplete();
 		}
 
-	    protected override void HandleItemUseTransactions(Transaction transaction)
+	    /*protected override bool CanBreakBlock(Block block, Item itemInHand)
 	    {
-		    var itemInHand = Inventory.GetItemInHand();
-
-		    switch ((McpeInventoryTransaction.ItemUseAction) transaction.ActionType)
-		    {
-			    case McpeInventoryTransaction.ItemUseAction.Destroy:
-			    {
-				    break;
-			    }
-			    case McpeInventoryTransaction.ItemUseAction.Use:
-			    {
-				    if (!UseItem(itemInHand))
-				    {
-					    HandleNormalTransactions(transaction);
-					    return;
-				    }
-
-				    break;
-				}
-				case McpeInventoryTransaction.ItemUseAction.Place:
-				{
-					break;
-				}
-		    }
-
-		    base.HandleItemUseTransactions(transaction);
-	    }
-
-		/*protected override bool CanBreakBlock(Block block, Item itemInHand)
-		{
-		    if (GameMode == GameMode.Creative)
-		    {
-		        BlockBreakEvent e = new BlockBreakEvent(this, block);
-		        EventDispatcher.DispatchEvent(e);
-		        if (e.IsCancelled) return false;
+	        if (GameMode == GameMode.Creative)
+	        {
+	            BlockBreakEvent e = new BlockBreakEvent(this, block);
+	            EventDispatcher.DispatchEvent(e);
+	            if (e.IsCancelled) return false;
                 
-		        block.BreakBlock(Level);
+	            block.BreakBlock(Level);
 
                 e.OnComplete();
-		        return true;
-		    }
+	            return true;
+	        }
 
-			return false;
-		}*/
+		    return false;
+	    }*/
 
 	    private Dictionary<PlayerInput, PlayerInputState> _inputStates = new Dictionary<PlayerInput, PlayerInputState>()
 	    {
@@ -548,7 +546,7 @@ namespace OpenAPI.Player
 	        chunkData.packageId = message.packageId;
 	        chunkData.chunkIndex = message.chunkIndex;
 	        chunkData.progress = (_maxChunkSize * message.chunkIndex);
-	        chunkData.length = (uint) chunk.Length;
+	        //chunkData.length = (uint) chunk.Length;
 	        chunkData.payload = chunk;
 	        SendPacket(chunkData);
         }
