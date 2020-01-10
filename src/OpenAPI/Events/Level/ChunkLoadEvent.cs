@@ -6,7 +6,7 @@ namespace OpenAPI.Events.Level
 {
 	public class ChunkLoadEvent : ChunkEvent
 	{
-		public ChunkLoadEvent(ChunkColumn chunk) : base(chunk)
+		public ChunkLoadEvent(ChunkColumn chunk, OpenLevel level) : base(chunk, level)
 		{
 			
 		}
@@ -14,7 +14,7 @@ namespace OpenAPI.Events.Level
 
 	public class ChunkSaveEvent : ChunkEvent
 	{
-		public ChunkSaveEvent(ChunkColumn chunk) : base(chunk)
+		public ChunkSaveEvent(ChunkColumn chunk, OpenLevel level) : base(chunk, level)
 		{
 			
 		}

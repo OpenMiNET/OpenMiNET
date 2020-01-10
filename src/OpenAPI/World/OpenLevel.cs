@@ -49,6 +49,11 @@ namespace OpenAPI.World
 			TickScheduler = new TickScheduler();
 
 			EventDispatcher = new EventDispatcher(openApi, OpenAPI.EventDispatcher);
+
+			if (WorldProvider is WrappedWorldProvider wrapped)
+			{
+				wrapped.Level = this;
+			}
 		}
 
 		private BypassHighPrecisionTimer _unixTicker = null;

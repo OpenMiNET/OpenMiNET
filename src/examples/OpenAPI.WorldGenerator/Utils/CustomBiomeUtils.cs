@@ -379,7 +379,7 @@ namespace OpenAPI.WorldGenerator.Utils
 
 				SoilBlock = 179, //Soil = Red Sandstone
 			},
-			new Biome
+			/*new Biome
 			{
 				Id = 38,
 				Name = "Mesa Plateau F",
@@ -406,7 +406,7 @@ namespace OpenAPI.WorldGenerator.Utils
 				SurfaceMetadata = 1,
 
 				SoilBlock = 179, //Soil = Red Sandstone
-			},
+			},*/
 		//	new Biome {Id = 127, Name = "The Void", Temperature = 0.8f, Downfall = 0.4f},
 		//	new Biome {Id = 128, Name = "Unknown Biome", Temperature = 0.8f, Downfall = 0.4f},
 		//	new Biome {Id = 129, Name = "Sunflower Plains", Temperature = 0.8f, Downfall = 0.4f},
@@ -714,9 +714,13 @@ namespace OpenAPI.WorldGenerator.Utils
 			return biome;
 		}
 
-		public static Biome[] GetOrderedBiomes(float temp, float rain)
+		public static Biome[] GetClose(float temp, float rain, float height)
 		{
-			return Biomes.OrderBy(x => GetSquaredDistance(x, temp, rain)).ToArray();
+			return Biomes.OrderBy(biome =>
+			{
+				var avg = MathUtils.Lerp(biome.MinHeight, biome.MaxHeight, 0.5f);
+				return MathF.Abs((avg - height) * (avg - height));
+			}).ThenBy(x => GetSquaredDistance(x, temp, rain)).ToArray();
 			//return Biomes.ToDictionary(x => GetSquaredDistance(x, temp, rain)).Where(x=> x.Key < 5).Select(x => x.Value).ToArray();
 		}
 		
@@ -777,6 +781,11 @@ namespace OpenAPI.WorldGenerator.Utils
 
 		private static Biome ClosestTo(IEnumerable<Biome> collection, float targetTemp, float targetRain)
 		{
+			var temperatureOrdering = collection.OrderBy(x => MathF.Abs(x.Temperature - targetTemp)).Take(3);
+			var closestRainfall = temperatureOrdering.OrderBy(x => MathF.Abs(x.Temperature - targetRain));
+
+			return closestRainfall.FirstOrDefault();
+			
 			Biome closest = null;
 			float closestDistance = float.MaxValue;
 			foreach (var element in collection)

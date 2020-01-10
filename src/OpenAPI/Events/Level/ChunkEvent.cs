@@ -3,10 +3,10 @@ using OpenAPI.World;
 
 namespace OpenAPI.Events.Level
 {
-	public class ChunkEvent : Event
+	public class ChunkEvent : LevelEvent
 	{
 		public ChunkColumn Chunk { get; }
-		public ChunkEvent(ChunkColumn chunk) : base()
+		public ChunkEvent(ChunkColumn chunk, OpenLevel level) : base(level)
 		{
 			Chunk = chunk;
 		}

@@ -10,6 +10,7 @@ namespace OpenAPI.World
     {
         protected OpenAPI Api { get; }
         private IWorldProvider WorldProvider { get; }
+        public OpenLevel Level { get; set; }
         public WrappedWorldProvider(OpenAPI api, IWorldProvider worldProvider)
         {
             Api = api;
@@ -25,7 +26,7 @@ namespace OpenAPI.World
         {
             var chunk = WorldProvider.GenerateChunkColumn(chunkCoordinates, cacheOnly);
             
-            Api.EventDispatcher.DispatchEvent(new ChunkGeneratedEvent(chunkCoordinates, chunk));
+            Api.EventDispatcher.DispatchEvent(new ChunkGeneratedEvent(chunkCoordinates, chunk, Level));
             
             return chunk;
         }
@@ -87,7 +88,7 @@ namespace OpenAPI.World
 
             if (!before.Any(x => x.x == chunk.x && x.z == chunk.z))
             {
-                Api.EventDispatcher.DispatchEvent(new ChunkLoadEvent(chunk));
+                Api.EventDispatcher.DispatchEvent(new ChunkLoadEvent(chunk, Level));
             }
             
             return chunk;
@@ -116,7 +117,7 @@ namespace OpenAPI.World
 
                 foreach (var uc in unloadedChunks)
                 {
-                    Api.EventDispatcher.DispatchEvent(new ChunkUnloadEvent(uc));
+                    Api.EventDispatcher.DispatchEvent(new ChunkUnloadEvent(uc, Level));
                 }
             }
 

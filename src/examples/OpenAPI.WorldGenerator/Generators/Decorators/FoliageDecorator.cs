@@ -52,9 +52,9 @@ namespace OpenAPI.WorldGenerator.Generators.Decorators
 							}
 						}
 
-						if (tree == null && biome.Downfall >= 0 && (noise > ((1f - biome.Downfall) /* + 0.5*/) + (y/512f)))
+						if (tree == null && biome.Downfall >= 0 && (noise > (((Math.Min(biome.Downfall, 1f - biome.Downfall)) /* + 0.5*/) + (y/512f))))
 						{
-							if (currentTemperature >= 1f && biome.Downfall >= 0.2f)
+							if (currentTemperature >= 1f && biome.Downfall >= 0.4f)
 							{
 								if (GetRandom(8) == 4)
 								{
