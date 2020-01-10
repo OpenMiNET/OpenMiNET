@@ -90,18 +90,12 @@ namespace OpenAPI.WorldGenerator.Generators
                 i.SetSeed(Seed);
             }
 
-            var baseHeight =
-                await GenerateSmoothMap(NoiseProvider.BaseHeightNoise, -1f, 1f, 0f, 128f, chunk.x, chunk.z);
+            var res = await GenerateNeeded(chunkCoordinates);
 
-            var biomesTask = CalculateBiomes(baseHeight, chunk.x, chunk.z);
-            var thresholdMapTask = GetThresholdMap(chunk.x, chunk.z);
-
-            await Task.WhenAll(biomesTask, thresholdMapTask);
-
-            var biomes = biomesTask.Result;
-            var thresholdMap = thresholdMapTask.Result;
+            var heightMap = res.heightMap;
+            var thresholdMap = res.thresholdMap;
+            var biomes = res.biomes;
             
-            var heightMap = await GenerateHeightMap(biomes, chunk.x, chunk.z);
             var blocks = await CreateTerrainShape(heightMap, thresholdMap);
             
             int[] metadata = new int[16 * 16 * 256];
@@ -128,6 +122,24 @@ namespace OpenAPI.WorldGenerator.Generators
             }
 
             return chunk;
+        }
+
+        public async Task<(float[] baseHeight, float[] heightMap, float[] thresholdMap, Biome[] biomes)> GenerateNeeded(ChunkCoordinates coordinates)
+        {
+            var baseHeight =
+                await GenerateSmoothMap(NoiseProvider.BaseHeightNoise, -1f, 1f, 0f, 128f, coordinates.X, coordinates.Z);
+
+            var biomesTask = CalculateBiomes(baseHeight, coordinates.X, coordinates.Z);
+            var thresholdMapTask = GetThresholdMap(coordinates.X, coordinates.Z);
+
+            await Task.WhenAll(biomesTask, thresholdMapTask);
+
+            var biomes = biomesTask.Result;
+            var thresholdMap = thresholdMapTask.Result;
+            
+            var heightMap = await GenerateHeightMap(biomes, coordinates.X, coordinates.X);
+
+            return (baseHeight, heightMap, thresholdMap, biomes);
         }
         
         private void DecorateChunk(int chunkX, int chunkZ, int[] blocks, int[] metadata, float[] heightMap, float[] thresholdMap, Biome[] biomes,
