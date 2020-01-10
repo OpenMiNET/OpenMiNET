@@ -20,14 +20,14 @@
           "/home/kenny/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp2.1"
+          "netcoreapp3.0"
         ],
         "sources": {
           "https://api.nuget.org/v3/index.json": {},
           "https://nuget.herobalancer.app/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp2.1": {
+          "netcoreapp3.0": {
             "projectReferences": {}
           }
         },
@@ -38,17 +38,11 @@
         }
       },
       "frameworks": {
-        "netcoreapp2.1": {
+        "netcoreapp3.0": {
           "dependencies": {
             "MiNET": {
               "target": "Package",
               "version": "[1.0.2054, )"
-            },
-            "Microsoft.NETCore.App": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.1.0, )",
-              "autoReferenced": true
             }
           },
           "imports": [
@@ -61,6 +55,11 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
           "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.0.100/RuntimeIdentifierGraph.json"
         }
       }
@@ -81,14 +80,14 @@
           "/home/kenny/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp2.1"
+          "netcoreapp3.0"
         ],
         "sources": {
           "https://api.nuget.org/v3/index.json": {},
           "https://nuget.herobalancer.app/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp2.1": {
+          "netcoreapp3.0": {
             "projectReferences": {
               "/home/kenny/github/OpenAPI/src/OpenAPI.Locale/OpenAPI.Locale.csproj": {
                 "projectPath": "/home/kenny/github/OpenAPI/src/OpenAPI.Locale/OpenAPI.Locale.csproj"
@@ -103,17 +102,11 @@
         }
       },
       "frameworks": {
-        "netcoreapp2.1": {
+        "netcoreapp3.0": {
           "dependencies": {
             "MiNET": {
               "target": "Package",
               "version": "[1.0.2054, )"
-            },
-            "Microsoft.NETCore.App": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.1.0, )",
-              "autoReferenced": true
             },
             "Mono.Cecil": {
               "target": "Package",
@@ -130,6 +123,11 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
           "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.0.100/RuntimeIdentifierGraph.json"
         }
       }
@@ -150,14 +148,14 @@
           "/home/kenny/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp2.1"
+          "netcoreapp3.0"
         ],
         "sources": {
           "https://api.nuget.org/v3/index.json": {},
           "https://nuget.herobalancer.app/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp2.1": {
+          "netcoreapp3.0": {
             "projectReferences": {
               "/home/kenny/github/OpenAPI/src/OpenAPI/OpenAPI.csproj": {
                 "projectPath": "/home/kenny/github/OpenAPI/src/OpenAPI/OpenAPI.csproj"
@@ -172,15 +170,7 @@
         }
       },
       "frameworks": {
-        "netcoreapp2.1": {
-          "dependencies": {
-            "Microsoft.NETCore.App": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.1.0, )",
-              "autoReferenced": true
-            }
-          },
+        "netcoreapp3.0": {
           "imports": [
             "net461",
             "net462",
@@ -191,6 +181,11 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
           "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.0.100/RuntimeIdentifierGraph.json"
         }
       }
