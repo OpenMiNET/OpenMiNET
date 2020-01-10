@@ -150,13 +150,13 @@ namespace OpenAPI.WorldGenerator.Generators
         }
         
         private float MainNoiseFrequency = 0.295f;
-        private float MainNoiseLacunarity = 2.127f;
+        private float MainNoiseLacunarity = 1.127f;
         private float MainNoiseGain = 2f;//0.256f;
         private float MainNoiseSpectralExponent = 0.5f;//1f;//0.52f;//0.9f;//1.4f;
         private float MainNoiseOffset = 0f;// 0.312f;
 
         private float TemperatureFrequency = 0.283f;
-        private float RainFallFrequency = 1.03f;
+        private float RainFallFrequency = 0.73f;
         
        // private float MaxHeight = 256;
       //  public static float WaterLevel = 64;

@@ -86,7 +86,7 @@ namespace OpenAPI.World
             
             var chunk = base.GenerateChunkColumn(chunkCoordinates, cacheOnly);
 
-            if (!before.Any(x => x.x == chunk.x && x.z == chunk.z))
+            if (before != null && !before.Any(x => x.x == chunk.x && x.z == chunk.z))
             {
                 Api.EventDispatcher.DispatchEvent(new ChunkLoadEvent(chunk, Level));
             }
@@ -110,9 +110,12 @@ namespace OpenAPI.World
             
             int unloaded = CachingWorldProvider.UnloadChunks(players, spawn, maxViewDistance);
 
-            if (unloaded > 0)
+            if (unloaded > 0 && before != null)
             {
                 ChunkColumn[] after = GetCachedChunks();
+                if (after == null)
+                    return unloaded;
+                
                 var unloadedChunks = after.Where(chunk => !before.Any(x => x.x == chunk.x && x.z == chunk.z));
 
                 foreach (var uc in unloadedChunks)

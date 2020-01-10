@@ -177,10 +177,10 @@ namespace OpenAPI.WorldGenerator.Generators
         {
             return await Task.Run(() =>
             {
-                int minX = ((chunkX) * 16) - 1;
-                int minZ = ((chunkZ) * 16) - 1;
-                var maxX = ((chunkX + 1) << 4) - 1;
-                var maxZ = ((chunkZ + 1) << 4) - 1;
+                int minX = ((chunkX) * 16) ;
+                int minZ = ((chunkZ) * 16) ;
+                var maxX = ((chunkX + 1) << 4) ;
+                var maxZ = ((chunkZ + 1) << 4) ;
 
                 int cx = (chunkX * 16);
                 int cz = (chunkZ * 16);
@@ -286,10 +286,10 @@ namespace OpenAPI.WorldGenerator.Generators
         {
             return await Task.Run(() =>
             {
-                int minX = ((chunkX) * 16) - 1;
-                int minZ = ((chunkZ) * 16) - 1;
-                var maxX = ((chunkX + 1) << 4) - 1;
-                var maxZ = ((chunkZ + 1) << 4) - 1;
+                int minX = ((chunkX) * 16) ;
+                int minZ = ((chunkZ) * 16) ;
+                var maxX = ((chunkX + 1) << 4) ;
+                var maxZ = ((chunkZ + 1) << 4) ;
 
                 int cx = (chunkX * 16);
                 int cz = (chunkZ * 16);
@@ -344,14 +344,8 @@ namespace OpenAPI.WorldGenerator.Generators
             var rain = MathUtils.ConvertRange(-1f, 1f, 0, 1f, NoiseProvider.RainNoise.GetValue(mX, mZ));//MathUtils.ConvertRange(0f, 1f, 0f, 2f, _rainNoise.GetValue(mX, mZ));// _rainNoise.GetValue(mX, mZ);
 
             var terrainHeight = NoiseProvider.TerrainNoise.GetValue(mX, mZ);
-            
-           /* return BiomeUtils.Biomes.OrderBy(biome =>
-            {
-                var avg = MathUtils.Lerp(biome.MinHeight, biome.MaxHeight, MathUtils.ConvertRange(-1f, 1f, 0f, 1f, terrainHeight));
-                return MathF.Abs((avg - height) * (avg - height));
-            }).ThenBy(bb => BiomeUtils.GetSquaredDistance(bb, temp, rain)).FirstOrDefault();*/
-           
-           return BiomeUtils.Biomes.OrderBy(biome =>
+
+            return BiomeUtils.Biomes.OrderBy(biome =>
            {
                var avg = MathUtils.Lerp(biome.MinHeight, biome.MaxHeight, MathUtils.ConvertRange(-1f, 1f, 0f, 1f, terrainHeight));
                return MathF.Abs((avg - height) * (avg - height));
@@ -379,10 +373,10 @@ namespace OpenAPI.WorldGenerator.Generators
            // chunkZ *= 16;
             return await Task.Run(() =>
             {
-                int minX = (chunkX * 16) - 1;
-                int minZ = (chunkZ * 16) - 1;
-                var maxX = ((chunkX + 1) << 4) - 1;
-                var maxZ = ((chunkZ + 1) << 4) - 1;
+                int minX = (chunkX * 16);
+                int minZ = (chunkZ * 16);
+                var maxX = ((chunkX + 1) << 4);
+                var maxZ = ((chunkZ + 1) << 4);
 
                 
                 

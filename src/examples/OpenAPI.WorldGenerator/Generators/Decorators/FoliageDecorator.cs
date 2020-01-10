@@ -1,6 +1,7 @@
 using System;
 using MiNET.Worlds;
 using MiNET.Worlds.Structures;
+using OpenAPI.Utils;
 using OpenAPI.WorldGenerator.Generators.Structures;
 using OpenAPI.WorldGenerator.Utils.Noise;
 using Biome = OpenAPI.WorldGenerator.Utils.Biome;
@@ -28,7 +29,7 @@ namespace OpenAPI.WorldGenerator.Generators.Decorators
 				bool generated = false;
 				if (surface && y >= OverworldGenerator.WaterLevel)
 				{
-					var noise = Simplex.Noise(rx, rz, biome.Downfall, 0.5, true);
+					var noise = Simplex.Noise(rx, rz, Math.Min(biome.Downfall * 0.32f, 0.03f), 0.5, true);
 					if (x >= 3 && x <= 13 && z >= 3 && z <= 13)
 					{
 						Structure tree = null;
@@ -52,7 +53,7 @@ namespace OpenAPI.WorldGenerator.Generators.Decorators
 							}
 						}
 
-						if (tree == null && biome.Downfall >= 0 && (noise > (((Math.Min(biome.Downfall, 1f - biome.Downfall)) /* + 0.5*/) + (y/512f))))
+						if (tree == null && biome.Downfall >= 0 && (noise > (0.5f + (y/512f))))
 						{
 							if (currentTemperature >= 1f && biome.Downfall >= 0.4f)
 							{
@@ -205,14 +206,14 @@ namespace OpenAPI.WorldGenerator.Generators.Decorators
 			return Rnd.Next(max);
 		}
 
-		private Random Rnd { get; set; }
+		private FastRandom Rnd { get; set; }
 		private SimplexOctaveGenerator Simplex { get; set; }
 		protected override void InitSeed(int seed)
 		{
 			Simplex = new SimplexOctaveGenerator(seed, 1);
 			Simplex.SetScale(1.5);
 
-			Rnd = new Random();
+			Rnd = new FastRandom(seed);
 		}
 	}
 }
