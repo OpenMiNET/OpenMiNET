@@ -167,7 +167,7 @@
           }
         }
       },
-      "MiNET/1.0.2054": {
+      "MiNET/1.0.2058": {
         "type": "package",
         "dependencies": {
           "CoreCompat.System.Drawing.v2": "5.2.0-preview1-r131",
@@ -179,15 +179,16 @@
           "Newtonsoft.Json": "12.0.2",
           "Portable.BouncyCastle": "1.8.5",
           "SharpAvi": "2.1.1",
+          "System.Net.Sockets": "4.3.0",
           "System.Security.Cryptography.ProtectedData": "4.5.0",
           "jose-jwt": "2.4.0",
           "log4net": "2.0.8"
         },
         "compile": {
-          "lib/netcoreapp2.1/MiNET.dll": {}
+          "lib/netcoreapp3.0/MiNET.dll": {}
         },
         "runtime": {
-          "lib/netcoreapp2.1/MiNET.dll": {}
+          "lib/netcoreapp3.0/MiNET.dll": {}
         }
       },
       "MiNET.astar/1.0.14": {
@@ -968,13 +969,13 @@
           }
         }
       },
-      "System.Net.Primitives/4.0.11": {
+      "System.Net.Primitives/4.3.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.0.1",
-          "Microsoft.NETCore.Targets": "1.0.1",
-          "System.Runtime": "4.1.0",
-          "System.Runtime.Handles": "4.0.1"
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Handles": "4.3.0"
         },
         "compile": {
           "ref/netstandard1.3/System.Net.Primitives.dll": {}
@@ -1011,15 +1012,15 @@
           }
         }
       },
-      "System.Net.Sockets/4.1.0": {
+      "System.Net.Sockets/4.3.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.0.1",
-          "Microsoft.NETCore.Targets": "1.0.1",
-          "System.IO": "4.1.0",
-          "System.Net.Primitives": "4.0.11",
-          "System.Runtime": "4.1.0",
-          "System.Threading.Tasks": "4.0.11"
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.NETCore.Targets": "1.1.0",
+          "System.IO": "4.3.0",
+          "System.Net.Primitives": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Threading.Tasks": "4.3.0"
         },
         "compile": {
           "ref/netstandard1.3/System.Net.Sockets.dll": {}
@@ -1732,7 +1733,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.0",
         "dependencies": {
-          "MiNET": "1.0.2054",
+          "MiNET": "1.0.2058",
           "Mono.Cecil": "0.10.0",
           "OpenMiNET.OpenAPI.Locale": "0.0.0"
         },
@@ -1747,7 +1748,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.0",
         "dependencies": {
-          "MiNET": "1.0.2054"
+          "MiNET": "1.0.2058"
         },
         "compile": {
           "bin/placeholder/OpenMiNET.OpenAPI.Locale.dll": {}
@@ -1968,15 +1969,15 @@
         "runtimes/win/lib/netstandard1.3/Microsoft.Win32.Registry.dll"
       ]
     },
-    "MiNET/1.0.2054": {
-      "sha512": "1DRAkq/dtfH2uxdTkU50JzroM/7d+hEtu9Y6A/QCox6XIQRqGjiKHJGDl9q4xltGxJjQRz5UI6WOF0Zzw6dIzA==",
+    "MiNET/1.0.2058": {
+      "sha512": "Su3gvvFjoRI6PI2qlL5utwV5Q4uUJBhjlL5NRlX5VENbVlrXjJfq4TmtpzqfFopRD5K75fsx1Ocr7RunzXT+SQ==",
       "type": "package",
-      "path": "minet/1.0.2054",
+      "path": "minet/1.0.2058",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/netcoreapp2.1/MiNET.dll",
-        "minet.1.0.2054.nupkg.sha512",
+        "lib/netcoreapp3.0/MiNET.dll",
+        "minet.1.0.2058.nupkg.sha512",
         "minet.nuspec"
       ]
     },
@@ -3694,10 +3695,10 @@
         "system.net.nameresolution.nuspec"
       ]
     },
-    "System.Net.Primitives/4.0.11": {
-      "sha512": "hVvfl4405DRjA2408luZekbPhplJK03j2Y2lSfMlny7GHXlkByw1iLnc9mgKW0GdQn73vvMcWrWewAhylXA4Nw==",
+    "System.Net.Primitives/4.3.0": {
+      "sha512": "qOu+hDwFwoZPbzPvwut2qATe3ygjeQBDQj91xlsaqGFQUI5i4ZnZb8yyQuLGpDGivEPIt8EJkd1BVzVoP31FXA==",
       "type": "package",
-      "path": "system.net.primitives/4.0.11",
+      "path": "system.net.primitives/4.3.0",
       "files": [
         ".nupkg.metadata",
         "ThirdPartyNotices.txt",
@@ -3768,7 +3769,7 @@
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
         "ref/xamarinwatchos10/_._",
-        "system.net.primitives.4.0.11.nupkg.sha512",
+        "system.net.primitives.4.3.0.nupkg.sha512",
         "system.net.primitives.nuspec"
       ]
     },
@@ -3855,10 +3856,10 @@
         "system.net.requests.nuspec"
       ]
     },
-    "System.Net.Sockets/4.1.0": {
-      "sha512": "xAz0N3dAV/aR/9g8r0Y5oEqU1JRsz29F5EGb/WVHmX3jVSLqi2/92M5hTad2aNWovruXrJpJtgZ9fccPMG9uSw==",
+    "System.Net.Sockets/4.3.0": {
+      "sha512": "m6icV6TqQOAdgt5N/9I5KNpjom/5NFtkmGseEH+AK/hny8XrytLH3+b5M8zL/Ycg3fhIocFpUMyl/wpFnVRvdw==",
       "type": "package",
-      "path": "system.net.sockets/4.1.0",
+      "path": "system.net.sockets/4.3.0",
       "files": [
         ".nupkg.metadata",
         "ThirdPartyNotices.txt",
@@ -3888,7 +3889,7 @@
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
         "ref/xamarinwatchos10/_._",
-        "system.net.sockets.4.1.0.nupkg.sha512",
+        "system.net.sockets.4.3.0.nupkg.sha512",
         "system.net.sockets.nuspec"
       ]
     },

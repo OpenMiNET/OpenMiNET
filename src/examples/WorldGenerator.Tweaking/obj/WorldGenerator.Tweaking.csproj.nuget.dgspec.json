@@ -42,7 +42,7 @@
           "dependencies": {
             "MiNET": {
               "target": "Package",
-              "version": "[1.0.2054, )"
+              "version": "[1.0.2058, )"
             }
           },
           "imports": [
@@ -106,7 +106,7 @@
           "dependencies": {
             "MiNET": {
               "target": "Package",
-              "version": "[1.0.2054, )"
+              "version": "[1.0.2058, )"
             },
             "Mono.Cecil": {
               "target": "Package",

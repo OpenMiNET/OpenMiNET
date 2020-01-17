@@ -76,7 +76,7 @@
           "System.Linq": "4.3.0",
           "System.Net.NameResolution": "4.0.0",
           "System.Net.Requests": "4.0.11",
-          "System.Net.Sockets": "4.1.0",
+          "System.Net.Sockets": "4.3.0",
           "System.Reflection": "4.3.0",
           "System.Reflection.Extensions": "4.0.1",
           "System.Reflection.TypeExtensions": "4.1.0",
@@ -138,7 +138,7 @@
           "System.Runtime.InteropServices": "4.3.0"
         }
       },
-      "MiNET/1.0.2054": {
+      "MiNET/1.0.2058": {
         "dependencies": {
           "CoreCompat.System.Drawing.v2": "5.2.0-preview1-r131",
           "LibNoise.NetStandart": "0.2.0",
@@ -149,14 +149,15 @@
           "Newtonsoft.Json": "12.0.2",
           "Portable.BouncyCastle": "1.8.5",
           "SharpAvi": "2.1.1",
+          "System.Net.Sockets": "4.3.0",
           "System.Security.Cryptography.ProtectedData": "4.5.0",
           "jose-jwt": "2.4.0",
           "log4net": "2.0.8"
         },
         "runtime": {
-          "lib/netcoreapp2.1/MiNET.dll": {
-            "assemblyVersion": "1.0.2054.0",
-            "fileVersion": "1.0.2054.0"
+          "lib/netcoreapp3.0/MiNET.dll": {
+            "assemblyVersion": "1.0.2058.0",
+            "fileVersion": "1.0.2058.0"
           }
         }
       },
@@ -551,7 +552,7 @@
           "System.Globalization.Extensions": "4.0.1",
           "System.IO": "4.3.0",
           "System.IO.FileSystem": "4.3.0",
-          "System.Net.Primitives": "4.0.11",
+          "System.Net.Primitives": "4.3.0",
           "System.Resources.ResourceManager": "4.3.0",
           "System.Runtime": "4.3.0",
           "System.Runtime.Extensions": "4.3.0",
@@ -576,7 +577,7 @@
           "System.Collections": "4.3.0",
           "System.Diagnostics.Tracing": "4.3.0",
           "System.Globalization": "4.3.0",
-          "System.Net.Primitives": "4.0.11",
+          "System.Net.Primitives": "4.3.0",
           "System.Resources.ResourceManager": "4.3.0",
           "System.Runtime": "4.3.0",
           "System.Runtime.Extensions": "4.3.0",
@@ -588,7 +589,7 @@
           "runtime.native.System": "4.3.0"
         }
       },
-      "System.Net.Primitives/4.0.11": {
+      "System.Net.Primitives/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "2.0.0-preview1-25305-02",
           "Microsoft.NETCore.Targets": "1.1.0",
@@ -605,7 +606,7 @@
           "System.Globalization": "4.3.0",
           "System.IO": "4.3.0",
           "System.Net.Http": "4.1.0",
-          "System.Net.Primitives": "4.0.11",
+          "System.Net.Primitives": "4.3.0",
           "System.Net.WebHeaderCollection": "4.0.1",
           "System.Resources.ResourceManager": "4.3.0",
           "System.Runtime": "4.3.0",
@@ -613,12 +614,12 @@
           "System.Threading.Tasks": "4.3.0"
         }
       },
-      "System.Net.Sockets/4.1.0": {
+      "System.Net.Sockets/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "2.0.0-preview1-25305-02",
           "Microsoft.NETCore.Targets": "1.1.0",
           "System.IO": "4.3.0",
-          "System.Net.Primitives": "4.0.11",
+          "System.Net.Primitives": "4.3.0",
           "System.Runtime": "4.3.0",
           "System.Threading.Tasks": "4.3.0"
         }
@@ -1028,7 +1029,7 @@
       },
       "OpenMiNET.OpenAPI/0.0.0": {
         "dependencies": {
-          "MiNET": "1.0.2054",
+          "MiNET": "1.0.2058",
           "Mono.Cecil": "0.10.0",
           "OpenMiNET.OpenAPI.Locale": "0.0.0"
         },
@@ -1038,7 +1039,7 @@
       },
       "OpenMiNET.OpenAPI.Locale/0.0.0": {
         "dependencies": {
-          "MiNET": "1.0.2054"
+          "MiNET": "1.0.2058"
         },
         "runtime": {
           "OpenAPI.Locale.dll": {}
@@ -1129,12 +1130,12 @@
       "path": "microsoft.win32.registry/4.0.0",
       "hashPath": "microsoft.win32.registry.4.0.0.nupkg.sha512"
     },
-    "MiNET/1.0.2054": {
+    "MiNET/1.0.2058": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-1DRAkq/dtfH2uxdTkU50JzroM/7d+hEtu9Y6A/QCox6XIQRqGjiKHJGDl9q4xltGxJjQRz5UI6WOF0Zzw6dIzA==",
-      "path": "minet/1.0.2054",
-      "hashPath": "minet.1.0.2054.nupkg.sha512"
+      "sha512": "sha512-Su3gvvFjoRI6PI2qlL5utwV5Q4uUJBhjlL5NRlX5VENbVlrXjJfq4TmtpzqfFopRD5K75fsx1Ocr7RunzXT+SQ==",
+      "path": "minet/1.0.2058",
+      "hashPath": "minet.1.0.2058.nupkg.sha512"
     },
     "MiNET.astar/1.0.14": {
       "type": "package",
@@ -1486,12 +1487,12 @@
       "path": "system.net.nameresolution/4.0.0",
       "hashPath": "system.net.nameresolution.4.0.0.nupkg.sha512"
     },
-    "System.Net.Primitives/4.0.11": {
+    "System.Net.Primitives/4.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-hVvfl4405DRjA2408luZekbPhplJK03j2Y2lSfMlny7GHXlkByw1iLnc9mgKW0GdQn73vvMcWrWewAhylXA4Nw==",
-      "path": "system.net.primitives/4.0.11",
-      "hashPath": "system.net.primitives.4.0.11.nupkg.sha512"
+      "sha512": "sha512-qOu+hDwFwoZPbzPvwut2qATe3ygjeQBDQj91xlsaqGFQUI5i4ZnZb8yyQuLGpDGivEPIt8EJkd1BVzVoP31FXA==",
+      "path": "system.net.primitives/4.3.0",
+      "hashPath": "system.net.primitives.4.3.0.nupkg.sha512"
     },
     "System.Net.Requests/4.0.11": {
       "type": "package",
@@ -1500,12 +1501,12 @@
       "path": "system.net.requests/4.0.11",
       "hashPath": "system.net.requests.4.0.11.nupkg.sha512"
     },
-    "System.Net.Sockets/4.1.0": {
+    "System.Net.Sockets/4.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-xAz0N3dAV/aR/9g8r0Y5oEqU1JRsz29F5EGb/WVHmX3jVSLqi2/92M5hTad2aNWovruXrJpJtgZ9fccPMG9uSw==",
-      "path": "system.net.sockets/4.1.0",
-      "hashPath": "system.net.sockets.4.1.0.nupkg.sha512"
+      "sha512": "sha512-m6icV6TqQOAdgt5N/9I5KNpjom/5NFtkmGseEH+AK/hny8XrytLH3+b5M8zL/Ycg3fhIocFpUMyl/wpFnVRvdw==",
+      "path": "system.net.sockets/4.3.0",
+      "hashPath": "system.net.sockets.4.3.0.nupkg.sha512"
     },
     "System.Net.WebHeaderCollection/4.0.1": {
       "type": "package",
