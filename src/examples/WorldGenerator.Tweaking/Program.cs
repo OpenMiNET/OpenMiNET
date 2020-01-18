@@ -1,72 +1,211 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using LibNoise;
+using MiNET.Utils;
+using MiNET.Worlds;
 using Newtonsoft.Json;
 using OpenAPI.WorldGenerator.Generators;
 using OpenAPI.WorldGenerator.Utils;
+using OpenAPI.WorldGenerator.Utils.Noise;
+using Biome = OpenAPI.WorldGenerator.Utils.Biome;
+using BiomeUtils = OpenAPI.WorldGenerator.Utils.BiomeUtils;
 
 namespace WorldGenerator.Tweaking
 {
     class Program
     {
+        private static ConcurrentQueue<ChunkColumn> Finished = new ConcurrentQueue<ChunkColumn>();
         static void Main(string[] args)
         {
-            var generatorPreset = JsonConvert.DeserializeObject<WorldGeneratorPreset>("{\"coordinateScale\":175.0,\"heightScale\":75.0,\"lowerLimitScale\":512.0,\"upperLimitScale\":512.0,\"depthNoiseScaleX\":200.0,\"depthNoiseScaleZ\":200.0,\"depthNoiseScaleExponent\":0.5,\"mainNoiseScaleX\":165.0,\"mainNoiseScaleY\":106.61267,\"mainNoiseScaleZ\":165.0,\"baseSize\":8.267606,\"stretchY\":13.387607,\"biomeDepthWeight\":1.2,\"biomeDepthOffset\":0.2,\"biomeScaleWeight\":3.4084506,\"biomeScaleOffset\":0.0,\"seaLevel\":63,\"useCaves\":true,\"useDungeons\":true,\"dungeonChance\":7,\"useStrongholds\":true,\"useVillages\":true,\"useMineShafts\":true,\"useTemples\":true,\"useMonuments\":true,\"useRavines\":true,\"useWaterLakes\":true,\"waterLakeChance\":49,\"useLavaLakes\":true,\"lavaLakeChance\":80,\"useLavaOceans\":false,\"fixedBiome\":-1,\"biomeSize\":8,\"riverSize\":5,\"dirtSize\":33,\"dirtCount\":10,\"dirtMinHeight\":0,\"dirtMaxHeight\":256,\"gravelSize\":33,\"gravelCount\":8,\"gravelMinHeight\":0,\"gravelMaxHeight\":256,\"graniteSize\":33,\"graniteCount\":10,\"graniteMinHeight\":0,\"graniteMaxHeight\":80,\"dioriteSize\":33,\"dioriteCount\":10,\"dioriteMinHeight\":0,\"dioriteMaxHeight\":80,\"andesiteSize\":33,\"andesiteCount\":10,\"andesiteMinHeight\":0,\"andesiteMaxHeight\":80,\"coalSize\":17,\"coalCount\":20,\"coalMinHeight\":0,\"coalMaxHeight\":128,\"ironSize\":9,\"ironCount\":20,\"ironMinHeight\":0,\"ironMaxHeight\":64,\"goldSize\":9,\"goldCount\":2,\"goldMinHeight\":0,\"goldMaxHeight\":32,\"redstoneSize\":8,\"redstoneCount\":8,\"redstoneMinHeight\":0,\"redstoneMaxHeight\":16,\"diamondSize\":8,\"diamondCount\":1,\"diamondMinHeight\":0,\"diamondMaxHeight\":16,\"lapisSize\":7,\"lapisCount\":1,\"lapisCenterHeight\":16,\"lapisSpread\":16}");
-            NoiseProvider noiseProvider = new NoiseProvider(generatorPreset, "test-world".GetHashCode());
+            int chunks = 64;
+            int width = chunks * 16;
+            int height = chunks * 16;
 
-            //OverworldGenerator overworldGenerator = new OverworldGenerator();
+            OverworldGeneratorV2 gen = new OverworldGeneratorV2();
+            gen.ApplyBlocks = true;
             
-            var tasks = new Task[]
+            bool done = false;
+          //  ChunkColumn[] generatedChunks = new ChunkColumn[chunks * chunks];
+            ConcurrentQueue<ChunkCoordinates> chunkGeneratorQueue = new ConcurrentQueue<ChunkCoordinates>();
+            
+            long average = 0;
+            long min = long.MaxValue;
+            long max = long.MinValue;
+
+            int chunskGenerated = 0;
+            Thread[] threads = new Thread[Environment.ProcessorCount -1];
+            for (int t = 1; t < threads.Length; t++)
             {
-                GenerateAndSave(noiseProvider.TempNoise, "temperature"),
-                GenerateAndSave(noiseProvider.RainNoise, "humidity"),
-                GenerateAndSave(noiseProvider.BaseHeightNoise, "baseheight"),
-                GenerateAndSave(noiseProvider.TerrainNoise, "terrain")
-            };
+                threads[t] = new Thread(() =>
+                {
+                    Stopwatch timing = new Stopwatch();
+                    while (true)
+                    {
+                        if (chunkGeneratorQueue.TryDequeue(out var coords))
+                        {
+                            timing.Restart();
+                            
+                            ChunkColumn column = gen.GenerateChunkColumn(coords);
+                           // generatedChunks[(coords.X * chunks) + coords.Z] = column;
+                            Finished.Enqueue(column);
+                            chunskGenerated++;
+                            
+                            timing.Stop();
+                            
+                            average += timing.ElapsedMilliseconds;
+                            if (timing.ElapsedMilliseconds < min)
+                                min = timing.ElapsedMilliseconds;
+                            
+                            if (timing.ElapsedMilliseconds > max)
+                                max = timing.ElapsedMilliseconds;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                });
+            }
             
-            Task.WaitAll(tasks);
+            threads[0] = new Thread(() => { GenerateBiomeMap(chunks); });
+
+            for (int x = 0; x < chunks; x++)
+            {
+                for(int z = 0; z < chunks; z++)
+                {
+                    chunkGeneratorQueue.Enqueue(new ChunkCoordinates(x, z));
+                }
+            }
+            
+            Stopwatch timer = Stopwatch.StartNew();
+            foreach (var thread in threads)
+            {
+                thread.Start();
+            }
+
+            int threadsAlive = 0;
+            do
+            {
+                threadsAlive = threads.Count(x => x.IsAlive);
+                
+                Console.Clear();
+                
+                Console.WriteLine($"Threads: {threadsAlive} Queued: {chunkGeneratorQueue.Count} Generated: {chunskGenerated} Avg: {average / Math.Max(1, chunskGenerated)}ms Min: {min}ms Max: {max}ms");
+                Console.WriteLine($"Processed: {Imaged} Remaining: {Finished.Count}");
+                
+                Thread.Sleep(100);
+            } while (threadsAlive > 0);
+
+            timer.Stop();
+            
+            Console.Clear();
+            
+            Console.WriteLine($"Generating {chunks * chunks} chunks took: {timer.Elapsed}");
+            Console.WriteLine($"Min Height: {gen.MinHeight} Max Height: {gen.MaxHeight}");
         }
 
-        private static Task GenerateAndSave(IModule2D noise, string name)
+        public static int Imaged { get; set; } = 0;
+
+        private static void GenerateBiomeMap(int chunks)
+        {
+            int finished = 0;
+            Bitmap bitmap = new Bitmap(chunks * 16, chunks * 16);
+            Bitmap heightmap = new Bitmap(chunks * 16, chunks * 16);
+            Bitmap chunkHeight = new Bitmap(chunks * 16, chunks * 16);
+
+            while (finished < chunks * chunks)
+            {
+                if (Finished.TryDequeue(out ChunkColumn column))
+                {
+                    for (int cx = 0; cx < 16; cx++)
+                    {
+                        var rx = (column.x * 16) + cx;
+                        for (int cz = 0; cz < 16; cz++)
+                        {
+                            var rz = (column.z * 16) + cz;
+
+                            var biome = BiomeUtils.GetBiomeById(column.GetBiome(cx, cz));
+                            var temp = (int) Math.Max(0,
+                                Math.Min(255, (255 * MathUtils.ConvertRange(-1f, 2f, 0f, 1f, biome.Temperature))));
+                            var humid = (int) Math.Max(32,
+                                Math.Min(255, (255 * biome.Downfall)));
+
+                            bitmap.SetPixel(rx, rz, Color.FromArgb(humid, temp, 0, 255 - temp));
+
+                            int height = column.GetHeight(cx, cz);
+
+                            chunkHeight.SetPixel(rx, rz, Color.FromArgb(height, height, height));
+
+                            height = (int) Math.Max(0,
+                                Math.Min(255,
+                                    (255 * MathUtils.ConvertRange(-2f, 2f, 0f, 1f,
+                                         ((biome.MinHeight + biome.MaxHeight) / 2f)))));
+
+                            heightmap.SetPixel(rx, rz, Color.FromArgb(height, height, height));
+                        }
+                    }
+
+                    Imaged++;
+                    finished++;
+                }
+                else
+                {
+                    Thread.Sleep(50);
+                }
+            }
+
+            bitmap.Save("heatmap.png", ImageFormat.Png);
+            heightmap.Save("height.png", ImageFormat.Png);
+            chunkHeight.Save("chunkHeight.png", ImageFormat.Png);
+        }
+
+        private static Task GenerateHeightmap(ChunkColumn[] columns, int chunks, bool chunkHeight)
         {
             return Task.Run(() =>
             {
-                Stopwatch sw = Stopwatch.StartNew();
-                Console.WriteLine($"Generating {name}...");
-                
-                Bitmap bmp = new Bitmap(16 * 128, 16 * 128);
-
-                var halfWidth = (bmp.Width / 2);
-                var halfHeight = (bmp.Height / 2);
-                for (int x = -halfWidth; x < halfWidth; x++)
+                Bitmap bitmap = new Bitmap(chunks * 16, chunks * 16);
+                for (int x = 0; x < chunks; x++)
                 {
-                    for (int y = -halfHeight; y < halfHeight; y++)
+                    for (int z = 0; z < chunks; z++)
                     {
-                        int r = 255, g = 0, b = 0;
-
-                        if (x % 16 != 0 && y % 16 != 0)
+                        ChunkColumn column = columns[(x * chunks) + z];
+                        for (int cx = 0; cx < 16; cx++)
                         {
-                            var temperature = noise.GetValue(x, y);
-                            //  var rainfall = _rainNoise.GetValue(x, y);
+                            var rx = (x * 16) + cx;
+                            for (int cz = 0; cz < 16; cz++)
+                            {
+                                var rz = (z * 16) + cz;
 
-                            int color = (int) Math.Max(0,
-                                Math.Min(255, (255 * MathUtils.ConvertRange(-1f, 1f, 0f, 1f, -temperature))));
-                            r = color;
-                            g = color;
-                            b = color;
+                              //  var height = column.GetHeight(cx, cz);
+                              //  var temp = (int) Math.Max((byte)0,
+                               //     Math.Min((byte)255, height));
+
+                               var height = 0;
+
+                               if (!chunkHeight)
+                               {
+                                   height = column.GetHeight(cx, cz);
+                               }
+                               else
+                               {
+                                   var biome = BiomeUtils.GetBiomeById(column.GetBiome(cx, cz));
+                                   height = (int) Math.Max(0,
+                                       Math.Min(255, (255 * MathUtils.ConvertRange(-2f, 2f, 0f, 1f, ((biome.MinHeight + biome.MaxHeight) / 2f)))));
+                               }
+                               
+                                bitmap.SetPixel(rx, rz, Color.FromArgb(height, height, height));
+                            }
                         }
-
-                        bmp.SetPixel(x + halfWidth, y + halfHeight, Color.FromArgb(r, g, b));
                     }
                 }
 
-                bmp.Save($"{name}.png", ImageFormat.Png);
-
-                Console.WriteLine($"Generated {name} in {sw.ElapsedMilliseconds}ms");
-                sw.Stop();
+                bitmap.Save(chunkHeight ? "chunkHeight.png" : "height.png", ImageFormat.Png);
             });
         }
     }

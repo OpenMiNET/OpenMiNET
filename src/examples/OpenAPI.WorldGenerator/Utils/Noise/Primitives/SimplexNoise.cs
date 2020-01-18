@@ -1,5 +1,6 @@
 using LibNoise;
 using LibNoise.Primitive;
+using OpenAPI.WorldGenerator.Utils.Noise.Api;
 
 namespace OpenAPI.WorldGenerator.Utils.Noise.Primitives
 {
@@ -85,15 +86,130 @@ namespace OpenAPI.WorldGenerator.Utils.Noise.Primitives
             new[] {3, 1, 0, 2}, new[] {0, 0, 0, 0}, new[] {3, 2, 0, 1}, new[] {3, 2, 1, 0}
         };
 
+        public static readonly double[] GradientsSph2 = new double[]{
+            0, 1.000000000000000,
+            0.500000000000000, 0.866025403784439,
+            0.866025403784439, 0.500000000000000,
+            1.000000000000000, 0,
+            0.866025403784439, -0.500000000000000,
+            0.500000000000000, -0.866025403784439,
+            0, -1.000000000000000,
+            -0.500000000000000, -0.866025403784439,
+            -0.866025403784439, -0.500000000000000,
+            -1.000000000000000, 0,
+            -0.866025403784439, 0.500000000000000,
+            -0.500000000000000, 0.866025403784439
+        };
+        
+        public //2D Gradients -- new scheme (Dodecagon)
+            static readonly double[] Gradients2D = new double[]{
+            0.114251372530929, 0.065963060686016,
+            0.131926121372032, 0.000000000000000,
+            0.114251372530929, -0.065963060686016,
+            0.065963060686016, -0.114251372530929,
+            0.000000000000000, -0.131926121372032,
+            -0.065963060686016, -0.114251372530929,
+            -0.114251372530929, -0.065963060686016,
+            -0.131926121372032, -0.000000000000000,
+            -0.114251372530929, 0.065963060686016,
+            -0.065963060686016, 0.114251372530929,
+            -0.000000000000000, 0.131926121372032,
+            0.065963060686016, 0.114251372530929,
+        };
+        
+        private static double _stretch2D = -0.211324865405187; //(1/Math.sqrt(2+1)-1)/2;
+        private static double _squish2D = 0.366025403784439; //(Math.sqrt(2+1)-1)/2;
+        private static double _stretch3D = -1.0 / 6.0;         //(1/Math.sqrt(3+1)-1)/3;
+        private static double _squish3D = 1.0 / 3.0;         //(Math.sqrt(3+1)-1)/3;
+        private static LatticePoint2D[] _lookup2D;
+
+        private int[] _perm;
+
+
+        /* Standard functions */
+        private int[] _perm2D;
+        private int[] _perm2DSph2;
+
+
+        /* Multi-eval */
+        private int[] _perm3D;
+        
         #endregion
 
         #region Ctor/Dtor
+
+        static SimplexPerlin() {
+
+            //2D (KdotJPG)
+            _lookup2D = new LatticePoint2D[8 * 4];
+
+            for (int i = 0; i < 8; i++)
+            {
+
+                int i1, j1, i2, j2;
+                if ((i & 1) == 0)
+                {
+
+                    if ((i & 2) == 0)
+                    {
+                        i1 = 0;
+                        j1 = 0;
+                    }
+                    else
+                    {
+                        i1 = 2;
+                        j1 = 0;
+                    }
+
+                    if ((i & 4) == 0)
+                    {
+                        i2 = 1;
+                        j2 = -1;
+                    }
+                    else
+                    {
+                        i2 = 1;
+                        j2 = 1;
+                    }
+                }
+                else
+                {
+
+                    if ((i & 2) == 0)
+                    {
+                        i1 = -1;
+                        j1 = 1;
+                    }
+                    else
+                    {
+                        i1 = 1;
+                        j1 = 1;
+                    }
+
+                    if ((i & 4) == 0)
+                    {
+                        i2 = 0;
+                        j2 = 0;
+                    }
+                    else
+                    {
+                        i2 = 0;
+                        j2 = 2;
+                    }
+                }
+
+                _lookup2D[i * 4] = new LatticePoint2D(1, 0);
+                _lookup2D[i * 4 + 1] = new LatticePoint2D(0, 1);
+                _lookup2D[i * 4 + 2] = new LatticePoint2D(i1, j1);
+                _lookup2D[i * 4 + 3] = new LatticePoint2D(i2, j2);
+            }
+        }
 
         /// <summary>
         /// 0-args constructor
         /// </summary>
         public SimplexPerlin()
-            : base(DefaultSeed, DefaultQuality)
+            : this(DefaultSeed, DefaultQuality)
         {
         }
 
@@ -105,6 +221,30 @@ namespace OpenAPI.WorldGenerator.Utils.Noise.Primitives
         public SimplexPerlin(int seed, NoiseQuality quality)
             : base(seed, quality)
         {
+            this._perm = new int[1024];
+            this._perm2D = new int[1024];
+            this._perm2DSph2 = new int[1024];
+            this._perm3D = new int[1024];
+
+            int[] source = new int[1024];
+            for (int i = 0; i < 1024; i++) {
+                source[i] = i;
+            }
+
+            for (int i = 1023; i >= 0; i--) {
+
+                seed = (int) ((seed * 6364136223846793005L + 1442695040888963407L) % int.MaxValue);
+                int r = (int) ((seed + 31) % (i + 1));
+                if (r < 0) {
+                    r += (i + 1);
+                }
+
+                _perm[i] = source[r];
+                _perm2D[i] = _perm[i] % 12 * 2;
+                _perm2DSph2[i] = _perm[i] / 12 % 12 * 2;
+                _perm3D[i] = _perm[i] % 48 * 3;
+                source[r] = source[i];
+            }
         }
 
         #endregion
@@ -582,6 +722,73 @@ namespace OpenAPI.WorldGenerator.Utils.Noise.Primitives
         protected static float Dot(int[] g, float x, float y)
         {
             return g[0]*x + g[1]*y;
+        }
+
+        public virtual void GetValue(double x, double y, ISimplexData2D data)
+        {
+
+            //Get points for A2 lattice
+            double s = _stretch2D * (x + y);
+            double xs = x + s;
+            double ys = y + s;
+
+            //Get base points and offsets
+            int xsb = Libnoise.FastFloor(xs);
+            int ysb = Libnoise.FastFloor(ys);
+            double xsi = xs - xsb;
+            double ysi = ys - ysb;
+
+            //Index to point list
+            int a = (int) (ysi - xsi + 1);
+            int index = (a << 2) | (int) (xsi + ysi / 2.0 + a / 2.0) << 3 |
+                        (int) (ysi + xsi / 2.0 + 1.0 / 2.0 - a / 2.0) << 4;
+
+            //Get unskewed offsets.
+            double ssi = (xsi + ysi) * _squish2D;
+            double xi = xsi + ssi;
+            double yi = ysi + ssi;
+
+            // clear data
+            data.Clear();
+
+            //Point contributions
+            for (int i = 0; i < 4; i++)
+            {
+                LatticePoint2D lattice = _lookup2D[index + i];
+
+                double dx = xi + lattice.Dx;
+                double dy = yi + lattice.Dy;
+                double attn = 2.0 - (dx * dx) - (dy * dy);
+                if (attn <= 0)
+                {
+                    continue;
+                }
+
+                int pxm = (xsb + lattice.Xsv) & 1023;
+                int pym = (ysb + lattice.Ysv) & 1023;
+                int giP = _perm[pxm] ^ pym;
+                int gi = _perm2D[giP];
+                double gx = Gradients2D[gi];
+                double gy = Gradients2D[gi + 1];
+                double extrp = gx * dx + gy * dy;
+                int giSph2 = _perm2DSph2[giP];
+                data.Request().Apply(attn, extrp, gx, gy, giSph2, dx, dy);
+            }
+        }
+        
+        internal class LatticePoint2D {
+
+            public int Xsv { get; set; }
+            public int Ysv { get; set; }
+            public double Dx { get; set; }
+            public double Dy { get; set; }
+
+            internal LatticePoint2D(int xsv, int ysv) {
+                this.Xsv = xsv;
+                this.Ysv = ysv;
+                this.Dx = -xsv - ((xsv + ysv) * _squish2D);
+                this.Dy = -ysv - ((xsv + ysv) * _squish2D);
+            }
         }
     }
 }

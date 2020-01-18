@@ -9,6 +9,11 @@ namespace OpenAPI.WorldGenerator.Utils.Noise
             HeightMap = noiseMap;
         }
 
+        public float[] Data
+        {
+            get { return HeightMap; }
+        }
+
         public float this[int index]
         {
             get { return HeightMap[index]; }
@@ -25,7 +30,7 @@ namespace OpenAPI.WorldGenerator.Utils.Noise
             HeightMap[GetIndex(x, z)] = value;
         }
         
-        private static int GetIndex(int x, int z)
+        public static int GetIndex(int x, int z)
         {
             return (x << 4) + z;
         }

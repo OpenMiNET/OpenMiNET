@@ -12,6 +12,7 @@ using MiNET.Utils;
 using MiNET.Worlds;
 using Newtonsoft.Json;
 using OpenAPI.Utils;
+using OpenAPI.WorldGenerator.Generators.Biomes;
 using OpenAPI.WorldGenerator.Generators.Decorators;
 using OpenAPI.WorldGenerator.Utils;
 using OpenAPI.WorldGenerator.Utils.Noise;
@@ -124,7 +125,7 @@ namespace OpenAPI.WorldGenerator.Generators
             return chunk;
         }
 
-        public async Task<(float[] baseHeight, float[] heightMap, float[] thresholdMap, Biome[] biomes)> GenerateNeeded(ChunkCoordinates coordinates)
+        public async Task<(float[] baseHeight, float[] heightMap, float[] thresholdMap, BiomeBase[] biomes)> GenerateNeeded(ChunkCoordinates coordinates)
         {
             var baseHeight =
                 await GenerateSmoothMap(NoiseProvider.BaseHeightNoise, -1f, 1f, 0f, 128f, coordinates.X, coordinates.Z);
@@ -142,7 +143,7 @@ namespace OpenAPI.WorldGenerator.Generators
             return (baseHeight, heightMap, thresholdMap, biomes);
         }
         
-        private void DecorateChunk(int chunkX, int chunkZ, int[] blocks, int[] metadata, float[] heightMap, float[] thresholdMap, Biome[] biomes,
+        private void DecorateChunk(int chunkX, int chunkZ, int[] blocks, int[] metadata, float[] heightMap, float[] thresholdMap, BiomeBase[] biomes,
             ChunkDecorator[] decorators)
         {
             for (int x = 0; x < 16; x++)
@@ -294,7 +295,7 @@ namespace OpenAPI.WorldGenerator.Generators
             });
         }
 
-        private async Task<float[]> GenerateHeightMap(Biome[] biomes, int chunkX, int chunkZ)
+        private async Task<float[]> GenerateHeightMap(BiomeBase[] biomes, int chunkX, int chunkZ)
         {
             return await Task.Run(() =>
             {
@@ -355,7 +356,7 @@ namespace OpenAPI.WorldGenerator.Generators
             });
         }
 
-        public Biome GetBiome(float x, float z, float height)
+        public BiomeBase GetBiome(float x, float z, float height)
         {
            // x /= CoordinateScale;
           //  z /= CoordinateScale;
@@ -397,7 +398,7 @@ namespace OpenAPI.WorldGenerator.Generators
            return  BiomeUtils.GetBiome(temp, rain);
         }
 
-        public async Task<Biome[]> CalculateBiomes(float[] baseHeight, int chunkX, int chunkZ)
+        public async Task<BiomeBase[]> CalculateBiomes(float[] baseHeight, int chunkX, int chunkZ)
         {
            // chunkX *= 16;
            //
@@ -411,7 +412,7 @@ namespace OpenAPI.WorldGenerator.Generators
 
                 
                 
-                Biome[] rb = new Biome[16 * 16];
+                BiomeBase[] rb = new BiomeBase[16 * 16];
 
                 for (int x = 0; x < 16; x++)
                 {

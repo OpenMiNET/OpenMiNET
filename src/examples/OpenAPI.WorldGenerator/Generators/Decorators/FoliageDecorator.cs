@@ -2,6 +2,7 @@ using System;
 using MiNET.Worlds;
 using MiNET.Worlds.Structures;
 using OpenAPI.Utils;
+using OpenAPI.WorldGenerator.Generators.Biomes;
 using OpenAPI.WorldGenerator.Generators.Structures;
 using OpenAPI.WorldGenerator.Utils.Noise;
 using Biome = OpenAPI.WorldGenerator.Utils.Biome;
@@ -11,7 +12,7 @@ namespace OpenAPI.WorldGenerator.Generators.Decorators
 {
     public class FoliageDecorator : ChunkDecorator
 	{
-		public override void Decorate(int chunkX, int chunkZ, int[] blocks, int[] metadata, Biome biome, float[] thresholdMap, int x, int y, int z, bool surface,
+		public override void Decorate(int chunkX, int chunkZ, int[] blocks, int[] metadata, BiomeBase biome, float[] thresholdMap, int x, int y, int z, bool surface,
 			bool isBelowMaxHeight)
 		{
 			try

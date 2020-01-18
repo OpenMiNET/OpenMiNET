@@ -4,21 +4,22 @@ namespace OpenAPI.WorldGenerator.Generators
 {
     public class WorldGeneratorPreset
     {
-        [JsonProperty("seaLevel")] public long SeaLevel { get; set; } = 63;
-        
-        [JsonProperty("coordinateScale")] public float CoordinateScale { get; set; } = 684.412f;
-        
-        [JsonProperty("heightScale")] public float HeightScale { get; set; } = 684.412f;
+        [JsonProperty("coordinateScale")] public float CoordinateScale { get; set; } = 684f;
 
-        [JsonProperty("lowerLimitScale")] public float LowerLimitScale { get; set; } = 512;
+        [JsonProperty("heightScale")] public float HeightScale { get; set; } = 684f;
 
-        [JsonProperty("upperLimitScale")] public float UpperLimitScale { get; set; } = 512;
 
-        [JsonProperty("depthNoiseScaleX")] public float DepthNoiseScaleX { get; set; } = 200;
+        [JsonProperty("lowerLimitScale")] public float LowerLimitScale { get; set; } = 512f;
 
-        [JsonProperty("depthNoiseScaleZ")] public float DepthNoiseScaleZ { get; set; } = 200;
+        [JsonProperty("upperLimitScale")] public float UpperLimitScale { get; set; } = 512f;
+
+
+        [JsonProperty("depthNoiseScaleX")] public float DepthNoiseScaleX { get; set; } = 200f;
+
+        [JsonProperty("depthNoiseScaleZ")] public float DepthNoiseScaleZ { get; set; } = 200f;
 
         [JsonProperty("depthNoiseScaleExponent")] public float DepthNoiseScaleExponent { get; set; } = 0.5f;
+
 
         [JsonProperty("mainNoiseScaleX")] public float MainNoiseScaleX { get; set; } = 80f;
 
@@ -26,9 +27,11 @@ namespace OpenAPI.WorldGenerator.Generators
 
         [JsonProperty("mainNoiseScaleZ")] public float MainNoiseScaleZ { get; set; } = 80f;
 
+
         [JsonProperty("baseSize")] public float BaseSize { get; set; } = 8.5f;
 
         [JsonProperty("stretchY")] public float StretchY { get; set; } = 12f;
+
 
         [JsonProperty("biomeDepthWeight")] public float BiomeDepthWeight { get; set; } = 1f;
 
@@ -36,16 +39,19 @@ namespace OpenAPI.WorldGenerator.Generators
 
         [JsonProperty("biomeScaleWeight")] public float BiomeScaleWeight { get; set; } = 1f;
 
-        [JsonProperty("biomeScaleOffset")] public float BiomeScaleOffset { get; set; } = 0f;
+        [JsonProperty("biomeScaleOffset")] public float BiomeScaleOffset { get; set; } = 1f;
 
-        [JsonProperty("useCaves")]
-        public bool UseCaves { get; set; }
+
+        [JsonProperty("seaLevel")] public float SeaLevel { get; set; } = 63;
+
+
+        [JsonProperty("useCaves")] public bool UseCaves { get; set; } = true;
 
         [JsonProperty("useDungeons")]
         public bool UseDungeons { get; set; }
 
         [JsonProperty("dungeonChance")]
-        public long DungeonChance { get; set; }
+        public float DungeonChance { get; set; }
 
         [JsonProperty("useStrongholds")]
         public bool UseStrongholds { get; set; }
@@ -62,160 +68,162 @@ namespace OpenAPI.WorldGenerator.Generators
         [JsonProperty("useRavines")]
         public bool UseRavines { get; set; }
 
-        [JsonProperty("useWaterLakes")]
-        public bool UseWaterLakes { get; set; }
+        [JsonProperty("useWaterLakes")] public bool UseWaterLakes { get; set; } = true;
 
-        [JsonProperty("waterLakeChance")]
-        public long WaterLakeChance { get; set; }
+        [JsonProperty("waterLakeChance")] public float WaterLakeChance { get; set; } = 4f;
 
-        [JsonProperty("useLavaLakes")]
-        public bool UseLavaLakes { get; set; }
+        [JsonProperty("useLavaLakes")] public bool UseLavaLakes { get; set; } = false;
 
-        [JsonProperty("lavaLakeChance")]
-        public long LavaLakeChance { get; set; }
+        [JsonProperty("lavaLakeChance")] public float LavaLakeChance { get; set; } = 80;
 
-        [JsonProperty("useLavaOceans")]
-        public bool UseLavaOceans { get; set; }
+        [JsonProperty("useLavaOceans")] public bool UseLavaOceans { get; set; } = false;
 
-        [JsonProperty("fixedBiome")]
-        public long FixedBiome { get; set; }
+        [JsonProperty("fixedBiome")] public float FixedBiome { get; set; } = -3f;
 
-        [JsonProperty("biomeSize")]
-        public long BiomeSize { get; set; }
+        [JsonProperty("biomeSize")] public float BiomeSize { get; set; } = 4f;
 
-        [JsonProperty("riverSize")]
-        public long RiverSize { get; set; }
+        [JsonProperty("riverSize")] public float RiverSize { get; set; } = 4f;
 
         [JsonProperty("dirtSize")]
-        public long DirtSize { get; set; }
+        public float DirtSize { get; set; }
 
         [JsonProperty("dirtCount")]
-        public long DirtCount { get; set; }
+        public float DirtCount { get; set; }
 
         [JsonProperty("dirtMinHeight")]
-        public long DirtMinHeight { get; set; }
+        public float DirtMinHeight { get; set; }
 
         [JsonProperty("dirtMaxHeight")]
-        public long DirtMaxHeight { get; set; }
+        public float DirtMaxHeight { get; set; }
 
         [JsonProperty("gravelSize")]
-        public long GravelSize { get; set; }
+        public float GravelSize { get; set; }
 
         [JsonProperty("gravelCount")]
-        public long GravelCount { get; set; }
+        public float GravelCount { get; set; }
 
         [JsonProperty("gravelMinHeight")]
-        public long GravelMinHeight { get; set; }
+        public float GravelMinHeight { get; set; }
 
         [JsonProperty("gravelMaxHeight")]
-        public long GravelMaxHeight { get; set; }
+        public float GravelMaxHeight { get; set; }
 
         [JsonProperty("graniteSize")]
-        public long GraniteSize { get; set; }
+        public float GraniteSize { get; set; }
 
         [JsonProperty("graniteCount")]
-        public long GraniteCount { get; set; }
+        public float GraniteCount { get; set; }
 
         [JsonProperty("graniteMinHeight")]
-        public long GraniteMinHeight { get; set; }
+        public float GraniteMinHeight { get; set; }
 
         [JsonProperty("graniteMaxHeight")]
-        public long GraniteMaxHeight { get; set; }
+        public float GraniteMaxHeight { get; set; }
 
         [JsonProperty("dioriteSize")]
-        public long DioriteSize { get; set; }
+        public float DioriteSize { get; set; }
 
         [JsonProperty("dioriteCount")]
-        public long DioriteCount { get; set; }
+        public float DioriteCount { get; set; }
 
         [JsonProperty("dioriteMinHeight")]
-        public long DioriteMinHeight { get; set; }
+        public float DioriteMinHeight { get; set; }
 
         [JsonProperty("dioriteMaxHeight")]
-        public long DioriteMaxHeight { get; set; }
+        public float DioriteMaxHeight { get; set; }
 
         [JsonProperty("andesiteSize")]
-        public long AndesiteSize { get; set; }
+        public float AndesiteSize { get; set; }
 
         [JsonProperty("andesiteCount")]
-        public long AndesiteCount { get; set; }
+        public float AndesiteCount { get; set; }
 
         [JsonProperty("andesiteMinHeight")]
-        public long AndesiteMinHeight { get; set; }
+        public float AndesiteMinHeight { get; set; }
 
         [JsonProperty("andesiteMaxHeight")]
-        public long AndesiteMaxHeight { get; set; }
+        public float AndesiteMaxHeight { get; set; }
 
         [JsonProperty("coalSize")]
-        public long CoalSize { get; set; }
+        public float CoalSize { get; set; }
 
         [JsonProperty("coalCount")]
-        public long CoalCount { get; set; }
+        public float CoalCount { get; set; }
 
         [JsonProperty("coalMinHeight")]
-        public long CoalMinHeight { get; set; }
+        public float CoalMinHeight { get; set; }
 
         [JsonProperty("coalMaxHeight")]
-        public long CoalMaxHeight { get; set; }
+        public float CoalMaxHeight { get; set; }
 
         [JsonProperty("ironSize")]
-        public long IronSize { get; set; }
+        public float IronSize { get; set; }
 
         [JsonProperty("ironCount")]
-        public long IronCount { get; set; }
+        public float IronCount { get; set; }
 
         [JsonProperty("ironMinHeight")]
-        public long IronMinHeight { get; set; }
+        public float IronMinHeight { get; set; }
 
         [JsonProperty("ironMaxHeight")]
-        public long IronMaxHeight { get; set; }
+        public float IronMaxHeight { get; set; }
 
         [JsonProperty("goldSize")]
-        public long GoldSize { get; set; }
+        public float GoldSize { get; set; }
 
         [JsonProperty("goldCount")]
-        public long GoldCount { get; set; }
+        public float GoldCount { get; set; }
 
         [JsonProperty("goldMinHeight")]
-        public long GoldMinHeight { get; set; }
+        public float GoldMinHeight { get; set; }
 
         [JsonProperty("goldMaxHeight")]
-        public long GoldMaxHeight { get; set; }
+        public float GoldMaxHeight { get; set; }
 
         [JsonProperty("redstoneSize")]
-        public long RedstoneSize { get; set; }
+        public float RedstoneSize { get; set; }
 
         [JsonProperty("redstoneCount")]
-        public long RedstoneCount { get; set; }
+        public float RedstoneCount { get; set; }
 
         [JsonProperty("redstoneMinHeight")]
-        public long RedstoneMinHeight { get; set; }
+        public float RedstoneMinHeight { get; set; }
 
         [JsonProperty("redstoneMaxHeight")]
-        public long RedstoneMaxHeight { get; set; }
+        public float RedstoneMaxHeight { get; set; }
 
         [JsonProperty("diamondSize")]
-        public long DiamondSize { get; set; }
+        public float DiamondSize { get; set; }
 
         [JsonProperty("diamondCount")]
-        public long DiamondCount { get; set; }
+        public float DiamondCount { get; set; }
 
         [JsonProperty("diamondMinHeight")]
-        public long DiamondMinHeight { get; set; }
+        public float DiamondMinHeight { get; set; }
 
         [JsonProperty("diamondMaxHeight")]
-        public long DiamondMaxHeight { get; set; }
+        public float DiamondMaxHeight { get; set; }
 
         [JsonProperty("lapisSize")]
-        public long LapisSize { get; set; }
+        public float LapisSize { get; set; }
 
         [JsonProperty("lapisCount")]
-        public long LapisCount { get; set; }
+        public float LapisCount { get; set; }
 
         [JsonProperty("lapisCenterHeight")]
-        public long LapisCenterHeight { get; set; }
+        public float LapisCenterHeight { get; set; }
 
         [JsonProperty("lapisSpread")]
-        public long LapisSpread { get; set; }
+        public float LapisSpread { get; set; }
+
+        public float RiverFrequency { get; set; } = 1.0f;
+        public float RiverBendMult { get; set; } = 1.0f;
+        public float RiverSizeMult { get; set; } = 1.0f;
+
+        public float RTGlakeSizeMult { get; set; } = 1f;      // RTG
+        public float RTGlakeFreqMult { get; set; } = 1f;       // RTG
+        public float RTGlakeShoreBend { get; set; } = 1f; // RTG
+
+        public float SandDuneHeight { get; set; } = 4f;
     }
 }

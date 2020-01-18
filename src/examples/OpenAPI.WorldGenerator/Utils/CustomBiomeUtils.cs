@@ -2,26 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Numerics;
 using log4net;
 using MiNET.Worlds;
+using OpenAPI.WorldGenerator.Generators.Biomes;
+using OpenAPI.WorldGenerator.Generators.Biomes.Vanilla;
+using OpenAPI.WorldGenerator.Generators.Terrain;
 
 namespace OpenAPI.WorldGenerator.Utils
 {
-    public class Biome : MiNET.Worlds.Biome
-	{
-		public float MinHeight = 0.1f;
-		public float MaxHeight = 0.3f;
-
-		public byte SurfaceBlock = 2;
-		public byte SurfaceMetadata = 0;
-
-		public byte SoilBlock = 3;
-		public byte SoilMetadata = 0;
-	}
-
 	public class BiomeUtils
 	{
-		public static Biome[] Biomes =
+		public static BiomeBase[] Biomes =
 		{
 			new Biome
 			{
@@ -31,18 +23,9 @@ namespace OpenAPI.WorldGenerator.Utils
 				Downfall = 0.5f,
 				MinHeight = -1f,
 				MaxHeight = 0.4f,
-				//	SurfaceBlock = 12,
-				//	SoilBlock = 24
+				Terrain = new OceanTerrain()
 			}, // default values of temp and rain
-			new Biome
-			{
-				Id = 1,
-				Name = "Plains",
-				Temperature = 0.8f,
-				Downfall = 0.4f,
-				MinHeight = 0.0125f,
-				MaxHeight = 0.5f, //TODO
-			},
+			new PlainsBiome(), 
 			new Biome
 			{
 				Id = 2,
@@ -52,7 +35,8 @@ namespace OpenAPI.WorldGenerator.Utils
 				MinHeight = 0.1f,
 				MaxHeight = 0.2f,
 				SurfaceBlock = 12,
-				SoilBlock = 24
+				SoilBlock = 24,
+				Terrain = new DesertTerrain()
 			},
 			new Biome
 			{
@@ -61,7 +45,8 @@ namespace OpenAPI.WorldGenerator.Utils
 				Temperature = 0.2f,
 				Downfall = 0.3f,
 				MinHeight = 0.2f,
-				MaxHeight = 1f
+				MaxHeight = 1f,
+				Terrain = new RidgedExtremeHillsTerrain(150f, 67f, 200f)
 			},
 			new Biome
 			{
@@ -71,6 +56,7 @@ namespace OpenAPI.WorldGenerator.Utils
 				Downfall = 0.8f,
 				MinHeight = 0.1f, //TODO
 				MaxHeight = 0.2f,
+				Terrain = new ForestTerrain()
 			},
 			new Biome
 			{
@@ -79,7 +65,8 @@ namespace OpenAPI.WorldGenerator.Utils
 				Temperature = 0.05f,
 				Downfall = 0.8f,
 				MinHeight = 0.1f,
-				MaxHeight = 0.4f
+				MaxHeight = 0.4f,
+				Terrain = new TaigaTerrain()
 			},
 			new Biome
 			{
@@ -124,7 +111,8 @@ namespace OpenAPI.WorldGenerator.Utils
 				Temperature = 0.0f,
 				Downfall = 0.5f,
 				MinHeight = -1f,
-				MaxHeight = 0.5f
+				MaxHeight = 0.5f,
+				Terrain = new OceanTerrain()
 			},
 			new Biome
 			{
@@ -178,7 +166,8 @@ namespace OpenAPI.WorldGenerator.Utils
 				Temperature = 0.8f,
 				Downfall = 0.4f,
 				MinHeight = 0f,
-				MaxHeight = 0.1f
+				MaxHeight = 0.1f,
+				Terrain = new BeachTerrain()
 			},
 			new Biome
 			{
@@ -190,7 +179,9 @@ namespace OpenAPI.WorldGenerator.Utils
 				MaxHeight = 0.7f,
 
 				SurfaceBlock = 12, //Sand
-				SoilBlock = 24 //Sandstone
+				SoilBlock = 24, //Sandstone
+				
+				Terrain = new DesertHillsTerrain(10f, 80f, 68f, 200f)
 			},
 			new Biome
 			{
@@ -199,7 +190,8 @@ namespace OpenAPI.WorldGenerator.Utils
 				Temperature = 0.7f,
 				Downfall = 0.8f,
 				MinHeight = 0.2f,
-				MaxHeight = 0.6f
+				MaxHeight = 0.6f,
+				Terrain = new ForestHillsTerrain()
 			},
 			new Biome
 			{
@@ -209,6 +201,7 @@ namespace OpenAPI.WorldGenerator.Utils
 				Downfall = 0.7f,
 				MinHeight = 0.2f,
 				MaxHeight = 0.7f,
+				Terrain = new TaigaHillsTerrain()
 			},
 			new Biome
 			{
@@ -217,7 +210,8 @@ namespace OpenAPI.WorldGenerator.Utils
 				Temperature = 0.2f,
 				Downfall = 0.3f,
 				MinHeight = 0.2f,
-				MaxHeight = 0.8f
+				MaxHeight = 0.8f,
+				Terrain = new RidgedExtremeHillsTerrain(125f, 67f, 200f)
 			},
 			new Biome
 			{
@@ -226,7 +220,9 @@ namespace OpenAPI.WorldGenerator.Utils
 				Temperature = 1.2f,
 				Downfall = 0.9f,
 				MinHeight = 0.1f,
-				MaxHeight = 0.4f
+				MaxHeight = 0.4f,
+				
+				Terrain = new JungleTerrain()
 			},
 			new Biome
 			{
@@ -235,7 +231,9 @@ namespace OpenAPI.WorldGenerator.Utils
 				Temperature = 1.2f,
 				Downfall = 0.9f,
 				MinHeight = 0.2f,
-				MaxHeight = 1.8f
+				MaxHeight = 1.8f,
+				
+				Terrain = new JungleHillsTerrain(72f, 40f)
 			},
 			
 			//TODO: The rest of min/max
@@ -246,7 +244,9 @@ namespace OpenAPI.WorldGenerator.Utils
 				Temperature = 0.95f,
 				Downfall = 0.8f,
 				MinHeight = 0.1f,
-				MaxHeight = 0.2f
+				MaxHeight = 0.2f,
+				
+				Terrain = new JungleEdgeTerrain()
 			},
 			new Biome
 			{
@@ -255,7 +255,8 @@ namespace OpenAPI.WorldGenerator.Utils
 				Temperature = 0.5f,
 				Downfall = 0.5f,
 				MinHeight = -1.8F,
-				MaxHeight = 0.1f
+				MaxHeight = 0.1f,
+				Terrain = new DeepOceanTerrain()
 			},
 			new Biome
 			{
@@ -282,7 +283,8 @@ namespace OpenAPI.WorldGenerator.Utils
 				Temperature = 0.6f,
 				Downfall = 0.6f,
 				MinHeight = 0.1f,
-				MaxHeight = 0.2f
+				MaxHeight = 0.2f,
+				Terrain = new BirchForestTerrain()
 			},
 			new Biome
 			{
@@ -291,7 +293,8 @@ namespace OpenAPI.WorldGenerator.Utils
 				Temperature = 0.6f,
 				Downfall = 0.6f,
 				MinHeight = 0.35f,
-				MaxHeight = 0.45f
+				MaxHeight = 0.45f,
+				Terrain = new BirchForestHillsTerrain()
 			},
 			new Biome
 			{
@@ -300,7 +303,8 @@ namespace OpenAPI.WorldGenerator.Utils
 				Temperature = 0.7f,
 				Downfall = 0.8f,
 				MinHeight = 0.1f,
-				MaxHeight = 0.2f
+				MaxHeight = 0.2f,
+				Terrain = new ForestTerrain()
 			},
 			new Biome
 			{
@@ -345,7 +349,8 @@ namespace OpenAPI.WorldGenerator.Utils
 				Temperature = 0.2f,
 				Downfall = 0.3f,
 				MinHeight = 0.5f,
-				MaxHeight = 1f
+				MaxHeight = 1f,
+				Terrain = new RidgedExtremeHillsTerrain(150f, 67f, 200f)
 			},
 			new Biome
 			{
@@ -378,6 +383,8 @@ namespace OpenAPI.WorldGenerator.Utils
 				SurfaceMetadata = 1,
 
 				SoilBlock = 179, //Soil = Red Sandstone
+				
+				Terrain = new MesaTerrain()
 			},
 			/*new Biome
 			{
@@ -418,7 +425,9 @@ namespace OpenAPI.WorldGenerator.Utils
 				Downfall = 0.0f,
 
 				SurfaceBlock = 12,
-				SoilBlock = 24
+				SoilBlock = 24,
+				
+				Terrain = new DesertTerrain() //Change to Desert M
 			},
 			new Biome
 			{
@@ -427,7 +436,8 @@ namespace OpenAPI.WorldGenerator.Utils
 				Temperature = 0.2f,
 				Downfall = 0.3f,
 				MinHeight = 0.2f,
-				MaxHeight = 0.8f
+				MaxHeight = 0.8f,
+				Terrain = new RidgedExtremeHillsTerrain(190f, 67f, 200f)
 			},
 		/*	new Biome {Id = 132, Name = "Flower Forest", Temperature = 0.7f, Downfall = 0.8f},
 			new Biome {Id = 133, Name = "Taiga M", Temperature = 0.05f, Downfall = 0.8f},
@@ -485,6 +495,7 @@ namespace OpenAPI.WorldGenerator.Utils
 
 			float minHeight = float.MaxValue;
 			float maxHeight = float.MinValue;
+
 			for (int i = 0; i < Biomes.Length; i++)
 			{
 				var biome = Biomes[i];
@@ -494,8 +505,8 @@ namespace OpenAPI.WorldGenerator.Utils
 				minHeight = Math.Min(minHeight, min);
 				maxHeight = Math.Max(maxHeight, max);
 
-				min = MathUtils.ConvertRange(-2f, 2f, 0f, 128f, biome.MinHeight);
-				max = MathUtils.ConvertRange(-2f, 2f, 0f, 128f, biome.MaxHeight);
+			//	min = MathUtils.ConvertRange(-2f, 2f, 0f, 128f, biome.MinHeight);
+			//	max = MathUtils.ConvertRange(-2f, 2f, 0f, 128f, biome.MaxHeight);
 				
 				biome.MinHeight = min;
 				biome.MaxHeight = max;
@@ -516,7 +527,7 @@ namespace OpenAPI.WorldGenerator.Utils
 				{
 					maxRain = biome.Downfall;
 				}
-				
+
 				Biomes[i] = biome;
 			}
 			Console.WriteLine($"Temperature (min: {minTemp} max: {maxTemp}) Downfall (min:{minRain} max: {maxRain}) Height (min: {minHeight} max: {maxHeight})");
@@ -675,12 +686,12 @@ namespace OpenAPI.WorldGenerator.Utils
 			}
 		}
 
-		public Biome GetBiome(int biomeId)
+		public BiomeBase GetBiome(int biomeId)
 		{
 			return Biomes.FirstOrDefault(biome => biome.Id == biomeId) ?? new Biome { Id = biomeId };
 		}
 
-		public static Biome GetBiomeById(int biomeId)
+		public static BiomeBase GetBiomeById(int biomeId)
 		{
 			return Biomes.FirstOrDefault(biome => biome.Id == biomeId) ?? new Biome { Id = biomeId };
 		}
@@ -700,7 +711,7 @@ namespace OpenAPI.WorldGenerator.Utils
 			return color;
 		}
 
-		public static Biome GetEdgeBiome(Biome biome)
+		public static BiomeBase GetEdgeBiome(Biome biome)
 		{
 			if (biome.Id == 21 || biome.Id == 22) //Jungle or Jungle Hills
 			{
@@ -714,7 +725,7 @@ namespace OpenAPI.WorldGenerator.Utils
 			return biome;
 		}
 
-		public static Biome[] GetClose(float temp, float rain, float height)
+		public static BiomeBase[] GetClose(float temp, float rain, float height)
 		{
 			return Biomes.OrderBy(biome =>
 			{
@@ -724,7 +735,7 @@ namespace OpenAPI.WorldGenerator.Utils
 			//return Biomes.ToDictionary(x => GetSquaredDistance(x, temp, rain)).Where(x=> x.Key < 5).Select(x => x.Value).ToArray();
 		}
 		
-		public static Dictionary<Biome, double> GetBiomes(float temp, float rain)
+		public static Dictionary<BiomeBase, double> GetBiomes(float temp, float rain)
 		{
 			if (temp < -1f || temp > 2f || rain < 0f || rain > 1f)
 				Debug.WriteLine($"Temp: {temp} Rain: {rain}");
@@ -733,12 +744,12 @@ namespace OpenAPI.WorldGenerator.Utils
 
 			//	Debug.WriteLine($"Temp: {temp} Rain: {rain}");
 			double threshold = 1000.0;
-			Dictionary<Biome, double> biomes = new Dictionary<Biome, double>(3);
+			Dictionary<BiomeBase, double> biomes = new Dictionary<BiomeBase, double>(3);
 
-			Biome closestBiome = null, secondClosestBiome = null, thirdClosestBiome = null;
+			BiomeBase closestBiome = null, secondClosestBiome = null, thirdClosestBiome = null;
 			double closestDist = 10000000, secondClosestDist = 10000000, thirdClosestDist = 10000000;
 
-			foreach (Biome biome in Biomes.Where(x => x.Id != 8 && x.Id != 9).OrderBy(x => GetSquaredDistance(x, temp, rain)).Take(3))
+			foreach (BiomeBase biome in Biomes.Where(x => x.Id != 8 && x.Id != 9).OrderBy(x => GetSquaredDistance(x, temp, rain)).Take(3))
 			{
 				double dist = GetSquaredDistance(biome, temp, rain);
 
@@ -771,7 +782,7 @@ namespace OpenAPI.WorldGenerator.Utils
 
 		}
 
-		public static Biome GetBiome(float temp, float rain)
+		public static BiomeBase GetBiome(float temp, float rain)
 		{
 			if (temp < -1f || temp > 2f || rain < 0f || rain > 1f)
 				Debug.WriteLine($"Temp: {temp} Rain: {rain}");
@@ -779,13 +790,13 @@ namespace OpenAPI.WorldGenerator.Utils
 			return ClosestTo(Biomes, temp, rain);
 		}
 
-		private static Biome ClosestTo(IEnumerable<Biome> collection, float targetTemp, float targetRain)
+		private static BiomeBase ClosestTo(IEnumerable<BiomeBase> collection, float targetTemp, float targetRain)
 		{
-			var temperatureOrdering = collection.OrderBy(x => MathF.Abs(x.Temperature - targetTemp)).Take(3);
-			var closestRainfall = temperatureOrdering.OrderBy(x => MathF.Abs(x.Temperature - targetRain));
+			var temperatureOrdering = collection.OrderBy(x => MathF.Abs(x.Temperature - targetTemp)).ThenBy(x => MathF.Abs(x.Downfall - targetRain));
+			//var closestRainfall = temperatureOrdering.OrderBy(x => MathF.Abs(x.Downfall - targetRain));
 
-			return closestRainfall.FirstOrDefault();
-			
+			return temperatureOrdering.FirstOrDefault();
+			/*
 			Biome closest = null;
 			float closestDistance = float.MaxValue;
 			foreach (var element in collection)
@@ -797,12 +808,12 @@ namespace OpenAPI.WorldGenerator.Utils
 					closest = element;
 				}
 			}
-
+*/
 			//Debug.WriteLine($"Closest biome to temp: {targetTemp} rain: {targetRain} is {closest.Name}, distance: {closestDistance}");
-			return closest;
+			//	return closest;
 		}
 
-		public static float GetSquaredDistance(Biome biome, float temp, float rain)
+		public static float GetSquaredDistance(BiomeBase biome, float temp, float rain)
 		{
 			return MathF.Abs((biome.Temperature - temp) * (biome.Temperature - temp) + (biome.Downfall - rain) * (biome.Downfall - rain));
 		}

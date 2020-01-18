@@ -1,9 +1,9 @@
-﻿using LibNoise;
+using LibNoise;
 using LibNoise.Primitive;
 
 namespace OpenAPI.WorldGenerator.Utils.Noise
 {
-	public class SimplexOctaveGenerator
+    public class SimplexOctaveGenerator
 	{
 		private readonly long _seed;
 		private readonly int _octaves;
@@ -121,5 +121,4 @@ namespace OpenAPI.WorldGenerator.Utils.Noise
 			WScale = scale;
 		}
 	}
-
 }

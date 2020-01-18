@@ -50,7 +50,7 @@ namespace OpenAPI.WorldGenerator
         public override void Enabled(OpenAPI api)
         {
             Api = api;
-            var level = new OpenLevel(api, api.LevelManager, Dimension.Overworld.ToString(), new DebugWorldProvider(new OverworldGenerator()), api.LevelManager.EntityManager, GameMode.Creative, Difficulty.Peaceful);
+            var level = new OpenLevel(api, api.LevelManager, Dimension.Overworld.ToString(), new DebugWorldProvider(new OverworldGeneratorV2()), api.LevelManager.EntityManager, GameMode.Creative, Difficulty.Peaceful);
 
             api.LevelManager.LoadLevel(level);
             
@@ -74,7 +74,7 @@ namespace OpenAPI.WorldGenerator
         {
             var lvl = Api.LevelManager.GetLevel(e.Player, Dimension.Overworld.ToString());
             
-            e.Player.SpawnLevel(lvl, lvl.SpawnPoint, true, null, () =>
+            e.Player.SpawnLevel(lvl, lvl.SpawnPoint, false, null, () =>
             {
                 e.Player.SetGameMode(GameMode.Creative);
                 e.Player.Teleport(new PlayerLocation(e.Player.KnownPosition.X, e.Player.Level.GetHeight(e.Player.KnownPosition.GetCoordinates3D()) + 3f, e.Player.KnownPosition.Z));

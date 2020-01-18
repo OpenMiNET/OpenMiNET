@@ -1,4 +1,5 @@
 using MiNET.Worlds;
+using OpenAPI.WorldGenerator.Generators.Biomes;
 using Biome = OpenAPI.WorldGenerator.Utils.Biome;
 
 namespace OpenAPI.WorldGenerator.Generators.Decorators
@@ -10,7 +11,7 @@ namespace OpenAPI.WorldGenerator.Generators.Decorators
 			
         }
 
-        public override void Decorate(int chunkX, int chunkZ, int[] blocks, int[] metadata, Biome biome, float[] thresholdMap, int x, int y, int z, bool surface, bool isBelowMaxHeight)
+        public override void Decorate(int chunkX, int chunkZ, int[] blocks, int[] metadata, BiomeBase biome, float[] thresholdMap, int x, int y, int z, bool surface, bool isBelowMaxHeight)
         {
             if (y > OverworldGenerator.WaterLevel && y > 32) return;
 
