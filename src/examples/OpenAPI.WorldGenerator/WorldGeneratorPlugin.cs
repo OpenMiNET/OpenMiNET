@@ -40,7 +40,7 @@ namespace OpenAPI.WorldGenerator
                 if (chunk == null)
                     continue;
                 
-                var biome = chunk.GetBiome(pos.X - (chunk.x * 16), pos.Z - (chunk.z * 16));
+                var biome = chunk.GetBiome(pos.X - (chunk.X * 16), pos.Z - (chunk.Z * 16));
                 var result = BiomeUtils.GetBiomeById(biome);
                 
                 player.SendTitle($"Biome: {result.Name} | ", TitleType.ActionBar, 0, 0, 25);

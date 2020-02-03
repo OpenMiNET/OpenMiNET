@@ -75,14 +75,14 @@ namespace OpenAPI.WorldGenerator.Generators.Terrain
             _groundEffect = new GroundEffect(6);
         }
 
-        public override float GenerateNoise(OverworldGeneratorV2 rtgWorld, int x, int y, float border, float river)
+        public override float GenerateNoise(OverworldGeneratorV2 generator, int x, int y, float border, float river)
         {
             // ground effect is increased by the multiplier
-            float groundEffectLevel = _groundEffect.Added(rtgWorld, (float) x, (float) y);
-            float ridging = _multiplier.Added(rtgWorld, (float) x, (float) y);
+            float groundEffectLevel = _groundEffect.Added(generator, (float) x, (float) y);
+            float ridging = _multiplier.Added(generator, (float) x, (float) y);
             ridging = TerrainBase.BayesianAdjustment(ridging, 2);
             float result =
-                BaseHeight + ridging * (groundEffectLevel + _heightIncrease.Added(rtgWorld, (float) x, (float) y))
+                BaseHeight + ridging * (groundEffectLevel + _heightIncrease.Added(generator, (float) x, (float) y))
                            + groundEffectLevel;
             return TerrainBase.MountainCap(result);
         }

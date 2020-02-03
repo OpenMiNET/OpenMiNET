@@ -12,6 +12,14 @@ namespace OpenAPI.WorldGenerator.Utils.Noise.Cellular
         
         public double BorderValue => ShortestDistance / NextDistance;
         public double InteriorValue => (NextDistance - ShortestDistance) / NextDistance;
+
+        public VoronoiResult(VoronoiSettings settings)
+        {
+            ShortestDistance = settings.ShortestDistance;
+            NextDistance = settings.NextDistance;
+            ClosestX = settings.ClosestX;
+            ClosestZ = settings.ClosestZ;
+        }
         
         public Vector2 ToLength(Vector2 toMap, float radius) {
             double distance = Distance(toMap, this.ClosestX, this.ClosestZ);

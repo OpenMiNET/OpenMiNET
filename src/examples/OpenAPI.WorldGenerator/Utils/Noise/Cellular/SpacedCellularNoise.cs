@@ -17,6 +17,7 @@ namespace OpenAPI.WorldGenerator.Utils.Noise.Cellular
 
         private int _ySeed;
 
+        public VoronoiSettings Settings { get; set; } = new VoronoiSettings();
         public SpacedCellularNoise(long xSeed)
         {
             this._xSeed = (int) xSeed;
@@ -69,7 +70,7 @@ namespace OpenAPI.WorldGenerator.Utils.Noise.Cellular
             int yInt = (y > 0.0 ? (int) y : (int) y - 1);
 
             // note the algorithm requires a fresh VoronoiResult.
-            VoronoiResult result = new VoronoiResult();
+            VoronoiResult result = new VoronoiResult(Settings);
 
             Vector2 square = new Vector2(xInt, yInt);
             // evaluate the points for that square;

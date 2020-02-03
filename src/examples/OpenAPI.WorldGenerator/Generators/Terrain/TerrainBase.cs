@@ -79,13 +79,13 @@ namespace OpenAPI.WorldGenerator.Generators.Terrain
             return (-1f) * (float) MathF.Pow((-1f) * number, power);
         }
 
-        public static float Hills(float x, float y, float hillStrength, OverworldGeneratorV2 rtgWorld)
+        public static float Hills(float x, float y, float hillStrength, OverworldGeneratorV2 generator)
         {
 
-            float m = rtgWorld.SimplexInstance(0).GetValue(x / 150f, y / 150f);
+            float m = generator.SimplexInstance(0).GetValue(x / 150f, y / 150f);
             m = BlendedHillHeight(m, 0.2f);
 
-            float sm = rtgWorld.SimplexInstance(2)
+            float sm = generator.SimplexInstance(2)
                 .GetValue(x / 55, y / 55); // there are artifacts if this is close to a multiple of 16
             sm = BlendedHillHeight(sm, 0.2f);
             //sm = sm*0.8f;
@@ -105,21 +105,21 @@ namespace OpenAPI.WorldGenerator.Generators.Terrain
             return 62f + 6f * river;
         }
         
-        public static float GetGroundNoise(int x, int y, float amplitude, OverworldGeneratorV2 rtgWorld)
+        public static float GetGroundNoise(int x, int y, float amplitude, OverworldGeneratorV2 generator)
         {
 
-            float h = BlendedHillHeight(rtgWorld.SimplexInstance(0).GetValue(x / 49f, y / 49f), 0.2f) * amplitude;
-            h += BlendedHillHeight(rtgWorld.SimplexInstance(1).GetValue(x / 23f, y / 23f), 0.2f) * amplitude / 2f;
-            h += BlendedHillHeight(rtgWorld.SimplexInstance(2).GetValue(x / 11f, y / 11f), 0.2f) * amplitude / 4f;
+            float h = BlendedHillHeight(generator.SimplexInstance(0).GetValue(x / 49f, y / 49f), 0.2f) * amplitude;
+            h += BlendedHillHeight(generator.SimplexInstance(1).GetValue(x / 23f, y / 23f), 0.2f) * amplitude / 2f;
+            h += BlendedHillHeight(generator.SimplexInstance(2).GetValue(x / 11f, y / 11f), 0.2f) * amplitude / 4f;
             return h;
         }
 
-        public static float GetGroundNoise(float x, float y, float amplitude, OverworldGeneratorV2 rtgWorld)
+        public static float GetGroundNoise(float x, float y, float amplitude, OverworldGeneratorV2 generator)
         {
 
-            float h = BlendedHillHeight(rtgWorld.SimplexInstance(0).GetValue(x / 49f, y / 49f), 0.2f) * amplitude;
-            h += BlendedHillHeight(rtgWorld.SimplexInstance(1).GetValue(x / 23f, y / 23f), 0.2f) * amplitude / 2f;
-            h += BlendedHillHeight(rtgWorld.SimplexInstance(2).GetValue(x / 11f, y / 11f), 0.2f) * amplitude / 4f;
+            float h = BlendedHillHeight(generator.SimplexInstance(0).GetValue(x / 49f, y / 49f), 0.2f) * amplitude;
+            h += BlendedHillHeight(generator.SimplexInstance(1).GetValue(x / 23f, y / 23f), 0.2f) * amplitude / 2f;
+            h += BlendedHillHeight(generator.SimplexInstance(2).GetValue(x / 11f, y / 11f), 0.2f) * amplitude / 4f;
             return h;
         }
 
@@ -153,15 +153,15 @@ namespace OpenAPI.WorldGenerator.Generators.Terrain
             return 62.45f + (height - 62.45f) * river;
         }
 
-        public static float TerrainBeach(int x, int y, OverworldGeneratorV2 rtgWorld, float river, float baseHeight)
+        public static float TerrainBeach(int x, int y, OverworldGeneratorV2 generator, float river, float baseHeight)
         {
-            return Riverized(baseHeight + GetGroundNoise(x, y, 4f, rtgWorld), river);
+            return Riverized(baseHeight + GetGroundNoise(x, y, 4f, generator), river);
         }
 
-        public static float TerrainBryce(int x, int y, OverworldGeneratorV2 rtgWorld, float river, float height)
+        public static float TerrainBryce(int x, int y, OverworldGeneratorV2 generator, float river, float height)
         {
 
-            var simplex = rtgWorld.SimplexInstance(0);
+            var simplex = generator.SimplexInstance(0);
             float sn = simplex.GetValue(x / 2f, y / 2f) * 0.5f + 0.5f;
             sn += simplex.GetValue(x, y) * 0.2f + 0.2f;
             sn += simplex.GetValue(x / 4f, y / 4f) * 4f + 4f;
@@ -172,26 +172,26 @@ namespace OpenAPI.WorldGenerator.Generators.Terrain
             return Riverized(GetTerrainBase() + n, river);
         }
 
-        public static float TerrainFlatLakes(int x, int y, OverworldGeneratorV2 rtgWorld, float river, float baseHeight)
+        public static float TerrainFlatLakes(int x, int y, OverworldGeneratorV2 generator, float river, float baseHeight)
         {
             /*float h = simplex.GetValue(x / 300f, y / 300f) * 40f * river;
             h = h > hMax ? hMax : h;
             h += simplex.GetValue(x / 50f, y / 50f) * (12f - h) * 0.4f;
             h += simplex.GetValue(x / 15f, y / 15f) * (12f - h) * 0.15f;*/
 
-            float ruggedNoise = rtgWorld.SimplexInstance(1).GetValue(
+            float ruggedNoise = generator.SimplexInstance(1).GetValue(
                 x / 200f,
                 y / 200f
             );
 
             ruggedNoise = BlendedHillHeight(ruggedNoise);
-            float h = GetGroundNoise(x, y, 2f * (ruggedNoise + 1f), rtgWorld); // ground noise
+            float h = GetGroundNoise(x, y, 2f * (ruggedNoise + 1f), generator); // ground noise
             return Riverized(baseHeight + h, river);
         }
 
-        public static float TerrainForest(int x, int y, OverworldGeneratorV2 rtgWorld, float river, float baseHeight)
+        public static float TerrainForest(int x, int y, OverworldGeneratorV2 generator, float river, float baseHeight)
         {
-            var simplex = rtgWorld.SimplexInstance(0);
+            var simplex = generator.SimplexInstance(0);
 
             double h = simplex.GetValue(x / 100f, y / 100f) * 8d;
             h += simplex.GetValue(x / 30f, y / 30f) * 4d;
@@ -201,11 +201,11 @@ namespace OpenAPI.WorldGenerator.Generators.Terrain
             return Riverized(baseHeight + 20f + (float) h, river);
         }
 
-        public static float TerrainGrasslandFlats(int x, int y, OverworldGeneratorV2 rtgWorld, float river,
+        public static float TerrainGrasslandFlats(int x, int y, OverworldGeneratorV2 generator, float river,
             float mPitch, float baseHeight)
         {
 
-            var simplex = rtgWorld.SimplexInstance(0);
+            var simplex = generator.SimplexInstance(0);
             float h = simplex.GetValue(x / 100f, y / 100f) * 7;
             h += simplex.GetValue(x / 20f, y / 20f) * 2;
 
@@ -219,30 +219,30 @@ namespace OpenAPI.WorldGenerator.Generators.Terrain
             return Riverized(baseHeight + h + m, river);
         }
 
-        public static float TerrainGrasslandHills(int x, int y, OverworldGeneratorV2 rtgWorld, float river,
+        public static float TerrainGrasslandHills(int x, int y, OverworldGeneratorV2 generator, float river,
             float vWidth, float vHeight, float hWidth, float hHeight, float bHeight)
         {
 
-            float h = rtgWorld.SimplexInstance(0).GetValue(x / vWidth, y / vWidth);
+            float h = generator.SimplexInstance(0).GetValue(x / vWidth, y / vWidth);
             h = BlendedHillHeight(h, 0.3f);
 
-            float m = rtgWorld.SimplexInstance(1).GetValue(x / hWidth, y / hWidth);
+            float m = generator.SimplexInstance(1).GetValue(x / hWidth, y / hWidth);
             m = BlendedHillHeight(m, 0.3f) * h;
             m *= m;
 
             h *= vHeight * river;
             m *= hHeight * river;
 
-            h += TerrainBase.GetGroundNoise(x, y, 4f, rtgWorld);
+            h += TerrainBase.GetGroundNoise(x, y, 4f, generator);
 
             return Riverized(bHeight + h, river) + m;
         }
 
-        public static float TerrainGrasslandMountains(int x, int y, OverworldGeneratorV2 rtgWorld, float river,
+        public static float TerrainGrasslandMountains(int x, int y, OverworldGeneratorV2 generator, float river,
             float hFactor, float mFactor, float baseHeight)
         {
 
-            var simplex0 = rtgWorld.SimplexInstance(0);
+            var simplex0 = generator.SimplexInstance(0);
             float h = simplex0.GetValue(x / 100f, y / 100f) * hFactor;
             h += simplex0.GetValue(x / 20f, y / 20f) * 2;
 
@@ -250,7 +250,7 @@ namespace OpenAPI.WorldGenerator.Generators.Terrain
             m *= m / 35f;
             m = m > 70f ? 70f + (m - 70f) / 2.5f : m;
 
-            float c = rtgWorld.SimplexInstance(4).GetValue(x / 30f, y / 30f, 1f) * (m * 0.30f);
+            float c = generator.SimplexInstance(4).GetValue(x / 30f, y / 30f, 1f) * (m * 0.30f);
 
             float sm = simplex0.GetValue(x / 30f, y / 30f) * 8f + simplex0.GetValue(x / 8f, y / 8f);
             sm *= m / 20f > 2.5f ? 2.5f : m / 20f;
@@ -261,11 +261,11 @@ namespace OpenAPI.WorldGenerator.Generators.Terrain
             return Riverized(baseHeight + h + m, river);
         }
 
-        public static float TerrainHighland(float x, float y, OverworldGeneratorV2 rtgWorld, float river, float start,
+        public static float TerrainHighland(float x, float y, OverworldGeneratorV2 generator, float river, float start,
             float width, float height, float baseAdjust)
         {
 
-            float h = rtgWorld.SimplexInstance(0).GetValue(x / width, y / width) * height * river; //-140 to 140
+            float h = generator.SimplexInstance(0).GetValue(x / width, y / width) * height * river; //-140 to 140
             h = h < start ? start + ((h - start) / 4.5f) : h;
 
             if (h < 0f)
@@ -276,13 +276,13 @@ namespace OpenAPI.WorldGenerator.Generators.Terrain
             if (h > 0f)
             {
                 float st = h * 1.5f > 15f ? 15f : h * 1.5f; // 0 to 15
-                h += rtgWorld.SimplexInstance(4).GetValue(x / 70f, y / 70f, 1f) * st; // 0 to 155
+                h += generator.SimplexInstance(4).GetValue(x / 70f, y / 70f, 1f) * st; // 0 to 155
                 h = h * river;
             }
 
-            h += BlendedHillHeight(rtgWorld.SimplexInstance(0).GetValue(x / 20f, y / 20f), 0f) * 4f;
-            h += BlendedHillHeight(rtgWorld.SimplexInstance(0).GetValue(x / 12f, y / 12f), 0f) * 2f;
-            h += BlendedHillHeight(rtgWorld.SimplexInstance(0).GetValue(x / 5f, y / 5f), 0f) * 1f;
+            h += BlendedHillHeight(generator.SimplexInstance(0).GetValue(x / 20f, y / 20f), 0f) * 4f;
+            h += BlendedHillHeight(generator.SimplexInstance(0).GetValue(x / 12f, y / 12f), 0f) * 2f;
+            h += BlendedHillHeight(generator.SimplexInstance(0).GetValue(x / 5f, y / 5f), 0f) * 1f;
 
             if (h < 0)
             {
@@ -297,11 +297,11 @@ namespace OpenAPI.WorldGenerator.Generators.Terrain
             return (GetTerrainBase(river)) + (h + baseAdjust) * river;
         }
 
-        public static float TerrainLonelyMountain(int x, int y, OverworldGeneratorV2 rtgWorld, float river,
+        public static float TerrainLonelyMountain(int x, int y, OverworldGeneratorV2 generator, float river,
             float strength, float width, float terrainHeight)
         {
 
-            var simplex0 = rtgWorld.SimplexInstance(0);
+            var simplex0 = generator.SimplexInstance(0);
             float h = BlendedHillHeight(simplex0.GetValue(x / 20f, y / 20f), 0) * 3;
             h += BlendedHillHeight(simplex0.GetValue(x / 7f, y / 7f), 0) * 1.3f;
 
@@ -311,7 +311,7 @@ namespace OpenAPI.WorldGenerator.Generators.Terrain
 
             float st = m * 0.7f;
             st = st > 20f ? 20f : st;
-            float c = rtgWorld.SimplexInstance(4).GetValue(x / 30f, y / 30f, 1f) * (5f + st);
+            float c = generator.SimplexInstance(4).GetValue(x / 30f, y / 30f, 1f) * (5f + st);
 
             float sm = simplex0.GetValue(x / 30f, y / 30f) * 8f + simplex0.GetValue(x / 8f, y / 8f);
             sm *= (m + 10f) / 20f > 2.5f ? 2.5f : (m + 10f) / 20f;
@@ -333,9 +333,9 @@ namespace OpenAPI.WorldGenerator.Generators.Terrain
             return Riverized(terrainHeight + h + m, river);
         }
 
-        public static float TerrainMarsh(int x, int y, OverworldGeneratorV2 rtgWorld, float baseHeight, float river)
+        public static float TerrainMarsh(int x, int y, OverworldGeneratorV2 generator, float baseHeight, float river)
         {
-            var simplex = rtgWorld.SimplexInstance(0);
+            var simplex = generator.SimplexInstance(0);
             float h = simplex.GetValue(x / 130f, y / 130f) * 20f;
 
             h += simplex.GetValue(x / 12f, y / 12f) * 2f;
@@ -352,10 +352,10 @@ namespace OpenAPI.WorldGenerator.Generators.Terrain
             return Riverized(baseHeight + h, river);
         }
 
-        public static float TerrainOcean(int x, int y, OverworldGeneratorV2 rtgWorld, float river, float averageFloor)
+        public static float TerrainOcean(int x, int y, OverworldGeneratorV2 generator, float river, float averageFloor)
         {
 
-            var simplex = rtgWorld.SimplexInstance(0);
+            var simplex = generator.SimplexInstance(0);
             float h = simplex.GetValue(x / 300f, y / 300f) * 8f * river;
             //h = h > 3f ? 3f : h;
             h += simplex.GetValue(x / 50f, y / 50f) * 2f;
@@ -367,12 +367,12 @@ namespace OpenAPI.WorldGenerator.Generators.Terrain
             return floNoise;
         }
 
-        public static float TerrainOceanCanyon(int x, int y, OverworldGeneratorV2 rtgWorld, float river, float[] height,
+        public static float TerrainOceanCanyon(int x, int y, OverworldGeneratorV2 generator, float river, float[] height,
             float border, float strength, int heightLength, bool booRiver)
         {
             //float b = simplex.GetValue(x / cWidth, y / cWidth) * cHeigth * river;
             //b *= b / cStrength;
-            var simplex = rtgWorld.SimplexInstance(0);
+            var simplex = generator.SimplexInstance(0);
             river *= 1.3f;
             river = river > 1f ? 1f : river;
             float r = simplex.GetValue(x / 100f, y / 100f) * 50f;
@@ -432,11 +432,11 @@ namespace OpenAPI.WorldGenerator.Generators.Terrain
             return floNoise;
         }
 
-        public static float TerrainPlains(int x, int y, OverworldGeneratorV2 rtgWorld, float river, float stPitch,
+        public static float TerrainPlains(int x, int y, OverworldGeneratorV2 generator, float river, float stPitch,
             float stFactor, float hPitch, float hDivisor, float baseHeight)
         {
 
-            var simplex = rtgWorld.SimplexInstance(0);
+            var simplex = generator.SimplexInstance(0);
             float floNoise;
             float st = (simplex.GetValue(x / stPitch, y / stPitch) + 0.38f) * stFactor * river;
             st = st < 0.2f ? 0.2f : st;
@@ -451,11 +451,11 @@ namespace OpenAPI.WorldGenerator.Generators.Terrain
             return floNoise;
         }
 
-        public static float TerrainPlateau(float x, float y, OverworldGeneratorV2 rtgWorld, float river, float[] height,
+        public static float TerrainPlateau(float x, float y, OverworldGeneratorV2 generator, float river, float[] height,
             float border, float strength, int heightLength, float selectorWaveLength, bool isM)
         {
 
-            var simplex = rtgWorld.SimplexInstance(0);
+            var simplex = generator.SimplexInstance(0);
             river = river > 1f ? 1f : river;
             float border2 = border * 4 - 2.5f;
             border2 = border2 > 1f ? 1f : (border2 < 0f) ? 0f : border2;
@@ -506,11 +506,11 @@ namespace OpenAPI.WorldGenerator.Generators.Terrain
             return Riverized(GetTerrainBase(), river) + b;
         }
 
-        public static float TerrainPolar(float x, float y, OverworldGeneratorV2 rtgWorld, float river, float stPitch,
+        public static float TerrainPolar(float x, float y, OverworldGeneratorV2 generator, float river, float stPitch,
             float stFactor, float hPitch, float hDivisor, float baseHeight)
         {
 
-            var simplex = rtgWorld.SimplexInstance(0);
+            var simplex = generator.SimplexInstance(0);
             float floNoise;
             float st = (simplex.GetValue(x / stPitch, y / stPitch) + 0.38f) * stFactor * river;
             st = st < 0.1f ? 0.1f : st;
@@ -525,31 +525,31 @@ namespace OpenAPI.WorldGenerator.Generators.Terrain
             return floNoise;
         }
 
-        public static float TerrainRollingHills(int x, int y, OverworldGeneratorV2 rtgWorld, float river,
+        public static float TerrainRollingHills(int x, int y, OverworldGeneratorV2 generator, float river,
             float hillStrength, float addedHeight, float groundNoiseAmplitudeHills, float lift)
         {
 
-            float groundNoise = GetGroundNoise(x, y, groundNoiseAmplitudeHills, rtgWorld);
-            float m = Hills(x, y, hillStrength, rtgWorld);
+            float groundNoise = GetGroundNoise(x, y, groundNoiseAmplitudeHills, generator);
+            float m = Hills(x, y, hillStrength, generator);
             float floNoise = addedHeight + groundNoise + m;
             return Riverized(floNoise + lift, river);
         }
 
-        public static float TerrainRollingHills(int x, int y, OverworldGeneratorV2 rtgWorld, float river,
+        public static float TerrainRollingHills(int x, int y, OverworldGeneratorV2 generator, float river,
             float hillStrength, float groundNoiseAmplitudeHills, float baseHeight)
         {
 
-            float groundNoise = GetGroundNoise(x, y, groundNoiseAmplitudeHills, rtgWorld);
-            float m = Hills(x, y, hillStrength, rtgWorld);
+            float groundNoise = GetGroundNoise(x, y, groundNoiseAmplitudeHills, generator);
+            float m = Hills(x, y, hillStrength, generator);
             float floNoise = groundNoise + m;
             return Riverized(floNoise + baseHeight, river);
         }
 
-        public static float TerrainVolcano(int x, int y, OverworldGeneratorV2 rtgWorld, float border, float baseHeight)
+        public static float TerrainVolcano(int x, int y, OverworldGeneratorV2 generator, float border, float baseHeight)
         {
 
-            var simplex = rtgWorld.SimplexInstance(0);
-            var cellularNoise = rtgWorld.CellularInstance(0);
+            var simplex = generator.SimplexInstance(0);
+            var cellularNoise = generator.CellularInstance(0);
 
             float st = 15f - (float) (cellularNoise.Eval2D(x / 500d, y / 500d).ShortestDistance * 42d) +
                        (simplex.GetValue(x / 30f, y / 30f) * 2f);
@@ -570,7 +570,7 @@ namespace OpenAPI.WorldGenerator.Generators.Terrain
             return baseHeight + h * border;
         }
 
-        public static float GetRiverStrength(BlockCoordinates blockPos, OverworldGeneratorV2 rtgWorld)
+        public static float GetRiverStrength(BlockCoordinates blockPos, OverworldGeneratorV2 generator)
         {
 
             int worldX = blockPos.X;
@@ -580,28 +580,28 @@ namespace OpenAPI.WorldGenerator.Generators.Terrain
             var jitterData = SimplexData2D.NewDisk();
 
             //New river curve function. No longer creates worldwide curve correlations along cardinal axes.
-            rtgWorld.SimplexInstance(1).GetValue((float) worldX / 240.0f, (float) worldZ / 240.0f, jitterData);
-            pX += jitterData.GetDeltaX() * rtgWorld.RiverLargeBendSize;
-            pZ += jitterData.GetDeltaY() * rtgWorld.RiverLargeBendSize;
+            generator.SimplexInstance(1).GetValue((float) worldX / 240.0f, (float) worldZ / 240.0f, jitterData);
+            pX += jitterData.GetDeltaX() * generator.RiverLargeBendSize;
+            pZ += jitterData.GetDeltaY() * generator.RiverLargeBendSize;
 
-            rtgWorld.SimplexInstance(2).GetValue((float) worldX / 80.0f, (float) worldZ / 80.0f, jitterData);
-            pX += jitterData.GetDeltaX() * rtgWorld.RiverSmallBendSize;
-            pZ += jitterData.GetDeltaY() * rtgWorld.RiverSmallBendSize;
+            generator.SimplexInstance(2).GetValue((float) worldX / 80.0f, (float) worldZ / 80.0f, jitterData);
+            pX += jitterData.GetDeltaX() * generator.RiverSmallBendSize;
+            pZ += jitterData.GetDeltaY() * generator.RiverSmallBendSize;
 
-            pX /= rtgWorld.RiverSeperation;
-            pZ /= rtgWorld.RiverSeperation;
+            pX /= generator.RiverSeperation;
+            pZ /= generator.RiverSeperation;
 
             //New cellular noise.
-            double riverFactor = rtgWorld.CellularInstance(0).Eval2D(pX, pZ).InteriorValue;
+            double riverFactor = generator.CellularInstance(0).Eval2D(pX, pZ).InteriorValue;
 
             // the output is a curved function of relative distance from the center, so adjust to make it flatter
             riverFactor = BayesianAdjustment((float) riverFactor, 0.5f);
-            if (riverFactor > rtgWorld.RiverValleyLevel)
+            if (riverFactor > generator.RiverValleyLevel)
             {
                 return 0;
             } // no river effect
 
-            return (float) (riverFactor / rtgWorld.RiverValleyLevel - 1d);
+            return (float) (riverFactor / generator.RiverValleyLevel - 1d);
         }
         
         public static float CalcCliff(int x, int z, float[] noise)
@@ -662,7 +662,7 @@ namespace OpenAPI.WorldGenerator.Generators.Terrain
         }
 
         
-        public abstract float GenerateNoise(OverworldGeneratorV2 rtgWorld, int x, int y, float border, float river);
+        public abstract float GenerateNoise(OverworldGeneratorV2 generator, int x, int y, float border, float river);
     }
 
 }

@@ -1,4 +1,9 @@
+using MiNET.Utils;
+using MiNET.Worlds;
 using OpenAPI.WorldGenerator.Generators.Biomes.Config;
+using OpenAPI.WorldGenerator.Generators.Biomes.Vanilla;
+using OpenAPI.WorldGenerator.Generators.Biomes.Vanilla.Beach;
+using OpenAPI.WorldGenerator.Generators.Surfaces;
 using OpenAPI.WorldGenerator.Generators.Terrain;
 using OpenAPI.WorldGenerator.Utils.Noise;
 using OpenAPI.WorldGenerator.Utils.Noise.Api;
@@ -18,15 +23,29 @@ namespace OpenAPI.WorldGenerator.Generators.Biomes
 
         public byte SoilBlock = 3;
         public byte SoilMetadata = 0;
+
+        private BiomeType ForcedType { get; set; } = BiomeType.Unknown;
+        public BiomeType Type
+        {
+            get
+            {
+                if (ForcedType == BiomeType.Unknown)
+                    return DetermineType();
+
+                return ForcedType;
+            }
+            set { ForcedType = value; }
+        }
         
         public BiomeBase()
         {
-            
+            Type = BiomeType.Unknown;
         }
         
         public TerrainBase Terrain { get; set; } = null;
+        public SurfaceBase Surface { get; set; } = null;
         
-        public float RNoise(OverworldGeneratorV2 rtgWorld, int x, int y, float border, float river)
+        public float RNoise(OverworldGeneratorV2 generator, int x, int y, float border, float river)
         {
             // we now have both lakes and rivers lowering land
             if (!this.Config.AllowRivers)
@@ -38,13 +57,13 @@ namespace OpenAPI.WorldGenerator.Generators.Biomes
                 }
 
                 river = 1f - (1f - borderForRiver) * (1f - river);
-                return Terrain.GenerateNoise(rtgWorld, x, y, border, river);
+                return Terrain.GenerateNoise(generator, x, y, border, river);
             }
 
-            float lakeStrength = LakePressure(rtgWorld, x, y, border, rtgWorld.LakeFrequency,
+            float lakeStrength = LakePressure(generator, x, y, border, generator.LakeFrequency,
                 OverworldGeneratorV2.LakeBendSizeLarge, OverworldGeneratorV2.LakeBendSizeMedium, OverworldGeneratorV2.LakeBendSizeSmall);
-            float lakeFlattening = LakeFlattening(lakeStrength, rtgWorld.LakeShoreLevel,
-                rtgWorld.LakeDepressionLevel);
+            float lakeFlattening = LakeFlattening(lakeStrength, generator.LakeShoreLevel,
+                generator.LakeDepressionLevel);
 
             // combine rivers and lakes
             if ((river < 1) && (lakeFlattening < 1))
@@ -70,12 +89,12 @@ namespace OpenAPI.WorldGenerator.Generators.Biomes
             }
 
             // flatten terrain to set up for the water features
-            float terrainNoise = Terrain.GenerateNoise(rtgWorld, x, y, border, riverFlattening);
+            float terrainNoise = Terrain.GenerateNoise(generator, x, y, border, riverFlattening);
             // place water features
-            return this.ErodedNoise(rtgWorld, x, y, river, border, terrainNoise);
+            return this.ErodedNoise(generator, x, y, river, border, terrainNoise);
         }
 
-        public float ErodedNoise(OverworldGeneratorV2 rtgWorld, int x, int y, float river, float border, float biomeHeight)
+        public float ErodedNoise(OverworldGeneratorV2 generator, int x, int y, float river, float border, float biomeHeight)
         {
             float r;
             // river of actualRiverProportions now maps to 1;
@@ -95,8 +114,8 @@ namespace OpenAPI.WorldGenerator.Generators.Biomes
 
             if ((r < 1f && biomeHeight > 55f))
             {
-                float irregularity = rtgWorld.SimplexInstance(0).GetValue(x / 12f, y / 12f) * 2f +
-                                     rtgWorld.SimplexInstance(0).GetValue(x / 8f, y / 8f);
+                float irregularity = generator.SimplexInstance(0).GetValue(x / 12f, y / 12f) * 2f +
+                                     generator.SimplexInstance(0).GetValue(x / 8f, y / 8f);
                 // less on the bottom and more on the sides
                 irregularity = irregularity * (1 + r);
                 return (biomeHeight * (r)) + ((55f + irregularity) * 1.0f) * (1f - r);
@@ -109,7 +128,7 @@ namespace OpenAPI.WorldGenerator.Generators.Biomes
             return biomeHeight;
         }
 
-        public float LakePressure(OverworldGeneratorV2 rtgWorld, int x, int y, float border, float lakeInterval,
+        public float LakePressure(OverworldGeneratorV2 generator, int x, int y, float border, float lakeInterval,
             float largeBendSize, float mediumBendSize, float smallBendSize)
         {
             
@@ -122,19 +141,19 @@ namespace OpenAPI.WorldGenerator.Generators.Biomes
             double pY = y;
             ISimplexData2D jitterData = SimplexData2D.NewDisk();
 
-            rtgWorld.SimplexInstance(1).GetValue(x / 240.0d, y / 240.0d, jitterData);
+            generator.SimplexInstance(1).GetValue(x / 240.0d, y / 240.0d, jitterData);
             pX += jitterData.GetDeltaX() * largeBendSize;
             pY += jitterData.GetDeltaY() * largeBendSize;
 
-            rtgWorld.SimplexInstance(0).GetValue(x / 80.0d, y / 80.0d, jitterData);
+            generator.SimplexInstance(0).GetValue(x / 80.0d, y / 80.0d, jitterData);
             pX += jitterData.GetDeltaX() * mediumBendSize;
             pY += jitterData.GetDeltaY() * mediumBendSize;
 
-            rtgWorld.SimplexInstance(4).GetValue(x / 30.0d, y / 30.0d, jitterData);
+            generator.SimplexInstance(4).GetValue(x / 30.0d, y / 30.0d, jitterData);
             pX += jitterData.GetDeltaX() * smallBendSize;
             pY += jitterData.GetDeltaY() * smallBendSize;
 
-            VoronoiResult lakeResults = rtgWorld.CellularInstance(0).Eval2D(pX / lakeInterval, pY / lakeInterval);
+            VoronoiResult lakeResults = generator.CellularInstance(0).Eval2D(pX / lakeInterval, pY / lakeInterval);
             return (float) (1.0d - lakeResults.InteriorValue);
         }
 
@@ -159,38 +178,126 @@ namespace OpenAPI.WorldGenerator.Generators.Biomes
           return 1;
         }
 
-       /* public void rReplace(ChunkPrimer primer, BlockPos blockPos, int x, int y, int depth, RTGWorld rtgWorld,
-            float[] noise, float river, Biome[] base)
+        public void Replace(ChunkColumn primer, BlockCoordinates blockPos, int x, int y, int depth, OverworldGeneratorV2 generator,
+            float[] noise, float river, BiomeBase[] biomes)
         {
-            rReplace(primer, blockPos.getX(), blockPos.getZ(), x, y, depth, rtgWorld, noise, river, base);
+            Replace(primer, blockPos.X, blockPos.Z, x, y, depth, generator, noise, river, biomes);
         }
 
-        public void rReplace(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld,
-            float[] noise, float river, Biome[] base)
+        public void Replace(ChunkColumn primer, int i, int j, int x, int y, int depth, OverworldGeneratorV2 generator,
+            float[] noise, float river, BiomeBase[] biomes)
         {
-            if (RTG.surfacesDisabled() || this.getConfig().DISABLE_RTG_SURFACES.get())
+          /*  if (RTG.surfacesDisabled() || this.getConfig().DISABLE_RTG_SURFACES.get())
             {
                 return;
             }
-
-            float riverRegion = !this.getConfig().ALLOW_RIVERS.get() ? 0f : river;
-            this.surface.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
+*/
+          if (this.Surface == null)
+              return;
+          
+            float riverRegion = !this.Config.AllowRivers ? 0f : river;
+            this.Surface.PaintTerrain(primer, i, j, x, y, depth, generator, noise, riverRegion, biomes);
         }
 
-        protected void rReplaceWithRiver(ChunkPrimer primer, int i, int j, int x, int y, int depth, RTGWorld rtgWorld,
-            float[] noise, float river, Biome[] base)
+        protected void ReplaceWithRiver(ChunkColumn primer, int i, int j, int x, int y, int depth, OverworldGeneratorV2 generator,
+            float[] noise, float river, BiomeBase[] biomes)
         {
-            if (RTG.surfacesDisabled() || this.getConfig().DISABLE_RTG_SURFACES.get())
-            {
-                return;
-            }
+        //    if (RTG.surfacesDisabled() || this.getConfig().DISABLE_RTG_SURFACES.get())
+        //    {
+        //        return;
+        //    }
 
-            float riverRegion = !this.getConfig().ALLOW_RIVERS.get() ? 0f : river;
-            this.surface.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
-            if (RTGConfig.lushRiverbanksInDesert())
+            float riverRegion = !this.Config.AllowRivers ? 0f : river;
+            this.Surface.PaintTerrain(primer, i, j, x, y, depth, generator, noise, riverRegion, biomes);
+           /* if (RTGConfig.lushRiverbanksInDesert())
             {
-                this.surfaceRiver.paintTerrain(primer, i, j, x, y, depth, rtgWorld, noise, riverRegion, base);
-            }
-        }*/
+                this.surfaceRiver.paintTerrain(primer, i, j, x, y, depth, generator, noise, riverRegion, biomes);
+            }*/
+        }
+
+       private BiomeType DetermineType()
+       {
+           BiomeType flags = BiomeType.Land;
+           
+           if (Temperature <= 0.05f)
+           {
+               flags |= BiomeType.Cold;
+
+               if (Temperature < 0f)
+               {
+                   flags |= BiomeType.Snowy;
+               }
+           }
+           else if (Temperature > 0.75f)
+           {
+               flags |= BiomeType.HotHotHot;
+           }
+           
+           if (MinHeight <= -1f)
+           {
+               flags |= BiomeType.Ocean;
+           }
+           else
+           {
+               if (Downfall <= 0f)
+               {
+                   flags |= BiomeType.Desert;
+               }
+               else if (Temperature >= 0.8f && Downfall >= 0.8f)
+               {
+                   flags |= BiomeType.Swamp;
+               }
+               else if (Downfall > 0.5f)
+               {
+                   flags |= BiomeType.Forest;
+
+                   if (Temperature <= 0.01f)
+                       flags |= BiomeType.Coniferous;
+               }
+           }
+
+           return flags;
+       }
+
+       public int GetRiverBiome()
+       {
+           if ((Type & BiomeType.Snowy) != 0)
+           {
+               return new FrozenRiverBiome().Id;
+           }
+           else
+           {
+               return new RiverBiome().Id;
+           }
+       }
+
+       public int GetBeachBiome()
+       {
+           var beachType = DetermineBeachType();
+           if (beachType == BeachType.Cold)
+               return new ColdBeachBiome().Id;
+           
+           if (beachType == BeachType.Normal)
+               return new BeachBiome().Id;
+           
+           return new StoneBeachBiome().Id;
+       }
+       
+       
+       protected BeachType DetermineBeachType()
+       {
+           if (Temperature <= 0.05f || Type.HasFlag(BiomeType.Snowy))
+               return BeachType.Cold;
+
+           if (IsTaigaBiome())
+               return BeachType.Stone;
+
+           return BeachType.Normal;
+       }
+
+       protected bool IsTaigaBiome()
+       {
+           return Type.HasFlag(BiomeType.Cold) && Type.HasFlag(BiomeType.Coniferous) && Type.HasFlag(BiomeType.Forest);
+       }
     }
 }

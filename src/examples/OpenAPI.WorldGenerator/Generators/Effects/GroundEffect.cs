@@ -16,9 +16,9 @@ namespace OpenAPI.WorldGenerator.Generators.Effects
             this.amplitude = amplitude;
         }
 
-        public override float Added(OverworldGeneratorV2 rtgWorld, float x, float y)
+        public override float Added(OverworldGeneratorV2 generator, float x, float y)
         {
-            return TerrainBase.GetGroundNoise(x, y, amplitude, rtgWorld);
+            return TerrainBase.GetGroundNoise(x, y, amplitude, generator);
         }
 
     }

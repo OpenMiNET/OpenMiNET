@@ -138,7 +138,7 @@
           "System.Runtime.InteropServices": "4.3.0"
         }
       },
-      "MiNET/1.0.2058": {
+      "MiNET/1.0.2062": {
         "dependencies": {
           "CoreCompat.System.Drawing.v2": "5.2.0-preview1-r131",
           "LibNoise.NetStandart": "0.2.0",
@@ -156,8 +156,8 @@
         },
         "runtime": {
           "lib/netcoreapp3.0/MiNET.dll": {
-            "assemblyVersion": "1.0.2058.0",
-            "fileVersion": "1.0.2058.0"
+            "assemblyVersion": "1.0.2062.0",
+            "fileVersion": "1.0.2062.0"
           }
         }
       },
@@ -1029,7 +1029,7 @@
       },
       "OpenMiNET.OpenAPI/0.0.0": {
         "dependencies": {
-          "MiNET": "1.0.2058",
+          "MiNET": "1.0.2062",
           "Mono.Cecil": "0.10.0",
           "OpenMiNET.OpenAPI.Locale": "0.0.0"
         },
@@ -1039,7 +1039,7 @@
       },
       "OpenMiNET.OpenAPI.Locale/0.0.0": {
         "dependencies": {
-          "MiNET": "1.0.2058"
+          "MiNET": "1.0.2062"
         },
         "runtime": {
           "OpenAPI.Locale.dll": {}
@@ -1130,12 +1130,12 @@
       "path": "microsoft.win32.registry/4.0.0",
       "hashPath": "microsoft.win32.registry.4.0.0.nupkg.sha512"
     },
-    "MiNET/1.0.2058": {
+    "MiNET/1.0.2062": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Su3gvvFjoRI6PI2qlL5utwV5Q4uUJBhjlL5NRlX5VENbVlrXjJfq4TmtpzqfFopRD5K75fsx1Ocr7RunzXT+SQ==",
-      "path": "minet/1.0.2058",
-      "hashPath": "minet.1.0.2058.nupkg.sha512"
+      "sha512": "sha512-+zsxCYTOgrROsQxBdy5lJz96fdTpzn1UWSem8mI/2VW2UdL1vnzAcxNwpZZcPzgUz4bYqV9IOFXdhVBVQSCZ+A==",
+      "path": "minet/1.0.2062",
+      "hashPath": "minet.1.0.2062.nupkg.sha512"
     },
     "MiNET.astar/1.0.14": {
       "type": "package",

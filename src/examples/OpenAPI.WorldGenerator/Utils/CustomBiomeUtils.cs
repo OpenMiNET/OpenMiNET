@@ -7,6 +7,16 @@ using log4net;
 using MiNET.Worlds;
 using OpenAPI.WorldGenerator.Generators.Biomes;
 using OpenAPI.WorldGenerator.Generators.Biomes.Vanilla;
+using OpenAPI.WorldGenerator.Generators.Biomes.Vanilla.Beach;
+using OpenAPI.WorldGenerator.Generators.Biomes.Vanilla.Desert;
+using OpenAPI.WorldGenerator.Generators.Biomes.Vanilla.ExtremeHills;
+using OpenAPI.WorldGenerator.Generators.Biomes.Vanilla.Forest;
+using OpenAPI.WorldGenerator.Generators.Biomes.Vanilla.Jungle;
+using OpenAPI.WorldGenerator.Generators.Biomes.Vanilla.Mesa;
+using OpenAPI.WorldGenerator.Generators.Biomes.Vanilla.Mushroom;
+using OpenAPI.WorldGenerator.Generators.Biomes.Vanilla.Ocean;
+using OpenAPI.WorldGenerator.Generators.Biomes.Vanilla.Swamp;
+using OpenAPI.WorldGenerator.Generators.Biomes.Vanilla.Taiga;
 using OpenAPI.WorldGenerator.Generators.Terrain;
 
 namespace OpenAPI.WorldGenerator.Utils
@@ -15,77 +25,14 @@ namespace OpenAPI.WorldGenerator.Utils
 	{
 		public static BiomeBase[] Biomes =
 		{
-			new Biome
-			{
-				Id = 0,
-				Name = "Ocean",
-				Temperature = 0.5f,
-				Downfall = 0.5f,
-				MinHeight = -1f,
-				MaxHeight = 0.4f,
-				Terrain = new OceanTerrain()
-			}, // default values of temp and rain
+			new OceanBiome(), // default values of temp and rain
 			new PlainsBiome(), 
-			new Biome
-			{
-				Id = 2,
-				Name = "Desert",
-				Temperature = 2.0f,
-				Downfall = 0.0f,
-				MinHeight = 0.1f,
-				MaxHeight = 0.2f,
-				SurfaceBlock = 12,
-				SoilBlock = 24,
-				Terrain = new DesertTerrain()
-			},
-			new Biome
-			{
-				Id = 3,
-				Name = "Extreme Hills",
-				Temperature = 0.2f,
-				Downfall = 0.3f,
-				MinHeight = 0.2f,
-				MaxHeight = 1f,
-				Terrain = new RidgedExtremeHillsTerrain(150f, 67f, 200f)
-			},
-			new Biome
-			{
-				Id = 4,
-				Name = "Forest",
-				Temperature = 0.7f,
-				Downfall = 0.8f,
-				MinHeight = 0.1f, //TODO
-				MaxHeight = 0.2f,
-				Terrain = new ForestTerrain()
-			},
-			new Biome
-			{
-				Id = 5,
-				Name = "Taiga",
-				Temperature = 0.05f,
-				Downfall = 0.8f,
-				MinHeight = 0.1f,
-				MaxHeight = 0.4f,
-				Terrain = new TaigaTerrain()
-			},
-			new Biome
-			{
-				Id = 6,
-				Name = "Swampland",
-				Temperature = 0.8f,
-				Downfall = 0.9f,
-				MinHeight = -0.2f,
-				MaxHeight = 0.1f
-			},
-			new Biome
-			{
-				Id = 7,
-				Name = "River",
-				Temperature = 0.5f,
-				Downfall = 0.5f,
-				MinHeight = -0.5f,
-				MaxHeight = 0f
-			}, // default values of temp and rain
+			new DesertBiome(), 
+			new ExtremeHillsBiome(), 
+			new ForestBiome(), 
+			new TaigaBiome(), 
+			new SwamplandBiome(), //TODO!!!
+			new RiverBiome(), // default values of temp and rain
 			/*new Biome
 			{
 				Id = 8,
@@ -104,34 +51,9 @@ namespace OpenAPI.WorldGenerator.Utils
 				MinHeight = 0.1f,
 				MaxHeight = 0.2f, //TODO!
 			},*/ // default values of temp and rain
-			new Biome
-			{
-				Id = 10,
-				Name = "Frozen Ocean",
-				Temperature = 0.0f,
-				Downfall = 0.5f,
-				MinHeight = -1f,
-				MaxHeight = 0.5f,
-				Terrain = new OceanTerrain()
-			},
-			new Biome
-			{
-				Id = 11,
-				Name = "Frozen River",
-				Temperature = 0.0f,
-				Downfall = 0.5f,
-				MinHeight = -0.5f,
-				MaxHeight = 0f
-			},
-			new Biome
-			{
-				Id = 12,
-				Name = "Ice Plains",
-				Temperature = 0.0f,
-				Downfall = 0.5f,
-				MinHeight = 0.125f,
-				MaxHeight = 0.5f //TODO
-			},
+			new FrozenOceanBiome(), 
+			new FrozenRiverBiome(), //TODO
+			new IcePlainsBiome(), //TODO
 			new Biome
 			{
 				Id = 13,
@@ -141,161 +63,23 @@ namespace OpenAPI.WorldGenerator.Utils
 				MinHeight = 0.2f,
 				MaxHeight = 1.2f
 			},
-			new Biome
-			{
-				Id = 14,
-				Name = "Mushroom Island",
-				Temperature = 0.9f,
-				Downfall = 1.0f,
-				MinHeight = 0.2f,
-				MaxHeight = 1f
-			},
-			new Biome
-			{
-				Id = 15,
-				Name = "Mushroom Island Shore",
-				Temperature = 0.9f,
-				Downfall = 1.0f,
-				MinHeight = -1f,
-				MaxHeight = 0.1f
-			},
-			new Biome
-			{
-				Id = 16,
-				Name = "Beach",
-				Temperature = 0.8f,
-				Downfall = 0.4f,
-				MinHeight = 0f,
-				MaxHeight = 0.1f,
-				Terrain = new BeachTerrain()
-			},
-			new Biome
-			{
-				Id = 17,
-				Name = "Desert Hills",
-				Temperature = 2.0f,
-				Downfall = 0.0f,
-				MinHeight = 0.2f,
-				MaxHeight = 0.7f,
-
-				SurfaceBlock = 12, //Sand
-				SoilBlock = 24, //Sandstone
-				
-				Terrain = new DesertHillsTerrain(10f, 80f, 68f, 200f)
-			},
-			new Biome
-			{
-				Id = 18,
-				Name = "Forest Hills",
-				Temperature = 0.7f,
-				Downfall = 0.8f,
-				MinHeight = 0.2f,
-				MaxHeight = 0.6f,
-				Terrain = new ForestHillsTerrain()
-			},
-			new Biome
-			{
-				Id = 19,
-				Name = "Taiga Hills",
-				Temperature = 0.2f,
-				Downfall = 0.7f,
-				MinHeight = 0.2f,
-				MaxHeight = 0.7f,
-				Terrain = new TaigaHillsTerrain()
-			},
-			new Biome
-			{
-				Id = 20,
-				Name = "Extreme Hills Edge",
-				Temperature = 0.2f,
-				Downfall = 0.3f,
-				MinHeight = 0.2f,
-				MaxHeight = 0.8f,
-				Terrain = new RidgedExtremeHillsTerrain(125f, 67f, 200f)
-			},
-			new Biome
-			{
-				Id = 21,
-				Name = "Jungle",
-				Temperature = 1.2f,
-				Downfall = 0.9f,
-				MinHeight = 0.1f,
-				MaxHeight = 0.4f,
-				
-				Terrain = new JungleTerrain()
-			},
-			new Biome
-			{
-				Id = 22,
-				Name = "Jungle Hills",
-				Temperature = 1.2f,
-				Downfall = 0.9f,
-				MinHeight = 0.2f,
-				MaxHeight = 1.8f,
-				
-				Terrain = new JungleHillsTerrain(72f, 40f)
-			},
+			new MushroomIslandBiome(), //TODO
+			new MushroomIslandShoreBiome(), //TODO
+			new BeachBiome(), 
+			new DesertHillsBiome(), 
+			new ForestHillsBiome(),
+			new TaigaHillsBiome(), 
+			new ExtremeHillsEdgeBiome(), 
+			new JungleBiome(),
+			new JungleHillsBiome(),
 			
 			//TODO: The rest of min/max
-			new Biome
-			{
-				Id = 23,
-				Name = "Jungle Edge",
-				Temperature = 0.95f,
-				Downfall = 0.8f,
-				MinHeight = 0.1f,
-				MaxHeight = 0.2f,
-				
-				Terrain = new JungleEdgeTerrain()
-			},
-			new Biome
-			{
-				Id = 24,
-				Name = "Deep Ocean",
-				Temperature = 0.5f,
-				Downfall = 0.5f,
-				MinHeight = -1.8F,
-				MaxHeight = 0.1f,
-				Terrain = new DeepOceanTerrain()
-			},
-			new Biome
-			{
-				Id = 25,
-				Name = "Stone Beach",
-				Temperature = 0.2f,
-				Downfall = 0.3f,
-				MinHeight = 0.1f,
-				MaxHeight = 0.8f
-			},
-			new Biome
-			{
-				Id = 26,
-				Name = "Cold Beach",
-				Temperature = 0.05f,
-				Downfall = 0.3f,
-				MinHeight = 0f,
-				MaxHeight = 0.025f
-			},
-			new Biome
-			{
-				Id = 27,
-				Name = "Birch Forest",
-				Temperature = 0.6f,
-				Downfall = 0.6f,
-				MinHeight = 0.1f,
-				MaxHeight = 0.2f,
-				Terrain = new BirchForestTerrain()
-			},
-			new Biome
-			{
-				Id = 28,
-				Name = "Birch Forest Hills",
-				Temperature = 0.6f,
-				Downfall = 0.6f,
-				MinHeight = 0.35f,
-				MaxHeight = 0.45f,
-				Terrain = new BirchForestHillsTerrain()
-			},
+			new JungleEdgeBiome(), 
+			new DeepOceanBiome(),
+			new StoneBeachBiome(),
+			new ColdBeachBiome(),
+			/*new BirchForestBiome(),
+			new BirchForestHillsBiome(),
 			new Biome
 			{
 				Id = 29,
@@ -351,72 +135,16 @@ namespace OpenAPI.WorldGenerator.Utils
 				MinHeight = 0.5f,
 				MaxHeight = 1f,
 				Terrain = new RidgedExtremeHillsTerrain(150f, 67f, 200f)
-			},
-			new Biome
-			{
-				Id = 35,
-				Name = "Savanna",
-				Temperature = 1.2f,
-				Downfall = 0.0f,
-				MinHeight = 0.005f,
-				MaxHeight = 0.125f,
-			},
-			new Biome
-			{
-				Id = 36,
-				Name = "Savanna Plateau",
-				Temperature = 1.0f,
-				Downfall = 0.0f,
-				MinHeight = 0.025f,
-				MaxHeight = 1.5f
-			},
-			new Biome
-			{
-				Id = 37,
-				Name = "Mesa",
-				Temperature = 2.0f,
-				Downfall = 0.0f,
-				MinHeight = 0.1f,
-				MaxHeight = 0.2f,
-
-				SurfaceBlock = 12, //Surface = Red Sand
-				SurfaceMetadata = 1,
-
-				SoilBlock = 179, //Soil = Red Sandstone
-				
-				Terrain = new MesaTerrain()
-			},
-			/*new Biome
-			{
-				Id = 38,
-				Name = "Mesa Plateau F",
-				Temperature = 2.0f,
-				Downfall = 0.0f,
-				MinHeight = 1.5f,
-				MaxHeight = 0.25f,
-
-				SurfaceBlock = 12, //Surface = Red Sand
-				SurfaceMetadata = 1,
-
-				SoilBlock = 179, //Soil = Red Sandstone
-			},
-			new Biome
-			{
-				Id = 39,
-				Name = "Mesa Plateau",
-				Temperature = 2.0f,
-				Downfall = 0.0f,
-				MinHeight = 1.5f,
-				MaxHeight = 0.025f,
-
-				SurfaceBlock = 12, //Surface = Red Sand
-				SurfaceMetadata = 1,
-
-				SoilBlock = 179, //Soil = Red Sandstone
 			},*/
+			new SavannaBiome(),
+			new SavannaPlateauBiome(),
+			new MesaBiome(),
+			new MesaPlateauFBiome(), 
+			new MesaPlateauBiome(),
 		//	new Biome {Id = 127, Name = "The Void", Temperature = 0.8f, Downfall = 0.4f},
 		//	new Biome {Id = 128, Name = "Unknown Biome", Temperature = 0.8f, Downfall = 0.4f},
 		//	new Biome {Id = 129, Name = "Sunflower Plains", Temperature = 0.8f, Downfall = 0.4f},
+		/*
 			new Biome
 			{
 				Id = 130,
@@ -439,6 +167,7 @@ namespace OpenAPI.WorldGenerator.Utils
 				MaxHeight = 0.8f,
 				Terrain = new RidgedExtremeHillsTerrain(190f, 67f, 200f)
 			},
+			*/
 		/*	new Biome {Id = 132, Name = "Flower Forest", Temperature = 0.7f, Downfall = 0.8f},
 			new Biome {Id = 133, Name = "Taiga M", Temperature = 0.05f, Downfall = 0.8f},
 			new Biome {Id = 134, Name = "Swampland M", Temperature = 0.8f, Downfall = 0.9f},
@@ -447,7 +176,7 @@ namespace OpenAPI.WorldGenerator.Utils
 			new Biome {Id = 150, Name = "Unknown Biome", Temperature = 0.8f, Downfall = 0.4f},
 			new Biome {Id = 151, Name = "JungleEdge M", Temperature = 0.95f, Downfall = 0.8f},
 			new Biome {Id = 155, Name = "Birch Forest M", Temperature = 0.6f, Downfall = 0.6f},*/
-			new Biome
+			/*new Biome
 			{
 				Id = 156,
 				Name = "Birch Forest Hills M",
@@ -458,7 +187,7 @@ namespace OpenAPI.WorldGenerator.Utils
 			},
 			/*new Biome {Id = 157, Name = "Roofed Forest M", Temperature = 0.7f, Downfall = 0.8f},
 			new Biome {Id = 158, Name = "Cold Taiga M", Temperature = -0.5f, Downfall = 0.4f},
-			new Biome {Id = 160, Name = "Mega Spruce Taiga", Temperature = 0.25f, Downfall = 0.8f},*/
+			new Biome {Id = 160, Name = "Mega Spruce Taiga", Temperature = 0.25f, Downfall = 0.8f},*
 			// special exception, temperature not 0.3
 			new Biome
 			{
@@ -468,7 +197,7 @@ namespace OpenAPI.WorldGenerator.Utils
 				Downfall = 0.8f,
 				MinHeight = 0.2f,
 				MaxHeight = 0.8f
-			},
+			},*/
 			/*new Biome {Id = 162, Name = "Extreme Hills+ M", Temperature = 0.2f, Downfall = 0.3f},
 			new Biome {Id = 163, Name = "Savanna M", Temperature = 1.2f, Downfall = 0.0f},
 			new Biome {Id = 164, Name = "Savanna Plateau M", Temperature = 1.0f, Downfall = 0.0f},

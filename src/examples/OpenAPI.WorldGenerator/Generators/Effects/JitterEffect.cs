@@ -21,13 +21,13 @@ namespace OpenAPI.WorldGenerator.Generators.Effects
             this.Jittered = toJitter;
         }
         
-        public override float Added(OverworldGeneratorV2 rtgWorld, float x, float y) {
+        public override float Added(OverworldGeneratorV2 generator, float x, float y) {
 
             ISimplexData2D jitterData = SimplexData2D.NewDisk();
-            rtgWorld.SimplexInstance(1).GetValue(x / Wavelength, y / Wavelength, jitterData);
+            generator.SimplexInstance(1).GetValue(x / Wavelength, y / Wavelength, jitterData);
             int pX = (int) Math.Round(x + jitterData.GetDeltaX() * Amplitude);
             int pY = (int) Math.Round(y + jitterData.GetDeltaY() * Amplitude);
-            return Jittered.Added(rtgWorld, pX, pY);
+            return Jittered.Added(generator, pX, pY);
         }
     }
 }

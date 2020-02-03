@@ -6,9 +6,9 @@ namespace OpenAPI.WorldGenerator.Generators.Terrain
     {
         private GroundEffect GroundEffect { get; set; }= new GroundEffect(4f);
         
-        public override float GenerateNoise(OverworldGeneratorV2 rtgWorld, int x, int y, float border, float river)
+        public override float GenerateNoise(OverworldGeneratorV2 generator, int x, int y, float border, float river)
         {
-            return Riverized(68f + GroundEffect.Added(rtgWorld, x, y), river);
+            return Riverized(68f + GroundEffect.Added(generator, x, y), river);
         }
     }
 }

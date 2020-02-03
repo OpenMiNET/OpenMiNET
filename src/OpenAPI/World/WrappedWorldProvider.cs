@@ -86,7 +86,7 @@ namespace OpenAPI.World
             
             var chunk = base.GenerateChunkColumn(chunkCoordinates, cacheOnly);
 
-            if (before != null && !before.Any(x => x.x == chunk.x && x.z == chunk.z))
+            if (before != null && !before.Any(x => x.X == chunk.X && x.Z == chunk.Z))
             {
                 Api.EventDispatcher.DispatchEvent(new ChunkLoadEvent(chunk, Level));
             }
@@ -116,7 +116,7 @@ namespace OpenAPI.World
                 if (after == null)
                     return unloaded;
                 
-                var unloadedChunks = after.Where(chunk => !before.Any(x => x.x == chunk.x && x.z == chunk.z));
+                var unloadedChunks = after.Where(chunk => !before.Any(x => x.X == chunk.X && x.Z == chunk.Z));
 
                 foreach (var uc in unloadedChunks)
                 {

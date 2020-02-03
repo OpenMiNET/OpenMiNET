@@ -2,11 +2,11 @@ namespace OpenAPI.WorldGenerator.Generators.Terrain
 {
     public class ForestTerrain : TerrainBase
     {
-        public override float GenerateNoise(OverworldGeneratorV2 rtgWorld, int x, int y, float border, float river)
+        public override float GenerateNoise(OverworldGeneratorV2 generator, int x, int y, float border, float river)
         {
-            GroundNoise = GetGroundNoise(x, y, GroundVariation, rtgWorld);
+            GroundNoise = GetGroundNoise(x, y, GroundVariation, generator);
 
-            float m = Hills(x, y, 10f, rtgWorld);
+            float m = Hills(x, y, 10f, generator);
 
             float floNoise = 65f + GroundNoise + m;
 

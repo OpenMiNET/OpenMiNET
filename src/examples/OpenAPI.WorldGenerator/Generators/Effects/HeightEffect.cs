@@ -5,7 +5,7 @@ namespace OpenAPI.WorldGenerator.Generators.Effects
  */
     public abstract class HeightEffect {
 
-        public abstract float Added(OverworldGeneratorV2 rtgWorld, float x, float y);
+        public abstract float Added(OverworldGeneratorV2 generator, float x, float y);
 
         public HeightEffect Plus(HeightEffect added) {
 
@@ -26,9 +26,9 @@ namespace OpenAPI.WorldGenerator.Generators.Effects
             this._two = two;
         }
 
-        public override float Added(OverworldGeneratorV2 rtgWorld, float x, float y)
+        public override float Added(OverworldGeneratorV2 generator, float x, float y)
         {
-            return _one.Added(rtgWorld, x, y) + _two.Added(rtgWorld, x, y);
+            return _one.Added(generator, x, y) + _two.Added(generator, x, y);
         }
     }
 

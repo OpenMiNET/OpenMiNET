@@ -149,14 +149,14 @@ namespace OpenAPI.World
 			base.DropItem(coordinates, drop);
 		}
 
-		public bool BreakBlock(Block block, OpenPlayer player = null, Item tool = null)
+		public bool BreakBlock(Block block, BlockFace face, OpenPlayer player = null, Item tool = null)
 		{
 			BlockEntity blockEntity = GetBlockEntity(block.Coordinates);
 
 			bool canBreak = player == null || tool == null || tool.BreakBlock(this, player, block, blockEntity);
 			if (canBreak)
 			{
-				block.BreakBlock(this);
+				block.BreakBlock(this, face);
 				List<Item> drops = new List<Item>();
 				drops.AddRange(block.GetDrops(tool ?? new ItemAir()));
 

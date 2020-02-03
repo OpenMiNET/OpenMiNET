@@ -167,7 +167,7 @@
           }
         }
       },
-      "MiNET/1.0.2058": {
+      "MiNET/1.0.2062": {
         "type": "package",
         "dependencies": {
           "CoreCompat.System.Drawing.v2": "5.2.0-preview1-r131",
@@ -1733,7 +1733,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.0",
         "dependencies": {
-          "MiNET": "1.0.2058",
+          "MiNET": "1.0.2062",
           "Mono.Cecil": "0.10.0",
           "OpenMiNET.OpenAPI.Locale": "0.0.0"
         },
@@ -1748,7 +1748,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.0",
         "dependencies": {
-          "MiNET": "1.0.2058"
+          "MiNET": "1.0.2062"
         },
         "compile": {
           "bin/placeholder/OpenMiNET.OpenAPI.Locale.dll": {}
@@ -1969,15 +1969,15 @@
         "runtimes/win/lib/netstandard1.3/Microsoft.Win32.Registry.dll"
       ]
     },
-    "MiNET/1.0.2058": {
-      "sha512": "Su3gvvFjoRI6PI2qlL5utwV5Q4uUJBhjlL5NRlX5VENbVlrXjJfq4TmtpzqfFopRD5K75fsx1Ocr7RunzXT+SQ==",
+    "MiNET/1.0.2062": {
+      "sha512": "+zsxCYTOgrROsQxBdy5lJz96fdTpzn1UWSem8mI/2VW2UdL1vnzAcxNwpZZcPzgUz4bYqV9IOFXdhVBVQSCZ+A==",
       "type": "package",
-      "path": "minet/1.0.2058",
+      "path": "minet/1.0.2062",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netcoreapp3.0/MiNET.dll",
-        "minet.1.0.2058.nupkg.sha512",
+        "minet.1.0.2062.nupkg.sha512",
         "minet.nuspec"
       ]
     },
@@ -5872,12 +5872,18 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[3.0.0, 3.0.0]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.0.100/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.0.102/RuntimeIdentifierGraph.json"
       }
     }
   },

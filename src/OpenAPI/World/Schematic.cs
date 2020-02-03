@@ -9,7 +9,7 @@ using MiNET.Worlds;
 
 namespace OpenAPI.World
 {
-	public class Schematic
+	/*public class Schematic
 	{
 		private static readonly ILog Log = LogManager.GetLogger(typeof(Schematic));
 
@@ -169,7 +169,7 @@ namespace OpenAPI.World
 			byte[] metadata = nbt["Data"].ByteArrayValue;
 
 			Blocks = blocks;
-			Metadata = new NibbleArray { Data = metadata };
+			Metadata = new NibbleArray(metadata) { };
 
 			for (var y = 0; y < Height; y++)
 			{
@@ -231,5 +231,5 @@ namespace OpenAPI.World
 				}
 			}
 		}
-	}
+	}*/
 }

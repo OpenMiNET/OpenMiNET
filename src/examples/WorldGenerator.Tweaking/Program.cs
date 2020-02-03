@@ -125,10 +125,10 @@ namespace WorldGenerator.Tweaking
                 {
                     for (int cx = 0; cx < 16; cx++)
                     {
-                        var rx = (column.x * 16) + cx;
+                        var rx = (column.X * 16) + cx;
                         for (int cz = 0; cz < 16; cz++)
                         {
-                            var rz = (column.z * 16) + cz;
+                            var rz = (column.Z * 16) + cz;
 
                             var biome = BiomeUtils.GetBiomeById(column.GetBiome(cx, cz));
                             var temp = (int) Math.Max(0,

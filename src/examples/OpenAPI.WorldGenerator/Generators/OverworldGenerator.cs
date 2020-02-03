@@ -76,8 +76,8 @@ namespace OpenAPI.WorldGenerator.Generators
         private async Task<ChunkColumn> GenerateChunk(ChunkCoordinates chunkCoordinates)
         {
             ChunkColumn chunk = new ChunkColumn();
-            chunk.x = chunkCoordinates.X;
-            chunk.z = chunkCoordinates.Z;
+            chunk.X = chunkCoordinates.X;
+            chunk.Z = chunkCoordinates.Z;
             
             Decorators.ChunkDecorator[] chunkDecorators = new ChunkDecorator[]
             {
@@ -101,7 +101,7 @@ namespace OpenAPI.WorldGenerator.Generators
             
             int[] metadata = new int[16 * 16 * 256];
             
-            DecorateChunk(chunk.x, chunk.z, blocks, metadata, heightMap, thresholdMap, biomes, chunkDecorators);
+            DecorateChunk(chunk.X, chunk.Z, blocks, metadata, heightMap, thresholdMap, biomes, chunkDecorators);
 
             for (int x = 0; x < 16; x++)
             {
@@ -117,7 +117,7 @@ namespace OpenAPI.WorldGenerator.Generators
                     {
                         var idx = GetIndex(x, y, z);
                         chunk.SetBlock(x, y, z, blocks[idx]);
-                        chunk.SetMetadata(x,y,z, (byte) metadata[idx]);
+                       // chunk.SetMetadata(x,y,z, (byte) metadata[idx]);
                     }
                 }
             }

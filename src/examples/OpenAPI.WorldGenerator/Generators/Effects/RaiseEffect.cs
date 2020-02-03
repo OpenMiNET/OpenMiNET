@@ -16,7 +16,7 @@ namespace OpenAPI.WorldGenerator.Generators.Effects
             this.Height = height;
         }
 
-        public override float Added(OverworldGeneratorV2 rtgWorld, float x, float y)
+        public override float Added(OverworldGeneratorV2 generator, float x, float y)
         {
 
             return Height;

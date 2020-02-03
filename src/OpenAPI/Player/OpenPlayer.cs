@@ -350,6 +350,7 @@ namespace OpenAPI.Player
 		private double BlockBreakTime { get; set; } = -1;
 		private Stopwatch BlockBreakTimer = new Stopwatch();
 		private BlockCoordinates BreakingBlockCoordinates { get; set; }
+		private BlockFace BreakingFace { get; set; } = BlockFace.None;
 
 	    public override void HandleMcpePlayerAction(McpePlayerAction message)
 	    {
@@ -369,7 +370,10 @@ namespace OpenAPI.Player
 					var drops = block.GetDrops(Inventory.GetItemInHand());
 					float tooltypeFactor = drops == null || drops.Length == 0 ? 5f : 1.5f; // 1.5 if proper tool
 					double breakTime = Math.Ceiling(block.Hardness * tooltypeFactor * 20);
+					BlockFace face = (BlockFace) message.face;
 
+					BreakingFace = face;
+					
 					var blockStartBreak = new BlockStartBreakEvent(this, block);
 					EventDispatcher.DispatchEvent(blockStartBreak);
 
@@ -399,6 +403,8 @@ namespace OpenAPI.Player
 				{
 					if (IsBreakingBlock)
 					{
+						//BlockFace face = (BlockFace) message.face;
+						
 						var elapsed = BlockBreakTimer.Elapsed.TotalMilliseconds;
 						var elapsedTicks = elapsed / 50;
 						if (elapsedTicks > BlockBreakTime || Math.Abs(elapsedTicks - BlockBreakTime) < 2.5
@@ -441,7 +447,7 @@ namespace OpenAPI.Player
 			}
 
 			Item inHand = Inventory.GetItemInHand();
-			Level.BreakBlock(b, this, inHand);
+			Level.BreakBlock(b, BreakingFace, this, inHand);
 
             e.OnComplete();
 		}

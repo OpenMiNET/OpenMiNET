@@ -97,7 +97,7 @@ namespace OpenAPI.WorldGenerator.Generators
             };
             
             var rainSimplex = new SimplexPerlin(seed+ FastRandom.Next(), NoiseQuality.Fast);
-            var rainVoronoi = new Utils.Noise.Voronoi
+            var rainVoronoi = new WorldGenerator.Utils.Noise.Voronoi
             {
                 Primitive3D = rainSimplex,
                 Primitive2D = rainSimplex,
@@ -108,7 +108,7 @@ namespace OpenAPI.WorldGenerator.Generators
 
             var biomeScaling = (32.3345885f) * GeneratorPreset.BiomeSize;
 
-            var rainNoise = new ScaleableNoise()
+            var rainNoise = new WorldGenerator.Utils.Noise.ScaleableNoise()
             {
                 Primitive2D = rainVoronoi,
                 Primitive3D = rainVoronoi,
@@ -120,7 +120,7 @@ namespace OpenAPI.WorldGenerator.Generators
            // GeneratorPreset.bi
             
             IModule2D tempSimplex = new SimplexPerlin(seed + FastRandom.Next(), NoiseQuality.Fast);
-            var tempVoronoi = new Utils.Noise.Voronoi
+            var tempVoronoi = new WorldGenerator.Utils.Noise.Voronoi
             {
                 Primitive2D = tempSimplex,
                 Distance = false,

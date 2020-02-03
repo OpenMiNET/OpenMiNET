@@ -24,14 +24,14 @@ namespace OpenAPI.WorldGenerator.Generators.Effects
         public float Power = 1.6f; // usually a range of 1 to 2
         public HeightEffect Spiked;
 
-        public override float Added(OverworldGeneratorV2 rtgWorld, float x, float y)
+        public override float Added(OverworldGeneratorV2 generator, float x, float y)
         {
 
-            float noise = rtgWorld.SimplexInstance(Octave).GetValue(x / Wavelength, y / Wavelength);
+            float noise = generator.SimplexInstance(Octave).GetValue(x / Wavelength, y / Wavelength);
             noise = Math.Abs(noise);
             noise = TerrainBase.BlendedHillHeight(noise, MinimumSimplex);
             noise = TerrainBase.UnsignedPower(noise, Power);
-            return noise * Spiked.Added(rtgWorld, x, y);
+            return noise * Spiked.Added(generator, x, y);
         }
     }
 }

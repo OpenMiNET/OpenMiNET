@@ -28,7 +28,7 @@ namespace OpenAPI.WorldGenerator
 
             ChunkColumn chunk = Generator.GenerateChunkColumn(chunkCoordinates);
             
-            _chunkCache[chunkCoordinates] = chunk;
+           _chunkCache[chunkCoordinates] = chunk;
 
             return chunk;
         }
