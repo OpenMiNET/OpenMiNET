@@ -167,7 +167,7 @@
           }
         }
       },
-      "MiNET/1.0.2062": {
+      "MiNET/1.0.2065": {
         "type": "package",
         "dependencies": {
           "CoreCompat.System.Drawing.v2": "5.2.0-preview1-r131",
@@ -1733,7 +1733,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.0",
         "dependencies": {
-          "MiNET": "1.0.2062",
+          "MiNET": "1.0.2065",
           "Mono.Cecil": "0.10.0",
           "OpenMiNET.OpenAPI.Locale": "0.0.0"
         },
@@ -1969,15 +1969,15 @@
         "runtimes/win/lib/netstandard1.3/Microsoft.Win32.Registry.dll"
       ]
     },
-    "MiNET/1.0.2062": {
-      "sha512": "+zsxCYTOgrROsQxBdy5lJz96fdTpzn1UWSem8mI/2VW2UdL1vnzAcxNwpZZcPzgUz4bYqV9IOFXdhVBVQSCZ+A==",
+    "MiNET/1.0.2065": {
+      "sha512": "o2Yjs608BD93H7LBvPicC7wWQCw8wrTiVwyWNhmTX2G9wssPZXMY8WY6nXNVrEiV4hjLiH+/MfuNRudJHEF4eg==",
       "type": "package",
-      "path": "minet/1.0.2062",
+      "path": "minet/1.0.2065",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netcoreapp3.0/MiNET.dll",
-        "minet.1.0.2062.nupkg.sha512",
+        "minet.1.0.2065.nupkg.sha512",
         "minet.nuspec"
       ]
     },
