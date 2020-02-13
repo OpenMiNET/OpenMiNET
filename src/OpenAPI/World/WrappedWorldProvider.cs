@@ -25,9 +25,12 @@ namespace OpenAPI.World
         public virtual ChunkColumn GenerateChunkColumn(ChunkCoordinates chunkCoordinates, bool cacheOnly = false)
         {
             var chunk = WorldProvider.GenerateChunkColumn(chunkCoordinates, cacheOnly);
-            
-            Api.EventDispatcher.DispatchEvent(new ChunkGeneratedEvent(chunkCoordinates, chunk, Level));
-            
+
+            if (chunk != null)
+            {
+                Api.EventDispatcher.DispatchEvent(new ChunkGeneratedEvent(chunkCoordinates, chunk, Level));
+            }
+
             return chunk;
         }
 
@@ -83,6 +86,12 @@ namespace OpenAPI.World
         public override ChunkColumn GenerateChunkColumn(ChunkCoordinates chunkCoordinates, bool cacheOnly = false)
         {
             var before = GetCachedChunks();
+
+            var found = before.FirstOrDefault(x => x.X == chunkCoordinates.X && x.Z == chunkCoordinates.Z);
+            if (found != null)
+            {
+                return found;
+            }
             
             var chunk = base.GenerateChunkColumn(chunkCoordinates, cacheOnly);
 
