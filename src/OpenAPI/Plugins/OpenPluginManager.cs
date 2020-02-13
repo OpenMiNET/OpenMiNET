@@ -4,8 +4,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Loader;
 using log4net;
 using Mono.Cecil;
+using Mono.Cecil.Rocks;
+using OpenAPI.Utils;
 
 namespace OpenAPI.Plugins
 {
@@ -38,7 +41,7 @@ namespace OpenAPI.Plugins
 		        }
 	        }
 
-			//AppDomain.CurrentDomain.AssemblyResolve += PluginManagerOnAssemblyResolve;
+			AppDomain.CurrentDomain.AssemblyResolve += PluginManagerOnAssemblyResolve;
         }
 
 	    private Assembly PluginManagerOnAssemblyResolve(object sender, ResolveEventArgs args)
@@ -98,7 +101,15 @@ namespace OpenAPI.Plugins
 
 	    internal bool TryFindAssemblyPath(AssemblyNameReference name, string rootPath, out string resultingPath)
 	    {
-			string dllName = name.Name + ".dll";
+		    AssemblyDependencyResolver resolver = new AssemblyDependencyResolver(rootPath);
+		    var p = resolver.ResolveAssemblyToPath(new AssemblyName(name.ToString()));
+		    if (p != null)
+		    {
+			    resultingPath = p;
+			    return true;
+		    }
+			    
+		    string dllName = name.Name + ".dll";
 
 		    var assemblyLocation = rootPath;
 
@@ -242,7 +253,6 @@ namespace OpenAPI.Plugins
 				if (assembly != null)
 		        if (LoadAssembly(assembly, out OpenPlugin[] pluginInstances, out Assembly[] requiredAssemblies))
 		        {
-					
 			        LoadedAssemblies.Add(assembly, new LoadedAssembly(assembly, pluginInstances, requiredAssemblies, path));
 
 					if (pluginInstances.Length > 0)
@@ -396,7 +406,7 @@ namespace OpenAPI.Plugins
 				    }
 				    else
 				    {
-						Log.Warn($"Plugin \"{module.FileName}\" requires \"{assemblyName}\"");
+					    Log.Warn($"Plugin \"{module.FileName}\" requires \"{assemblyName}\" but it could not be found.");
 					  //  assemblies = default(Assembly[]);
 					   // return false;
 					}
@@ -538,12 +548,17 @@ namespace OpenAPI.Plugins
 		    }
 		    catch(Exception ex)
 		    {
-			    Log.Error("Could not load assembly", ex);
+			    Log.Error($"Could not load assembly ({assembly.FullName})", ex);
 		    }
 
 			loaded = new OpenPlugin[0];
 			referencedAssemblies = new Assembly[0];
 		    return false;
+	    }
+
+	    private void FindRequiredAssemblies(Assembly assembly, List<Assembly> assemblies)
+	    {
+		    
 	    }
 
         public void UnloadPluginAssembly(Assembly pluginAssembly)
