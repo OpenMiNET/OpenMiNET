@@ -32,16 +32,25 @@ namespace OpenAPI.Plugins
             AssemblyReferences = new ConcurrentDictionary<string, Assembly>();
             LoadedAssemblies = new Dictionary<Assembly, LoadedAssembly>();
 			References = new ConcurrentDictionary<Type, object>();
-
-	        foreach (var referencedAssemblies in AppDomain.CurrentDomain.GetAssemblies())
+			
+			foreach (var referencedAssemblies in AppDomain.CurrentDomain.GetAssemblies())
 	        {
 		        if (!AssemblyReferences.ContainsKey(referencedAssemblies.GetName().Name))
 		        {
 					AssemblyReferences.TryAdd(referencedAssemblies.GetName().Name, referencedAssemblies);
+					
+					foreach (var referenced in referencedAssemblies.GetReferencedAssemblies())
+					{
+						if (!AssemblyReferences.ContainsKey(referenced.Name))
+						{
+							var newlyLoaded = Assembly.Load(referenced);
+							AssemblyReferences.TryAdd(referenced.Name, newlyLoaded);
+						}
+					}
 		        }
 	        }
 
-			AppDomain.CurrentDomain.AssemblyResolve += PluginManagerOnAssemblyResolve;
+	        AppDomain.CurrentDomain.AssemblyResolve += PluginManagerOnAssemblyResolve;
         }
 
 	    private Assembly PluginManagerOnAssemblyResolve(object sender, ResolveEventArgs args)
@@ -387,7 +396,8 @@ namespace OpenAPI.Plugins
 		private bool TryResolve( string path, ModuleDefinition module, out Assembly[] assemblies)
 		{
 			//var proxy = Proxy.CreateProxy(domain);
-			IEnumerable<AssemblyNameReference> assemblyNames = module.AssemblyReferences;
+			List<AssemblyNameReference> assemblyNames = module.AssemblyReferences.ToList();
+
 			Dictionary<AssemblyNameReference, Assembly> resolvedAssemblies = new Dictionary<AssemblyNameReference, Assembly>();
 			Dictionary<AssemblyNameReference, string> resolvedPaths = new Dictionary<AssemblyNameReference, string>();
 		    foreach (var assemblyName in assemblyNames)

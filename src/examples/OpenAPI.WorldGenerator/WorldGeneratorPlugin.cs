@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using log4net;
 using MiNET;
+using MiNET.Blocks;
 using MiNET.Utils;
 using MiNET.Worlds;
 using Newtonsoft.Json;
@@ -50,7 +52,19 @@ namespace OpenAPI.WorldGenerator
         public override void Enabled(OpenAPI api)
         {
             Api = api;
-            var level = new OpenLevel(api, api.LevelManager, Dimension.Overworld.ToString(), new DebugWorldProvider(new OverworldGeneratorV2()), api.LevelManager.EntityManager, GameMode.Creative, Difficulty.Peaceful);
+            IWorldGenerator generator = new MiNET.Worlds.SuperflatGenerator(Dimension.Overworld)
+            {
+                BlockLayers = new List<Block>()
+                {
+                    new Bedrock(),
+                    new Dirt(),
+                    new Dirt(),
+                    new Grass()
+                }
+            };
+            //generator = new OverworldGeneratorV2();
+            
+            var level = new OpenLevel(api, api.LevelManager, Dimension.Overworld.ToString(), new DebugWorldProvider(generator), api.LevelManager.EntityManager, GameMode.Creative, Difficulty.Peaceful);
 
             api.LevelManager.LoadLevel(level);
             
