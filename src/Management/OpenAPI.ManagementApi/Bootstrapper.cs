@@ -6,6 +6,7 @@ using Nancy;
 using Nancy.Bootstrapper;
 using Nancy.Configuration;
 using Nancy.Diagnostics;
+using Nancy.Json;
 using Nancy.ModelBinding;
 using Nancy.TinyIoc;
 using OpenAPI.ManagementApi.Utils;
@@ -31,6 +32,9 @@ namespace OpenAPI.ManagementApi
         
         protected override void ConfigureApplicationContainer(TinyIoCContainer container)
         {
+            container.Register<ISerializer, NewtonJson>();
+            container.Register<IBodyDeserializer, JsonNetBodyDeserializer>();
+            
             base.ConfigureApplicationContainer(container);       
             
             container.Register(typeof(ILog), (c, o) => LogManager.GetLogger(typeof(Bootstrapper)));
@@ -38,8 +42,7 @@ namespace OpenAPI.ManagementApi
             container.Register<ManagementApiPlugin>(Plugin);
             container.Register<MemoryMetricsClient>().AsSingleton();
 
-            container.Register<ISerializer, NewtonJson>();
-            container.Register<IBodyDeserializer, JsonNetBodyDeserializer>();
+            // container.Register<ISerializerFactory, >()
         }
 
         /// <summary>

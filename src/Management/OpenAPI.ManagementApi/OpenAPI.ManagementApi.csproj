@@ -20,8 +20,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Nancy" Version="2.0.0-barneyrubble" />
-      <PackageReference Include="Nancy.Hosting.Self" Version="2.0.0-barneyrubble" />
+      <PackageReference Include="Nancy" Version="2.0.0" />
+      <PackageReference Include="Nancy.Hosting.Self" Version="2.0.0" />
       <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     </ItemGroup>
 

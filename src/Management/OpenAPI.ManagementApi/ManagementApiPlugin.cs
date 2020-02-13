@@ -17,6 +17,7 @@ namespace OpenAPI.ManagementApi
         
         public ManagementApiPlugin()
         {
+            
         }
 
         public override void Enabled(OpenAPI api)

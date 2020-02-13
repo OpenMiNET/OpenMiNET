@@ -7,6 +7,7 @@ using System.Reflection;
 using Nancy;
 using Nancy.Extensions;
 using Nancy.IO;
+using Nancy.Json;
 using Nancy.ModelBinding;
 using Nancy.Responses.Negotiation;
 using Newtonsoft.Json;
