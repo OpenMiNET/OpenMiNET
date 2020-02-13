@@ -5,6 +5,7 @@ using OpenAPI.TestPlugin;
 
 namespace CrossReferencing
 {
+	[OpenPluginInfo(Name = "OpenAPI CrossReferencing Example", Description = "An example plugin showing the ability to cross-reference another plugin", Author = "Kenny van Vulpen", Version = "1.0", Website = "https://github.com/OpenMiNET/OpenAPI")]
     public class ExamplePlugin : OpenPlugin
 	{
 		private static readonly ILog Log = LogManager.GetLogger(typeof(ExamplePlugin));

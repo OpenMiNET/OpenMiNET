@@ -17,6 +17,7 @@ using BiomeUtils = OpenAPI.WorldGenerator.Utils.BiomeUtils;
 
 namespace OpenAPI.WorldGenerator
 {
+    [OpenPluginInfo(Name = "OpenAPI WorldGenerator", Description = "Provides an alternative world generator for MiNET", Author = "Kenny van Vulpen", Version = "1.0", Website = "https://github.com/OpenMiNET/OpenAPI")]
     public class WorldGeneratorPlugin : OpenPlugin, IEventHandler
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(WorldGeneratorPlugin));

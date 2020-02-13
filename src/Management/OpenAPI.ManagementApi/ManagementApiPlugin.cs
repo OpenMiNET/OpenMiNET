@@ -7,6 +7,7 @@ using OpenAPI.Plugins;
 
 namespace OpenAPI.ManagementApi
 {
+    [OpenPluginInfo(Name = "OpenAPI Management API", Description = "Provides a rest api that can be used to manage the server", Author = "Kenny van Vulpen", Version = "1.0", Website = "https://github.com/OpenMiNET/OpenAPI")]
     public class ManagementApiPlugin : OpenPlugin
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(OpenPluginManager));

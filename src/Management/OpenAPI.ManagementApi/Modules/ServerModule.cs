@@ -5,6 +5,7 @@ using System.Threading;
 using Nancy;
 using OpenAPI.ManagementApi.Models;
 using OpenAPI.ManagementApi.Models.Levels;
+using OpenAPI.ManagementApi.Models.Plugins;
 using OpenAPI.ManagementApi.Utils;
 using OpenAPI.Player;
 
@@ -21,6 +22,12 @@ namespace OpenAPI.ManagementApi.Modules
             
             Get("/", Root);
             Get("/levels", GetLevels);
+            Get("/plugins", GetPlugins);
+        }
+
+        private object GetPlugins(dynamic arg)
+        {
+            return Response.AsJson(Api.PluginManager.GetLoadedPlugins().Select(x => new PluginInfo(x)).ToArray());
         }
 
         private object GetLevels(dynamic arg)

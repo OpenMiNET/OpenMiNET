@@ -5,6 +5,7 @@ using OpenAPI.Plugins;
 
 namespace ChatFilter
 {
+	[OpenPluginInfo(Name = "OpenAPI ChatFilter", Description = "An example plugin show chat filtering abilities", Author = "Kenny van Vulpen", Version = "1.0", Website = "https://github.com/OpenMiNET/OpenAPI")]
     public class NoCapsPlugin : OpenPlugin
     {
 	    private static readonly ILog Log = LogManager.GetLogger(typeof(NoCapsPlugin));

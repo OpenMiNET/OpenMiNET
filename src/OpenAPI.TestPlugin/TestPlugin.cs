@@ -7,6 +7,7 @@ using OpenAPI.TestPlugin.FactionsExample;
 
 namespace OpenAPI.TestPlugin
 {
+	[OpenPluginInfo(Name = "OpenAPI TestPlugin", Description = "An example plugin", Author = "Kenny van Vulpen", Version = "1.0", Website = "https://github.com/OpenMiNET/OpenAPI")]
 	public class TestPlugin : OpenPlugin
 	{
 		private static readonly ILog Log = LogManager.GetLogger(typeof(TestPlugin));
