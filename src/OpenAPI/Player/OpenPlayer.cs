@@ -288,6 +288,21 @@ namespace OpenAPI.Player
 		    {
 			    case McpeInventoryTransaction.ItemUseAction.Destroy:
 			    {
+				    var target = Level.GetBlock(transaction.Position);
+
+				    PlayerInteractEvent interactEvent = new PlayerInteractEvent(this, itemInHand, transaction.Position,
+					    (BlockFace) transaction.Face,
+					    (target is Air)
+						    ? PlayerInteractEvent.PlayerInteractType.LeftClickAir
+						    : PlayerInteractEvent.PlayerInteractType.LeftClickBlock);
+				    
+				    EventDispatcher.DispatchEvent(interactEvent);
+
+				    if (interactEvent.IsCancelled)
+				    {
+					    return;
+				    }
+				    
 				    break;
 			    }
 			    case McpeInventoryTransaction.ItemUseAction.Use:
@@ -303,6 +318,20 @@ namespace OpenAPI.Player
 			    }
 			    case McpeInventoryTransaction.ItemUseAction.Place:
 			    {
+				    var target = Level.GetBlock(transaction.Position);
+				    
+				    PlayerInteractEvent interactEvent = new PlayerInteractEvent(this, itemInHand, transaction.Position,
+					    (BlockFace) transaction.Face, (target is Air)
+						    ? PlayerInteractEvent.PlayerInteractType.RightClickAir
+						    : PlayerInteractEvent.PlayerInteractType.RightClickBlock);
+				    
+				    EventDispatcher.DispatchEvent(interactEvent);
+
+				    if (interactEvent.IsCancelled)
+				    {
+					    return;
+				    }
+				    
 				    break;
 			    }
 		    }
