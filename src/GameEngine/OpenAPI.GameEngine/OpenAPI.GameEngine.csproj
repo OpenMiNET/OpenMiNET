@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.0</TargetFramework>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <OutputPath>../../../build/debug/Plugins/GameEngine</OutputPath>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)'=='Release'">
+        <OutputPath>..\..\build\release\Plugins\GameEngine</OutputPath>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\OpenAPI\OpenAPI.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Games\Stages" />
+      <Folder Include="Games\Teams" />
+    </ItemGroup>
+    
+</Project>

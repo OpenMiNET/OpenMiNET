@@ -68,7 +68,6 @@ namespace OpenAPI.WorldGenerator
             var level = new OpenLevel(api, api.LevelManager, Dimension.Overworld.ToString(), new DebugWorldProvider(generator), api.LevelManager.EntityManager, GameMode.Creative, Difficulty.Peaceful);
 
             api.LevelManager.LoadLevel(level);
-            
             api.LevelManager.SetDefaultLevel(level);
             
             api.EventDispatcher.RegisterEvents(this);
