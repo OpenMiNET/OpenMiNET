@@ -1,26 +1,32 @@
 name: .NET Core
 
-on: [push]
+on: 
+  push:
+    branches-ignore: 
+      - gh-pages
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
-
+    runs-on: ubuntu-18.04
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.102
-    - name: Build with dotnet
-      run: dotnet build --configuration Release
-    - name: Build Documentation
-      uses: nikeee/docfx-action@master
-      with:
-        args: docs/docfx.json
-    - name: Publish Documentation on GitHub Pages
-      uses: maxheld83/ghpages@master
-      env:
-        BUILD_DIR: _site
-        GH_PAT: ${{ secrets.GH_PAT }}
+      - uses: actions/checkout@v2
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.102
+      - name: Build with dotnet
+        run: dotnet build --configuration Release
+      - name: Build Documentation
+        uses: nikeee/docfx-action@master
+        with:
+          args: docs/docfx.json
+  #    - name: Publish Documentation on GitHub Pages
+  #      uses: maxheld83/ghpages@master
+  #      env:
+  #        BUILD_DIR: _site
+  #        GH_PAT: ${{ secrets.GH_PAT }}
+      - name: Publish Documentation on GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          publish_dir: docs/_site
