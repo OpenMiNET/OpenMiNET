@@ -34,6 +34,10 @@ namespace OpenAPI.Utils
 
 	#endregion
 
+	/// <summary>
+	/// 	WARNING: NOT ACTUALLY THREADSAFE
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
 	[DebuggerDisplay("Count={Count}")]
 	public sealed class ThreadSafeList<T> : IList<T>
 	{

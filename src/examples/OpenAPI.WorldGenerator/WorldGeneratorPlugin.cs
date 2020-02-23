@@ -53,7 +53,9 @@ namespace OpenAPI.WorldGenerator
         public override void Enabled(OpenAPI api)
         {
             Api = api;
-            IWorldGenerator generator = new MiNET.Worlds.SuperflatGenerator(Dimension.Overworld)
+            IWorldGenerator generator;
+            
+           /* generator = new MiNET.Worlds.SuperflatGenerator(Dimension.Overworld)
             {
                 BlockLayers = new List<Block>()
                 {
@@ -62,8 +64,9 @@ namespace OpenAPI.WorldGenerator
                     new Dirt(),
                     new Grass()
                 }
-            };
-            //generator = new OverworldGeneratorV2();
+            };*/
+           
+            generator = new OverworldGeneratorV2();
             
             var level = new OpenLevel(api, api.LevelManager, Dimension.Overworld.ToString(), new DebugWorldProvider(generator), api.LevelManager.EntityManager, GameMode.Creative, Difficulty.Peaceful);
 

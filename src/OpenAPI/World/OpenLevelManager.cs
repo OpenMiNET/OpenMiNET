@@ -168,17 +168,17 @@ namespace OpenAPI.World
 
 		public void LoadLevel(OpenLevel openLevel)
 		{
-			try
-			{
+			//try
+			//{
 				openLevel.Initialize();
-			}
-			catch (DllNotFoundException ex)
+			//}
+			/*catch (DllNotFoundException ex)
 			{
 				if (ex.Message.Contains("winmm.dll"))
 				{
 					openLevel.InitUnix();
 				}
-			}
+			}*/
 
 			/*	if (Config.GetProperty("CalculateLights", false) && openLevel.WorldProvider is WrappedAnvilWorldProvider wawp)
 				{

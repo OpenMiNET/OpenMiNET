@@ -11,6 +11,7 @@ using MiNET.Blocks;
 using MiNET.Entities;
 using MiNET.Items;
 using MiNET.Net;
+using MiNET.Utils.Skins;
 using MiNET.Worlds;
 using OpenAPI.Events;
 using OpenAPI.Events.Block;
@@ -56,13 +57,13 @@ namespace OpenAPI.World
 			}
 		}
 
-		private BypassHighPrecisionTimer _unixTicker = null;
+		/*private BypassHighPrecisionTimer _unixTicker = null;
 
 		internal void InitUnix()
 		{
 			_unixTicker =
 				new BypassHighPrecisionTimer(50, (o) => { ReflectionHelper.InvokePrivateMethod(this, "WorldTick", new[] {o}); }, false, false);
-		}
+		}*/
 
 		private bool _closed;
 	/*	public override void AddEntity(Entity entity)
@@ -108,6 +109,24 @@ namespace OpenAPI.World
 
 		public override void AddPlayer(MiNET.Player newPlayer, bool spawn)
 		{
+			if (newPlayer.Skin == null)
+			{
+				newPlayer.Skin = new Skin()
+				{
+					Animations = new List<Animation>(),
+					Cape = new Cape()
+					{
+						Data = new byte[0]
+					},
+					Data = ArrayOf<byte>.Create(8192, 0xFF),
+					Height = 64,
+					Width = 32,
+					IsPremiumSkin = false,
+					IsPersonaSkin = false,
+					Slim = false
+				};
+			}
+			
 			base.AddPlayer(newPlayer, spawn);
 			if (Players.TryGetValue(newPlayer.EntityId, out MiNET.Player p))
 			{

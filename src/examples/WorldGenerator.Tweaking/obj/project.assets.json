@@ -230,29 +230,19 @@
           "lib/netcoreapp2.1/MiNET.LevelDB.dll": {}
         }
       },
-      "Mono.Cecil/0.10.0": {
+      "Mono.Cecil/0.11.2": {
         "type": "package",
-        "dependencies": {
-          "System.Collections": "4.0.11",
-          "System.IO.FileSystem": "4.0.1",
-          "System.IO.FileSystem.Primitives": "4.0.1",
-          "System.Reflection": "4.1.0",
-          "System.Runtime.Extensions": "4.1.0",
-          "System.Security.Cryptography.Algorithms": "4.2.0",
-          "System.Security.Cryptography.Csp": "4.0.0",
-          "System.Threading": "4.0.11"
-        },
         "compile": {
-          "lib/netstandard1.3/Mono.Cecil.Mdb.dll": {},
-          "lib/netstandard1.3/Mono.Cecil.Pdb.dll": {},
-          "lib/netstandard1.3/Mono.Cecil.Rocks.dll": {},
-          "lib/netstandard1.3/Mono.Cecil.dll": {}
+          "lib/netstandard2.0/Mono.Cecil.Mdb.dll": {},
+          "lib/netstandard2.0/Mono.Cecil.Pdb.dll": {},
+          "lib/netstandard2.0/Mono.Cecil.Rocks.dll": {},
+          "lib/netstandard2.0/Mono.Cecil.dll": {}
         },
         "runtime": {
-          "lib/netstandard1.3/Mono.Cecil.Mdb.dll": {},
-          "lib/netstandard1.3/Mono.Cecil.Pdb.dll": {},
-          "lib/netstandard1.3/Mono.Cecil.Rocks.dll": {},
-          "lib/netstandard1.3/Mono.Cecil.dll": {}
+          "lib/netstandard2.0/Mono.Cecil.Mdb.dll": {},
+          "lib/netstandard2.0/Mono.Cecil.Pdb.dll": {},
+          "lib/netstandard2.0/Mono.Cecil.Rocks.dll": {},
+          "lib/netstandard2.0/Mono.Cecil.dll": {}
         }
       },
       "NETStandard.Library/2.0.0": {
@@ -1768,7 +1758,7 @@
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
           "MiNET": "1.0.2069",
-          "Mono.Cecil": "0.10.0",
+          "Mono.Cecil": "0.11.2",
           "OpenMiNET.OpenAPI.Locale": "0.0.0"
         },
         "compile": {
@@ -2069,26 +2059,30 @@
         "minet.leveldb.nuspec"
       ]
     },
-    "Mono.Cecil/0.10.0": {
-      "sha512": "hyha+PVmfqjD6Hx3pqCE4odAcd7d7Fb/CZkRfmNsLodprRKfOc2wu9EvWL1nGIXL2zTjSS2G/h2/96BWffdYkg==",
+    "Mono.Cecil/0.11.2": {
+      "sha512": "hZNAnXKQsOs/SZMFtT/e82/nA/iLgkeDy+sHD8xix4f0m9/3G0RNZplE1QHB+0n8QXq54jLqR/IPgVOkLapkyg==",
       "type": "package",
-      "path": "mono.cecil/0.10.0",
+      "path": "mono.cecil/0.11.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/net35/Mono.Cecil.Mdb.dll",
-        "lib/net35/Mono.Cecil.Pdb.dll",
-        "lib/net35/Mono.Cecil.Rocks.dll",
-        "lib/net35/Mono.Cecil.dll",
         "lib/net40/Mono.Cecil.Mdb.dll",
+        "lib/net40/Mono.Cecil.Mdb.pdb",
         "lib/net40/Mono.Cecil.Pdb.dll",
+        "lib/net40/Mono.Cecil.Pdb.pdb",
         "lib/net40/Mono.Cecil.Rocks.dll",
+        "lib/net40/Mono.Cecil.Rocks.pdb",
         "lib/net40/Mono.Cecil.dll",
-        "lib/netstandard1.3/Mono.Cecil.Mdb.dll",
-        "lib/netstandard1.3/Mono.Cecil.Pdb.dll",
-        "lib/netstandard1.3/Mono.Cecil.Rocks.dll",
-        "lib/netstandard1.3/Mono.Cecil.dll",
-        "mono.cecil.0.10.0.nupkg.sha512",
+        "lib/net40/Mono.Cecil.pdb",
+        "lib/netstandard2.0/Mono.Cecil.Mdb.dll",
+        "lib/netstandard2.0/Mono.Cecil.Mdb.pdb",
+        "lib/netstandard2.0/Mono.Cecil.Pdb.dll",
+        "lib/netstandard2.0/Mono.Cecil.Pdb.pdb",
+        "lib/netstandard2.0/Mono.Cecil.Rocks.dll",
+        "lib/netstandard2.0/Mono.Cecil.Rocks.pdb",
+        "lib/netstandard2.0/Mono.Cecil.dll",
+        "lib/netstandard2.0/Mono.Cecil.pdb",
+        "mono.cecil.0.11.2.nupkg.sha512",
         "mono.cecil.nuspec"
       ]
     },

@@ -6,12 +6,10 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using log4net;
-using MiNET.Net;
 using MiNET.Utils;
 using Newtonsoft.Json;
-using OpenAPI.Utils.ResourcePacks;
 
-namespace OpenAPI.Utils
+namespace OpenAPI.Utils.ResourcePacks
 {
     public class ResourcePackProvider
     {

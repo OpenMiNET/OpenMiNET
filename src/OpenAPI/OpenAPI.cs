@@ -5,12 +5,14 @@ using log4net;
 using MiNET;
 using MiNET.Plugins;
 using MiNET.Worlds;
+using Newtonsoft.Json;
 using OpenAPI.Commands;
 using OpenAPI.Events;
 using OpenAPI.Items;
 using OpenAPI.Player;
 using OpenAPI.Plugins;
 using OpenAPI.Utils;
+using OpenAPI.Utils.ResourcePacks;
 using OpenAPI.World;
 using Conf = MiNET.Utils.Config;
 
@@ -32,7 +34,14 @@ namespace OpenAPI
 	    public ResourcePackProvider ResourcePackProvider { get; }
 
         public OpenAPI()
-	    {
+        {
+	        JsonConvert.DefaultSettings = () =>
+	        {
+		        return new JsonSerializerSettings()
+		        {
+			        MissingMemberHandling = MissingMemberHandling.Ignore
+		        };
+	        };
 	        ItemFactory = new OpenItemFactory();
 	        LevelManager = new OpenLevelManager(this);
 	        MotdProvider = new OpenMotdProvider(this);

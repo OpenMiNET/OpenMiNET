@@ -13,8 +13,6 @@ using MiNET;
 using MiNET.Items;
 using MiNET.Plugins;
 using MiNET.Utils;
-using MiNET.Worlds;
-using OpenAPI.Proxy;
 using OpenAPI.Utils;
 
 namespace OpenAPI
@@ -24,16 +22,13 @@ namespace OpenAPI
         private static readonly ILog Log = LogManager.GetLogger(typeof(OpenServer));
 
         private OpenAPI OpenApi { get; set; }
-	    private ProxyServer _proxy = null;
 
         public static DedicatedThreadPool FastThreadPool => ReflectionHelper.GetPrivateStaticPropertyValue<DedicatedThreadPool>(typeof(MiNetServer), "FastThreadPool");
-        
-		public OpenServer()
+        public OpenServer()
         {
             OpenApi = new OpenAPI();
         }
 
-        private BypassHighPrecisionTimer _unixTicker = null;
         public new bool StartServer()
         {
             UdpClient c = ReflectionHelper.GetPrivateFieldValue<UdpClient>(typeof(MiNetServer), this, "_listener");
@@ -115,14 +110,8 @@ namespace OpenAPI
 
                 openInfo?.OnEnable();
 
-                //var a = typeof(MiNetServer).GetMethod("SendTick",
-                //    BindingFlags.NonPublic | BindingFlags.Instance);
-
-                //ReflectionHelper.SetPrivateFieldValue(typeof(MiNetServer), this, "_tickerHighPrecisionTimer",
-                //    new HighPrecisionTimer(10, (o) => a.Invoke(this, new object[] {o}), true, true));
-
-                _unixTicker = new BypassHighPrecisionTimer(10, o =>
-                    {
+                ReflectionHelper.SetPrivateFieldValue(typeof(MiNetServer), this, "_tickerHighPrecisionTimer",
+                    new HighPrecisionTimer(10, (o) => {
                         //ReflectionHelper.InvokePrivateMethod(this, "SendTick", new[] {o});
                         var sessions =
                             ReflectionHelper
@@ -130,13 +119,7 @@ namespace OpenAPI
                                     typeof(MiNetServer), this, "_playerSessions");
                         
                         Parallel.ForEach(sessions.Values, (session, state) => session.SendTick(null));
-                    }, true, true);
-                
-                if (ServerRole == ServerRole.Proxy)
-                {
-                    _proxy = new ProxyServer(this, Endpoint);
-                    _proxy.Start();
-                }
+                    }, true, true));
 
                 Log.Info("Server open for business on port " + Endpoint?.Port + " ...");
 

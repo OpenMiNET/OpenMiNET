@@ -16,10 +16,5 @@
     <ItemGroup>
         <ProjectReference Include="..\..\OpenAPI\OpenAPI.csproj" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Games\Stages" />
-      <Folder Include="Games\Teams" />
-    </ItemGroup>
     
 </Project>
