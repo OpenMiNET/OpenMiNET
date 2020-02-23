@@ -5,11 +5,29 @@ using OpenAPI.Player;
 
 namespace OpenAPI.Events.Player
 {
+    /// <summary>
+    ///     Dispatched whenever an <see cref="OpenPlayer"/> interacts with a block or air
+    /// </summary>
     public class PlayerInteractEvent : PlayerEvent
     {
+        /// <summary>
+        ///     The type of interaction
+        /// </summary>
         public PlayerInteractType InteractType { get; }
+        
+        /// <summary>
+        ///     The item the player was holding
+        /// </summary>
         public Item Item { get; }
+        
+        /// <summary>
+        ///     The coordinates of the block the player interacted with
+        /// </summary>
         public BlockCoordinates Coordinates { get; }
+        
+        /// <summary>
+        ///     The face that the player hit
+        /// </summary>
         public BlockFace Face { get; }
         
         public PlayerInteractEvent(OpenPlayer player, Item item, BlockCoordinates blockCoordinates, BlockFace face) :

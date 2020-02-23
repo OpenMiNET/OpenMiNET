@@ -1,8 +1,10 @@
-﻿using OpenAPI.Player;
+﻿using System;
+using OpenAPI.Player;
 using OpenAPI.Utils;
 
 namespace OpenAPI.Events.Player
 {
+    [Obsolete("Not currrently implemented")]
     public class PlayerInputEvent : PlayerEvent
     {
         public PlayerInput Input { get; }
