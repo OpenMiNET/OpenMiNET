@@ -35,6 +35,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{9B0A8F5F-B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{95479C9C-839A-4B00-9073-DDE463C7F2EC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{B74FA458-E939-47D7-B2CA-7798904A5077}"
+ProjectSection(SolutionItems) = preProject
+	docs\docfx.json = docs\docfx.json
+	docs\toc.yml = docs\toc.yml
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
