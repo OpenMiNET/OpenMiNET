@@ -17,7 +17,6 @@ jobs:
       - name: Build with dotnet
         run: |
           dotnet build --configuration Release
-          dotnet pack --no-build --no-restore --configuration AppVeyor
       - name: Build Documentation
         uses: nikeee/docfx-action@master
         with:
@@ -32,5 +31,3 @@ jobs:
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           publish_dir: docs/_site
-      - name: Publish to NuGET
-        run: dotnet nuget push **/*.nupkg --source "github"
