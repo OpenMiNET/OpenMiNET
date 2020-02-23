@@ -7,8 +7,8 @@ namespace OpenAPI
 {
 	public class OpenMotdProvider : MotdProvider
 	{
-		public OpenAPI Api { get; }
-		public OpenMotdProvider(OpenAPI api)
+		public OpenApi Api { get; }
+		public OpenMotdProvider(OpenApi api)
 		{
 			Api = api;
 			Motd = Environment.MachineName;

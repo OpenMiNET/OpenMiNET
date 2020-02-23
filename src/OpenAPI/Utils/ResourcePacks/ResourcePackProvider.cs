@@ -15,11 +15,11 @@ namespace OpenAPI.Utils.ResourcePacks
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(ResourcePackProvider));
         
-        private OpenAPI Api { get; }
+        private OpenApi Api { get; }
         public bool HasData { get; private set; } = false;
         public bool MustAccept { get; private set; } = false;
         private Dictionary<ResourcePackManifest, byte[]> Manifests { get; } = new Dictionary<ResourcePackManifest, byte[]>();
-        public ResourcePackProvider(OpenAPI api)
+        public ResourcePackProvider(OpenApi api)
         {
             Api = api;
         }

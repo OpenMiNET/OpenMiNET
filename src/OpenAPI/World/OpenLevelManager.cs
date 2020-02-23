@@ -17,15 +17,14 @@ using Stopwatch = System.Diagnostics.Stopwatch;
 
 namespace OpenAPI.World
 {
-	public delegate void LevelCreated(OpenLevel level);
-
-	public delegate void LevelDestroyed(OpenLevel level);
-
+	/// <summary>
+	/// 	The LevelManager keeps track of all available Levels (A.K.A Worlds) in the server.
+	/// </summary>
 	public class OpenLevelManager : LevelManager
 	{
 		private static readonly ILog Log = LogManager.GetLogger(typeof(OpenLevelManager));
 
-		private OpenAPI Api { get; }
+		private OpenApi Api { get; }
 		private readonly ConcurrentDictionary<string, OpenLevel> _levels = new ConcurrentDictionary<string, OpenLevel>();
 		public int LevelCount => _levels.Count;
 		public bool HasDefaultLevel => _defaultLevelSet;
@@ -44,7 +43,7 @@ namespace OpenAPI.World
 		private bool _defaultLevelSet = false;
 		//public new LevelCreated OnLevelCreated = null;
 		//public LevelDestroyed OnLevelDestroyed = null;
-		public OpenLevelManager(OpenAPI api)
+		public OpenLevelManager(OpenApi api)
 		{
 			Api = api;
 			EntityManager = new OpenEntityManager();
@@ -166,6 +165,10 @@ namespace OpenAPI.World
 			return openLevel;
 		}
 
+		/// <summary>
+		/// 	Initializes the <see cref="OpenLevel"/> instance, this could include loading the world from a local folder or generating a new world.
+		/// </summary>
+		/// <param name="openLevel">The <see cref="OpenLevel"/> instance to register and initialize</param>
 		public void LoadLevel(OpenLevel openLevel)
 		{
 			//try
@@ -207,6 +210,10 @@ namespace OpenAPI.World
 			}
 		}
 
+		/// <summary>
+		/// 	Unloads & unregisters a level from the current <see cref="OpenLevelManager"/>
+		/// </summary>
+		/// <param name="openLevel">The level to unload</param>
 		public void UnloadLevel(OpenLevel openLevel)
 		{
 			OpenLevel l;
@@ -227,10 +234,19 @@ namespace OpenAPI.World
 			return base.GetDimension(level, dimension);
 		}
 
+		/// <summary>
+		/// 	Sets the Default <see cref="OpenLevel"/> players join when connecting to the server.
+		/// </summary>
+		/// <param name="level"></param>
 		public void SetDefaultLevel(OpenLevel level)
 		{
 			_defaultLevel = level.LevelId;
 			_defaultLevelSet = true;
+
+			if (!_levels.ContainsKey(level.LevelId))
+			{
+				LoadLevel(level);
+			}
 		}
 
 		public OpenLevel GetDefaultLevel()

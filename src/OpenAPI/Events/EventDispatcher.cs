@@ -10,6 +10,9 @@ using OpenAPI.Utils;
 
 namespace OpenAPI.Events
 {
+	/// <summary>
+	/// 	The <see cref="EventDispatcher"/> is responsible for dispatching and invoking all the registered <see cref="IEventHandler"/> methods
+	/// </summary>
 	public class EventDispatcher
 	{
 		private static readonly ILog Log = LogManager.GetLogger(typeof(EventDispatcher));
@@ -25,6 +28,11 @@ namespace OpenAPI.Events
 				}).ToArray()
 		};
 
+		/// <summary>
+		/// 	Registers a new <see cref="Event"/> type with the current EventDispatcher
+		/// </summary>
+		/// <typeparam name="TEvent">The type of the <see cref="Event"/> to register</typeparam>
+		/// <exception cref="DuplicateTypeException">Thrown when the type of <typeparamref name="TEvent"/> has already been registered.</exception>
 		public void RegisterEventType<TEvent>() where TEvent : Event
 		{
 			Type t = typeof(TEvent);
@@ -34,6 +42,11 @@ namespace OpenAPI.Events
 			}
 		}
 
+		/// <summary>
+		/// Registers a new <see cref="Event"/>
+		/// </summary>
+		/// <param name="type">The type of the <see cref="Event"/> to register</param>
+		/// <returns>Whether the event was succesfully registered.</returns>
 		public bool RegisterEventType(Type type)
 		{
 			if (RegisteredEvents.ContainsKey(type) || !EventTypes.TryAdd(type))
@@ -49,12 +62,20 @@ namespace OpenAPI.Events
 			}
 		}
 		
+		/// <summary>
+		/// 	Loads all types implementing the <see cref="Event"/> class
+		/// </summary>
+		/// <param name="assembly">The assembly containing the <see cref="Event"/> implementations</param>
 		public void LoadFrom(Assembly assembly)
 		{
 			var count = GetEventTypes(assembly).Count(RegisterEventType);
 			Log.Info($"Registered {count} event types from assembly {assembly.ToString()}");
 		}
 
+		/// <summary>
+		/// 	Unloads all <see cref="Event"/>'s that were registered by specified assembly
+		/// </summary>
+		/// <param name="assembly">The assembly containing the types to be unloaded.</param>
 		public void Unload(Assembly assembly)
 		{
 			int count = 0;
@@ -85,9 +106,9 @@ namespace OpenAPI.Events
 		}
 
 		private Dictionary<Type, EventDispatcherValues> RegisteredEvents { get; }
-		protected OpenAPI Api { get; }
+		protected OpenApi Api { get; }
 		private EventDispatcher[] ExtraDispatchers { get; }
-		public EventDispatcher(OpenAPI openApi, params EventDispatcher[] dispatchers)
+		public EventDispatcher(OpenApi openApi, params EventDispatcher[] dispatchers)
 		{
 			Api = openApi;
 			ExtraDispatchers = dispatchers.Where(x => x != this).ToArray();
@@ -100,6 +121,10 @@ namespace OpenAPI.Events
 			//Log.Info($"Registered {RegisteredEvents.Count} event types!");
 		}
 
+		/// <summary>
+		/// 	Registers all EventHandler methods with the current EventDispatcher.
+		/// </summary>
+		/// <param name="obj">The class to scan for EventHandlers</param>
 		public void RegisterEvents(IEventHandler obj)
 		{
 			int count = 0;
@@ -139,6 +164,11 @@ namespace OpenAPI.Events
 			Log.Info($"Registered {count} event handlers for \"{obj}\"");
 		}
 
+		/// <summary>
+		/// 	Unregisters all <see cref="EventHandlerAttribute"/> from the specified <see cref="IEventHandler"/> implementation from the current EventDispatcher
+		/// 	After UnRegistering, the class will no longer get invoked when an event gets dispatched.
+		/// </summary>
+		/// <param name="obj">The implementation to unregister the eventhandlers for</param>
 		public void UnregisterEvents(IEventHandler obj)
 		{
 			foreach (var kv in RegisteredEvents.ToArray())
@@ -167,6 +197,10 @@ namespace OpenAPI.Events
 			}
 		}
 
+		/// <summary>
+		/// 	Dispatches a new <see cref="Event"/> to all methods registered with an <see cref="EventHandlerAttribute"/>
+		/// </summary>
+		/// <param name="e">The event to dispatch</param>
 		public void DispatchEvent(Event e)
 		{
 			DispatchPrivate(e);

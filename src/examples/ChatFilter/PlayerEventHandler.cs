@@ -5,8 +5,8 @@ namespace ChatFilter
 {
     public class PlayerEventHandler : IEventHandler
     {
-		private OpenAPI.OpenAPI Api { get; }
-		public PlayerEventHandler(OpenAPI.OpenAPI api)
+		private OpenAPI.OpenApi Api { get; }
+		public PlayerEventHandler(OpenAPI.OpenApi api)
 		{
 			Api = api;
 		}

@@ -15,12 +15,12 @@ namespace OpenAPI.Player
 	{
 		private static readonly ILog Log = LogManager.GetLogger(typeof(OpenPlayerManager));
 		
-		private OpenAPI _plugin;
+		private OpenApi _plugin;
 		private ConcurrentDictionary<UUID, OpenPlayer> Players { get; } = new ConcurrentDictionary<UUID, OpenPlayer>();
 
 		public new EventHandler<PlayerCreatedEvent> OnPlayerCreated;
 		public EventHandler<PlayerJoinEvent> OnPlayerJoin;
-		public OpenPlayerManager(OpenAPI plugin)
+		public OpenPlayerManager(OpenApi plugin)
 		{
 			_plugin = plugin;
 			plugin.EventDispatcher.RegisterEvents(this);

@@ -8,8 +8,8 @@ namespace Portalss
 {
     public class PortalManager
     {
-		private OpenAPI.OpenAPI API { get; }
-		public PortalManager(OpenAPI.OpenAPI api)
+		private OpenAPI.OpenApi API { get; }
+		public PortalManager(OpenAPI.OpenApi api)
 		{
 			API = api;
 		}

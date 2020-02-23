@@ -6,8 +6,8 @@ namespace OpenAPI.ManagementApi.Modules
 {
     public sealed class MainModule : NancyModule
     {
-        private OpenAPI Api { get; }
-        public MainModule(OpenAPI api)
+        private OpenApi Api { get; }
+        public MainModule(OpenApi api)
         {
             Api = api;
             

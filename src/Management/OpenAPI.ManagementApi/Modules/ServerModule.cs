@@ -13,9 +13,9 @@ namespace OpenAPI.ManagementApi.Modules
 {
     public sealed class ServerModule : NancyModule
     {
-        private OpenAPI Api { get; }
+        private OpenApi Api { get; }
         private MemoryMetricsClient MetricsClient { get; }
-        public ServerModule(OpenAPI api, MemoryMetricsClient metricsClient) : base("/server")
+        public ServerModule(OpenApi api, MemoryMetricsClient metricsClient) : base("/server")
         {
             Api = api;
             MetricsClient = metricsClient;

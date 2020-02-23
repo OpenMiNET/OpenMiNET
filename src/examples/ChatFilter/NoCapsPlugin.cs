@@ -20,7 +20,7 @@ namespace ChatFilter
 				Directory.CreateDirectory(PluginDirectory);
 		}
 
-	    public override void Enabled(OpenAPI.OpenAPI api)
+	    public override void Enabled(OpenAPI.OpenApi api)
 	    {
 		    PlayerEventHandler = new PlayerEventHandler(api);
 			api.EventDispatcher.RegisterEvents(PlayerEventHandler);
@@ -28,7 +28,7 @@ namespace ChatFilter
 		    Log.Info($"ChatFilter plugin enabled!");
 		}
 
-	    public override void Disabled(OpenAPI.OpenAPI api)
+	    public override void Disabled(OpenAPI.OpenApi api)
 	    {
 		    PlayerEventHandler.CleanUp();
 

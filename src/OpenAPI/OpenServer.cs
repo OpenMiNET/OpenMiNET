@@ -21,12 +21,12 @@ namespace OpenAPI
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(OpenServer));
 
-        private OpenAPI OpenApi { get; set; }
+        private OpenApi OpenApi { get; set; }
 
         public static DedicatedThreadPool FastThreadPool => ReflectionHelper.GetPrivateStaticPropertyValue<DedicatedThreadPool>(typeof(MiNetServer), "FastThreadPool");
         public OpenServer()
         {
-            OpenApi = new OpenAPI();
+            OpenApi = new OpenApi();
         }
 
         public new bool StartServer()

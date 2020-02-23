@@ -21,10 +21,10 @@ namespace OpenAPI.Plugins
 		private ConcurrentDictionary<Type, object> References { get; }
         private readonly object _pluginLock = new object();
 
-        private OpenAPI Parent { get; }
+        private OpenApi Parent { get; }
 		private Assembly HostAssembly { get; }
 		
-        public OpenPluginManager(OpenAPI parent)
+        public OpenPluginManager(OpenApi parent)
         {
             Parent = parent;
 			HostAssembly = Assembly.GetAssembly(typeof(OpenPluginManager));
@@ -488,7 +488,7 @@ namespace OpenAPI.Plugins
 							List<object> parameters = new List<object>();
 						    foreach (ParameterInfo argument in constructor.GetParameters())
 						    {
-							    if (argument.ParameterType == typeof(OpenAPI))
+							    if (argument.ParameterType == typeof(OpenApi))
 							    {
 								    parameters.Add(Parent);
 									continue;

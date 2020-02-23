@@ -10,21 +10,21 @@ namespace OpenAPI.GameEngine
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(GameEngine));
 
-        private OpenAPI Host { get; set; }
+        private OpenApi Host { get; set; }
 
         public GameEngine()
         {
             
         }
         
-        public override void Enabled(OpenAPI api)
+        public override void Enabled(OpenApi api)
         {
             Host = api;
             
             Log.Info($"Game Engine Enabled!");
         }
 
-        public override void Disabled(OpenAPI api)
+        public override void Disabled(OpenApi api)
         {
             Log.Info($"Game Engine Disabled!");
         }

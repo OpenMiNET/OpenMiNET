@@ -8,10 +8,10 @@ namespace OpenAPI.World
 {
     public class WrappedWorldProvider : IWorldProvider
     {
-        protected OpenAPI Api { get; }
+        protected OpenApi Api { get; }
         private IWorldProvider WorldProvider { get; }
         public OpenLevel Level { get; set; }
-        public WrappedWorldProvider(OpenAPI api, IWorldProvider worldProvider)
+        public WrappedWorldProvider(OpenApi api, IWorldProvider worldProvider)
         {
             Api = api;
             WorldProvider = worldProvider;
@@ -75,7 +75,7 @@ namespace OpenAPI.World
     public class WrappedCachedWorldProvider : WrappedWorldProvider, ICachingWorldProvider
     {
         private ICachingWorldProvider CachingWorldProvider { get; }
-        public WrappedCachedWorldProvider(OpenAPI api, IWorldProvider worldProvider) : base(api, worldProvider)
+        public WrappedCachedWorldProvider(OpenApi api, IWorldProvider worldProvider) : base(api, worldProvider)
         {
             if (worldProvider is ICachingWorldProvider)
             {

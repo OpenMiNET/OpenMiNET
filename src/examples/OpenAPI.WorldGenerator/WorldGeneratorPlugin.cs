@@ -23,7 +23,7 @@ namespace OpenAPI.WorldGenerator
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(WorldGeneratorPlugin));
 
-        private OpenAPI Api { get; set; }
+        private OpenApi Api { get; set; }
         private Timer _timer { get; set; }
       //  private WorldGeneratorPreset Preset { get; }
         public WorldGeneratorPlugin()
@@ -61,7 +61,7 @@ namespace OpenAPI.WorldGenerator
             }
         }
 
-        public override void Enabled(OpenAPI api)
+        public override void Enabled(OpenApi api)
         {
             Api = api;
             IWorldGenerator generator;
@@ -91,7 +91,7 @@ namespace OpenAPI.WorldGenerator
             Log.Info($"WorldGenerator plugin enabled!");
         }
 
-        public override void Disabled(OpenAPI api)
+        public override void Disabled(OpenApi api)
         {
             Log.Info($"WorldGenerator plugin disabled!");
         }

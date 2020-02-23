@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 
 namespace OpenAPI.Events
 {
+	/// <summary>
+	/// 	The base class all OpenApi Events implement
+	/// </summary>
 	public abstract class Event : ICancellable
 	{
 		public bool IsCancelled { get; set; }

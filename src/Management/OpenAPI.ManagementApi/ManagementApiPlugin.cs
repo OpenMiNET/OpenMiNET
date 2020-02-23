@@ -12,7 +12,7 @@ namespace OpenAPI.ManagementApi
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(OpenPluginManager));
         
-        private OpenAPI Api { get; set; }
+        private OpenApi Api { get; set; }
         private NancyHost Host { get; set; }
         
         public ManagementApiPlugin()
@@ -20,7 +20,7 @@ namespace OpenAPI.ManagementApi
             
         }
 
-        public override void Enabled(OpenAPI api)
+        public override void Enabled(OpenApi api)
         {
             Api = api;
             
@@ -36,7 +36,7 @@ namespace OpenAPI.ManagementApi
             Log.Error($"Nancy Error: ", obj);
         }
 
-        public override void Disabled(OpenAPI api)
+        public override void Disabled(OpenApi api)
         {
             Host.Stop();
         }

@@ -33,6 +33,9 @@ using OpenAPI.World;
 
 namespace OpenAPI.Player
 {
+	/// <summary>
+	/// 	The Player class used for all Players connected to an OpenAPI server.
+	/// </summary>
 	public class OpenPlayer : MiNET.Player, ILocaleReceiver
     {
 		private static readonly ILog Log = LogManager.GetLogger(typeof(OpenPlayer));
@@ -42,13 +45,13 @@ namespace OpenAPI.Player
 
 		public EventDispatcher EventDispatcher => Level.EventDispatcher ?? _plugin.EventDispatcher;
 
-        private OpenAPI _plugin;
+        private OpenApi _plugin;
 		public bool IsXbox => !string.IsNullOrWhiteSpace(CertificateData.ExtraData.Xuid);
         public CultureInfo Culture { get; private set; } = CultureInfo.CurrentCulture;
         public PermissionManager Permissions { get; }
 
         internal CommandSet Commands { get; set; } = null;
-        public OpenPlayer(MiNetServer server, IPEndPoint endPoint, OpenAPI api) : base(server, endPoint)
+        public OpenPlayer(MiNetServer server, IPEndPoint endPoint, OpenApi api) : base(server, endPoint)
         {
             EnableCommands = true;
             _plugin = api;
@@ -662,8 +665,22 @@ namespace OpenAPI.Player
 
         #endregion
 
+        /// <summary>
+        /// 	Set's the players gamemode to the specified gamemode
+        /// </summary>
+        /// <param name="gameMode">The gamemode to set for the player</param>
+        public void SetGamemode(GameMode gameMode)
+        {
+	        GameMode = gameMode;
+	        SendSetPlayerGameType();
+        }
+
         private EntityDisguise _disguise = null;
 
+        /// <summary>
+        /// 	Can be used to Disguise a player into any Entity. See <see cref="EntityDisguise"/> and <seealso cref="Entity"/>
+        /// 	Can be undone by setting the value to null.
+        /// </summary>
         public EntityDisguise Disguise
         {
             get { return _disguise; }
@@ -693,6 +710,9 @@ namespace OpenAPI.Player
             }
         }
 
+        /// <summary>
+        /// 	Whether the player is currently Disguised using the <see cref="Disguise"/> property
+        /// </summary>
         public bool IsDisguised => Disguise != null;
 
         public override void SpawnToPlayers(MiNET.Player[] players)
@@ -741,6 +761,11 @@ namespace OpenAPI.Player
 
         #region Player Attributes
 
+        /// <summary>
+        /// 	Allows you to retrieve the value for any PlayerAttributes set on a player <see cref="IOpenPlayerAttribute"/>
+        /// </summary>
+        /// <typeparam name="TAttribute">The attribute type to retrieve its value for</typeparam>
+        /// <returns>The value for the requested attribute, or null if no value was found.</returns>
         public TAttribute GetAttribute<TAttribute>() where TAttribute : class, IOpenPlayerAttribute
         {
 	        if (_attributes.TryGetValue(typeof(TAttribute), out IOpenPlayerAttribute attribute))
@@ -751,6 +776,12 @@ namespace OpenAPI.Player
             return null;
         }
 
+        
+        /// <summary>
+        /// 	Allows you to store extra data on a player using PlayerAttributes <see cref="IOpenPlayerAttribute"/>
+        /// </summary>
+        /// <param name="attribute">The value to set the attribute to</param>
+        /// <typeparam name="TAttribute">The type of the attribute you wish to set.</typeparam>
         public void SetAttribute<TAttribute>(TAttribute attribute) where TAttribute : class, IOpenPlayerAttribute
         {
             _attributes.AddOrUpdate(typeof(TAttribute), attribute, (type, playerAttribute) => attribute);

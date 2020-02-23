@@ -28,10 +28,10 @@ namespace OpenAPI.World
 		
 		public EventDispatcher EventDispatcher { get; }
 		public TickScheduler TickScheduler { get; }
-		public OpenAPI OpenAPI { get; }
+		public OpenApi OpenAPI { get; }
 		private CancellationTokenSource CancelationToken { get; }
 
-		public OpenLevel(OpenAPI openApi,
+		public OpenLevel(OpenApi openApi,
 			OpenLevelManager levelManager,
 			string levelId,
 			IWorldProvider worldProvider,

@@ -18,22 +18,50 @@ using Conf = MiNET.Utils.Config;
 
 namespace OpenAPI
 {
-	public class OpenAPI
+	/// <summary>
+	/// 	The root for everything happening in OpenApi & it's plugins
+	/// </summary>
+	public class OpenApi
 	{
-		private static readonly ILog Log = LogManager.GetLogger(typeof(OpenAPI));
-
+		private static readonly ILog Log = LogManager.GetLogger(typeof(OpenApi));
+		
 		public OpenItemFactory ItemFactory { get; }
+		
+		/// <summary>
+		/// 	The <see cref="OpenLevelManager"/> instance responsible for all Levels <see cref="OpenLevel"/>
+		/// </summary>
 		public OpenLevelManager LevelManager { get; }
+		
+		/// <summary>
+		/// 	The root <see cref="OpenPlayerManager"/> responsible for keeping track of all Online Players
+		/// </summary>
 		public OpenPlayerManager PlayerManager { get; }
+		
+		/// <summary>
+		/// 	The <see cref="OpenMotdProvider"/> responsible for the MOTD's displayed on the client serverlist
+		/// </summary>
 		public OpenMotdProvider MotdProvider { get; }
+		
+		/// <summary>
+		/// 	The <see cref="OpenPluginManager"/> instance responsible for any loaded plugins
+		/// </summary>
 		public OpenPluginManager PluginManager { get; }
+		
+		/// <summary>
+		/// 	The root <see cref="EventDispatcher"/>
+		/// 	If you want to receive all server wide events <see cref="Event"/> this is the instance to do so.
+		/// </summary>
 		public EventDispatcher EventDispatcher { get; }
 		public CommandManager CommandManager { get; private set; }
 		public OpenServerInfo ServerInfo { get; internal set; }
+		
+		/// <summary>
+		/// 	The server instance handling all networking etc
+		/// </summary>
 	    public OpenServer OpenServer { get; set; }
 	    public ResourcePackProvider ResourcePackProvider { get; }
 
-        public OpenAPI()
+        public OpenApi()
         {
 	        JsonConvert.DefaultSettings = () =>
 	        {

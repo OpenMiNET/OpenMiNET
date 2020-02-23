@@ -19,8 +19,8 @@ namespace OpenAPI.ManagementApi
         
         private ModuleRegistration[] ModuleRegistrations { get; }
         private ManagementApiPlugin Plugin { get; }
-        private OpenAPI Api { get; }
-        public Bootstrapper(ManagementApiPlugin plugin, OpenAPI api)
+        private OpenApi Api { get; }
+        public Bootstrapper(ManagementApiPlugin plugin, OpenApi api)
         {
             Plugin = plugin;
             Api = api;
@@ -38,7 +38,7 @@ namespace OpenAPI.ManagementApi
             base.ConfigureApplicationContainer(container);       
             
             container.Register(typeof(ILog), (c, o) => LogManager.GetLogger(typeof(Bootstrapper)));
-            container.Register<OpenAPI>(Api);
+            container.Register<OpenApi>(Api);
             container.Register<ManagementApiPlugin>(Plugin);
             container.Register<MemoryMetricsClient>().AsSingleton();
 

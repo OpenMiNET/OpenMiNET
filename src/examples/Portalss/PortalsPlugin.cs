@@ -9,18 +9,18 @@ namespace Portalss
 	    private static readonly ILog Log = LogManager.GetLogger(typeof(PortalsPlugin));
 
 		public PortalManager PortalManager { get; }
-		public PortalsPlugin(OpenAPI.OpenAPI api)
+		public PortalsPlugin(OpenAPI.OpenApi api)
 	    {
 			PortalManager = new PortalManager(api);
 	    }
 
-	    public override void Enabled(OpenAPI.OpenAPI api)
+	    public override void Enabled(OpenAPI.OpenApi api)
 	    {
 			api.PluginManager.SetReference(this);
 		    Log.Info($"Enabled PortalsPlugin!");
 	    }
 
-	    public override void Disabled(OpenAPI.OpenAPI api)
+	    public override void Disabled(OpenAPI.OpenApi api)
 	    {
 		    Log.Info($"Disabled PortalsPlugin!");
 	    }

@@ -6,6 +6,10 @@ using OpenAPI.Events.Player;
 
 namespace OpenAPI.Plugins
 {
+	/// <summary>
+	/// 	Provides the base class for any plugin.
+	/// 	All plugins running on OpenAPI must have atleast one class inhereting this.
+	/// </summary>
     public abstract class OpenPlugin
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(OpenPlugin));
@@ -18,8 +22,19 @@ namespace OpenAPI.Plugins
         //    Log.Info(JsonConvert.SerializeObject(Info, Formatting.Indented));
         }
 
-        public abstract void Enabled(OpenAPI api);
-        public abstract void Disabled(OpenAPI api);
+        /// <summary>
+        /// 	The method that gets invoked as soon as a plugin gets Enabled.
+        /// 	Any initialization should be done in here.
+        /// </summary>
+        /// <param name="api">An instance to OpenApi</param>
+        public abstract void Enabled(OpenApi api);
+        
+        /// <summary>
+        /// 	The method that gets invoked as soon as a plugin gets Disabled.
+        /// 	Any content initialized in <see cref="Enabled"/> should be de-initialized in here.
+        /// </summary>
+        /// <param name="api">An instance to OpenApi</param>
+        public abstract void Disabled(OpenApi api);
 
         #region OpenPlugin Initialisation
 

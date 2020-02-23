@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace OpenAPI.Plugins
 {
+    /// <summary>
+    ///     An attribute containing information about a plugin.
+    ///     It can be applied on any classes implementing the OpenPlugin <see cref="OpenPlugin"/> class.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Class)]
     public sealed class OpenPluginInfo : Attribute
     {
         /// <summary>

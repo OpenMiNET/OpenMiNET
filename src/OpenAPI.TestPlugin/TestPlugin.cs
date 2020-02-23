@@ -21,7 +21,7 @@ namespace OpenAPI.TestPlugin
 			CommandsClass = new ExampleCommands();
 		}
 
-		public override void Enabled(OpenAPI api)
+		public override void Enabled(OpenApi api)
 		{
             api.CommandManager.RegisterPermissionChecker(typeof(FactionPermissionAttribute), new FactionPermissionChecker(FactionManager));
 
@@ -31,7 +31,7 @@ namespace OpenAPI.TestPlugin
 			Log.InfoFormat("TestPlugin Enabled");
 		}
 
-		public override void Disabled(OpenAPI api)
+		public override void Disabled(OpenApi api)
 		{
 			api.CommandManager.UnloadCommands(CommandsClass);
 			Log.InfoFormat("TestPlugin Disabled");
