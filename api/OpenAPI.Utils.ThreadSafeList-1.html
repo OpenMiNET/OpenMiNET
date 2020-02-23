@@ -1,0 +1,1121 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class ThreadSafeList&lt;T&gt;
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class ThreadSafeList&lt;T&gt;
+   ">
+    <meta name="generator" content="docfx 2.45.1.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="OpenAPI.Utils.ThreadSafeList`1">
+  
+  
+  <h1 id="OpenAPI_Utils_ThreadSafeList_1" data-uid="OpenAPI.Utils.ThreadSafeList`1" class="text-break">Class ThreadSafeList&lt;T&gt;
+  </h1>
+  <div class="markdown level0 summary"><p>WARNING: NOT ACTUALLY THREADSAFE</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">ThreadSafeList&lt;T&gt;</span></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="OpenAPI.Utils.html">OpenAPI.Utils</a></h6>
+  <h6><strong>Assembly</strong>: OpenAPI.dll</h6>
+  <h5 id="OpenAPI_Utils_ThreadSafeList_1_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class ThreadSafeList&lt;T&gt; : IList&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Utils_ThreadSafeList_1__ctor.md&amp;value=---%0Auid%3A%20OpenAPI.Utils.ThreadSafeList%601.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Utils/ThreadSafeList.cs/#L53">View Source</a>
+  </span>
+  <a id="OpenAPI_Utils_ThreadSafeList_1__ctor_" data-uid="OpenAPI.Utils.ThreadSafeList`1.#ctor*"></a>
+  <h4 id="OpenAPI_Utils_ThreadSafeList_1__ctor" data-uid="OpenAPI.Utils.ThreadSafeList`1.#ctor">ThreadSafeList()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ThreadSafeList()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Utils_ThreadSafeList_1__ctor_IList__0__.md&amp;value=---%0Auid%3A%20OpenAPI.Utils.ThreadSafeList%601.%23ctor(IList%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Utils/ThreadSafeList.cs/#L48">View Source</a>
+  </span>
+  <a id="OpenAPI_Utils_ThreadSafeList_1__ctor_" data-uid="OpenAPI.Utils.ThreadSafeList`1.#ctor*"></a>
+  <h4 id="OpenAPI_Utils_ThreadSafeList_1__ctor_IList__0__" data-uid="OpenAPI.Utils.ThreadSafeList`1.#ctor(IList{`0})">ThreadSafeList(IList&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ThreadSafeList(IList&lt;T&gt; dataHolder)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IList</span>&lt;T&gt;</td>
+        <td><span class="parametername">dataHolder</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Utils_ThreadSafeList_1_Count.md&amp;value=---%0Auid%3A%20OpenAPI.Utils.ThreadSafeList%601.Count%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Utils/ThreadSafeList.cs/#L66">View Source</a>
+  </span>
+  <a id="OpenAPI_Utils_ThreadSafeList_1_Count_" data-uid="OpenAPI.Utils.ThreadSafeList`1.Count*"></a>
+  <h4 id="OpenAPI_Utils_ThreadSafeList_1_Count" data-uid="OpenAPI.Utils.ThreadSafeList`1.Count">Count</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Count { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Utils_ThreadSafeList_1_IsReadOnly.md&amp;value=---%0Auid%3A%20OpenAPI.Utils.ThreadSafeList%601.IsReadOnly%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Utils/ThreadSafeList.cs/#L77">View Source</a>
+  </span>
+  <a id="OpenAPI_Utils_ThreadSafeList_1_IsReadOnly_" data-uid="OpenAPI.Utils.ThreadSafeList`1.IsReadOnly*"></a>
+  <h4 id="OpenAPI_Utils_ThreadSafeList_1_IsReadOnly" data-uid="OpenAPI.Utils.ThreadSafeList`1.IsReadOnly">IsReadOnly</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsReadOnly { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Utils_ThreadSafeList_1_Item_System_Int32_.md&amp;value=---%0Auid%3A%20OpenAPI.Utils.ThreadSafeList%601.Item(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Utils/ThreadSafeList.cs/#L79">View Source</a>
+  </span>
+  <a id="OpenAPI_Utils_ThreadSafeList_1_Item_" data-uid="OpenAPI.Utils.ThreadSafeList`1.Item*"></a>
+  <h4 id="OpenAPI_Utils_ThreadSafeList_1_Item_System_Int32_" data-uid="OpenAPI.Utils.ThreadSafeList`1.Item(System.Int32)">Item[Int32]</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T this[int index] { get; set; }</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Utils_ThreadSafeList_1_LongCount.md&amp;value=---%0Auid%3A%20OpenAPI.Utils.ThreadSafeList%601.LongCount%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Utils/ThreadSafeList.cs/#L55">View Source</a>
+  </span>
+  <a id="OpenAPI_Utils_ThreadSafeList_1_LongCount_" data-uid="OpenAPI.Utils.ThreadSafeList`1.LongCount*"></a>
+  <h4 id="OpenAPI_Utils_ThreadSafeList_1_LongCount" data-uid="OpenAPI.Utils.ThreadSafeList`1.LongCount">LongCount</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long LongCount { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int64</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Utils_ThreadSafeList_1_Add__0_.md&amp;value=---%0Auid%3A%20OpenAPI.Utils.ThreadSafeList%601.Add(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Utils/ThreadSafeList.cs/#L98">View Source</a>
+  </span>
+  <a id="OpenAPI_Utils_ThreadSafeList_1_Add_" data-uid="OpenAPI.Utils.ThreadSafeList`1.Add*"></a>
+  <h4 id="OpenAPI_Utils_ThreadSafeList_1_Add__0_" data-uid="OpenAPI.Utils.ThreadSafeList`1.Add(`0)">Add(T)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Add(T item)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">item</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Utils_ThreadSafeList_1_Add_IEnumerable__0__.md&amp;value=---%0Auid%3A%20OpenAPI.Utils.ThreadSafeList%601.Add(IEnumerable%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Utils/ThreadSafeList.cs/#L443">View Source</a>
+  </span>
+  <a id="OpenAPI_Utils_ThreadSafeList_1_Add_" data-uid="OpenAPI.Utils.ThreadSafeList`1.Add*"></a>
+  <h4 id="OpenAPI_Utils_ThreadSafeList_1_Add_IEnumerable__0__" data-uid="OpenAPI.Utils.ThreadSafeList`1.Add(IEnumerable{`0})">Add(IEnumerable&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Add(IEnumerable&lt;T&gt; items)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IEnumerable</span>&lt;T&gt;</td>
+        <td><span class="parametername">items</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Utils_ThreadSafeList_1_AddAsync__0_.md&amp;value=---%0Auid%3A%20OpenAPI.Utils.ThreadSafeList%601.AddAsync(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Utils/ThreadSafeList.cs/#L172">View Source</a>
+  </span>
+  <a id="OpenAPI_Utils_ThreadSafeList_1_AddAsync_" data-uid="OpenAPI.Utils.ThreadSafeList`1.AddAsync*"></a>
+  <h4 id="OpenAPI_Utils_ThreadSafeList_1_AddAsync__0_" data-uid="OpenAPI.Utils.ThreadSafeList`1.AddAsync(`0)">AddAsync(T)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task AddAsync(T item)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">item</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Utils_ThreadSafeList_1_AddRange_IEnumerable__0__System_Boolean_.md&amp;value=---%0Auid%3A%20OpenAPI.Utils.ThreadSafeList%601.AddRange(IEnumerable%7B%600%7D%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Utils/ThreadSafeList.cs/#L182">View Source</a>
+  </span>
+  <a id="OpenAPI_Utils_ThreadSafeList_1_AddRange_" data-uid="OpenAPI.Utils.ThreadSafeList`1.AddRange*"></a>
+  <h4 id="OpenAPI_Utils_ThreadSafeList_1_AddRange_IEnumerable__0__System_Boolean_" data-uid="OpenAPI.Utils.ThreadSafeList`1.AddRange(IEnumerable{`0},System.Boolean)">AddRange(IEnumerable&lt;T&gt;, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Add in an enumerable of items.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddRange(IEnumerable&lt;T&gt; collection, bool asParallel = true)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IEnumerable</span>&lt;T&gt;</td>
+        <td><span class="parametername">collection</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">asParallel</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Utils_ThreadSafeList_1_Clear.md&amp;value=---%0Auid%3A%20OpenAPI.Utils.ThreadSafeList%601.Clear%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Utils/ThreadSafeList.cs/#L106">View Source</a>
+  </span>
+  <a id="OpenAPI_Utils_ThreadSafeList_1_Clear_" data-uid="OpenAPI.Utils.ThreadSafeList`1.Clear*"></a>
+  <h4 id="OpenAPI_Utils_ThreadSafeList_1_Clear" data-uid="OpenAPI.Utils.ThreadSafeList`1.Clear">Clear()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Clear()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Utils_ThreadSafeList_1_Clone_System_Boolean_.md&amp;value=---%0Auid%3A%20OpenAPI.Utils.ThreadSafeList%601.Clone(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Utils/ThreadSafeList.cs/#L198">View Source</a>
+  </span>
+  <a id="OpenAPI_Utils_ThreadSafeList_1_Clone_" data-uid="OpenAPI.Utils.ThreadSafeList`1.Clone*"></a>
+  <h4 id="OpenAPI_Utils_ThreadSafeList_1_Clone_System_Boolean_" data-uid="OpenAPI.Utils.ThreadSafeList`1.Clone(System.Boolean)">Clone(Boolean)</h4>
+  <div class="markdown level1 summary"><p>Returns a new copy of all items in the <see cref="!:List&lt;T>"></see>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;T&gt; Clone(bool asParallel = true)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">asParallel</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">List</span>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Utils_ThreadSafeList_1_Contains__0_.md&amp;value=---%0Auid%3A%20OpenAPI.Utils.ThreadSafeList%601.Contains(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Utils/ThreadSafeList.cs/#L114">View Source</a>
+  </span>
+  <a id="OpenAPI_Utils_ThreadSafeList_1_Contains_" data-uid="OpenAPI.Utils.ThreadSafeList`1.Contains*"></a>
+  <h4 id="OpenAPI_Utils_ThreadSafeList_1_Contains__0_" data-uid="OpenAPI.Utils.ThreadSafeList`1.Contains(`0)">Contains(T)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Contains(T item)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">item</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Utils_ThreadSafeList_1_CopyTo__0___System_Int32_.md&amp;value=---%0Auid%3A%20OpenAPI.Utils.ThreadSafeList%601.CopyTo(%600%5B%5D%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Utils/ThreadSafeList.cs/#L122">View Source</a>
+  </span>
+  <a id="OpenAPI_Utils_ThreadSafeList_1_CopyTo_" data-uid="OpenAPI.Utils.ThreadSafeList`1.CopyTo*"></a>
+  <h4 id="OpenAPI_Utils_ThreadSafeList_1_CopyTo__0___System_Int32_" data-uid="OpenAPI.Utils.ThreadSafeList`1.CopyTo(`0[],System.Int32)">CopyTo(T[], Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void CopyTo(T[] array, int arrayIndex)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>T[]</td>
+        <td><span class="parametername">array</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">arrayIndex</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Utils_ThreadSafeList_1_ForAll_Action__0__System_Boolean_System_Boolean_System_Boolean_.md&amp;value=---%0Auid%3A%20OpenAPI.Utils.ThreadSafeList%601.ForAll(Action%7B%600%7D%2CSystem.Boolean%2CSystem.Boolean%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Utils/ThreadSafeList.cs/#L221">View Source</a>
+  </span>
+  <a id="OpenAPI_Utils_ThreadSafeList_1_ForAll_" data-uid="OpenAPI.Utils.ThreadSafeList`1.ForAll*"></a>
+  <h4 id="OpenAPI_Utils_ThreadSafeList_1_ForAll_Action__0__System_Boolean_System_Boolean_System_Boolean_" data-uid="OpenAPI.Utils.ThreadSafeList`1.ForAll(Action{`0},System.Boolean,System.Boolean,System.Boolean)">ForAll(Action&lt;T&gt;, Boolean, Boolean, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Perform the <code data-dev-comment-type="paramref" class="paramref">action</code> on each item in the list.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ForAll(Action&lt;T&gt; action, bool performActionOnClones = true, bool asParallel = true, bool inParallel = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Action</span>&lt;T&gt;</td>
+        <td><span class="parametername">action</span></td>
+        <td><p><code data-dev-comment-type="paramref" class="paramref">action</code> to perform on each item.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">performActionOnClones</span></td>
+        <td><p>If true, the <code data-dev-comment-type="paramref" class="paramref">action</code> will be performed on a <a class="xref" href="OpenAPI.Utils.ThreadSafeList-1.html#OpenAPI_Utils_ThreadSafeList_1_Clone_System_Boolean_">Clone(Boolean)</a> of
+the items.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">asParallel</span></td>
+        <td><p>Use the <see cref="!:ParallelQuery&lt;TSource>"></see> method.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">inParallel</span></td>
+        <td><p>Use the
+<see cref="!:Parallel.ForEach&lt;TSource>(System.Collections.Generic.IEnumerable&lt;TSource>,System.Action&lt;TSource>)"></see>
+method.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Utils_ThreadSafeList_1_ForEach_Action__0__System_Boolean_System_Boolean_System_Boolean_.md&amp;value=---%0Auid%3A%20OpenAPI.Utils.ThreadSafeList%601.ForEach(Action%7B%600%7D%2CSystem.Boolean%2CSystem.Boolean%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Utils/ThreadSafeList.cs/#L293">View Source</a>
+  </span>
+  <a id="OpenAPI_Utils_ThreadSafeList_1_ForEach_" data-uid="OpenAPI.Utils.ThreadSafeList`1.ForEach*"></a>
+  <h4 id="OpenAPI_Utils_ThreadSafeList_1_ForEach_Action__0__System_Boolean_System_Boolean_System_Boolean_" data-uid="OpenAPI.Utils.ThreadSafeList`1.ForEach(Action{`0},System.Boolean,System.Boolean,System.Boolean)">ForEach(Action&lt;T&gt;, Boolean, Boolean, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Perform the <code data-dev-comment-type="paramref" class="paramref">action</code> on each item in the list.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ForEach(Action&lt;T&gt; action, bool performActionOnClones = true, bool asParallel = true, bool inParallel = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Action</span>&lt;T&gt;</td>
+        <td><span class="parametername">action</span></td>
+        <td><p><code data-dev-comment-type="paramref" class="paramref">action</code> to perform on each item.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">performActionOnClones</span></td>
+        <td><p>If true, the <code data-dev-comment-type="paramref" class="paramref">action</code> will be performed on a <a class="xref" href="OpenAPI.Utils.ThreadSafeList-1.html#OpenAPI_Utils_ThreadSafeList_1_Clone_System_Boolean_">Clone(Boolean)</a> of the items.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">asParallel</span></td>
+        <td><p>Use the <see cref="!:ParallelQuery&lt;TSource>"></see> method.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">inParallel</span></td>
+        <td><p>Use the
+<see cref="!:Parallel.ForEach&lt;TSource>(System.Collections.Generic.IEnumerable&lt;TSource>,System.Action&lt;TSource>)"></see>
+method.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Utils_ThreadSafeList_1_GetEnumerator.md&amp;value=---%0Auid%3A%20OpenAPI.Utils.ThreadSafeList%601.GetEnumerator%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Utils/ThreadSafeList.cs/#L130">View Source</a>
+  </span>
+  <a id="OpenAPI_Utils_ThreadSafeList_1_GetEnumerator_" data-uid="OpenAPI.Utils.ThreadSafeList`1.GetEnumerator*"></a>
+  <h4 id="OpenAPI_Utils_ThreadSafeList_1_GetEnumerator" data-uid="OpenAPI.Utils.ThreadSafeList`1.GetEnumerator">GetEnumerator()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerator&lt;T&gt; GetEnumerator()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IEnumerator</span>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Utils_ThreadSafeList_1_IndexOf__0_.md&amp;value=---%0Auid%3A%20OpenAPI.Utils.ThreadSafeList%601.IndexOf(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Utils/ThreadSafeList.cs/#L140">View Source</a>
+  </span>
+  <a id="OpenAPI_Utils_ThreadSafeList_1_IndexOf_" data-uid="OpenAPI.Utils.ThreadSafeList`1.IndexOf*"></a>
+  <h4 id="OpenAPI_Utils_ThreadSafeList_1_IndexOf__0_" data-uid="OpenAPI.Utils.ThreadSafeList`1.IndexOf(`0)">IndexOf(T)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int IndexOf(T item)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">item</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Utils_ThreadSafeList_1_Insert_System_Int32__0_.md&amp;value=---%0Auid%3A%20OpenAPI.Utils.ThreadSafeList%601.Insert(System.Int32%2C%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Utils/ThreadSafeList.cs/#L148">View Source</a>
+  </span>
+  <a id="OpenAPI_Utils_ThreadSafeList_1_Insert_" data-uid="OpenAPI.Utils.ThreadSafeList`1.Insert*"></a>
+  <h4 id="OpenAPI_Utils_ThreadSafeList_1_Insert_System_Int32__0_" data-uid="OpenAPI.Utils.ThreadSafeList`1.Insert(System.Int32,`0)">Insert(Int32, T)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Insert(int index, T item)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">item</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Utils_ThreadSafeList_1_Remove__0_.md&amp;value=---%0Auid%3A%20OpenAPI.Utils.ThreadSafeList%601.Remove(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Utils/ThreadSafeList.cs/#L156">View Source</a>
+  </span>
+  <a id="OpenAPI_Utils_ThreadSafeList_1_Remove_" data-uid="OpenAPI.Utils.ThreadSafeList`1.Remove*"></a>
+  <h4 id="OpenAPI_Utils_ThreadSafeList_1_Remove__0_" data-uid="OpenAPI.Utils.ThreadSafeList`1.Remove(`0)">Remove(T)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Remove(T item)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">item</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Utils_ThreadSafeList_1_RemoveAt_System_Int32_.md&amp;value=---%0Auid%3A%20OpenAPI.Utils.ThreadSafeList%601.RemoveAt(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Utils/ThreadSafeList.cs/#L164">View Source</a>
+  </span>
+  <a id="OpenAPI_Utils_ThreadSafeList_1_RemoveAt_" data-uid="OpenAPI.Utils.ThreadSafeList`1.RemoveAt*"></a>
+  <h4 id="OpenAPI_Utils_ThreadSafeList_1_RemoveAt_System_Int32_" data-uid="OpenAPI.Utils.ThreadSafeList`1.RemoveAt(System.Int32)">RemoveAt(Int32)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RemoveAt(int index)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">index</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Utils_ThreadSafeList_1_TakeAndClear.md&amp;value=---%0Auid%3A%20OpenAPI.Utils.ThreadSafeList%601.TakeAndClear%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Utils/ThreadSafeList.cs/#L431">View Source</a>
+  </span>
+  <a id="OpenAPI_Utils_ThreadSafeList_1_TakeAndClear_" data-uid="OpenAPI.Utils.ThreadSafeList`1.TakeAndClear*"></a>
+  <h4 id="OpenAPI_Utils_ThreadSafeList_1_TakeAndClear" data-uid="OpenAPI.Utils.ThreadSafeList`1.TakeAndClear">TakeAndClear()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T[] TakeAndClear()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>T[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Utils_ThreadSafeList_1_TryAdd__0_.md&amp;value=---%0Auid%3A%20OpenAPI.Utils.ThreadSafeList%601.TryAdd(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Utils/ThreadSafeList.cs/#L347">View Source</a>
+  </span>
+  <a id="OpenAPI_Utils_ThreadSafeList_1_TryAdd_" data-uid="OpenAPI.Utils.ThreadSafeList`1.TryAdd*"></a>
+  <h4 id="OpenAPI_Utils_ThreadSafeList_1_TryAdd__0_" data-uid="OpenAPI.Utils.ThreadSafeList`1.TryAdd(`0)">TryAdd(T)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryAdd(T item)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">item</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Utils_ThreadSafeList_1_TryTake__0__.md&amp;value=---%0Auid%3A%20OpenAPI.Utils.ThreadSafeList%601.TryTake(%600%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Utils/ThreadSafeList.cs/#L390">View Source</a>
+  </span>
+  <a id="OpenAPI_Utils_ThreadSafeList_1_TryTake_" data-uid="OpenAPI.Utils.ThreadSafeList`1.TryTake*"></a>
+  <h4 id="OpenAPI_Utils_ThreadSafeList_1_TryTake__0__" data-uid="OpenAPI.Utils.ThreadSafeList`1.TryTake(`0@)">TryTake(out T)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryTake(out T item)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">item</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Utils_ThreadSafeList_1_TryTakeOneCopyRest__0__List__0___.md&amp;value=---%0Auid%3A%20OpenAPI.Utils.ThreadSafeList%601.TryTakeOneCopyRest(%600%40%2CList%7B%600%7D%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Utils/ThreadSafeList.cs/#L413">View Source</a>
+  </span>
+  <a id="OpenAPI_Utils_ThreadSafeList_1_TryTakeOneCopyRest_" data-uid="OpenAPI.Utils.ThreadSafeList`1.TryTakeOneCopyRest*"></a>
+  <h4 id="OpenAPI_Utils_ThreadSafeList_1_TryTakeOneCopyRest__0__List__0___" data-uid="OpenAPI.Utils.ThreadSafeList`1.TryTakeOneCopyRest(`0@,List{`0}@)">TryTakeOneCopyRest(out T, out List&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Remove one item, and return a list-copy of the rest.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryTakeOneCopyRest(out T item, out List&lt;T&gt; rest)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">item</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">List</span>&lt;T&gt;</td>
+        <td><span class="parametername">rest</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Utils_ThreadSafeList_1.md&amp;value=---%0Auid%3A%20OpenAPI.Utils.ThreadSafeList%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Utils/ThreadSafeList.cs/#L41" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1546 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class OpenPlayer
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class OpenPlayer
+   ">
+    <meta name="generator" content="docfx 2.45.1.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="OpenAPI.Player.OpenPlayer">
+  
+  
+  <h1 id="OpenAPI_Player_OpenPlayer" data-uid="OpenAPI.Player.OpenPlayer" class="text-break">Class OpenPlayer
+  </h1>
+  <div class="markdown level0 summary"><p>The Player class used for all Players connected to an OpenAPI server.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">OpenPlayer</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="OpenAPI.Locale.ILocaleReceiver.html">ILocaleReceiver</a></div>
+    <div><a class="xref" href="OpenAPI.Locale.ILocalizable.html">ILocalizable</a></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="OpenAPI.Player.html">OpenAPI.Player</a></h6>
+  <h6><strong>Assembly</strong>: OpenAPI.dll</h6>
+  <h5 id="OpenAPI_Player_OpenPlayer_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class OpenPlayer : MiNET.Player, ILocaleReceiver, ILocalizable</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer__ctor_MiNetServer_IPEndPoint_OpenAPI_OpenApi_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.%23ctor(MiNetServer%2CIPEndPoint%2COpenAPI.OpenApi)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L54">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer__ctor_" data-uid="OpenAPI.Player.OpenPlayer.#ctor*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer__ctor_MiNetServer_IPEndPoint_OpenAPI_OpenApi_" data-uid="OpenAPI.Player.OpenPlayer.#ctor(MiNetServer,IPEndPoint,OpenAPI.OpenApi)">OpenPlayer(MiNetServer, IPEndPoint, OpenApi)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public OpenPlayer(MiNetServer server, IPEndPoint endPoint, OpenApi api)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">MiNetServer</span></td>
+        <td><span class="parametername">server</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">IPEndPoint</span></td>
+        <td><span class="parametername">endPoint</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="OpenAPI.OpenApi.html">OpenApi</a></td>
+        <td><span class="parametername">api</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="fields">Fields
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_CapturePlayerInputMode.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.CapturePlayerInputMode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L526">View Source</a>
+  </span>
+  <h4 id="OpenAPI_Player_OpenPlayer_CapturePlayerInputMode" data-uid="OpenAPI.Player.OpenPlayer.CapturePlayerInputMode">CapturePlayerInputMode</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool CapturePlayerInputMode</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_Culture.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.Culture%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L50">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_Culture_" data-uid="OpenAPI.Player.OpenPlayer.Culture*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_Culture" data-uid="OpenAPI.Player.OpenPlayer.Culture">Culture</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CultureInfo Culture { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">CultureInfo</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_Disguise.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.Disguise%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L684">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_Disguise_" data-uid="OpenAPI.Player.OpenPlayer.Disguise*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_Disguise" data-uid="OpenAPI.Player.OpenPlayer.Disguise">Disguise</h4>
+  <div class="markdown level1 summary"><p>Can be used to Disguise a player into any Entity. See <a class="xref" href="OpenAPI.Entities.EntityDisguise.html">EntityDisguise</a> and <seealso cref="!:Entity"></seealso>
+Can be undone by setting the value to null.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public EntityDisguise Disguise { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="OpenAPI.Entities.EntityDisguise.html">EntityDisguise</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_EventDispatcher.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.EventDispatcher%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L46">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_EventDispatcher_" data-uid="OpenAPI.Player.OpenPlayer.EventDispatcher*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_EventDispatcher" data-uid="OpenAPI.Player.OpenPlayer.EventDispatcher">EventDispatcher</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public EventDispatcher EventDispatcher { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="OpenAPI.Events.EventDispatcher.html">EventDispatcher</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_IsDisguised.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.IsDisguised%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L716">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_IsDisguised_" data-uid="OpenAPI.Player.OpenPlayer.IsDisguised*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_IsDisguised" data-uid="OpenAPI.Player.OpenPlayer.IsDisguised">IsDisguised</h4>
+  <div class="markdown level1 summary"><p>Whether the player is currently Disguised using the <a class="xref" href="OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_Disguise">Disguise</a> property</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsDisguised { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_IsXbox.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.IsXbox%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L49">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_IsXbox_" data-uid="OpenAPI.Player.OpenPlayer.IsXbox*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_IsXbox" data-uid="OpenAPI.Player.OpenPlayer.IsXbox">IsXbox</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsXbox { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_Level.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.Level%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L68">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_Level_" data-uid="OpenAPI.Player.OpenPlayer.Level*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_Level" data-uid="OpenAPI.Player.OpenPlayer.Level">Level</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public OpenLevel Level { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="OpenAPI.World.OpenLevel.html">OpenLevel</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_Permissions.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.Permissions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L51">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_Permissions_" data-uid="OpenAPI.Player.OpenPlayer.Permissions*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_Permissions" data-uid="OpenAPI.Player.OpenPlayer.Permissions">Permissions</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PermissionManager Permissions { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="OpenAPI.Permission.PermissionManager.html">PermissionManager</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_AcceptPlayerMove_McpeMovePlayer_System_Boolean_System_Boolean_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.AcceptPlayerMove(McpeMovePlayer%2CSystem.Boolean%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L205">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_AcceptPlayerMove_" data-uid="OpenAPI.Player.OpenPlayer.AcceptPlayerMove*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_AcceptPlayerMove_McpeMovePlayer_System_Boolean_System_Boolean_" data-uid="OpenAPI.Player.OpenPlayer.AcceptPlayerMove(McpeMovePlayer,System.Boolean,System.Boolean)">AcceptPlayerMove(McpeMovePlayer, Boolean, Boolean)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool AcceptPlayerMove(McpeMovePlayer message, bool isOnGround, bool isFlyingHorizontally)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">McpeMovePlayer</span></td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">isOnGround</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">isFlyingHorizontally</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_DespawnFromPlayers_MiNET_Player___.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.DespawnFromPlayers(MiNET.Player%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L729">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_DespawnFromPlayers_" data-uid="OpenAPI.Player.OpenPlayer.DespawnFromPlayers*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_DespawnFromPlayers_MiNET_Player___" data-uid="OpenAPI.Player.OpenPlayer.DespawnFromPlayers(MiNET.Player[])">DespawnFromPlayers(MiNET.Player[])</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void DespawnFromPlayers(MiNET.Player[] players)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">MiNET.Player</span>[]</td>
+        <td><span class="parametername">players</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_GetAttribute__1.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.GetAttribute%60%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L769">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_GetAttribute_" data-uid="OpenAPI.Player.OpenPlayer.GetAttribute*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_GetAttribute__1" data-uid="OpenAPI.Player.OpenPlayer.GetAttribute``1">GetAttribute&lt;TAttribute&gt;()</h4>
+  <div class="markdown level1 summary"><p>Allows you to retrieve the value for any PlayerAttributes set on a player <a class="xref" href="OpenAPI.Player.IOpenPlayerAttribute.html">IOpenPlayerAttribute</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TAttribute GetAttribute&lt;TAttribute&gt;()
+    where TAttribute : class, IOpenPlayerAttribute</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TAttribute</span></td>
+        <td><p>The value for the requested attribute, or null if no value was found.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TAttribute</span></td>
+        <td><p>The attribute type to retrieve its value for</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_HandleItemReleaseTransaction_ItemReleaseTransaction_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.HandleItemReleaseTransaction(ItemReleaseTransaction)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L267">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_HandleItemReleaseTransaction_" data-uid="OpenAPI.Player.OpenPlayer.HandleItemReleaseTransaction*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_HandleItemReleaseTransaction_ItemReleaseTransaction_" data-uid="OpenAPI.Player.OpenPlayer.HandleItemReleaseTransaction(ItemReleaseTransaction)">HandleItemReleaseTransaction(ItemReleaseTransaction)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void HandleItemReleaseTransaction(ItemReleaseTransaction transaction)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">ItemReleaseTransaction</span></td>
+        <td><span class="parametername">transaction</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_HandleItemUseOnEntityTransaction_ItemUseOnEntityTransaction_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.HandleItemUseOnEntityTransaction(ItemUseOnEntityTransaction)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L248">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_HandleItemUseOnEntityTransaction_" data-uid="OpenAPI.Player.OpenPlayer.HandleItemUseOnEntityTransaction*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_HandleItemUseOnEntityTransaction_ItemUseOnEntityTransaction_" data-uid="OpenAPI.Player.OpenPlayer.HandleItemUseOnEntityTransaction(ItemUseOnEntityTransaction)">HandleItemUseOnEntityTransaction(ItemUseOnEntityTransaction)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void HandleItemUseOnEntityTransaction(ItemUseOnEntityTransaction transaction)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">ItemUseOnEntityTransaction</span></td>
+        <td><span class="parametername">transaction</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_HandleItemUseTransaction_ItemUseTransaction_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.HandleItemUseTransaction(ItemUseTransaction)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L299">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_HandleItemUseTransaction_" data-uid="OpenAPI.Player.OpenPlayer.HandleItemUseTransaction*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_HandleItemUseTransaction_ItemUseTransaction_" data-uid="OpenAPI.Player.OpenPlayer.HandleItemUseTransaction(ItemUseTransaction)">HandleItemUseTransaction(ItemUseTransaction)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void HandleItemUseTransaction(ItemUseTransaction transaction)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">ItemUseTransaction</span></td>
+        <td><span class="parametername">transaction</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_HandleMcpeCommandRequest_McpeCommandRequest_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.HandleMcpeCommandRequest(McpeCommandRequest)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L88">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_HandleMcpeCommandRequest_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpeCommandRequest*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_HandleMcpeCommandRequest_McpeCommandRequest_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpeCommandRequest(McpeCommandRequest)">HandleMcpeCommandRequest(McpeCommandRequest)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void HandleMcpeCommandRequest(McpeCommandRequest message)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">McpeCommandRequest</span></td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_HandleMcpeInteract_McpeInteract_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.HandleMcpeInteract(McpeInteract)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L577">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_HandleMcpeInteract_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpeInteract*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_HandleMcpeInteract_McpeInteract_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpeInteract(McpeInteract)">HandleMcpeInteract(McpeInteract)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void HandleMcpeInteract(McpeInteract message)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">McpeInteract</span></td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_HandleMcpePlayerAction_McpePlayerAction_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.HandleMcpePlayerAction(McpePlayerAction)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L400">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_HandleMcpePlayerAction_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpePlayerAction*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_HandleMcpePlayerAction_McpePlayerAction_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpePlayerAction(McpePlayerAction)">HandleMcpePlayerAction(McpePlayerAction)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void HandleMcpePlayerAction(McpePlayerAction message)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">McpePlayerAction</span></td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_HandleMcpePlayerInput_McpePlayerInput_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.HandleMcpePlayerInput(McpePlayerInput)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L527">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_HandleMcpePlayerInput_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpePlayerInput*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_HandleMcpePlayerInput_McpePlayerInput_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpePlayerInput(McpePlayerInput)">HandleMcpePlayerInput(McpePlayerInput)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void HandleMcpePlayerInput(McpePlayerInput message)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">McpePlayerInput</span></td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_HandleMcpeResourcePackChunkRequest_McpeResourcePackChunkRequest_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.HandleMcpeResourcePackChunkRequest(McpeResourcePackChunkRequest)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L592">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_HandleMcpeResourcePackChunkRequest_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpeResourcePackChunkRequest*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_HandleMcpeResourcePackChunkRequest_McpeResourcePackChunkRequest_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpeResourcePackChunkRequest(McpeResourcePackChunkRequest)">HandleMcpeResourcePackChunkRequest(McpeResourcePackChunkRequest)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void HandleMcpeResourcePackChunkRequest(McpeResourcePackChunkRequest message)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">McpeResourcePackChunkRequest</span></td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_HandleMcpeResourcePackClientResponse_McpeResourcePackClientResponse_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.HandleMcpeResourcePackClientResponse(McpeResourcePackClientResponse)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L605">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_HandleMcpeResourcePackClientResponse_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpeResourcePackClientResponse*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_HandleMcpeResourcePackClientResponse_McpeResourcePackClientResponse_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpeResourcePackClientResponse(McpeResourcePackClientResponse)">HandleMcpeResourcePackClientResponse(McpeResourcePackClientResponse)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void HandleMcpeResourcePackClientResponse(McpeResourcePackClientResponse message)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">McpeResourcePackClientResponse</span></td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_HandleMcpeText_McpeText_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.HandleMcpeText(McpeText)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L235">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_HandleMcpeText_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpeText*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_HandleMcpeText_McpeText_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpeText(McpeText)">HandleMcpeText(McpeText)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void HandleMcpeText(McpeText message)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">McpeText</span></td>
+        <td><span class="parametername">message</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_InitializePlayer.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.InitializePlayer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L70">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_InitializePlayer_" data-uid="OpenAPI.Player.OpenPlayer.InitializePlayer*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_InitializePlayer" data-uid="OpenAPI.Player.OpenPlayer.InitializePlayer">InitializePlayer()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void InitializePlayer()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_OnPlayerJoin_PlayerEventArgs_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.OnPlayerJoin(PlayerEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L185">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_OnPlayerJoin_" data-uid="OpenAPI.Player.OpenPlayer.OnPlayerJoin*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_OnPlayerJoin_PlayerEventArgs_" data-uid="OpenAPI.Player.OpenPlayer.OnPlayerJoin(PlayerEventArgs)">OnPlayerJoin(PlayerEventArgs)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnPlayerJoin(PlayerEventArgs e)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">PlayerEventArgs</span></td>
+        <td><span class="parametername">e</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_OnPlayerJoining_PlayerEventArgs_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.OnPlayerJoining(PlayerEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L172">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_OnPlayerJoining_" data-uid="OpenAPI.Player.OpenPlayer.OnPlayerJoining*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_OnPlayerJoining_PlayerEventArgs_" data-uid="OpenAPI.Player.OpenPlayer.OnPlayerJoining(PlayerEventArgs)">OnPlayerJoining(PlayerEventArgs)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnPlayerJoining(PlayerEventArgs e)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">PlayerEventArgs</span></td>
+        <td><span class="parametername">e</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_OnPlayerLeave_PlayerEventArgs_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.OnPlayerLeave(PlayerEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L193">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_OnPlayerLeave_" data-uid="OpenAPI.Player.OpenPlayer.OnPlayerLeave*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_OnPlayerLeave_PlayerEventArgs_" data-uid="OpenAPI.Player.OpenPlayer.OnPlayerLeave(PlayerEventArgs)">OnPlayerLeave(PlayerEventArgs)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnPlayerLeave(PlayerEventArgs e)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">PlayerEventArgs</span></td>
+        <td><span class="parametername">e</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_OnTicked_PlayerEventArgs_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.OnTicked(PlayerEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L131">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_OnTicked_" data-uid="OpenAPI.Player.OpenPlayer.OnTicked*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_OnTicked_PlayerEventArgs_" data-uid="OpenAPI.Player.OpenPlayer.OnTicked(PlayerEventArgs)">OnTicked(PlayerEventArgs)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnTicked(PlayerEventArgs e)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">PlayerEventArgs</span></td>
+        <td><span class="parametername">e</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_OnTicking_PlayerEventArgs_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.OnTicking(PlayerEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L126">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_OnTicking_" data-uid="OpenAPI.Player.OpenPlayer.OnTicking*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_OnTicking_PlayerEventArgs_" data-uid="OpenAPI.Player.OpenPlayer.OnTicking(PlayerEventArgs)">OnTicking(PlayerEventArgs)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnTicking(PlayerEventArgs e)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">PlayerEventArgs</span></td>
+        <td><span class="parametername">e</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_RefreshCommands.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.RefreshCommands%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L111">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_RefreshCommands_" data-uid="OpenAPI.Player.OpenPlayer.RefreshCommands*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_RefreshCommands" data-uid="OpenAPI.Player.OpenPlayer.RefreshCommands">RefreshCommands()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RefreshCommands()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_SendAvailableCommands.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.SendAvailableCommands%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L98">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_SendAvailableCommands_" data-uid="OpenAPI.Player.OpenPlayer.SendAvailableCommands*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_SendAvailableCommands" data-uid="OpenAPI.Player.OpenPlayer.SendAvailableCommands">SendAvailableCommands()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void SendAvailableCommands()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_SendLocalizedMessage_System_String_MessageType_MiNET_Player_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.SendLocalizedMessage(System.String%2CMessageType%2CMiNET.Player)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L752">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_SendLocalizedMessage_" data-uid="OpenAPI.Player.OpenPlayer.SendLocalizedMessage*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_SendLocalizedMessage_System_String_MessageType_MiNET_Player_" data-uid="OpenAPI.Player.OpenPlayer.SendLocalizedMessage(System.String,MessageType,MiNET.Player)">SendLocalizedMessage(String, MessageType, MiNET.Player)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SendLocalizedMessage(string text, MessageType type = null, MiNET.Player sender = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">text</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">MessageType</span></td>
+        <td><span class="parametername">type</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">MiNET.Player</span></td>
+        <td><span class="parametername">sender</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_SendLocalizedMessage_System_String_System_Object___MessageType_MiNET_Player_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.SendLocalizedMessage(System.String%2CSystem.Object%5B%5D%2CMessageType%2CMiNET.Player)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L757">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_SendLocalizedMessage_" data-uid="OpenAPI.Player.OpenPlayer.SendLocalizedMessage*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_SendLocalizedMessage_System_String_System_Object___MessageType_MiNET_Player_" data-uid="OpenAPI.Player.OpenPlayer.SendLocalizedMessage(System.String,System.Object[],MessageType,MiNET.Player)">SendLocalizedMessage(String, Object[], MessageType, MiNET.Player)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SendLocalizedMessage(string text, object[] parameters = null, MessageType type = null, MiNET.Player sender = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">text</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Object</span>[]</td>
+        <td><span class="parametername">parameters</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">MessageType</span></td>
+        <td><span class="parametername">type</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">MiNET.Player</span></td>
+        <td><span class="parametername">sender</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_SendLocalizedTitle_System_String_System_Object___TitleType_System_Int32_System_Int32_System_Int32_MiNET_Player_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.SendLocalizedTitle(System.String%2CSystem.Object%5B%5D%2CTitleType%2CSystem.Int32%2CSystem.Int32%2CSystem.Int32%2CMiNET.Player)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L746">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_SendLocalizedTitle_" data-uid="OpenAPI.Player.OpenPlayer.SendLocalizedTitle*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_SendLocalizedTitle_System_String_System_Object___TitleType_System_Int32_System_Int32_System_Int32_MiNET_Player_" data-uid="OpenAPI.Player.OpenPlayer.SendLocalizedTitle(System.String,System.Object[],TitleType,System.Int32,System.Int32,System.Int32,MiNET.Player)">SendLocalizedTitle(String, Object[], TitleType, Int32, Int32, Int32, MiNET.Player)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SendLocalizedTitle(string text, object[] parameters = null, TitleType type = null, int fadeIn = 6, int fadeOut = 6, int stayTime = 20, MiNET.Player sender = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">text</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Object</span>[]</td>
+        <td><span class="parametername">parameters</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">TitleType</span></td>
+        <td><span class="parametername">type</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">fadeIn</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">fadeOut</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">stayTime</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">MiNET.Player</span></td>
+        <td><span class="parametername">sender</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_SendLocalizedTitle_System_String_TitleType_System_Int32_System_Int32_System_Int32_MiNET_Player_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.SendLocalizedTitle(System.String%2CTitleType%2CSystem.Int32%2CSystem.Int32%2CSystem.Int32%2CMiNET.Player)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L740">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_SendLocalizedTitle_" data-uid="OpenAPI.Player.OpenPlayer.SendLocalizedTitle*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_SendLocalizedTitle_System_String_TitleType_System_Int32_System_Int32_System_Int32_MiNET_Player_" data-uid="OpenAPI.Player.OpenPlayer.SendLocalizedTitle(System.String,TitleType,System.Int32,System.Int32,System.Int32,MiNET.Player)">SendLocalizedTitle(String, TitleType, Int32, Int32, Int32, MiNET.Player)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SendLocalizedTitle(string text, TitleType type = null, int fadeIn = 6, int fadeOut = 6, int stayTime = 20, MiNET.Player sender = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">text</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">TitleType</span></td>
+        <td><span class="parametername">type</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">fadeIn</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">fadeOut</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">stayTime</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">MiNET.Player</span></td>
+        <td><span class="parametername">sender</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_SendResourcePacksInfo.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.SendResourcePacksInfo%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L640">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_SendResourcePacksInfo_" data-uid="OpenAPI.Player.OpenPlayer.SendResourcePacksInfo*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_SendResourcePacksInfo" data-uid="OpenAPI.Player.OpenPlayer.SendResourcePacksInfo">SendResourcePacksInfo()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void SendResourcePacksInfo()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_SendResourcePackStack.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.SendResourcePackStack%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L653">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_SendResourcePackStack_" data-uid="OpenAPI.Player.OpenPlayer.SendResourcePackStack*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_SendResourcePackStack" data-uid="OpenAPI.Player.OpenPlayer.SendResourcePackStack">SendResourcePackStack()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void SendResourcePackStack()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_SendSetCommandsEnabled.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.SendSetCommandsEnabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L106">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_SendSetCommandsEnabled_" data-uid="OpenAPI.Player.OpenPlayer.SendSetCommandsEnabled*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_SendSetCommandsEnabled" data-uid="OpenAPI.Player.OpenPlayer.SendSetCommandsEnabled">SendSetCommandsEnabled()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void SendSetCommandsEnabled()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_SetAttribute__1___0_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.SetAttribute%60%601(%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L785">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_SetAttribute_" data-uid="OpenAPI.Player.OpenPlayer.SetAttribute*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_SetAttribute__1___0_" data-uid="OpenAPI.Player.OpenPlayer.SetAttribute``1(``0)">SetAttribute&lt;TAttribute&gt;(TAttribute)</h4>
+  <div class="markdown level1 summary"><p>Allows you to store extra data on a player using PlayerAttributes <a class="xref" href="OpenAPI.Player.IOpenPlayerAttribute.html">IOpenPlayerAttribute</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetAttribute&lt;TAttribute&gt;(TAttribute attribute)
+    where TAttribute : class, IOpenPlayerAttribute</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TAttribute</span></td>
+        <td><span class="parametername">attribute</span></td>
+        <td><p>The value to set the attribute to</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TAttribute</span></td>
+        <td><p>The type of the attribute you wish to set.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_SetGamemode_GameMode_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.SetGamemode(GameMode)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L672">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_SetGamemode_" data-uid="OpenAPI.Player.OpenPlayer.SetGamemode*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_SetGamemode_GameMode_" data-uid="OpenAPI.Player.OpenPlayer.SetGamemode(GameMode)">SetGamemode(GameMode)</h4>
+  <div class="markdown level1 summary"><p>Set's the players gamemode to the specified gamemode</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetGamemode(GameMode gameMode)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">GameMode</span></td>
+        <td><span class="parametername">gameMode</span></td>
+        <td><p>The gamemode to set for the player</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_SpawnToPlayers_MiNET_Player___.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.SpawnToPlayers(MiNET.Player%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L718">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_SpawnToPlayers_" data-uid="OpenAPI.Player.OpenPlayer.SpawnToPlayers*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_SpawnToPlayers_MiNET_Player___" data-uid="OpenAPI.Player.OpenPlayer.SpawnToPlayers(MiNET.Player[])">SpawnToPlayers(MiNET.Player[])</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void SpawnToPlayers(MiNET.Player[] players)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">MiNET.Player</span>[]</td>
+        <td><span class="parametername">players</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_Teleport_PlayerLocation_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.Teleport(PlayerLocation)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L215">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_Teleport_" data-uid="OpenAPI.Player.OpenPlayer.Teleport*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_Teleport_PlayerLocation_" data-uid="OpenAPI.Player.OpenPlayer.Teleport(PlayerLocation)">Teleport(PlayerLocation)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void Teleport(PlayerLocation newPosition)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">PlayerLocation</span></td>
+        <td><span class="parametername">newPosition</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_TransferToServer_IPEndPoint_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.TransferToServer(IPEndPoint)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L224">View Source</a>
+  </span>
+  <a id="OpenAPI_Player_OpenPlayer_TransferToServer_" data-uid="OpenAPI.Player.OpenPlayer.TransferToServer*"></a>
+  <h4 id="OpenAPI_Player_OpenPlayer_TransferToServer_IPEndPoint_" data-uid="OpenAPI.Player.OpenPlayer.TransferToServer(IPEndPoint)">TransferToServer(IPEndPoint)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void TransferToServer(IPEndPoint endpoint)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IPEndPoint</span></td>
+        <td><span class="parametername">endpoint</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="OpenAPI.Locale.ILocaleReceiver.html">ILocaleReceiver</a>
+  </div>
+  <div>
+      <a class="xref" href="OpenAPI.Locale.ILocalizable.html">ILocalizable</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="OpenAPI.GameEngine.PlayerExtensions.html#OpenAPI_GameEngine_PlayerExtensions_GetIdentifier_OpenAPI_Player_OpenPlayer_">PlayerExtensions.GetIdentifier(OpenPlayer)</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_Player_OpenPlayer.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/OpenAPI/Player/OpenPlayer.cs/#L39" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

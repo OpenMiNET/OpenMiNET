@@ -1,0 +1,2556 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class TerrainBase
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class TerrainBase
+   ">
+    <meta name="generator" content="docfx 2.45.1.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase">
+  
+  
+  <h1 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase" class="text-break">Class TerrainBase
+  </h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">TerrainBase</span></div>
+      <div class="level2"><a class="xref" href="OpenAPI.WorldGenerator.Generators.Terrain.BeachTerrain.html">BeachTerrain</a></div>
+      <div class="level2"><a class="xref" href="OpenAPI.WorldGenerator.Generators.Terrain.BirchForestHillsTerrain.html">BirchForestHillsTerrain</a></div>
+      <div class="level2"><a class="xref" href="OpenAPI.WorldGenerator.Generators.Terrain.BirchForestTerrain.html">BirchForestTerrain</a></div>
+      <div class="level2"><a class="xref" href="OpenAPI.WorldGenerator.Generators.Terrain.DeepOceanTerrain.html">DeepOceanTerrain</a></div>
+      <div class="level2"><a class="xref" href="OpenAPI.WorldGenerator.Generators.Terrain.DesertHillsTerrain.html">DesertHillsTerrain</a></div>
+      <div class="level2"><a class="xref" href="OpenAPI.WorldGenerator.Generators.Terrain.DesertTerrain.html">DesertTerrain</a></div>
+      <div class="level2"><a class="xref" href="OpenAPI.WorldGenerator.Generators.Terrain.ForestHillsTerrain.html">ForestHillsTerrain</a></div>
+      <div class="level2"><a class="xref" href="OpenAPI.WorldGenerator.Generators.Terrain.ForestTerrain.html">ForestTerrain</a></div>
+      <div class="level2"><a class="xref" href="OpenAPI.WorldGenerator.Generators.Terrain.JungleEdgeTerrain.html">JungleEdgeTerrain</a></div>
+      <div class="level2"><a class="xref" href="OpenAPI.WorldGenerator.Generators.Terrain.JungleHillsTerrain.html">JungleHillsTerrain</a></div>
+      <div class="level2"><a class="xref" href="OpenAPI.WorldGenerator.Generators.Terrain.JungleTerrain.html">JungleTerrain</a></div>
+      <div class="level2"><a class="xref" href="OpenAPI.WorldGenerator.Generators.Terrain.MesaPlateauTerrain.html">MesaPlateauTerrain</a></div>
+      <div class="level2"><a class="xref" href="OpenAPI.WorldGenerator.Generators.Terrain.MesaTerrain.html">MesaTerrain</a></div>
+      <div class="level2"><a class="xref" href="OpenAPI.WorldGenerator.Generators.Terrain.OceanTerrain.html">OceanTerrain</a></div>
+      <div class="level2"><a class="xref" href="OpenAPI.WorldGenerator.Generators.Terrain.PlainsTerrain.html">PlainsTerrain</a></div>
+      <div class="level2"><a class="xref" href="OpenAPI.WorldGenerator.Generators.Terrain.RidgedExtremeHillsTerrain.html">RidgedExtremeHillsTerrain</a></div>
+      <div class="level2"><a class="xref" href="OpenAPI.WorldGenerator.Generators.Terrain.SavannaPlateauTerrain.html">SavannaPlateauTerrain</a></div>
+      <div class="level2"><a class="xref" href="OpenAPI.WorldGenerator.Generators.Terrain.SavannaTerrain.html">SavannaTerrain</a></div>
+      <div class="level2"><a class="xref" href="OpenAPI.WorldGenerator.Generators.Terrain.TaigaHillsTerrain.html">TaigaHillsTerrain</a></div>
+      <div class="level2"><a class="xref" href="OpenAPI.WorldGenerator.Generators.Terrain.TaigaTerrain.html">TaigaTerrain</a></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="OpenAPI.WorldGenerator.Generators.Terrain.html">OpenAPI.WorldGenerator.Generators.Terrain</a></h6>
+  <h6><strong>Assembly</strong>: OpenAPI.WorldGenerator.dll</h6>
+  <h5 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class TerrainBase : object</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase__ctor.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L32">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase__ctor_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.#ctor*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase__ctor" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.#ctor">TerrainBase()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TerrainBase()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase__ctor_System_Single_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.%23ctor(System.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L21">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase__ctor_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.#ctor*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase__ctor_System_Single_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.#ctor(System.Single)">TerrainBase(Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TerrainBase(float baseHeight)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">baseHeight</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="fields">Fields
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_BaseHeight.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.BaseHeight%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L18">View Source</a>
+  </span>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_BaseHeight" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.BaseHeight">BaseHeight</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected float BaseHeight</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_GroundNoise.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.GroundNoise%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L19">View Source</a>
+  </span>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_GroundNoise" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.GroundNoise">GroundNoise</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected float GroundNoise</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_GroundNoiseAmplitudeHills.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.GroundNoiseAmplitudeHills%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L15">View Source</a>
+  </span>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_GroundNoiseAmplitudeHills" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.GroundNoiseAmplitudeHills">GroundNoiseAmplitudeHills</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected float GroundNoiseAmplitudeHills</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_GroundVariation.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.GroundVariation%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L16">View Source</a>
+  </span>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_GroundVariation" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.GroundVariation">GroundVariation</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected float GroundVariation</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_MinDuneHeight.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.MinDuneHeight%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L14">View Source</a>
+  </span>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_MinDuneHeight" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.MinDuneHeight">MinDuneHeight</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected float MinDuneHeight</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_RollingHillsMaxHeight.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.RollingHillsMaxHeight%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L17">View Source</a>
+  </span>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_RollingHillsMaxHeight" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.RollingHillsMaxHeight">RollingHillsMaxHeight</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected float RollingHillsMaxHeight</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_Above_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.Above(System.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L59">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_Above_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.Above*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_Above_System_Single_System_Single_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.Above(System.Single,System.Single)">Above(Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float Above(float limited, float limit)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">limited</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">limit</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_BayesianAdjustment_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.BayesianAdjustment(System.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L646">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_BayesianAdjustment_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.BayesianAdjustment*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_BayesianAdjustment_System_Single_System_Single_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.BayesianAdjustment(System.Single,System.Single)">BayesianAdjustment(Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float BayesianAdjustment(float probability, float multiplier)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">probability</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">multiplier</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_BlendedHillHeight_System_Single_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.BlendedHillHeight(System.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L37">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_BlendedHillHeight_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.BlendedHillHeight*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_BlendedHillHeight_System_Single_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.BlendedHillHeight(System.Single)">BlendedHillHeight(Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float BlendedHillHeight(float simplex)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">simplex</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_BlendedHillHeight_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.BlendedHillHeight(System.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L52">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_BlendedHillHeight_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.BlendedHillHeight*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_BlendedHillHeight_System_Single_System_Single_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.BlendedHillHeight(System.Single,System.Single)">BlendedHillHeight(Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float BlendedHillHeight(float simplex, float turnAt)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">simplex</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">turnAt</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_CalcCliff_System_Int32_System_Int32_System_Single___.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.CalcCliff(System.Int32%2CSystem.Int32%2CSystem.Single%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L607">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_CalcCliff_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.CalcCliff*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_CalcCliff_System_Int32_System_Int32_System_Single___" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.CalcCliff(System.Int32,System.Int32,System.Single[])">CalcCliff(Int32, Int32, Single[])</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float CalcCliff(int x, int z, float[] noise)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">z</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span>[]</td>
+        <td><span class="parametername">noise</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_GenerateNoise_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Int32_System_Int32_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.GenerateNoise(OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2%2CSystem.Int32%2CSystem.Int32%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L665">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_GenerateNoise_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.GenerateNoise*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_GenerateNoise_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Int32_System_Int32_System_Single_System_Single_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.GenerateNoise(OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2,System.Int32,System.Int32,System.Single,System.Single)">GenerateNoise(OverworldGeneratorV2, Int32, Int32, Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract float GenerateNoise(OverworldGeneratorV2 generator, int x, int y, float border, float river)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2.html">OverworldGeneratorV2</a></td>
+        <td><span class="parametername">generator</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">border</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">river</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_GetGroundNoise_System_Int32_System_Int32_System_Single_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.GetGroundNoise(System.Int32%2CSystem.Int32%2CSystem.Single%2COpenAPI.WorldGenerator.Generators.OverworldGeneratorV2)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L108">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_GetGroundNoise_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.GetGroundNoise*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_GetGroundNoise_System_Int32_System_Int32_System_Single_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.GetGroundNoise(System.Int32,System.Int32,System.Single,OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2)">GetGroundNoise(Int32, Int32, Single, OverworldGeneratorV2)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float GetGroundNoise(int x, int y, float amplitude, OverworldGeneratorV2 generator)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">amplitude</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2.html">OverworldGeneratorV2</a></td>
+        <td><span class="parametername">generator</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_GetGroundNoise_System_Single_System_Single_System_Single_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.GetGroundNoise(System.Single%2CSystem.Single%2CSystem.Single%2COpenAPI.WorldGenerator.Generators.OverworldGeneratorV2)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L117">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_GetGroundNoise_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.GetGroundNoise*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_GetGroundNoise_System_Single_System_Single_System_Single_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.GetGroundNoise(System.Single,System.Single,System.Single,OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2)">GetGroundNoise(Single, Single, Single, OverworldGeneratorV2)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float GetGroundNoise(float x, float y, float amplitude, OverworldGeneratorV2 generator)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">amplitude</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2.html">OverworldGeneratorV2</a></td>
+        <td><span class="parametername">generator</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_GetRiverStrength_BlockCoordinates_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.GetRiverStrength(BlockCoordinates%2COpenAPI.WorldGenerator.Generators.OverworldGeneratorV2)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L573">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_GetRiverStrength_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.GetRiverStrength*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_GetRiverStrength_BlockCoordinates_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.GetRiverStrength(BlockCoordinates,OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2)">GetRiverStrength(BlockCoordinates, OverworldGeneratorV2)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float GetRiverStrength(BlockCoordinates blockPos, OverworldGeneratorV2 generator)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">BlockCoordinates</span></td>
+        <td><span class="parametername">blockPos</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2.html">OverworldGeneratorV2</a></td>
+        <td><span class="parametername">generator</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_GetTerrainBase.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.GetTerrainBase%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L98">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_GetTerrainBase_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.GetTerrainBase*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_GetTerrainBase" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.GetTerrainBase">GetTerrainBase()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float GetTerrainBase()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_GetTerrainBase_System_Single_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.GetTerrainBase(System.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L103">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_GetTerrainBase_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.GetTerrainBase*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_GetTerrainBase_System_Single_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.GetTerrainBase(System.Single)">GetTerrainBase(Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float GetTerrainBase(float river)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">river</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_Hills_System_Single_System_Single_System_Single_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.Hills(System.Single%2CSystem.Single%2CSystem.Single%2COpenAPI.WorldGenerator.Generators.OverworldGeneratorV2)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L82">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_Hills_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.Hills*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_Hills_System_Single_System_Single_System_Single_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.Hills(System.Single,System.Single,System.Single,OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2)">Hills(Single, Single, Single, OverworldGeneratorV2)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float Hills(float x, float y, float hillStrength, OverworldGeneratorV2 generator)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">hillStrength</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2.html">OverworldGeneratorV2</a></td>
+        <td><span class="parametername">generator</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_MountainCap_System_Single_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.MountainCap(System.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L126">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_MountainCap_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.MountainCap*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_MountainCap_System_Single_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.MountainCap(System.Single)">MountainCap(Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float MountainCap(float m)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">m</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_Riverized_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.Riverized(System.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L142">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_Riverized_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.Riverized*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_Riverized_System_Single_System_Single_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.Riverized(System.Single,System.Single)">Riverized(Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float Riverized(float height, float river)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">height</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">river</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainBeach_System_Int32_System_Int32_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainBeach(System.Int32%2CSystem.Int32%2COpenAPI.WorldGenerator.Generators.OverworldGeneratorV2%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L156">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainBeach_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainBeach*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainBeach_System_Int32_System_Int32_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainBeach(System.Int32,System.Int32,OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2,System.Single,System.Single)">TerrainBeach(Int32, Int32, OverworldGeneratorV2, Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float TerrainBeach(int x, int y, OverworldGeneratorV2 generator, float river, float baseHeight)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2.html">OverworldGeneratorV2</a></td>
+        <td><span class="parametername">generator</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">river</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">baseHeight</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainBryce_System_Int32_System_Int32_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainBryce(System.Int32%2CSystem.Int32%2COpenAPI.WorldGenerator.Generators.OverworldGeneratorV2%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L161">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainBryce_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainBryce*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainBryce_System_Int32_System_Int32_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainBryce(System.Int32,System.Int32,OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2,System.Single,System.Single)">TerrainBryce(Int32, Int32, OverworldGeneratorV2, Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float TerrainBryce(int x, int y, OverworldGeneratorV2 generator, float river, float height)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2.html">OverworldGeneratorV2</a></td>
+        <td><span class="parametername">generator</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">river</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">height</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainFlatLakes_System_Int32_System_Int32_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainFlatLakes(System.Int32%2CSystem.Int32%2COpenAPI.WorldGenerator.Generators.OverworldGeneratorV2%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L175">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainFlatLakes_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainFlatLakes*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainFlatLakes_System_Int32_System_Int32_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainFlatLakes(System.Int32,System.Int32,OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2,System.Single,System.Single)">TerrainFlatLakes(Int32, Int32, OverworldGeneratorV2, Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float TerrainFlatLakes(int x, int y, OverworldGeneratorV2 generator, float river, float baseHeight)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2.html">OverworldGeneratorV2</a></td>
+        <td><span class="parametername">generator</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">river</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">baseHeight</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainForest_System_Int32_System_Int32_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainForest(System.Int32%2CSystem.Int32%2COpenAPI.WorldGenerator.Generators.OverworldGeneratorV2%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L192">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainForest_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainForest*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainForest_System_Int32_System_Int32_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainForest(System.Int32,System.Int32,OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2,System.Single,System.Single)">TerrainForest(Int32, Int32, OverworldGeneratorV2, Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float TerrainForest(int x, int y, OverworldGeneratorV2 generator, float river, float baseHeight)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2.html">OverworldGeneratorV2</a></td>
+        <td><span class="parametername">generator</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">river</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">baseHeight</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainGrasslandFlats_System_Int32_System_Int32_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainGrasslandFlats(System.Int32%2CSystem.Int32%2COpenAPI.WorldGenerator.Generators.OverworldGeneratorV2%2CSystem.Single%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L204">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainGrasslandFlats_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainGrasslandFlats*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainGrasslandFlats_System_Int32_System_Int32_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_System_Single_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainGrasslandFlats(System.Int32,System.Int32,OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2,System.Single,System.Single,System.Single)">TerrainGrasslandFlats(Int32, Int32, OverworldGeneratorV2, Single, Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float TerrainGrasslandFlats(int x, int y, OverworldGeneratorV2 generator, float river, float mPitch, float baseHeight)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2.html">OverworldGeneratorV2</a></td>
+        <td><span class="parametername">generator</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">river</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">mPitch</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">baseHeight</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainGrasslandHills_System_Int32_System_Int32_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_System_Single_System_Single_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainGrasslandHills(System.Int32%2CSystem.Int32%2COpenAPI.WorldGenerator.Generators.OverworldGeneratorV2%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L222">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainGrasslandHills_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainGrasslandHills*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainGrasslandHills_System_Int32_System_Int32_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_System_Single_System_Single_System_Single_System_Single_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainGrasslandHills(System.Int32,System.Int32,OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">TerrainGrasslandHills(Int32, Int32, OverworldGeneratorV2, Single, Single, Single, Single, Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float TerrainGrasslandHills(int x, int y, OverworldGeneratorV2 generator, float river, float vWidth, float vHeight, float hWidth, float hHeight, float bHeight)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2.html">OverworldGeneratorV2</a></td>
+        <td><span class="parametername">generator</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">river</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">vWidth</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">vHeight</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">hWidth</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">hHeight</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">bHeight</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainGrasslandMountains_System_Int32_System_Int32_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainGrasslandMountains(System.Int32%2CSystem.Int32%2COpenAPI.WorldGenerator.Generators.OverworldGeneratorV2%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L241">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainGrasslandMountains_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainGrasslandMountains*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainGrasslandMountains_System_Int32_System_Int32_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_System_Single_System_Single_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainGrasslandMountains(System.Int32,System.Int32,OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2,System.Single,System.Single,System.Single,System.Single)">TerrainGrasslandMountains(Int32, Int32, OverworldGeneratorV2, Single, Single, Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float TerrainGrasslandMountains(int x, int y, OverworldGeneratorV2 generator, float river, float hFactor, float mFactor, float baseHeight)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2.html">OverworldGeneratorV2</a></td>
+        <td><span class="parametername">generator</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">river</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">hFactor</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">mFactor</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">baseHeight</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainHighland_System_Single_System_Single_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_System_Single_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainHighland(System.Single%2CSystem.Single%2COpenAPI.WorldGenerator.Generators.OverworldGeneratorV2%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L264">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainHighland_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainHighland*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainHighland_System_Single_System_Single_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_System_Single_System_Single_System_Single_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainHighland(System.Single,System.Single,OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2,System.Single,System.Single,System.Single,System.Single,System.Single)">TerrainHighland(Single, Single, OverworldGeneratorV2, Single, Single, Single, Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float TerrainHighland(float x, float y, OverworldGeneratorV2 generator, float river, float start, float width, float height, float baseAdjust)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2.html">OverworldGeneratorV2</a></td>
+        <td><span class="parametername">generator</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">river</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">start</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">width</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">height</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">baseAdjust</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainLonelyMountain_System_Int32_System_Int32_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainLonelyMountain(System.Int32%2CSystem.Int32%2COpenAPI.WorldGenerator.Generators.OverworldGeneratorV2%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L300">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainLonelyMountain_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainLonelyMountain*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainLonelyMountain_System_Int32_System_Int32_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_System_Single_System_Single_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainLonelyMountain(System.Int32,System.Int32,OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2,System.Single,System.Single,System.Single,System.Single)">TerrainLonelyMountain(Int32, Int32, OverworldGeneratorV2, Single, Single, Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float TerrainLonelyMountain(int x, int y, OverworldGeneratorV2 generator, float river, float strength, float width, float terrainHeight)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2.html">OverworldGeneratorV2</a></td>
+        <td><span class="parametername">generator</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">river</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">strength</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">width</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">terrainHeight</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainMarsh_System_Int32_System_Int32_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainMarsh(System.Int32%2CSystem.Int32%2COpenAPI.WorldGenerator.Generators.OverworldGeneratorV2%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L336">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainMarsh_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainMarsh*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainMarsh_System_Int32_System_Int32_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainMarsh(System.Int32,System.Int32,OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2,System.Single,System.Single)">TerrainMarsh(Int32, Int32, OverworldGeneratorV2, Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float TerrainMarsh(int x, int y, OverworldGeneratorV2 generator, float baseHeight, float river)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2.html">OverworldGeneratorV2</a></td>
+        <td><span class="parametername">generator</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">baseHeight</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">river</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainOcean_System_Int32_System_Int32_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainOcean(System.Int32%2CSystem.Int32%2COpenAPI.WorldGenerator.Generators.OverworldGeneratorV2%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L355">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainOcean_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainOcean*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainOcean_System_Int32_System_Int32_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainOcean(System.Int32,System.Int32,OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2,System.Single,System.Single)">TerrainOcean(Int32, Int32, OverworldGeneratorV2, Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float TerrainOcean(int x, int y, OverworldGeneratorV2 generator, float river, float averageFloor)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2.html">OverworldGeneratorV2</a></td>
+        <td><span class="parametername">generator</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">river</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">averageFloor</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainOceanCanyon_System_Int32_System_Int32_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single___System_Single_System_Single_System_Int32_System_Boolean_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainOceanCanyon(System.Int32%2CSystem.Int32%2COpenAPI.WorldGenerator.Generators.OverworldGeneratorV2%2CSystem.Single%2CSystem.Single%5B%5D%2CSystem.Single%2CSystem.Single%2CSystem.Int32%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L370">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainOceanCanyon_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainOceanCanyon*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainOceanCanyon_System_Int32_System_Int32_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single___System_Single_System_Single_System_Int32_System_Boolean_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainOceanCanyon(System.Int32,System.Int32,OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2,System.Single,System.Single[],System.Single,System.Single,System.Int32,System.Boolean)">TerrainOceanCanyon(Int32, Int32, OverworldGeneratorV2, Single, Single[], Single, Single, Int32, Boolean)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float TerrainOceanCanyon(int x, int y, OverworldGeneratorV2 generator, float river, float[] height, float border, float strength, int heightLength, bool booRiver)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2.html">OverworldGeneratorV2</a></td>
+        <td><span class="parametername">generator</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">river</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span>[]</td>
+        <td><span class="parametername">height</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">border</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">strength</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">heightLength</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">booRiver</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainPlains_System_Int32_System_Int32_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_System_Single_System_Single_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainPlains(System.Int32%2CSystem.Int32%2COpenAPI.WorldGenerator.Generators.OverworldGeneratorV2%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L435">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainPlains_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainPlains*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainPlains_System_Int32_System_Int32_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_System_Single_System_Single_System_Single_System_Single_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainPlains(System.Int32,System.Int32,OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">TerrainPlains(Int32, Int32, OverworldGeneratorV2, Single, Single, Single, Single, Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float TerrainPlains(int x, int y, OverworldGeneratorV2 generator, float river, float stPitch, float stFactor, float hPitch, float hDivisor, float baseHeight)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2.html">OverworldGeneratorV2</a></td>
+        <td><span class="parametername">generator</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">river</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">stPitch</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">stFactor</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">hPitch</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">hDivisor</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">baseHeight</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainPlateau_System_Single_System_Single_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single___System_Single_System_Single_System_Int32_System_Single_System_Boolean_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainPlateau(System.Single%2CSystem.Single%2COpenAPI.WorldGenerator.Generators.OverworldGeneratorV2%2CSystem.Single%2CSystem.Single%5B%5D%2CSystem.Single%2CSystem.Single%2CSystem.Int32%2CSystem.Single%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L454">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainPlateau_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainPlateau*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainPlateau_System_Single_System_Single_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single___System_Single_System_Single_System_Int32_System_Single_System_Boolean_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainPlateau(System.Single,System.Single,OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2,System.Single,System.Single[],System.Single,System.Single,System.Int32,System.Single,System.Boolean)">TerrainPlateau(Single, Single, OverworldGeneratorV2, Single, Single[], Single, Single, Int32, Single, Boolean)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float TerrainPlateau(float x, float y, OverworldGeneratorV2 generator, float river, float[] height, float border, float strength, int heightLength, float selectorWaveLength, bool isM)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2.html">OverworldGeneratorV2</a></td>
+        <td><span class="parametername">generator</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">river</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span>[]</td>
+        <td><span class="parametername">height</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">border</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">strength</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">heightLength</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">selectorWaveLength</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">isM</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainPolar_System_Single_System_Single_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_System_Single_System_Single_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainPolar(System.Single%2CSystem.Single%2COpenAPI.WorldGenerator.Generators.OverworldGeneratorV2%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L509">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainPolar_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainPolar*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainPolar_System_Single_System_Single_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_System_Single_System_Single_System_Single_System_Single_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainPolar(System.Single,System.Single,OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">TerrainPolar(Single, Single, OverworldGeneratorV2, Single, Single, Single, Single, Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float TerrainPolar(float x, float y, OverworldGeneratorV2 generator, float river, float stPitch, float stFactor, float hPitch, float hDivisor, float baseHeight)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2.html">OverworldGeneratorV2</a></td>
+        <td><span class="parametername">generator</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">river</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">stPitch</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">stFactor</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">hPitch</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">hDivisor</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">baseHeight</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainRollingHills_System_Int32_System_Int32_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainRollingHills(System.Int32%2CSystem.Int32%2COpenAPI.WorldGenerator.Generators.OverworldGeneratorV2%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L538">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainRollingHills_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainRollingHills*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainRollingHills_System_Int32_System_Int32_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_System_Single_System_Single_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainRollingHills(System.Int32,System.Int32,OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2,System.Single,System.Single,System.Single,System.Single)">TerrainRollingHills(Int32, Int32, OverworldGeneratorV2, Single, Single, Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float TerrainRollingHills(int x, int y, OverworldGeneratorV2 generator, float river, float hillStrength, float groundNoiseAmplitudeHills, float baseHeight)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2.html">OverworldGeneratorV2</a></td>
+        <td><span class="parametername">generator</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">river</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">hillStrength</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">groundNoiseAmplitudeHills</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">baseHeight</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainRollingHills_System_Int32_System_Int32_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_System_Single_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainRollingHills(System.Int32%2CSystem.Int32%2COpenAPI.WorldGenerator.Generators.OverworldGeneratorV2%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L528">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainRollingHills_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainRollingHills*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainRollingHills_System_Int32_System_Int32_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_System_Single_System_Single_System_Single_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainRollingHills(System.Int32,System.Int32,OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2,System.Single,System.Single,System.Single,System.Single,System.Single)">TerrainRollingHills(Int32, Int32, OverworldGeneratorV2, Single, Single, Single, Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float TerrainRollingHills(int x, int y, OverworldGeneratorV2 generator, float river, float hillStrength, float addedHeight, float groundNoiseAmplitudeHills, float lift)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2.html">OverworldGeneratorV2</a></td>
+        <td><span class="parametername">generator</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">river</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">hillStrength</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">addedHeight</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">groundNoiseAmplitudeHills</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">lift</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainVolcano_System_Int32_System_Int32_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainVolcano(System.Int32%2CSystem.Int32%2COpenAPI.WorldGenerator.Generators.OverworldGeneratorV2%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L548">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainVolcano_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainVolcano*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_TerrainVolcano_System_Int32_System_Int32_OpenAPI_WorldGenerator_Generators_OverworldGeneratorV2_System_Single_System_Single_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.TerrainVolcano(System.Int32,System.Int32,OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2,System.Single,System.Single)">TerrainVolcano(Int32, Int32, OverworldGeneratorV2, Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float TerrainVolcano(int x, int y, OverworldGeneratorV2 generator, float border, float baseHeight)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">x</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">y</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="OpenAPI.WorldGenerator.Generators.OverworldGeneratorV2.html">OverworldGeneratorV2</a></td>
+        <td><span class="parametername">generator</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">border</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">baseHeight</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_UnsignedPower_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.UnsignedPower(System.Single%2CSystem.Single)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L70">View Source</a>
+  </span>
+  <a id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_UnsignedPower_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.UnsignedPower*"></a>
+  <h4 id="OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase_UnsignedPower_System_Single_System_Single_" data-uid="OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase.UnsignedPower(System.Single,System.Single)">UnsignedPower(Single, Single)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float UnsignedPower(float number, float power)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">number</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td><span class="parametername">power</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Single</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/OpenMiNET/OpenAPI/new/feature-docs-github-actions/apiSpec/new?filename=OpenAPI_WorldGenerator_Generators_Terrain_TerrainBase.md&amp;value=---%0Auid%3A%20OpenAPI.WorldGenerator.Generators.Terrain.TerrainBase%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/OpenMiNET/OpenAPI/blob/feature-docs-github-actions/src/examples/OpenAPI.WorldGenerator/Generators/Terrain/TerrainBase.cs/#L7" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
