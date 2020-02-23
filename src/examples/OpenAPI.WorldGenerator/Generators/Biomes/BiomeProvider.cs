@@ -5,6 +5,7 @@ using System.Linq;
 using System.Numerics;
 using MiNET.Blocks;
 using OpenAPI.WorldGenerator.Generators.Biomes.Vanilla;
+using OpenAPI.WorldGenerator.Generators.Biomes.Vanilla.Beach;
 using OpenAPI.WorldGenerator.Generators.Biomes.Vanilla.Desert;
 using OpenAPI.WorldGenerator.Generators.Biomes.Vanilla.ExtremeHills;
 using OpenAPI.WorldGenerator.Generators.Biomes.Vanilla.Forest;
@@ -25,7 +26,7 @@ namespace OpenAPI.WorldGenerator.Generators.Biomes
         //public INoiseModule RainfallProvider { get; set; }
         //public INoiseModule TemperatureProvider { get; set; }
         
-        private BiomeBase[] Biomes { get; }
+        public BiomeBase[] Biomes { get; }
         public BiomeProvider()
         {
             //Biomes = BiomeUtils.Biomes.Where(b => b.Terrain != null).ToArray();
@@ -87,6 +88,10 @@ namespace OpenAPI.WorldGenerator.Generators.Biomes
                 //  new TaigaMBiome()
                 new RiverBiome(),
                 new FrozenRiverBiome(),
+                
+                new BeachBiome().SetEdgeBiome(true), 
+                new ColdBeachBiome().SetEdgeBiome(true), 
+                new StoneBeachBiome().SetEdgeBiome(true), 
             };
 
             for (int i = 0; i < Biomes.Length; i++)
@@ -102,7 +107,7 @@ namespace OpenAPI.WorldGenerator.Generators.Biomes
 
         public IEnumerable<BiomeBase> GetBiomes()
         {
-            return Biomes.Where(x => x.Terrain != null && x.Surface != null);
+            return Biomes.Where(x => x.Terrain != null && x.Surface != null && !x.Config.IsEdgeBiome);
         }
 
         public BiomeBase GetBiome(float temperatures, float rainfall)

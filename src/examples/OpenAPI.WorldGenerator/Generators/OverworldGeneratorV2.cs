@@ -101,16 +101,16 @@ namespace OpenAPI.WorldGenerator.Generators
             }
 
 
-            var totalBiomes = BiomeProvider.GetBiomes().ToArray();
+            var totalBiomes = BiomeProvider.Biomes.ToArray();
             
             BeachBiome = new bool[256];
             LandBiome = new bool[256];
             OceanBiome= new bool[256];
             foreach (var biome in totalBiomes)
             {
-                BeachBiome[biome.Id] = biome.Type.HasFlag(BiomeType.Beach);
-                LandBiome[biome.Id] = biome.Type.HasFlag(BiomeType.Land);
-                OceanBiome[biome.Id] = biome.Type.HasFlag(BiomeType.Ocean);
+                BeachBiome[biome.Id] = ((biome.Type & BiomeType.Beach) != 0);// || ((biome.Type & BiomeType.River) != 0);
+                LandBiome[biome.Id] = (biome.Type & BiomeType.Land) != 0;
+                OceanBiome[biome.Id] = (biome.Type & BiomeType.Ocean) != 0;
             }
            // BeachBiome = totalBiomes.Select(x => (x.Type.HasFlag(BiomeType.Beach))).ToArray();
            // LandBiome = totalBiomes.Select(x => (x.Type.HasFlag(BiomeType.Land))).ToArray();
@@ -298,14 +298,16 @@ namespace OpenAPI.WorldGenerator.Generators
                 }
             }
             
-            SmoothingSearchStatus beachSearch = new SmoothingSearchStatus(BeachBiome);
+          //  SmoothingSearchStatus beachSearch = new SmoothingSearchStatus(BeachBiome);
             SmoothingSearchStatus landSearch = new SmoothingSearchStatus(LandBiome);
             
-            beachSearch.SetNotHunted();
+          /*  beachSearch.SetNotHunted();
             beachSearch.SetAbsent();
             
             landSearch.SetNotHunted();
-            landSearch.SetAbsent();
+            landSearch.SetAbsent();*/
+         // beachSearch.Hunt(neighboring);
+          landSearch.Hunt(neighboring);
 
             float beachTop = 64.5f;
             for (int i = 0; i < MAX_BIOMES; i++)
@@ -321,27 +323,28 @@ namespace OpenAPI.WorldGenerator.Generators
                     continue;
                 }
 
-                if (beachSearch.IsNotHunted())
+               /* if (beachSearch.IsNotHunted())
                 {
                     beachSearch.Hunt(neighboring);
                     landSearch.Hunt(neighboring);
-                }
+                }*/
                 
-                int foundBiome = beachSearch.Biomes[i];
-                if (foundBiome != -1) {
+             //   int foundBiome = beachSearch.Biomes[i];
+               // if (foundBiome != -1) {
                     int nearestLandBiome = landSearch.Biomes[i];
                     
                     if (nearestLandBiome > -1) {
-                        foundBiome = BiomeProvider.GetBiome(nearestLandBiome).GetBeachBiome();
+                        var foundBiome = BiomeProvider.GetBiome(nearestLandBiome).GetBeachBiome();
+                        var biome = BiomeProvider.GetBiome(foundBiome);
+
+                        if (biome != null && biome.Terrain != null && biome.Surface != null)
+                        {
+                            jitteredBiomes[i] = biome;
+                        }
                     }
 
-                    var biome = BiomeProvider.GetBiome(foundBiome);
-
-                    if (biome != null && biome.Terrain != null && biome.Surface != null)
-                    {
-                        jitteredBiomes[i] = biome;
-                    }
-                }
+                    //
+               // }
             }
 
             landscape.Biome = jitteredBiomes;

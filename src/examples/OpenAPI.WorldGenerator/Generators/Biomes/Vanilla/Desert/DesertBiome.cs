@@ -1,3 +1,5 @@
+using MiNET.Blocks;
+using OpenAPI.WorldGenerator.Generators.Surfaces;
 using OpenAPI.WorldGenerator.Generators.Terrain;
 
 namespace OpenAPI.WorldGenerator.Generators.Biomes.Vanilla.Desert
@@ -14,7 +16,10 @@ namespace OpenAPI.WorldGenerator.Generators.Biomes.Vanilla.Desert
             MaxHeight = 0.2f;
             SurfaceBlock = 12;
             SoilBlock = 24;
+            
+            
             Terrain = new DesertTerrain();
+            Surface = new SurfaceBase(Config, new Sand(), new Sandstone());
         }
     }
 }

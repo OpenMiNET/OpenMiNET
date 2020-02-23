@@ -7,6 +7,8 @@ namespace OpenAPI.WorldGenerator.Generators.Biomes.Config
         
         public bool AllowRivers { get; set; } = true;
         public bool AllowScenicLakes { get; set; } = true;
+
+        public bool IsEdgeBiome { get; set; } = false;
         
         public BiomeConfig()
         {

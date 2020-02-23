@@ -165,8 +165,21 @@ namespace OpenAPI.Player
         }
 
 		private bool _hasJoinedServer = false;
+		private bool _isFirstJoining = true;
+		protected override void OnPlayerJoining(PlayerEventArgs e)
+		{
+			if (!_isFirstJoining)
+				return;
 
-        protected override void OnPlayerJoin(PlayerEventArgs e)
+			_isFirstJoining = false;
+			
+			if (_plugin.LevelManager.HasDefaultLevel)
+			{
+				base.Level = _plugin.LevelManager.GetDefaultLevel();
+			}
+		}
+
+		protected override void OnPlayerJoin(PlayerEventArgs e)
         {
 	        if (_hasJoinedServer) return; //Make sure this is only called once when we join the server for the first time.
 	        _hasJoinedServer = true;

@@ -14,7 +14,7 @@ namespace OpenAPI.WorldGenerator
         private readonly ConcurrentDictionary<ChunkCoordinates, ChunkColumn> _chunkCache = new ConcurrentDictionary<ChunkCoordinates, ChunkColumn>();
         public bool IsCaching { get; private set; }
 
-        private IWorldGenerator Generator { get; }
+        public IWorldGenerator Generator { get; }
         public DebugWorldProvider(IWorldGenerator worldGenerator)
         {
             Generator = worldGenerator;

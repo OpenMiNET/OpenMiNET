@@ -10,6 +10,8 @@ namespace OpenAPI.WorldGenerator.Generators.Biomes.Vanilla
             Downfall = 0.5f;
             MinHeight = -0.5f;
             MaxHeight = 0f;
+
+            Type = BiomeType.River;
         }
     }
 }

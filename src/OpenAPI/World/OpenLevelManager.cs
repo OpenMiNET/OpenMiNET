@@ -232,5 +232,10 @@ namespace OpenAPI.World
 			_defaultLevel = level.LevelId;
 			_defaultLevelSet = true;
 		}
+
+		public OpenLevel GetDefaultLevel()
+		{
+			return (OpenLevel) GetLevel(null, _defaultLevel);
+		}
 	}
 }

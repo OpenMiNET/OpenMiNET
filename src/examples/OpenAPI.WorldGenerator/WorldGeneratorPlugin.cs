@@ -13,6 +13,7 @@ using OpenAPI.Events.Player;
 using OpenAPI.Plugins;
 using OpenAPI.World;
 using OpenAPI.WorldGenerator.Generators;
+using OpenAPI.WorldGenerator.Generators.Biomes;
 using BiomeUtils = OpenAPI.WorldGenerator.Utils.BiomeUtils;
 
 namespace OpenAPI.WorldGenerator
@@ -44,9 +45,19 @@ namespace OpenAPI.WorldGenerator
                     continue;
                 
                 var biome = chunk.GetBiome(pos.X - (chunk.X * 16), pos.Z - (chunk.Z * 16));
-                var result = BiomeUtils.GetBiomeById(biome);
+                BiomeBase result = null;
+                if (player.Level.WorldProvider is DebugWorldProvider debugWorldProvider)
+                {
+                    if (debugWorldProvider.Generator is OverworldGeneratorV2 gen)
+                    {
+                        result = gen.BiomeProvider.GetBiome(biome);
+                    }
+                }
                 
-                player.SendTitle($"Biome: {result.Name} | ", TitleType.ActionBar, 0, 0, 25);
+                if (result == null)
+                    result = BiomeUtils.GetBiomeById(biome);
+                
+                player.SendTitle($"Biome: {result.Name} | {biome}", TitleType.ActionBar, 0, 0, 25);
             }
         }
 
@@ -75,7 +86,7 @@ namespace OpenAPI.WorldGenerator
             
             api.EventDispatcher.RegisterEvents(this);
             
-            _timer = new Timer(Callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
+            _timer = new Timer(Callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(2.5));
             
             Log.Info($"WorldGenerator plugin enabled!");
         }
@@ -83,19 +94,6 @@ namespace OpenAPI.WorldGenerator
         public override void Disabled(OpenAPI api)
         {
             Log.Info($"WorldGenerator plugin disabled!");
-        }
-        
-
-        [EventHandler(EventPriority.Highest)]
-        public void OnPlayerLoginComplete(PlayerSpawnedEvent e)
-        {
-            var lvl = Api.LevelManager.GetLevel(e.Player, Dimension.Overworld.ToString());
-            
-            e.Player.SpawnLevel(lvl, lvl.SpawnPoint, false, null, () =>
-            {
-                e.Player.SetGameMode(GameMode.Creative);
-                e.Player.Teleport(new PlayerLocation(e.Player.KnownPosition.X, e.Player.Level.GetHeight(e.Player.KnownPosition.GetCoordinates3D()) + 3f, e.Player.KnownPosition.Z));
-            });
         }
     }
 }

@@ -299,5 +299,12 @@ namespace OpenAPI.WorldGenerator.Generators.Biomes
        {
            return Type.HasFlag(BiomeType.Cold) && Type.HasFlag(BiomeType.Coniferous) && Type.HasFlag(BiomeType.Forest);
        }
+       
+       public BiomeBase SetEdgeBiome(bool value)
+       {
+           Config.IsEdgeBiome = value;
+
+           return this;
+       }
     }
 }
