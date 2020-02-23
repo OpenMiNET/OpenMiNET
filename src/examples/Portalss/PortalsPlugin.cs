@@ -17,12 +17,11 @@ namespace Portalss
 	    public override void Enabled(OpenAPI.OpenApi api)
 	    {
 			api.PluginManager.SetReference(this);
-		    Log.Info($"Enabled PortalsPlugin!");
 	    }
 
 	    public override void Disabled(OpenAPI.OpenApi api)
 	    {
-		    Log.Info($"Disabled PortalsPlugin!");
+		    
 	    }
     }
 }

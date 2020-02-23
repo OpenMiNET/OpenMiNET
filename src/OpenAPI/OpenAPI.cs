@@ -91,17 +91,19 @@ namespace OpenAPI
 		    string pluginDirectoryPaths = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
             pluginDirectoryPaths = Conf.GetProperty("PluginDirectory", pluginDirectoryPaths);
 
-		    foreach (string dirPath in pluginDirectoryPaths.Split(new char[] {';'}, StringSplitOptions.RemoveEmptyEntries))
-		    {
-			    string directory = dirPath;
+		    //foreach (string dirPath in pluginDirectoryPaths.Split(new char[] {';'}, StringSplitOptions.RemoveEmptyEntries))
+		   // {
+			   /* string directory = dirPath;
 			    if (!Path.IsPathRooted(directory))
 			    {
 				    directory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), dirPath);
-			    }
+			    }*/
 
-		        PluginManager.DiscoverPlugins(directory);
-		    }
+		        PluginManager.DiscoverPlugins(pluginDirectoryPaths);
+		   // }
 
+		    PluginManager.EnablePlugins();
+		    
 		    //Only set the default level if it hasn't been set already.
 		    if (!LevelManager.HasDefaultLevel)
 		    {

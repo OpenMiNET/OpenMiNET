@@ -27,8 +27,6 @@ namespace OpenAPI.ManagementApi
             Host = new NancyHost(new Bootstrapper(this, api), new Uri("http://127.0.0.1:3000"));
             
             Host.Start();
-
-            Log.Info($"Management API Started.");
         }
 
         private void UnhandledExceptionCallback(Exception obj)

@@ -24,15 +24,11 @@ namespace ChatFilter
 	    {
 		    PlayerEventHandler = new PlayerEventHandler(api);
 			api.EventDispatcher.RegisterEvents(PlayerEventHandler);
-
-		    Log.Info($"ChatFilter plugin enabled!");
-		}
+	    }
 
 	    public override void Disabled(OpenAPI.OpenApi api)
 	    {
 		    PlayerEventHandler.CleanUp();
-
-		    Log.Info($"ChatFilter plugin disabled!");
-		}
+	    }
     }
 }

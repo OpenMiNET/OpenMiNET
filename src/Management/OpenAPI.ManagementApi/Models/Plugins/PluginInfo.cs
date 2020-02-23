@@ -5,12 +5,12 @@ namespace OpenAPI.ManagementApi.Models.Plugins
     public class PluginInfo
     {
         public bool Enabled { get; set; }
-        public OpenPluginInfo Info { get; set; }
+        public OpenPluginInfoBase Info { get; set; }
 
         public PluginInfo(LoadedPlugin plugin)
         {
             Enabled = plugin.Enabled;
-            Info = plugin.Info;
+            Info = new OpenPluginInfoBase(plugin.Info);
         }
     }
 }

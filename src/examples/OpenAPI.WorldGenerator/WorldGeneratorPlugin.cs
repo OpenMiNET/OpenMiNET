@@ -87,8 +87,6 @@ namespace OpenAPI.WorldGenerator
             api.EventDispatcher.RegisterEvents(this);
             
             _timer = new Timer(Callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(2.5));
-            
-            Log.Info($"WorldGenerator plugin enabled!");
         }
 
         public override void Disabled(OpenApi api)

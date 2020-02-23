@@ -21,13 +21,12 @@ namespace CrossReferencing
 
 		public override void Enabled(OpenAPI.OpenApi api)
 		{
-			Log.InfoFormat("Example plugin enabled!");
 			OtherPlugin.HelloWorld("ExamplePlugin says hi!");
 		}
 
 		public override void Disabled(OpenAPI.OpenApi api)
 		{
-			Log.InfoFormat("Example plugin disabled");
+			
 		}
 	}
 }

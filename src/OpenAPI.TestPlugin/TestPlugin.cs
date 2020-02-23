@@ -27,14 +27,11 @@ namespace OpenAPI.TestPlugin
 
 			api.CommandManager.LoadCommands(CommandsClass);
             api.CommandManager.LoadCommands(new FactionCommands(FactionManager));
-
-			Log.InfoFormat("TestPlugin Enabled");
 		}
 
 		public override void Disabled(OpenApi api)
 		{
 			api.CommandManager.UnloadCommands(CommandsClass);
-			Log.InfoFormat("TestPlugin Disabled");
 		}
 
 		public void HelloWorld(string message, [CallerMemberName] string memberName = "")

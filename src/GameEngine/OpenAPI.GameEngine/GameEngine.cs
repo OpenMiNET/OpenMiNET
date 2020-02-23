@@ -20,13 +20,11 @@ namespace OpenAPI.GameEngine
         public override void Enabled(OpenApi api)
         {
             Host = api;
-            
-            Log.Info($"Game Engine Enabled!");
         }
 
         public override void Disabled(OpenApi api)
         {
-            Log.Info($"Game Engine Disabled!");
+
         }
     }
 }
