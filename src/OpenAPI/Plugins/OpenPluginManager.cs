@@ -183,9 +183,13 @@ namespace OpenAPI.Plugins
 
 	        foreach (var item in ordered)
 	        {
-		       // List<OpenPlugin> assemblyInstances = new List<OpenPlugin>();
+		        // List<OpenPlugin> assemblyInstances = new List<OpenPlugin>();
 
-		        if (CreateInstance(item, out OpenPlugin instance, assemblies))
+		        OpenPlugin instance = plugins.FirstOrDefault(x => x.GetType() == item.Type);
+		        if (instance != null)
+			        continue;
+
+		        if (CreateInstance(item, out instance, assemblies))
 		        {
 			        plugins.Add(instance);
 			        

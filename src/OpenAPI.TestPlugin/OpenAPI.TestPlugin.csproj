@@ -16,6 +16,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\examples\ChatFilter\ChatFilter.csproj" />
     <ProjectReference Include="..\OpenAPI\OpenAPI.csproj" />
   </ItemGroup>
 
