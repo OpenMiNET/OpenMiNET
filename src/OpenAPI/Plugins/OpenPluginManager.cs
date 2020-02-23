@@ -35,6 +35,19 @@ namespace OpenAPI.Plugins
 
         public void DiscoverPlugins(params string[] paths)
         {
+	        paths = paths.Where(x =>
+	        {
+		        if (Directory.Exists(x))
+		        {
+			        return true;
+		        }
+		        else
+		        {
+			        Log.Warn($"Could not load plugins from folder \"{x}\", folder does not exist!");
+			        return false;
+		        }
+	        }).ToArray();
+	        
 	        foreach (var path in paths)
 	        {
 		        if (!Directory.Exists(path))
