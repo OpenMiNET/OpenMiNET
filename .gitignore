@@ -260,3 +260,14 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+src/examples/OpenAPI.WorldGenerator/obj/OpenAPI.WorldGenerator.csproj.nuget.cache
+src/examples/OpenAPI.WorldGenerator/obj/OpenAPI.WorldGenerator.csproj.nuget.dgspec.json
+src/examples/OpenAPI.WorldGenerator/obj/OpenAPI.WorldGenerator.csproj.nuget.g.props
+src/examples/OpenAPI.WorldGenerator/obj/project.assets.json
+src/examples/OpenAPI.WorldGenerator/obj/project.packagespec.json
+
+.history/
+src/**/[Oo]bj/**/*
+src/**/[Bb]in/**/*
+src/**/[Dd]ebug/**/*
+src/**/[Rr]elease/**/*
