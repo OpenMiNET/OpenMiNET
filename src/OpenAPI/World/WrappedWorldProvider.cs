@@ -9,7 +9,7 @@ namespace OpenAPI.World
     public class WrappedWorldProvider : IWorldProvider
     {
         protected OpenApi Api { get; }
-        private IWorldProvider WorldProvider { get; }
+        internal IWorldProvider WorldProvider { get; }
         public OpenLevel Level { get; set; }
         public WrappedWorldProvider(OpenApi api, IWorldProvider worldProvider)
         {
@@ -95,6 +95,9 @@ namespace OpenAPI.World
             
             var chunk = base.GenerateChunkColumn(chunkCoordinates, cacheOnly);
 
+            if (chunk == null)
+                return null;
+            
             if (before != null && !before.Any(x => x.X == chunk.X && x.Z == chunk.Z))
             {
                 Api.EventDispatcher.DispatchEvent(new ChunkLoadEvent(chunk, Level));

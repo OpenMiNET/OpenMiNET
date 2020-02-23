@@ -171,27 +171,19 @@ namespace OpenAPI.World
 		/// <param name="openLevel">The <see cref="OpenLevel"/> instance to register and initialize</param>
 		public void LoadLevel(OpenLevel openLevel)
 		{
-			//try
-			//{
-				openLevel.Initialize();
-			//}
-			/*catch (DllNotFoundException ex)
-			{
-				if (ex.Message.Contains("winmm.dll"))
-				{
-					openLevel.InitUnix();
-				}
-			}*/
 
-			/*	if (Config.GetProperty("CalculateLights", false) && openLevel.WorldProvider is WrappedAnvilWorldProvider wawp)
-				{
-					wawp.Locked = true;
-	
-					//SkyLightCalculations.Calculate(openLevel);
-					//RecalculateBlockLight(openLevel, wawp.AnvilProvider);
-	
-					wawp.Locked = false;
-				}*/
+			openLevel.Initialize();
+
+			if (Config.GetProperty("CalculateLights", false) && openLevel.WorldProvider is WrappedWorldProvider wawp &&
+			    wawp.WorldProvider is AnvilWorldProvider anvilWorldProvider)
+			{
+				anvilWorldProvider.Locked = true;
+
+				SkyLightCalculations.Calculate(openLevel);
+				RecalculateBlockLight(openLevel, anvilWorldProvider);
+
+				anvilWorldProvider.Locked = false;
+			}
 
 			if (_levels.TryAdd(openLevel.LevelId, openLevel))
 			{
@@ -252,6 +244,61 @@ namespace OpenAPI.World
 		public OpenLevel GetDefaultLevel()
 		{
 			return (OpenLevel) GetLevel(null, _defaultLevel);
+		}
+
+		internal void SetDefaultByConfig()
+		{
+			var missingGenerator = new SuperflatGenerator(Dimension.Overworld);
+			    
+			IWorldProvider worldProvider;
+			switch (Config.GetProperty("WorldProvider", "anvil").ToLower().Trim())
+			{
+				case "leveldb":
+					worldProvider = new LevelDbProvider()
+					{
+						MissingChunkProvider = missingGenerator
+					};
+					break;
+				case "anvil":
+				default:
+					worldProvider = new AnvilWorldProvider()
+					{
+						MissingChunkProvider = missingGenerator,
+						ReadSkyLight = !Config.GetProperty("CalculateLights", false),
+						ReadBlockLight = !Config.GetProperty("CalculateLights", false)
+					};
+					break;
+			}
+			    
+			var lvl = new OpenLevel(Api, this, Dimension.Overworld.ToString(), worldProvider, EntityManager, _gameMode, _difficulty, _viewDistance)
+			{
+				EnableBlockTicking = Config.GetProperty("EnableBlockTicking", false),
+				EnableChunkTicking = Config.GetProperty("EnableChunkTicking", false),
+				SaveInterval = Config.GetProperty("Save.Interval", 300),
+				UnloadInterval = Config.GetProperty("Unload.Interval", -1),
+
+				DrowningDamage = Config.GetProperty("GameRule.DrowningDamage", true),
+				CommandblockOutput = Config.GetProperty("GameRule.CommandblockOutput", true),
+				DoTiledrops = Config.GetProperty("GameRule.DoTiledrops", true),
+				DoMobloot = Config.GetProperty("GameRule.DoMobloot", true),
+				KeepInventory = Config.GetProperty("GameRule.KeepInventory", true),
+				DoDaylightcycle = Config.GetProperty("GameRule.DoDaylightcycle", true),
+				DoMobspawning = Config.GetProperty("GameRule.DoMobspawning", true),
+				DoEntitydrops = Config.GetProperty("GameRule.DoEntitydrops", true),
+				DoFiretick = Config.GetProperty("GameRule.DoFiretick", true),
+				DoWeathercycle = Config.GetProperty("GameRule.DoWeathercycle", true),
+				Pvp = Config.GetProperty("GameRule.Pvp", true),
+				Falldamage = Config.GetProperty("GameRule.Falldamage", true),
+				Firedamage = Config.GetProperty("GameRule.Firedamage", true),
+				Mobgriefing = Config.GetProperty("GameRule.Mobgriefing", true),
+				ShowCoordinates = Config.GetProperty("GameRule.ShowCoordinates", true),
+				NaturalRegeneration = Config.GetProperty("GameRule.NaturalRegeneration", true),
+				TntExplodes = Config.GetProperty("GameRule.TntExplodes", true),
+				SendCommandfeedback = Config.GetProperty("GameRule.SendCommandfeedback", true),
+				RandomTickSpeed = Config.GetProperty("GameRule.RandomTickSpeed", 3)
+			};
+			
+			SetDefaultLevel((OpenLevel) lvl);
 		}
 	}
 }

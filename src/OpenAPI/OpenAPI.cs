@@ -107,8 +107,7 @@ namespace OpenAPI
 		    //Only set the default level if it hasn't been set already.
 		    if (!LevelManager.HasDefaultLevel)
 		    {
-			    var lvl = this.LevelManager.GetLevel((MiNET.Player) null, Dimension.Overworld.ToString());
-			    LevelManager.SetDefaultLevel((OpenLevel) lvl);
+			    LevelManager.SetDefaultByConfig();
 		    }
 	    }
 

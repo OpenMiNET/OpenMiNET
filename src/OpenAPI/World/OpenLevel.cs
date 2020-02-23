@@ -57,14 +57,6 @@ namespace OpenAPI.World
 			}
 		}
 
-		/*private BypassHighPrecisionTimer _unixTicker = null;
-
-		internal void InitUnix()
-		{
-			_unixTicker =
-				new BypassHighPrecisionTimer(50, (o) => { ReflectionHelper.InvokePrivateMethod(this, "WorldTick", new[] {o}); }, false, false);
-		}*/
-
 		private bool _closed;
 	/*	public override void AddEntity(Entity entity)
 		{

@@ -159,19 +159,14 @@ namespace OpenAPI.Plugins
 	        var current = ordered.First;
 	        do
 	        {
-		        var currentValue = current.Value;
-		        var next = current.Next;
-		        if (next == null)
+		        var currentValue = current?.Value;
+		        var next = current?.Next;
+		        if (next == null || currentValue == null)
 		        {
 			        done = true;
 			        break;
 		        }
 
-		        if (current.Value == null)
-		        {
-			        Debugger.Break();
-		        }
-		        
 		        if (currentValue.Requires(next.Value))
 		        {
 			        current.Value = next.Value;
