@@ -3744,21 +3744,165 @@ references:
   commentId: N:OpenAPI.Plugins
   fullName: OpenAPI.Plugins
   nameWithType: OpenAPI.Plugins
+- uid: OpenAPI.Plugins.DependencyContainer
+  name: DependencyContainer
+  href: api/OpenAPI.Plugins.DependencyContainer.html
+  commentId: T:OpenAPI.Plugins.DependencyContainer
+  fullName: OpenAPI.Plugins.DependencyContainer
+  nameWithType: DependencyContainer
+- uid: OpenAPI.Plugins.DependencyContainer.#ctor
+  name: DependencyContainer()
+  href: api/OpenAPI.Plugins.DependencyContainer.html#OpenAPI_Plugins_DependencyContainer__ctor
+  commentId: M:OpenAPI.Plugins.DependencyContainer.#ctor
+  fullName: OpenAPI.Plugins.DependencyContainer.DependencyContainer()
+  nameWithType: DependencyContainer.DependencyContainer()
+- uid: OpenAPI.Plugins.DependencyContainer.#ctor*
+  name: DependencyContainer
+  href: api/OpenAPI.Plugins.DependencyContainer.html#OpenAPI_Plugins_DependencyContainer__ctor_
+  commentId: Overload:OpenAPI.Plugins.DependencyContainer.#ctor
+  isSpec: "True"
+  fullName: OpenAPI.Plugins.DependencyContainer.DependencyContainer
+  nameWithType: DependencyContainer.DependencyContainer
+- uid: OpenAPI.Plugins.DependencyContainer.Register*
+  name: Register
+  href: api/OpenAPI.Plugins.DependencyContainer.html#OpenAPI_Plugins_DependencyContainer_Register_
+  commentId: Overload:OpenAPI.Plugins.DependencyContainer.Register
+  isSpec: "True"
+  fullName: OpenAPI.Plugins.DependencyContainer.Register
+  nameWithType: DependencyContainer.Register
+- uid: OpenAPI.Plugins.DependencyContainer.Register``1(OpenAPI.Plugins.DependencyLifetime)
+  name: Register<TType>(DependencyLifetime)
+  href: api/OpenAPI.Plugins.DependencyContainer.html#OpenAPI_Plugins_DependencyContainer_Register__1_OpenAPI_Plugins_DependencyLifetime_
+  commentId: M:OpenAPI.Plugins.DependencyContainer.Register``1(OpenAPI.Plugins.DependencyLifetime)
+  name.vb: Register(Of TType)(DependencyLifetime)
+  fullName: OpenAPI.Plugins.DependencyContainer.Register<TType>(OpenAPI.Plugins.DependencyLifetime)
+  fullName.vb: OpenAPI.Plugins.DependencyContainer.Register(Of TType)(OpenAPI.Plugins.DependencyLifetime)
+  nameWithType: DependencyContainer.Register<TType>(DependencyLifetime)
+  nameWithType.vb: DependencyContainer.Register(Of TType)(DependencyLifetime)
+- uid: OpenAPI.Plugins.DependencyContainer.RegisterSingleton(Type,System.Object)
+  name: RegisterSingleton(Type, Object)
+  href: api/OpenAPI.Plugins.DependencyContainer.html#OpenAPI_Plugins_DependencyContainer_RegisterSingleton_Type_System_Object_
+  commentId: M:OpenAPI.Plugins.DependencyContainer.RegisterSingleton(Type,System.Object)
+  fullName: OpenAPI.Plugins.DependencyContainer.RegisterSingleton(Type, System.Object)
+  nameWithType: DependencyContainer.RegisterSingleton(Type, Object)
+- uid: OpenAPI.Plugins.DependencyContainer.RegisterSingleton*
+  name: RegisterSingleton
+  href: api/OpenAPI.Plugins.DependencyContainer.html#OpenAPI_Plugins_DependencyContainer_RegisterSingleton_
+  commentId: Overload:OpenAPI.Plugins.DependencyContainer.RegisterSingleton
+  isSpec: "True"
+  fullName: OpenAPI.Plugins.DependencyContainer.RegisterSingleton
+  nameWithType: DependencyContainer.RegisterSingleton
+- uid: OpenAPI.Plugins.DependencyContainer.RegisterSingleton``1(``0)
+  name: RegisterSingleton<TType>(TType)
+  href: api/OpenAPI.Plugins.DependencyContainer.html#OpenAPI_Plugins_DependencyContainer_RegisterSingleton__1___0_
+  commentId: M:OpenAPI.Plugins.DependencyContainer.RegisterSingleton``1(``0)
+  name.vb: RegisterSingleton(Of TType)(TType)
+  fullName: OpenAPI.Plugins.DependencyContainer.RegisterSingleton<TType>(TType)
+  fullName.vb: OpenAPI.Plugins.DependencyContainer.RegisterSingleton(Of TType)(TType)
+  nameWithType: DependencyContainer.RegisterSingleton<TType>(TType)
+  nameWithType.vb: DependencyContainer.RegisterSingleton(Of TType)(TType)
+- uid: OpenAPI.Plugins.DependencyContainer.Remove(Type)
+  name: Remove(Type)
+  href: api/OpenAPI.Plugins.DependencyContainer.html#OpenAPI_Plugins_DependencyContainer_Remove_Type_
+  commentId: M:OpenAPI.Plugins.DependencyContainer.Remove(Type)
+  fullName: OpenAPI.Plugins.DependencyContainer.Remove(Type)
+  nameWithType: DependencyContainer.Remove(Type)
+- uid: OpenAPI.Plugins.DependencyContainer.Remove*
+  name: Remove
+  href: api/OpenAPI.Plugins.DependencyContainer.html#OpenAPI_Plugins_DependencyContainer_Remove_
+  commentId: Overload:OpenAPI.Plugins.DependencyContainer.Remove
+  isSpec: "True"
+  fullName: OpenAPI.Plugins.DependencyContainer.Remove
+  nameWithType: DependencyContainer.Remove
+- uid: OpenAPI.Plugins.DependencyContainer.Remove``1
+  name: Remove<TType>()
+  href: api/OpenAPI.Plugins.DependencyContainer.html#OpenAPI_Plugins_DependencyContainer_Remove__1
+  commentId: M:OpenAPI.Plugins.DependencyContainer.Remove``1
+  name.vb: Remove(Of TType)()
+  fullName: OpenAPI.Plugins.DependencyContainer.Remove<TType>()
+  fullName.vb: OpenAPI.Plugins.DependencyContainer.Remove(Of TType)()
+  nameWithType: DependencyContainer.Remove<TType>()
+  nameWithType.vb: DependencyContainer.Remove(Of TType)()
+- uid: OpenAPI.Plugins.DependencyContainer.Resolve(Type)
+  name: Resolve(Type)
+  href: api/OpenAPI.Plugins.DependencyContainer.html#OpenAPI_Plugins_DependencyContainer_Resolve_Type_
+  commentId: M:OpenAPI.Plugins.DependencyContainer.Resolve(Type)
+  fullName: OpenAPI.Plugins.DependencyContainer.Resolve(Type)
+  nameWithType: DependencyContainer.Resolve(Type)
+- uid: OpenAPI.Plugins.DependencyContainer.Resolve*
+  name: Resolve
+  href: api/OpenAPI.Plugins.DependencyContainer.html#OpenAPI_Plugins_DependencyContainer_Resolve_
+  commentId: Overload:OpenAPI.Plugins.DependencyContainer.Resolve
+  isSpec: "True"
+  fullName: OpenAPI.Plugins.DependencyContainer.Resolve
+  nameWithType: DependencyContainer.Resolve
+- uid: OpenAPI.Plugins.DependencyContainer.Resolve``1
+  name: Resolve<TType>()
+  href: api/OpenAPI.Plugins.DependencyContainer.html#OpenAPI_Plugins_DependencyContainer_Resolve__1
+  commentId: M:OpenAPI.Plugins.DependencyContainer.Resolve``1
+  name.vb: Resolve(Of TType)()
+  fullName: OpenAPI.Plugins.DependencyContainer.Resolve<TType>()
+  fullName.vb: OpenAPI.Plugins.DependencyContainer.Resolve(Of TType)()
+  nameWithType: DependencyContainer.Resolve<TType>()
+  nameWithType.vb: DependencyContainer.Resolve(Of TType)()
+- uid: OpenAPI.Plugins.DependencyContainer.TryResolve(Type,System.Object@)
+  name: TryResolve(Type, out Object)
+  href: api/OpenAPI.Plugins.DependencyContainer.html#OpenAPI_Plugins_DependencyContainer_TryResolve_Type_System_Object__
+  commentId: M:OpenAPI.Plugins.DependencyContainer.TryResolve(Type,System.Object@)
+  name.vb: TryResolve(Type, ByRef Object)
+  fullName: OpenAPI.Plugins.DependencyContainer.TryResolve(Type, out System.Object)
+  fullName.vb: OpenAPI.Plugins.DependencyContainer.TryResolve(Type, ByRef System.Object)
+  nameWithType: DependencyContainer.TryResolve(Type, out Object)
+  nameWithType.vb: DependencyContainer.TryResolve(Type, ByRef Object)
+- uid: OpenAPI.Plugins.DependencyContainer.TryResolve*
+  name: TryResolve
+  href: api/OpenAPI.Plugins.DependencyContainer.html#OpenAPI_Plugins_DependencyContainer_TryResolve_
+  commentId: Overload:OpenAPI.Plugins.DependencyContainer.TryResolve
+  isSpec: "True"
+  fullName: OpenAPI.Plugins.DependencyContainer.TryResolve
+  nameWithType: DependencyContainer.TryResolve
+- uid: OpenAPI.Plugins.DependencyContainer.TryResolve``1(``0@)
+  name: TryResolve<TType>(out TType)
+  href: api/OpenAPI.Plugins.DependencyContainer.html#OpenAPI_Plugins_DependencyContainer_TryResolve__1___0__
+  commentId: M:OpenAPI.Plugins.DependencyContainer.TryResolve``1(``0@)
+  name.vb: TryResolve(Of TType)(ByRef TType)
+  fullName: OpenAPI.Plugins.DependencyContainer.TryResolve<TType>(out TType)
+  fullName.vb: OpenAPI.Plugins.DependencyContainer.TryResolve(Of TType)(ByRef TType)
+  nameWithType: DependencyContainer.TryResolve<TType>(out TType)
+  nameWithType.vb: DependencyContainer.TryResolve(Of TType)(ByRef TType)
+- uid: OpenAPI.Plugins.DependencyLifetime
+  name: DependencyLifetime
+  href: api/OpenAPI.Plugins.DependencyLifetime.html
+  commentId: T:OpenAPI.Plugins.DependencyLifetime
+  fullName: OpenAPI.Plugins.DependencyLifetime
+  nameWithType: DependencyLifetime
+- uid: OpenAPI.Plugins.DependencyLifetime.Singleton
+  name: Singleton
+  href: api/OpenAPI.Plugins.DependencyLifetime.html#OpenAPI_Plugins_DependencyLifetime_Singleton
+  commentId: F:OpenAPI.Plugins.DependencyLifetime.Singleton
+  fullName: OpenAPI.Plugins.DependencyLifetime.Singleton
+  nameWithType: DependencyLifetime.Singleton
+- uid: OpenAPI.Plugins.DependencyLifetime.Transient
+  name: Transient
+  href: api/OpenAPI.Plugins.DependencyLifetime.html#OpenAPI_Plugins_DependencyLifetime_Transient
+  commentId: F:OpenAPI.Plugins.DependencyLifetime.Transient
+  fullName: OpenAPI.Plugins.DependencyLifetime.Transient
+  nameWithType: DependencyLifetime.Transient
 - uid: OpenAPI.Plugins.LoadedAssembly
   name: LoadedAssembly
   href: api/OpenAPI.Plugins.LoadedAssembly.html
   commentId: T:OpenAPI.Plugins.LoadedAssembly
   fullName: OpenAPI.Plugins.LoadedAssembly
   nameWithType: LoadedAssembly
-- uid: OpenAPI.Plugins.LoadedAssembly.#ctor(Assembly,IEnumerable{OpenAPI.Plugins.OpenPlugin},IEnumerable{Assembly},System.String)
-  name: LoadedAssembly(Assembly, IEnumerable<OpenPlugin>, IEnumerable<Assembly>, String)
-  href: api/OpenAPI.Plugins.LoadedAssembly.html#OpenAPI_Plugins_LoadedAssembly__ctor_Assembly_IEnumerable_OpenAPI_Plugins_OpenPlugin__IEnumerable_Assembly__System_String_
-  commentId: M:OpenAPI.Plugins.LoadedAssembly.#ctor(Assembly,IEnumerable{OpenAPI.Plugins.OpenPlugin},IEnumerable{Assembly},System.String)
-  name.vb: LoadedAssembly(Assembly, IEnumerable(Of OpenPlugin), IEnumerable(Of Assembly), String)
-  fullName: OpenAPI.Plugins.LoadedAssembly.LoadedAssembly(Assembly, IEnumerable<OpenAPI.Plugins.OpenPlugin>, IEnumerable<Assembly>, System.String)
-  fullName.vb: OpenAPI.Plugins.LoadedAssembly.LoadedAssembly(Assembly, IEnumerable(Of OpenAPI.Plugins.OpenPlugin), IEnumerable(Of Assembly), System.String)
-  nameWithType: LoadedAssembly.LoadedAssembly(Assembly, IEnumerable<OpenPlugin>, IEnumerable<Assembly>, String)
-  nameWithType.vb: LoadedAssembly.LoadedAssembly(Assembly, IEnumerable(Of OpenPlugin), IEnumerable(Of Assembly), String)
+- uid: OpenAPI.Plugins.LoadedAssembly.#ctor(Assembly,IEnumerable{Type},IEnumerable{Assembly},System.String)
+  name: LoadedAssembly(Assembly, IEnumerable<Type>, IEnumerable<Assembly>, String)
+  href: api/OpenAPI.Plugins.LoadedAssembly.html#OpenAPI_Plugins_LoadedAssembly__ctor_Assembly_IEnumerable_Type__IEnumerable_Assembly__System_String_
+  commentId: M:OpenAPI.Plugins.LoadedAssembly.#ctor(Assembly,IEnumerable{Type},IEnumerable{Assembly},System.String)
+  name.vb: LoadedAssembly(Assembly, IEnumerable(Of Type), IEnumerable(Of Assembly), String)
+  fullName: OpenAPI.Plugins.LoadedAssembly.LoadedAssembly(Assembly, IEnumerable<Type>, IEnumerable<Assembly>, System.String)
+  fullName.vb: OpenAPI.Plugins.LoadedAssembly.LoadedAssembly(Assembly, IEnumerable(Of Type), IEnumerable(Of Assembly), System.String)
+  nameWithType: LoadedAssembly.LoadedAssembly(Assembly, IEnumerable<Type>, IEnumerable<Assembly>, String)
+  nameWithType.vb: LoadedAssembly.LoadedAssembly(Assembly, IEnumerable(Of Type), IEnumerable(Of Assembly), String)
 - uid: OpenAPI.Plugins.LoadedAssembly.#ctor*
   name: LoadedAssembly
   href: api/OpenAPI.Plugins.LoadedAssembly.html#OpenAPI_Plugins_LoadedAssembly__ctor_
@@ -3805,19 +3949,19 @@ references:
   isSpec: "True"
   fullName: OpenAPI.Plugins.LoadedAssembly.Path
   nameWithType: LoadedAssembly.Path
-- uid: OpenAPI.Plugins.LoadedAssembly.PluginInstances
-  name: PluginInstances
-  href: api/OpenAPI.Plugins.LoadedAssembly.html#OpenAPI_Plugins_LoadedAssembly_PluginInstances
-  commentId: P:OpenAPI.Plugins.LoadedAssembly.PluginInstances
-  fullName: OpenAPI.Plugins.LoadedAssembly.PluginInstances
-  nameWithType: LoadedAssembly.PluginInstances
-- uid: OpenAPI.Plugins.LoadedAssembly.PluginInstances*
-  name: PluginInstances
-  href: api/OpenAPI.Plugins.LoadedAssembly.html#OpenAPI_Plugins_LoadedAssembly_PluginInstances_
-  commentId: Overload:OpenAPI.Plugins.LoadedAssembly.PluginInstances
+- uid: OpenAPI.Plugins.LoadedAssembly.PluginTypes
+  name: PluginTypes
+  href: api/OpenAPI.Plugins.LoadedAssembly.html#OpenAPI_Plugins_LoadedAssembly_PluginTypes
+  commentId: P:OpenAPI.Plugins.LoadedAssembly.PluginTypes
+  fullName: OpenAPI.Plugins.LoadedAssembly.PluginTypes
+  nameWithType: LoadedAssembly.PluginTypes
+- uid: OpenAPI.Plugins.LoadedAssembly.PluginTypes*
+  name: PluginTypes
+  href: api/OpenAPI.Plugins.LoadedAssembly.html#OpenAPI_Plugins_LoadedAssembly_PluginTypes_
+  commentId: Overload:OpenAPI.Plugins.LoadedAssembly.PluginTypes
   isSpec: "True"
-  fullName: OpenAPI.Plugins.LoadedAssembly.PluginInstances
-  nameWithType: LoadedAssembly.PluginInstances
+  fullName: OpenAPI.Plugins.LoadedAssembly.PluginTypes
+  nameWithType: LoadedAssembly.PluginTypes
 - uid: OpenAPI.Plugins.LoadedPlugin
   name: LoadedPlugin
   href: api/OpenAPI.Plugins.LoadedPlugin.html
@@ -4017,19 +4161,6 @@ references:
   commentId: T:OpenAPI.Plugins.OpenPluginManager
   fullName: OpenAPI.Plugins.OpenPluginManager
   nameWithType: OpenPluginManager
-- uid: OpenAPI.Plugins.OpenPluginManager.#ctor(OpenAPI.OpenApi)
-  name: OpenPluginManager(OpenApi)
-  href: api/OpenAPI.Plugins.OpenPluginManager.html#OpenAPI_Plugins_OpenPluginManager__ctor_OpenAPI_OpenApi_
-  commentId: M:OpenAPI.Plugins.OpenPluginManager.#ctor(OpenAPI.OpenApi)
-  fullName: OpenAPI.Plugins.OpenPluginManager.OpenPluginManager(OpenAPI.OpenApi)
-  nameWithType: OpenPluginManager.OpenPluginManager(OpenApi)
-- uid: OpenAPI.Plugins.OpenPluginManager.#ctor*
-  name: OpenPluginManager
-  href: api/OpenAPI.Plugins.OpenPluginManager.html#OpenAPI_Plugins_OpenPluginManager__ctor_
-  commentId: Overload:OpenAPI.Plugins.OpenPluginManager.#ctor
-  isSpec: "True"
-  fullName: OpenAPI.Plugins.OpenPluginManager.OpenPluginManager
-  nameWithType: OpenPluginManager.OpenPluginManager
 - uid: OpenAPI.Plugins.OpenPluginManager.DiscoverPlugins(System.String[])
   name: DiscoverPlugins(String[])
   href: api/OpenAPI.Plugins.OpenPluginManager.html#OpenAPI_Plugins_OpenPluginManager_DiscoverPlugins_System_String___
@@ -4059,47 +4190,19 @@ references:
   isSpec: "True"
   fullName: OpenAPI.Plugins.OpenPluginManager.GetLoadedPlugins
   nameWithType: OpenPluginManager.GetLoadedPlugins
-- uid: OpenAPI.Plugins.OpenPluginManager.SetReference*
-  name: SetReference
-  href: api/OpenAPI.Plugins.OpenPluginManager.html#OpenAPI_Plugins_OpenPluginManager_SetReference_
-  commentId: Overload:OpenAPI.Plugins.OpenPluginManager.SetReference
+- uid: OpenAPI.Plugins.OpenPluginManager.Services
+  name: Services
+  href: api/OpenAPI.Plugins.OpenPluginManager.html#OpenAPI_Plugins_OpenPluginManager_Services
+  commentId: P:OpenAPI.Plugins.OpenPluginManager.Services
+  fullName: OpenAPI.Plugins.OpenPluginManager.Services
+  nameWithType: OpenPluginManager.Services
+- uid: OpenAPI.Plugins.OpenPluginManager.Services*
+  name: Services
+  href: api/OpenAPI.Plugins.OpenPluginManager.html#OpenAPI_Plugins_OpenPluginManager_Services_
+  commentId: Overload:OpenAPI.Plugins.OpenPluginManager.Services
   isSpec: "True"
-  fullName: OpenAPI.Plugins.OpenPluginManager.SetReference
-  nameWithType: OpenPluginManager.SetReference
-- uid: OpenAPI.Plugins.OpenPluginManager.SetReference``1(``0)
-  name: SetReference<TType>(TType)
-  href: api/OpenAPI.Plugins.OpenPluginManager.html#OpenAPI_Plugins_OpenPluginManager_SetReference__1___0_
-  commentId: M:OpenAPI.Plugins.OpenPluginManager.SetReference``1(``0)
-  name.vb: SetReference(Of TType)(TType)
-  fullName: OpenAPI.Plugins.OpenPluginManager.SetReference<TType>(TType)
-  fullName.vb: OpenAPI.Plugins.OpenPluginManager.SetReference(Of TType)(TType)
-  nameWithType: OpenPluginManager.SetReference<TType>(TType)
-  nameWithType.vb: OpenPluginManager.SetReference(Of TType)(TType)
-- uid: OpenAPI.Plugins.OpenPluginManager.TryGetReference(Type,System.Object@)
-  name: TryGetReference(Type, out Object)
-  href: api/OpenAPI.Plugins.OpenPluginManager.html#OpenAPI_Plugins_OpenPluginManager_TryGetReference_Type_System_Object__
-  commentId: M:OpenAPI.Plugins.OpenPluginManager.TryGetReference(Type,System.Object@)
-  name.vb: TryGetReference(Type, ByRef Object)
-  fullName: OpenAPI.Plugins.OpenPluginManager.TryGetReference(Type, out System.Object)
-  fullName.vb: OpenAPI.Plugins.OpenPluginManager.TryGetReference(Type, ByRef System.Object)
-  nameWithType: OpenPluginManager.TryGetReference(Type, out Object)
-  nameWithType.vb: OpenPluginManager.TryGetReference(Type, ByRef Object)
-- uid: OpenAPI.Plugins.OpenPluginManager.TryGetReference*
-  name: TryGetReference
-  href: api/OpenAPI.Plugins.OpenPluginManager.html#OpenAPI_Plugins_OpenPluginManager_TryGetReference_
-  commentId: Overload:OpenAPI.Plugins.OpenPluginManager.TryGetReference
-  isSpec: "True"
-  fullName: OpenAPI.Plugins.OpenPluginManager.TryGetReference
-  nameWithType: OpenPluginManager.TryGetReference
-- uid: OpenAPI.Plugins.OpenPluginManager.TryGetReference``1(``0@)
-  name: TryGetReference<TType>(out TType)
-  href: api/OpenAPI.Plugins.OpenPluginManager.html#OpenAPI_Plugins_OpenPluginManager_TryGetReference__1___0__
-  commentId: M:OpenAPI.Plugins.OpenPluginManager.TryGetReference``1(``0@)
-  name.vb: TryGetReference(Of TType)(ByRef TType)
-  fullName: OpenAPI.Plugins.OpenPluginManager.TryGetReference<TType>(out TType)
-  fullName.vb: OpenAPI.Plugins.OpenPluginManager.TryGetReference(Of TType)(ByRef TType)
-  nameWithType: OpenPluginManager.TryGetReference<TType>(out TType)
-  nameWithType.vb: OpenPluginManager.TryGetReference(Of TType)(ByRef TType)
+  fullName: OpenAPI.Plugins.OpenPluginManager.Services
+  nameWithType: OpenPluginManager.Services
 - uid: OpenAPI.Plugins.OpenPluginManager.UnloadAll
   name: UnloadAll()
   href: api/OpenAPI.Plugins.OpenPluginManager.html#OpenAPI_Plugins_OpenPluginManager_UnloadAll

@@ -998,11 +998,35 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/OpenAPI.Plugins.DependencyContainer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenAPI.Plugins.DependencyContainer.html",
+          "hash": "gY6I9AQansUMTubqWRPhpg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpenAPI.Plugins.DependencyLifetime.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenAPI.Plugins.DependencyLifetime.html",
+          "hash": "TL9eAXY0P4QSRrRwMTE8JQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/OpenAPI.Plugins.LoadedAssembly.yml",
       "output": {
         ".html": {
           "relative_path": "api/OpenAPI.Plugins.LoadedAssembly.html",
-          "hash": "lgx0wGyPNBszkz7ET7srfA=="
+          "hash": "fNkKkGAWMeDc+MYnZu35uA=="
         }
       },
       "is_incremental": false,
@@ -1050,7 +1074,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenAPI.Plugins.OpenPluginManager.html",
-          "hash": "ayVdmql2ta0Fnon597uYsg=="
+          "hash": "g8y2abnsNc0eSNLIpVGw1w=="
         }
       },
       "is_incremental": false,
@@ -1074,7 +1098,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenAPI.Plugins.html",
-          "hash": "9UbJoV/pU4Ut+3hXFaWwPg=="
+          "hash": "w/O/hbNxyo2x2LaTVcuA+Q=="
         }
       },
       "is_incremental": false,
@@ -1350,7 +1374,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "Yki0uaE5JmAfLzKPsrpGfQ=="
+          "hash": "gfk2jCeGvXnogL9NcV6xkw=="
         }
       },
       "is_incremental": false,
@@ -1416,16 +1440,16 @@
         "full_build_reason_code": "NoAvailableBuildCache"
       },
       "processors": {
-        "ManagedReferenceDocumentProcessor": {
-          "can_incremental": false,
-          "incrementalPhase": "build",
-          "total_file_count": 110,
-          "skipped_file_count": 0
-        },
         "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
           "total_file_count": 3,
+          "skipped_file_count": 0
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 112,
           "skipped_file_count": 0
         },
         "TocDocumentProcessor": {
