@@ -378,7 +378,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenAPI.Events.Event.html",
-          "hash": "9rCUs3w7GXq2bIkWCfSj0g=="
+          "hash": "S0DxSbRv1SYpCIoa8nL5zw=="
         }
       },
       "is_incremental": false,
@@ -806,6 +806,54 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/OpenAPI.Events.Plugins.PluginEnabledEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenAPI.Events.Plugins.PluginEnabledEvent.html",
+          "hash": "/J7Q9g1zEVOq1+xnLZ03Ug=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpenAPI.Events.Plugins.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenAPI.Events.Plugins.html",
+          "hash": "MljZzvdIZZ21DMAZ2S3ZeA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpenAPI.Events.Server.ServerReadyEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenAPI.Events.Server.ServerReadyEvent.html",
+          "hash": "PoL7WIF/cXESAN7WQu5t8A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpenAPI.Events.Server.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenAPI.Events.Server.html",
+          "hash": "lQ47Mkdn54eUWwHb2J7t6g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/OpenAPI.Events.yml",
       "output": {
         ".html": {
@@ -882,7 +930,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenAPI.OpenServer.html",
-          "hash": "x43+CmJADcY2QAkSqH87dA=="
+          "hash": "XtO1FJfIRxTZ/8LWIetx6A=="
         }
       },
       "is_incremental": false,
@@ -1074,7 +1122,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenAPI.Plugins.OpenPluginManager.html",
-          "hash": "su+WzneB5f+FqLAkk2PoXQ=="
+          "hash": "ucfadrOMb/uCvNLIY2vbUA=="
         }
       },
       "is_incremental": false,
@@ -1374,7 +1422,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "gfk2jCeGvXnogL9NcV6xkw=="
+          "hash": "gF+gTK9buW9xleAGs62NZQ=="
         }
       },
       "is_incremental": false,
@@ -1440,10 +1488,11 @@
         "full_build_reason_code": "NoAvailableBuildCache"
       },
       "processors": {
-        "ManagedReferenceDocumentProcessor": {
+        "TocDocumentProcessor": {
           "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build",
-          "total_file_count": 112,
+          "total_file_count": 0,
           "skipped_file_count": 0
         },
         "ConceptualDocumentProcessor": {
@@ -1452,11 +1501,10 @@
           "total_file_count": 3,
           "skipped_file_count": 0
         },
-        "TocDocumentProcessor": {
+        "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
           "incrementalPhase": "build",
-          "total_file_count": 0,
+          "total_file_count": 116,
           "skipped_file_count": 0
         }
       }

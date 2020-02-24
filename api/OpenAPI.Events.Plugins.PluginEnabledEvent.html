@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class Event
+    <title>Class PluginEnabledEvent
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class Event
+    <meta name="title" content="Class PluginEnabledEvent
    ">
     <meta name="generator" content="docfx 2.45.1.0">
     
@@ -78,130 +78,57 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="OpenAPI.Events.Event">
+            <article class="content wrap" id="_content" data-uid="OpenAPI.Events.Plugins.PluginEnabledEvent">
   
   
-  <h1 id="OpenAPI_Events_Event" data-uid="OpenAPI.Events.Event" class="text-break">Class Event
+  <h1 id="OpenAPI_Events_Plugins_PluginEnabledEvent" data-uid="OpenAPI.Events.Plugins.PluginEnabledEvent" class="text-break">Class PluginEnabledEvent
   </h1>
-  <div class="markdown level0 summary"><p>The base class all OpenApi Events implement</p>
-</div>
+  <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">Event</span></div>
-      <div class="level2"><a class="xref" href="OpenAPI.Events.Block.BlockEvent.html">BlockEvent</a></div>
-      <div class="level2"><a class="xref" href="OpenAPI.Events.Entity.EntityEvent.html">EntityEvent</a></div>
-      <div class="level2"><a class="xref" href="OpenAPI.Events.Level.LevelEvent.html">LevelEvent</a></div>
-      <div class="level2"><a class="xref" href="OpenAPI.Events.Player.PlayerEvent.html">PlayerEvent</a></div>
-      <div class="level2"><a class="xref" href="OpenAPI.Events.Plugins.PluginEnabledEvent.html">PluginEnabledEvent</a></div>
-      <div class="level2"><a class="xref" href="OpenAPI.Events.Server.ServerReadyEvent.html">ServerReadyEvent</a></div>
+    <div class="level1"><a class="xref" href="OpenAPI.Events.Event.html">Event</a></div>
+    <div class="level2"><span class="xref">PluginEnabledEvent</span></div>
   </div>
   <div classs="implements">
     <h5>Implements</h5>
     <div><a class="xref" href="OpenAPI.Events.ICancellable.html">ICancellable</a></div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="OpenAPI.Events.html">OpenAPI.Events</a></h6>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="OpenAPI.Events.Event.html#OpenAPI_Events_Event_IsCancelled">Event.IsCancelled</a>
+    </div>
+    <div>
+      <a class="xref" href="OpenAPI.Events.Event.html#OpenAPI_Events_Event_SetCancelled_System_Boolean_">Event.SetCancelled(Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="OpenAPI.Events.Event.html#OpenAPI_Events_Event_Executed">Event.Executed</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="OpenAPI.Events.Plugins.html">OpenAPI.Events.Plugins</a></h6>
   <h6><strong>Assembly</strong>: OpenAPI.dll</h6>
-  <h5 id="OpenAPI_Events_Event_syntax">Syntax</h5>
+  <h5 id="OpenAPI_Events_Plugins_PluginEnabledEvent_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract class Event : object, ICancellable</code></pre>
+    <pre><code class="lang-csharp hljs">public class PluginEnabledEvent : Event, ICancellable</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/OpenMiNET/OpenAPI/new/master/apiSpec/new?filename=OpenAPI_Events_Event__ctor.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Event.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/master/apiSpec/new?filename=OpenAPI_Events_Plugins_PluginEnabledEvent__ctor_Assembly_OpenAPI_Plugins_OpenPlugin_.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Plugins.PluginEnabledEvent.%23ctor(Assembly%2COpenAPI.Plugins.OpenPlugin)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenAPI/blob/master/src/OpenAPI/Events/Event.cs/#L13">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/master/src/OpenAPI/Events/Plugins/PluginEnabledEvent.cs/#L26">View Source</a>
   </span>
-  <a id="OpenAPI_Events_Event__ctor_" data-uid="OpenAPI.Events.Event.#ctor*"></a>
-  <h4 id="OpenAPI_Events_Event__ctor" data-uid="OpenAPI.Events.Event.#ctor">Event()</h4>
+  <a id="OpenAPI_Events_Plugins_PluginEnabledEvent__ctor_" data-uid="OpenAPI.Events.Plugins.PluginEnabledEvent.#ctor*"></a>
+  <h4 id="OpenAPI_Events_Plugins_PluginEnabledEvent__ctor_Assembly_OpenAPI_Plugins_OpenPlugin_" data-uid="OpenAPI.Events.Plugins.PluginEnabledEvent.#ctor(Assembly,OpenAPI.Plugins.OpenPlugin)">PluginEnabledEvent(Assembly, OpenPlugin)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Event()</code></pre>
-  </div>
-  <h3 id="properties">Properties
-  </h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/OpenMiNET/OpenAPI/new/master/apiSpec/new?filename=OpenAPI_Events_Event_Executed.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Event.Executed%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenAPI/blob/master/src/OpenAPI/Events/Event.cs/#L23">View Source</a>
-  </span>
-  <a id="OpenAPI_Events_Event_Executed_" data-uid="OpenAPI.Events.Event.Executed*"></a>
-  <h4 id="OpenAPI_Events_Event_Executed" data-uid="OpenAPI.Events.Event.Executed">Executed</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task Executed { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Task</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/OpenMiNET/OpenAPI/new/master/apiSpec/new?filename=OpenAPI_Events_Event_IsCancelled.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Event.IsCancelled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenAPI/blob/master/src/OpenAPI/Events/Event.cs/#L11">View Source</a>
-  </span>
-  <a id="OpenAPI_Events_Event_IsCancelled_" data-uid="OpenAPI.Events.Event.IsCancelled*"></a>
-  <h4 id="OpenAPI_Events_Event_IsCancelled" data-uid="OpenAPI.Events.Event.IsCancelled">IsCancelled</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool IsCancelled { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="methods">Methods
-  </h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/OpenMiNET/OpenAPI/new/master/apiSpec/new?filename=OpenAPI_Events_Event_SetCancelled_System_Boolean_.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Event.SetCancelled(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenAPI/blob/master/src/OpenAPI/Events/Event.cs/#L18">View Source</a>
-  </span>
-  <a id="OpenAPI_Events_Event_SetCancelled_" data-uid="OpenAPI.Events.Event.SetCancelled*"></a>
-  <h4 id="OpenAPI_Events_Event_SetCancelled_System_Boolean_" data-uid="OpenAPI.Events.Event.SetCancelled(System.Boolean)">SetCancelled(Boolean)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void SetCancelled(bool isCanceled)</code></pre>
+    <pre><code class="lang-csharp hljs">public PluginEnabledEvent(Assembly pluginAssembly, OpenPlugin pluginInstance)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -214,8 +141,77 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td><span class="parametername">isCanceled</span></td>
+        <td><span class="xref">Assembly</span></td>
+        <td><span class="parametername">pluginAssembly</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="OpenAPI.Plugins.OpenPlugin.html">OpenPlugin</a></td>
+        <td><span class="parametername">pluginInstance</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/master/apiSpec/new?filename=OpenAPI_Events_Plugins_PluginEnabledEvent_PluginAssembly.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Plugins.PluginEnabledEvent.PluginAssembly%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/master/src/OpenAPI/Events/Plugins/PluginEnabledEvent.cs/#L14">View Source</a>
+  </span>
+  <a id="OpenAPI_Events_Plugins_PluginEnabledEvent_PluginAssembly_" data-uid="OpenAPI.Events.Plugins.PluginEnabledEvent.PluginAssembly*"></a>
+  <h4 id="OpenAPI_Events_Plugins_PluginEnabledEvent_PluginAssembly" data-uid="OpenAPI.Events.Plugins.PluginEnabledEvent.PluginAssembly">PluginAssembly</h4>
+  <div class="markdown level1 summary"><p>The assembly the plugin was loaded from</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Assembly PluginAssembly { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Assembly</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/master/apiSpec/new?filename=OpenAPI_Events_Plugins_PluginEnabledEvent_PluginInstance.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Plugins.PluginEnabledEvent.PluginInstance%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/master/src/OpenAPI/Events/Plugins/PluginEnabledEvent.cs/#L19">View Source</a>
+  </span>
+  <a id="OpenAPI_Events_Plugins_PluginEnabledEvent_PluginInstance_" data-uid="OpenAPI.Events.Plugins.PluginEnabledEvent.PluginInstance*"></a>
+  <h4 id="OpenAPI_Events_Plugins_PluginEnabledEvent_PluginInstance" data-uid="OpenAPI.Events.Plugins.PluginEnabledEvent.PluginInstance">PluginInstance</h4>
+  <div class="markdown level1 summary"><p>The plugin instance that was enabled</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public OpenPlugin PluginInstance { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="OpenAPI.Plugins.OpenPlugin.html">OpenPlugin</a></td>
         <td></td>
       </tr>
     </tbody>
@@ -232,10 +228,10 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/OpenMiNET/OpenAPI/new/master/apiSpec/new?filename=OpenAPI_Events_Event.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Event%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/OpenMiNET/OpenAPI/new/master/apiSpec/new?filename=OpenAPI_Events_Plugins_PluginEnabledEvent.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Plugins.PluginEnabledEvent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/OpenMiNET/OpenAPI/blob/master/src/OpenAPI/Events/Event.cs/#L9" class="contribution-link">View Source</a>
+                    <a href="https://github.com/OpenMiNET/OpenAPI/blob/master/src/OpenAPI/Events/Plugins/PluginEnabledEvent.cs/#L9" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

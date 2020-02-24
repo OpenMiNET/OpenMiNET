@@ -2397,6 +2397,82 @@ references:
   isSpec: "True"
   fullName: OpenAPI.Events.Player.PlayerSpawnedEvent.PlayerSpawnedEvent
   nameWithType: PlayerSpawnedEvent.PlayerSpawnedEvent
+- uid: OpenAPI.Events.Plugins
+  name: OpenAPI.Events.Plugins
+  href: api/OpenAPI.Events.Plugins.html
+  commentId: N:OpenAPI.Events.Plugins
+  fullName: OpenAPI.Events.Plugins
+  nameWithType: OpenAPI.Events.Plugins
+- uid: OpenAPI.Events.Plugins.PluginEnabledEvent
+  name: PluginEnabledEvent
+  href: api/OpenAPI.Events.Plugins.PluginEnabledEvent.html
+  commentId: T:OpenAPI.Events.Plugins.PluginEnabledEvent
+  fullName: OpenAPI.Events.Plugins.PluginEnabledEvent
+  nameWithType: PluginEnabledEvent
+- uid: OpenAPI.Events.Plugins.PluginEnabledEvent.#ctor(Assembly,OpenAPI.Plugins.OpenPlugin)
+  name: PluginEnabledEvent(Assembly, OpenPlugin)
+  href: api/OpenAPI.Events.Plugins.PluginEnabledEvent.html#OpenAPI_Events_Plugins_PluginEnabledEvent__ctor_Assembly_OpenAPI_Plugins_OpenPlugin_
+  commentId: M:OpenAPI.Events.Plugins.PluginEnabledEvent.#ctor(Assembly,OpenAPI.Plugins.OpenPlugin)
+  fullName: OpenAPI.Events.Plugins.PluginEnabledEvent.PluginEnabledEvent(Assembly, OpenAPI.Plugins.OpenPlugin)
+  nameWithType: PluginEnabledEvent.PluginEnabledEvent(Assembly, OpenPlugin)
+- uid: OpenAPI.Events.Plugins.PluginEnabledEvent.#ctor*
+  name: PluginEnabledEvent
+  href: api/OpenAPI.Events.Plugins.PluginEnabledEvent.html#OpenAPI_Events_Plugins_PluginEnabledEvent__ctor_
+  commentId: Overload:OpenAPI.Events.Plugins.PluginEnabledEvent.#ctor
+  isSpec: "True"
+  fullName: OpenAPI.Events.Plugins.PluginEnabledEvent.PluginEnabledEvent
+  nameWithType: PluginEnabledEvent.PluginEnabledEvent
+- uid: OpenAPI.Events.Plugins.PluginEnabledEvent.PluginAssembly
+  name: PluginAssembly
+  href: api/OpenAPI.Events.Plugins.PluginEnabledEvent.html#OpenAPI_Events_Plugins_PluginEnabledEvent_PluginAssembly
+  commentId: P:OpenAPI.Events.Plugins.PluginEnabledEvent.PluginAssembly
+  fullName: OpenAPI.Events.Plugins.PluginEnabledEvent.PluginAssembly
+  nameWithType: PluginEnabledEvent.PluginAssembly
+- uid: OpenAPI.Events.Plugins.PluginEnabledEvent.PluginAssembly*
+  name: PluginAssembly
+  href: api/OpenAPI.Events.Plugins.PluginEnabledEvent.html#OpenAPI_Events_Plugins_PluginEnabledEvent_PluginAssembly_
+  commentId: Overload:OpenAPI.Events.Plugins.PluginEnabledEvent.PluginAssembly
+  isSpec: "True"
+  fullName: OpenAPI.Events.Plugins.PluginEnabledEvent.PluginAssembly
+  nameWithType: PluginEnabledEvent.PluginAssembly
+- uid: OpenAPI.Events.Plugins.PluginEnabledEvent.PluginInstance
+  name: PluginInstance
+  href: api/OpenAPI.Events.Plugins.PluginEnabledEvent.html#OpenAPI_Events_Plugins_PluginEnabledEvent_PluginInstance
+  commentId: P:OpenAPI.Events.Plugins.PluginEnabledEvent.PluginInstance
+  fullName: OpenAPI.Events.Plugins.PluginEnabledEvent.PluginInstance
+  nameWithType: PluginEnabledEvent.PluginInstance
+- uid: OpenAPI.Events.Plugins.PluginEnabledEvent.PluginInstance*
+  name: PluginInstance
+  href: api/OpenAPI.Events.Plugins.PluginEnabledEvent.html#OpenAPI_Events_Plugins_PluginEnabledEvent_PluginInstance_
+  commentId: Overload:OpenAPI.Events.Plugins.PluginEnabledEvent.PluginInstance
+  isSpec: "True"
+  fullName: OpenAPI.Events.Plugins.PluginEnabledEvent.PluginInstance
+  nameWithType: PluginEnabledEvent.PluginInstance
+- uid: OpenAPI.Events.Server
+  name: OpenAPI.Events.Server
+  href: api/OpenAPI.Events.Server.html
+  commentId: N:OpenAPI.Events.Server
+  fullName: OpenAPI.Events.Server
+  nameWithType: OpenAPI.Events.Server
+- uid: OpenAPI.Events.Server.ServerReadyEvent
+  name: ServerReadyEvent
+  href: api/OpenAPI.Events.Server.ServerReadyEvent.html
+  commentId: T:OpenAPI.Events.Server.ServerReadyEvent
+  fullName: OpenAPI.Events.Server.ServerReadyEvent
+  nameWithType: ServerReadyEvent
+- uid: OpenAPI.Events.Server.ServerReadyEvent.#ctor
+  name: ServerReadyEvent()
+  href: api/OpenAPI.Events.Server.ServerReadyEvent.html#OpenAPI_Events_Server_ServerReadyEvent__ctor
+  commentId: M:OpenAPI.Events.Server.ServerReadyEvent.#ctor
+  fullName: OpenAPI.Events.Server.ServerReadyEvent.ServerReadyEvent()
+  nameWithType: ServerReadyEvent.ServerReadyEvent()
+- uid: OpenAPI.Events.Server.ServerReadyEvent.#ctor*
+  name: ServerReadyEvent
+  href: api/OpenAPI.Events.Server.ServerReadyEvent.html#OpenAPI_Events_Server_ServerReadyEvent__ctor_
+  commentId: Overload:OpenAPI.Events.Server.ServerReadyEvent.#ctor
+  isSpec: "True"
+  fullName: OpenAPI.Events.Server.ServerReadyEvent.ServerReadyEvent
+  nameWithType: ServerReadyEvent.ServerReadyEvent
 - uid: OpenAPI.Items
   name: OpenAPI.Items
   href: api/OpenAPI.Items.html
