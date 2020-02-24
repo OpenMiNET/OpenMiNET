@@ -109,6 +109,19 @@ references:
   isSpec: "True"
   fullName: OpenAPI.Commands.CommandManager.FillTargets
   nameWithType: CommandManager.FillTargets
+- uid: OpenAPI.Commands.CommandManager.HasExternalPermissionChecker
+  name: HasExternalPermissionChecker
+  href: api/OpenAPI.Commands.CommandManager.html#OpenAPI_Commands_CommandManager_HasExternalPermissionChecker
+  commentId: P:OpenAPI.Commands.CommandManager.HasExternalPermissionChecker
+  fullName: OpenAPI.Commands.CommandManager.HasExternalPermissionChecker
+  nameWithType: CommandManager.HasExternalPermissionChecker
+- uid: OpenAPI.Commands.CommandManager.HasExternalPermissionChecker*
+  name: HasExternalPermissionChecker
+  href: api/OpenAPI.Commands.CommandManager.html#OpenAPI_Commands_CommandManager_HasExternalPermissionChecker_
+  commentId: Overload:OpenAPI.Commands.CommandManager.HasExternalPermissionChecker
+  isSpec: "True"
+  fullName: OpenAPI.Commands.CommandManager.HasExternalPermissionChecker
+  nameWithType: CommandManager.HasExternalPermissionChecker
 - uid: OpenAPI.Commands.CommandManager.HasProperty(System.Object,System.String)
   name: HasProperty(Object, String)
   href: api/OpenAPI.Commands.CommandManager.html#OpenAPI_Commands_CommandManager_HasProperty_System_Object_System_String_
