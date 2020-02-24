@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using log4net;
+using MiNET.Utils;
 using Mono.Cecil;
 
 namespace OpenAPI.Plugins
@@ -82,6 +83,13 @@ namespace OpenAPI.Plugins
 		        {
 			        try
 			        {
+				        string filename = Path.GetFileNameWithoutExtension(file);
+				        if (!Config.GetProperty($"plugin.{filename}.enabled", true))
+				        {
+					        Log.Info($"Not loading \"{Path.GetRelativePath(rawPath, file)}\" as it was disabled by config.");
+					        continue;
+				        }
+				        
 				        path = Path.GetDirectoryName(file);
 
 				        Assembly[] result;
@@ -392,6 +400,12 @@ namespace OpenAPI.Plugins
 		    Type[] types = assembly.GetExportedTypes();
 		    foreach (Type type in types.Where(x => _openPluginType.IsAssignableFrom(x) && !x.IsAbstract && x.IsClass))
 		    {
+			    if (!Config.GetProperty($"plugin.{type.Name}.enabled", true))
+			    {
+				    Log.Info($"Not creating plugin instance off type \"{type.FullName}\" as it was disabled by config.");
+				    continue;
+			    }
+			    
 			    if (FindEmptyConstructor(type, out var constructorInfo))
 			    {
 				    assemblyDatas.Add(new PluginConstructorData(type, constructorInfo));
