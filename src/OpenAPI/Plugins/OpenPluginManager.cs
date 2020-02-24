@@ -15,26 +15,40 @@ namespace OpenAPI.Plugins
         private static readonly ILog Log = LogManager.GetLogger(typeof(OpenPluginManager));
         
         private Dictionary<Assembly, LoadedAssembly> LoadedAssemblies { get; }
-		private ConcurrentDictionary<Type, object> References { get; }
+		
 		
 		private OpenApi Parent { get; }
 		private Assembly HostAssembly { get; }
 		private AssemblyManager AssemblyManager { get; }
 		private AssemblyResolver AssemblyResolver { get; }
+		
+		/// <summary>
+		/// 	The dependency injection service container used when loading plugins.
+		/// </summary>
+		public DependencyContainer Services { get; }
         public OpenPluginManager(OpenApi parent)
         {
             Parent = parent;
 			HostAssembly = Assembly.GetAssembly(typeof(OpenPluginManager));
 			
             LoadedAssemblies = new Dictionary<Assembly, LoadedAssembly>();
-			References = new ConcurrentDictionary<Type, object>();
+			//References = new ConcurrentDictionary<Type, object>();
 			
 			AssemblyManager = new AssemblyManager();
 			AssemblyResolver = new AssemblyResolver(AssemblyManager);
+			
+			Services = new DependencyContainer();
         }
 
+        /// <summary>
+        /// 	Scans the specified paths for plugins & loads them into the AppDomain
+        /// </summary>
+        /// <param name="paths"></param>
+        /// <exception cref="DirectoryNotFoundException"></exception>
         public void DiscoverPlugins(params string[] paths)
         {
+	        int pluginInstances = 0;
+	        
 	        paths = paths.Where(x =>
 	        {
 		        if (Directory.Exists(x))
@@ -96,7 +110,7 @@ namespace OpenAPI.Plugins
 
 	        Log.Info($"Loaded {loadedAssemblies.Count} assemblies from {processed} processed files.");
 
-	        List<OpenPlugin> plugins = new List<OpenPlugin>();
+	        //List<OpenPlugin> plugins = new List<OpenPlugin>();
 	        LinkedList<PluginConstructorData> constructorDatas = new LinkedList<PluginConstructorData>();
 	        foreach (var assembly in loadedAssemblies)
 	        {
@@ -133,8 +147,9 @@ namespace OpenAPI.Plugins
 		        {
 			        if (CreateInstance(constructor, out OpenPlugin instance, assemblies))
 			        {
-				        plugins.Add(instance);
-
+				        Services.RegisterSingleton(instance.GetType(), instance);
+				        pluginInstances++;
+				        
 				        assemblyInstances.Add(instance);
 			        }
 		        }
@@ -193,13 +208,14 @@ namespace OpenAPI.Plugins
 	        {
 		        // List<OpenPlugin> assemblyInstances = new List<OpenPlugin>();
 
-		        OpenPlugin instance = plugins.FirstOrDefault(x => x.GetType() == item.Type);
-		        if (instance != null)
+		        if (Services.TryResolve(item.Type, out _))
 			        continue;
-
-		        if (CreateInstance(item, out instance, assemblies))
+		        
+		        if (CreateInstance(item, out var instance, assemblies))
 		        {
-			        plugins.Add(instance);
+			        Services.RegisterSingleton(item.Type, instance);//.Add(instance);
+			        pluginInstances++;
+			        
 			        
 			        if (!assemblies.ContainsKey(item.Type.Assembly))
 				        assemblies.Add(item.Type.Assembly, new List<OpenPlugin>()
@@ -214,12 +230,12 @@ namespace OpenAPI.Plugins
 	        }
 
 
-	        Log.Info($"Registered {plugins.Count} plugin instances");
+	        Log.Info($"Registered {pluginInstances} plugin instances");
 
 	        foreach (var grouped in assemblies)
 	        {
 		        LoadedAssemblies.Add(grouped.Key,
-		            new LoadedAssembly(grouped.Key, grouped.Value, new Assembly[0], grouped.Key.Location));
+		            new LoadedAssembly(grouped.Key, grouped.Value.Select(x => x.GetType()), new Assembly[0], grouped.Key.Location));
 	        }
         }
 
@@ -228,8 +244,14 @@ namespace OpenAPI.Plugins
 		    List<object> parameters = new List<object>();
 		    foreach (var param in constructorData.Dependencies)
 		    {
+			    if (Services.TryResolve(param.Type, out object parameter))
+			    {
+				    parameters.Add(parameter);
+				    continue;
+			    }
+			    
 			//    Log.Info($"Need: {param.Type} | Plugin Instance? {param.IsPluginInstance}");
-			    if (param.IsPluginInstance)
+			 /*   if (param.IsPluginInstance)
 			    {
 				    if (!assemblies.TryGetValue(param.Type.Assembly, out var loadedAssembly))
 					    throw new Exception();
@@ -237,12 +259,10 @@ namespace OpenAPI.Plugins
 				    var instance = loadedAssembly.FirstOrDefault(x => x.GetType() == param.Type);
 				    parameters.Add(instance);
 				    continue;
-			    }
-			    
-			    if (param.Value == null)
-				    throw new Exception("Null value.");
-				
-			    parameters.Add(param.Value);
+			    }*/
+
+			    pluginInstance = null;
+			    return false;
 		    }
 
 		    pluginInstance = (OpenPlugin) constructorData.Constructor.Invoke(parameters.ToArray());
@@ -252,18 +272,25 @@ namespace OpenAPI.Plugins
 	    internal void EnablePlugins()
 	    {
 		    int enabled = 0;
-		    foreach (var plugin in LoadedAssemblies.Values.SelectMany(x => x.PluginInstances))
+		    foreach (var type in LoadedAssemblies.Values.SelectMany(x => x.PluginTypes))
 		    {
 			    try
 			    {
-				    plugin.Enabled(Parent);
-				    enabled++;
-
-				    string authors = (plugin.Info.Authors == null || plugin.Info.Authors.Length == 0)
-					    ? plugin.Info.Author
-					    : string.Join(", ", plugin.Info.Authors);
+				    if (Services.TryResolve(type, out object pluginInstance))
+				    {
+					    var plugin = pluginInstance as OpenPlugin;
+					    if (plugin == null)
+						    continue;
 				    
-				    Log.Info($"Enabled '{plugin.Info.Name}' version {plugin.Info.Version} by {authors}");
+					    plugin.Enabled(Parent);
+					    enabled++;
+				    
+					    string authors = (plugin.Info.Authors == null || plugin.Info.Authors.Length == 0)
+						    ? plugin.Info.Author
+						    : string.Join(", ", plugin.Info.Authors);
+				    
+					    Log.Info($"Enabled '{plugin.Info.Name}' version {plugin.Info.Version} by {authors}");
+				    }
 			    }
 			    catch (Exception ex)
 			    {
@@ -357,40 +384,6 @@ namespace OpenAPI.Plugins
 		    return false;
 	    }
 
-	    private class PluginConstructorData
-	    {
-		    public Type Type { get; set; }
-		    public ConstructorInfo Constructor { get; set; }
-		    public ConstructorParameter[] Dependencies { get; set; } = new ConstructorParameter[0];
-		    public bool ReferencesOtherPlugin => Dependencies.Any(x => x.IsPluginInstance && x.Value == null);
-
-		    public PluginConstructorData(Type pluginType, ConstructorInfo constructor)
-		    {
-			    Type = pluginType;
-			    Constructor = constructor;
-			    
-		    }
-
-		    public bool Requires(PluginConstructorData other)
-		    {
-			    return Dependencies.Any(x => x.Type == other.Type);
-		    }
-		    
-		    public class ConstructorParameter
-		    {
-			    public Type Type { get; set; }
-			    public object Value { get; set; } = null;
-			    public bool IsPluginInstance { get; set; }
-			    
-			    public ConstructorParameter(Type type, object value, bool isPluginInstance)
-			    {
-				    Type = type;
-				    Value = value;
-				    IsPluginInstance = isPluginInstance;
-			    }
-		    }
-	    }
-
 	    private PluginConstructorData[] FindPluginConstructors(Assembly assembly)
 	    {
 		    List<PluginConstructorData> assemblyDatas = new List<PluginConstructorData>();
@@ -414,12 +407,12 @@ namespace OpenAPI.Plugins
 				    {
 					    if (argument.ParameterType == typeof(OpenApi))
 					    {
-						    parameters.Add(new PluginConstructorData.ConstructorParameter(typeof(OpenApi), Parent, false));
+						    parameters.Add(new PluginConstructorData.ConstructorParameter(typeof(OpenApi), false));
 						    continue;
 					    } 
 					    else if (_openPluginType.IsAssignableFrom(argument.ParameterType))
 					    {
-						    parameters.Add(new PluginConstructorData.ConstructorParameter(argument.ParameterType, null, true));
+						    parameters.Add(new PluginConstructorData.ConstructorParameter(argument.ParameterType, true));
 					    }
 				    }
 
@@ -438,121 +431,11 @@ namespace OpenAPI.Plugins
 	    }
 
 	    private readonly Type _openPluginType = typeof(OpenPlugin);
-	    private bool LoadAssembly(Assembly assembly, out OpenPlugin[] loaded, out Assembly[] referencedAssemblies)
-	    {
-		    try
-		    {
-				var refAssemblies = new List<Assembly>();
-			    var plugins = new List<OpenPlugin>();
 
-			    Type[] types = assembly.GetExportedTypes();
-			    foreach (Type type in types.Where(x => _openPluginType.IsAssignableFrom(x) && !x.IsAbstract && x.IsClass))
-			    {
-				    ConstructorInfo ctor = type.GetConstructor(Type.EmptyTypes);
-				    if (ctor != null)
-				    {
-					    OpenPlugin plugin;
-					    try
-					    {
-						    plugin = (OpenPlugin) ctor.Invoke(null);
-					    }
-					    catch(Exception ex)
-					    {
-						    plugin = null;
-						    Log.Error("An error has occurred", ex);
-					    }
-
-					    if (plugin != null)
-					    {
-							plugins.Add(plugin);
-						}
-				    }
-				    else
-				    {
-					    foreach (ConstructorInfo constructor in type.GetConstructors())
-					    {
-							List<Assembly> assembliesReferenced = new List<Assembly>();
-							List<object> parameters = new List<object>();
-						    foreach (ParameterInfo argument in constructor.GetParameters())
-						    {
-							    if (argument.ParameterType == typeof(OpenApi))
-							    {
-								    parameters.Add(Parent);
-									continue;
-							    }
-
-							    if (References.TryGetValue(argument.ParameterType, out object arg))
-							    {
-									parameters.Add(arg);
-
-								    Assembly argsAssembly = arg.GetType().Assembly;
-								    if (!assembliesReferenced.Contains(argsAssembly))
-								    {
-									    assembliesReferenced.Add(argsAssembly);
-								    }
-								    continue;
-							    }
-
-							    foreach (LoadedAssembly loadedAssembly in LoadedAssemblies.Values)
-							    {
-								    foreach (OpenPlugin loadedPlugin in loadedAssembly.PluginInstances)
-								    {
-									    if (argument.ParameterType == loadedPlugin.GetType())
-									    {
-										    parameters.Add(loadedPlugin);
-
-										    if (loadedAssembly.Assembly != assembly) //If the instance of the type is not from the assembly being loaded, add the type's assembly to a list of dependencies
-										    {
-											    if (!assembliesReferenced.Contains(loadedAssembly.Assembly))
-											    {
-												    assembliesReferenced.Add(loadedAssembly.Assembly);
-											    }
-										    }
-									    }
-								    }
-							    }
-						    }
-
-						    if (parameters.Count == constructor.GetParameters().Length)
-						    {
-							    var plugin = (OpenPlugin) constructor.Invoke(parameters.ToArray());
-							    foreach (Assembly reference in assembliesReferenced)
-							    {
-								    if (!refAssemblies.Contains(reference))
-								    {
-									    refAssemblies.Add(reference);
-								    }
-							    }
-
-								plugins.Add(plugin);
-								//Log.Info($"Plugin instance created: {plugin.GetType().FullName}");
-							    break;
-							}
-						    else
-						    {
-								Log.Warn($"Could not call constructor for {constructor.ToString()}");
-						    }
-					    }
-				    }
-			    }
-
-			    if (plugins.Count > 0)
-			    {
-				    referencedAssemblies = refAssemblies.ToArray();
-				    loaded = plugins.ToArray();
-				    return true;
-			    }
-		    }
-		    catch(Exception ex)
-		    {
-			    Log.Error($"Could not load assembly ({assembly.FullName})", ex);
-		    }
-
-			loaded = new OpenPlugin[0];
-			referencedAssemblies = new Assembly[0];
-		    return false;
-	    }
-
+	    /// <summary>
+	    /// 	Unloads all plugins registered by specified assembly
+	    /// </summary>
+	    /// <param name="pluginAssembly"></param>
 	    public void UnloadPluginAssembly(Assembly pluginAssembly)
         {
            // lock (_pluginLock)
@@ -575,16 +458,19 @@ namespace OpenAPI.Plugins
 				//Remove all this assembly's type instances from list of references
 	            foreach (Type type in pluginAssembly.GetTypes())
 	            {
-		            if (References.ContainsKey(type))
+		            if (Services.TryResolve(type, out _))
 		            {
-			            References.TryRemove(type, out var _);
+			            Services.Remove(type);
 		            }
 	            }
 
 				//Unload all plugin instances
-				foreach (OpenPlugin plugin in assemblyPlugins.PluginInstances)
+				foreach (var type in assemblyPlugins.PluginTypes)
                 {
-                    UnloadPlugin(plugin);
+	                if (Services.TryResolve(type, out var instance) && instance is OpenPlugin plugin)
+	                {
+		                UnloadPlugin(plugin);
+	                }
                 }
             }
         }
@@ -605,10 +491,11 @@ namespace OpenAPI.Plugins
 
 	            if (LoadedAssemblies.TryGetValue(assembly, out LoadedAssembly assemblyPlugins))
 	            {
-		            assemblyPlugins.PluginInstances.Remove(plugin);
+		            Services.Remove(plugin.GetType());
+		            assemblyPlugins.PluginTypes.Remove(plugin.GetType());
 					Parent.CommandManager.UnloadCommands(plugin);
 					
-		            if (!assemblyPlugins.PluginInstances.Any())
+		            if (!assemblyPlugins.PluginTypes.Any())
 		            {
 			            LoadedAssemblies.Remove(assembly);
 		            }
@@ -620,69 +507,43 @@ namespace OpenAPI.Plugins
             }
         }
 
+        /// <summary>
+        /// 	Unloads all loaded plugins
+        /// </summary>
         public void UnloadAll()
         {
            // lock (_pluginLock)
             {
                 foreach (var pluginAssembly in LoadedAssemblies.ToArray())
                 {
-	                foreach (var pluginInstance in pluginAssembly.Value.PluginInstances)
-	                {
-		                UnloadPlugin(pluginInstance);
-	                }
-                  /*  if (LoadedAssemblies.TryGetValue(pluginAssembly.Value, out LoadedAssembly assembly))
-                    {
-                        foreach (OpenPlugin pluginInstance in assembly.PluginInstances)
-                        {
-	                        UnloadPlugin(pluginInstance);
-                        }
-                     //   LoadedAssemblies.Remove(pluginAssembly.Value);
-                    }
-
-                    AssemblyReferences.TryRemove(pluginAssembly.Key, out Assembly _);*/
+	                UnloadPluginAssembly(pluginAssembly.Key);
                 }
             }
         }
 
-	    public void SetReference<TType>(TType reference)
-	    {
-		    if (!References.TryAdd(typeof(TType), reference))
-		    {
-			    throw new Exception("Type reference already set!");
-		    }
-	    }
-
-	    public bool TryGetReference(Type type, out object result)
-	    {
-		    return References.TryGetValue(type, out result);
-	    }
-	    
-	    public bool TryGetReference<TType>(out TType result)
-	    {
-		    if (References.TryGetValue(typeof(TType), out object value))
-		    {
-			    result = (TType) value;
-			    return true;
-		    }
-
-		    result = default(TType);
-		    return false;
-	    }
-
-	    public LoadedPlugin[] GetLoadedPlugins()
+        /// <summary>
+        /// 	Returns a list of all loaded plugins.
+        /// </summary>
+        /// <returns></returns>
+        public LoadedPlugin[] GetLoadedPlugins()
 	    {
 		    return LoadedAssemblies.Values.SelectMany(x =>
 		    {
 			    string[] referencedPlugins = GetReferencedPlugins(x);
-			    return x.PluginInstances.Select((p) =>
+			    return x.PluginTypes.Select((type) =>
 			    {
-				    OpenPluginInfo info = p.Info;
-
-				    return new LoadedPlugin(p, info, true)
+				    if (Services.TryResolve(type, out object instance) && instance is OpenPlugin p)
 				    {
-					    Dependencies = referencedPlugins
-					};
-			    });
+					    OpenPluginInfo info = p.Info;
+
+					    return new LoadedPlugin(p, info, true)
+					    {
+						    Dependencies = referencedPlugins
+					    };
+				    }
+
+				    return null;
+			    }).Where(xx => xx != null);
 		    }).ToArray();
 	    }
 
@@ -694,14 +555,49 @@ namespace OpenAPI.Plugins
 		    {
 			    if (LoadedAssemblies.TryGetValue(asm, out LoadedAssembly reference))
 			    {
-				    foreach (var plugin in reference.PluginInstances)
+				    foreach (var plugin in reference.PluginTypes)
 				    {
-					    references.Add(plugin.GetType().AssemblyQualifiedName);
+					    references.Add(plugin.AssemblyQualifiedName);
 				    }
 			    }
 		    }
 
 		    return references.ToArray();
+	    }
+	    
+	    
+	    private class PluginConstructorData
+	    {
+		    public Type Type { get; set; }
+		    public ConstructorInfo Constructor { get; set; }
+		    public ConstructorParameter[] Dependencies { get; set; } = new ConstructorParameter[0];
+		    public bool ReferencesOtherPlugin => Dependencies.Any(x => x.IsPluginInstance);
+
+		    public PluginConstructorData(Type pluginType, ConstructorInfo constructor)
+		    {
+			    Type = pluginType;
+			    Constructor = constructor;
+			    
+		    }
+
+		    public bool Requires(PluginConstructorData other)
+		    {
+			    return Dependencies.Any(x => x.Type == other.Type);
+		    }
+		    
+		    public class ConstructorParameter
+		    {
+			    public Type Type { get; set; }
+			    //public object Value { get; set; } = null;
+			    public bool IsPluginInstance { get; set; }
+			    
+			    public ConstructorParameter(Type type, bool isPluginInstance)
+			    {
+				    Type = type;
+				    //   Value = value;
+				    IsPluginInstance = isPluginInstance;
+			    }
+		    }
 	    }
 	}
 }
