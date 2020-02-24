@@ -31,16 +31,22 @@ namespace OpenAPI.Commands
 		private readonly Dictionary<MethodInfo, CommandData> _pluginCommands = new Dictionary<MethodInfo, CommandData>();
 		private OpenPluginManager PluginManager { get; }
         private Dictionary<Type, CommandPermissionChecker> permissionCheckers = new Dictionary<Type, CommandPermissionChecker>();
-
+        private bool HasPermissionChecker { get; set; } = false;
+        public bool HasExternalPermissionChecker { get; set; } = false;
         public CommandManager(OpenPluginManager pluginManager)
 		{
 			PluginManager = pluginManager;
-            RegisterPermissionChecker(typeof(StringPermissionAttribute), new StringPermissionChecker());
+			RegisterPermissionChecker(typeof(StringPermissionAttribute), new StringPermissionChecker());
+
+			HasExternalPermissionChecker = false;
 		}
 
         public void RegisterPermissionChecker(Type type, CommandPermissionChecker permissionChecker)
         {
             permissionCheckers[type] = permissionChecker;
+
+            HasPermissionChecker = true;
+            HasExternalPermissionChecker = true;
         }
 
 	    public void LoadCommands(object instance)
