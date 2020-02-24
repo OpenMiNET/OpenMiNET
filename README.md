@@ -41,7 +41,7 @@ You can now start the server like you would with a normal MiNET server.
 Only the executable name will be `OpenAPI.Server` instead of `MiNET.Server`
 
 ## Documentation
-Basic documentation is available here [View Documentation](https://openminet.github.io/OpenAPI/api/OpenAPI.html)
+Basic documentation is available through the following link: [View Documentation](https://openminet.github.io/OpenAPI/api/OpenAPI.html)
 
 More documentation is coming soon.
 
