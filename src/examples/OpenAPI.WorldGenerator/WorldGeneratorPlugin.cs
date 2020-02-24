@@ -86,7 +86,7 @@ namespace OpenAPI.WorldGenerator
             
             api.EventDispatcher.RegisterEvents(this);
             
-            _timer = new Timer(Callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(2.5));
+            _timer = new Timer(Callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(1.25));
         }
 
         public override void Disabled(OpenApi api)

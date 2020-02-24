@@ -10,7 +10,7 @@ using Mono.Cecil;
 
 namespace OpenAPI.Plugins
 {
-    public class OpenPluginManager
+    public sealed class OpenPluginManager
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(OpenPluginManager));
         
@@ -26,7 +26,7 @@ namespace OpenAPI.Plugins
 		/// 	The dependency injection service container used when loading plugins.
 		/// </summary>
 		public DependencyContainer Services { get; }
-        public OpenPluginManager(OpenApi parent)
+        internal OpenPluginManager(OpenApi parent)
         {
             Parent = parent;
 			HostAssembly = Assembly.GetAssembly(typeof(OpenPluginManager));
@@ -38,6 +38,7 @@ namespace OpenAPI.Plugins
 			AssemblyResolver = new AssemblyResolver(AssemblyManager);
 			
 			Services = new DependencyContainer();
+			Services.RegisterSingleton<OpenApi>(parent);
         }
 
         /// <summary>
