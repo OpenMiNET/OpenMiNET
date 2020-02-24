@@ -13,6 +13,7 @@ using MiNET;
 using MiNET.Items;
 using MiNET.Plugins;
 using MiNET.Utils;
+using OpenAPI.Events.Server;
 using OpenAPI.Utils;
 
 namespace OpenAPI
@@ -123,6 +124,8 @@ namespace OpenAPI
 
                 Log.Info("Server open for business on port " + Endpoint?.Port + " ...");
 
+                OpenApi.EventDispatcher.DispatchEvent(new ServerReadyEvent());
+                
                 return true;
             }
             catch (Exception e)

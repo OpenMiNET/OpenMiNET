@@ -8,6 +8,7 @@ using System.Reflection;
 using log4net;
 using MiNET.Utils;
 using Mono.Cecil;
+using OpenAPI.Events.Plugins;
 
 namespace OpenAPI.Plugins
 {
@@ -299,6 +300,8 @@ namespace OpenAPI.Plugins
 						    : string.Join(", ", plugin.Info.Authors);
 				    
 					    Log.Info($"Enabled '{plugin.Info.Name}' version {plugin.Info.Version} by {authors}");
+
+					    Parent.EventDispatcher.DispatchEvent(new PluginEnabledEvent(type.Assembly, plugin));
 				    }
 			    }
 			    catch (Exception ex)
