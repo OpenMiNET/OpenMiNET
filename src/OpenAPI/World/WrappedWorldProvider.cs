@@ -28,7 +28,7 @@ namespace OpenAPI.World
 
             if (chunk != null)
             {
-                Api.EventDispatcher.DispatchEvent(new ChunkGeneratedEvent(chunkCoordinates, chunk, Level));
+                Level.EventDispatcher.DispatchEvent(new ChunkGeneratedEvent(chunkCoordinates, chunk, Level));
             }
 
             return chunk;
@@ -100,7 +100,7 @@ namespace OpenAPI.World
             
             if (before != null && !before.Any(x => x.X == chunk.X && x.Z == chunk.Z))
             {
-                Api.EventDispatcher.DispatchEvent(new ChunkLoadEvent(chunk, Level));
+                Level.EventDispatcher.DispatchEvent(new ChunkLoadEvent(chunk, Level));
             }
             
             return chunk;
@@ -132,7 +132,7 @@ namespace OpenAPI.World
 
                 foreach (var uc in unloadedChunks)
                 {
-                    Api.EventDispatcher.DispatchEvent(new ChunkUnloadEvent(uc, Level));
+                    Level.EventDispatcher.DispatchEvent(new ChunkUnloadEvent(uc, Level));
                 }
             }
 
