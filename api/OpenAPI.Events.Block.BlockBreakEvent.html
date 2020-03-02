@@ -83,7 +83,7 @@
   
   <h1 id="OpenAPI_Events_Block_BlockBreakEvent" data-uid="OpenAPI.Events.Block.BlockBreakEvent" class="text-break">Class BlockBreakEvent
   </h1>
-  <div class="markdown level0 summary"><p>Gets dispatched when a <a class="xref" href="OpenAPI.Player.OpenPlayer.html">OpenPlayer</a> breaks a block</p>
+  <div class="markdown level0 summary"><p>Gets dispatched when a <see cref="!:MiNET.Entities.Entity"></see> breaks a block.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
@@ -127,18 +127,18 @@
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/OpenMiNET/OpenAPI/new/master/apiSpec/new?filename=OpenAPI_Events_Block_BlockBreakEvent__ctor_OpenAPI_Player_OpenPlayer_MiNET_Blocks_Block_.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Block.BlockBreakEvent.%23ctor(OpenAPI.Player.OpenPlayer%2CMiNET.Blocks.Block)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/master/apiSpec/new?filename=OpenAPI_Events_Block_BlockBreakEvent__ctor_MiNET_Entities_Entity_MiNET_Blocks_Block_List_Item__.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Block.BlockBreakEvent.%23ctor(MiNET.Entities.Entity%2CMiNET.Blocks.Block%2CList%7BItem%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenAPI/blob/master/src/OpenAPI/Events/Block/BlockBreakEvent.cs/#L21">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/master/src/OpenAPI/Events/Block/BlockBreakEvent.cs/#L30">View Source</a>
   </span>
   <a id="OpenAPI_Events_Block_BlockBreakEvent__ctor_" data-uid="OpenAPI.Events.Block.BlockBreakEvent.#ctor*"></a>
-  <h4 id="OpenAPI_Events_Block_BlockBreakEvent__ctor_OpenAPI_Player_OpenPlayer_MiNET_Blocks_Block_" data-uid="OpenAPI.Events.Block.BlockBreakEvent.#ctor(OpenAPI.Player.OpenPlayer,MiNET.Blocks.Block)">BlockBreakEvent(OpenPlayer, MiNET.Blocks.Block)</h4>
+  <h4 id="OpenAPI_Events_Block_BlockBreakEvent__ctor_MiNET_Entities_Entity_MiNET_Blocks_Block_List_Item__" data-uid="OpenAPI.Events.Block.BlockBreakEvent.#ctor(MiNET.Entities.Entity,MiNET.Blocks.Block,List{Item})">BlockBreakEvent(MiNET.Entities.Entity, MiNET.Blocks.Block, List&lt;Item&gt;)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public BlockBreakEvent(OpenPlayer player, MiNET.Blocks.Block block)</code></pre>
+    <pre><code class="lang-csharp hljs">public BlockBreakEvent(MiNET.Entities.Entity player, MiNET.Blocks.Block block, List&lt;Item&gt; drops)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -151,9 +151,9 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="OpenAPI.Player.OpenPlayer.html">OpenPlayer</a></td>
+        <td><span class="xref">MiNET.Entities.Entity</span></td>
         <td><span class="parametername">player</span></td>
-        <td><p>The player that triggered the event</p>
+        <td><p>The entity that triggered the event</p>
 </td>
       </tr>
       <tr>
@@ -162,25 +162,31 @@
         <td><p>The block that was broken</p>
 </td>
       </tr>
+      <tr>
+        <td><span class="xref">List</span>&lt;<span class="xref">Item</span>&gt;</td>
+        <td><span class="parametername">drops</span></td>
+        <td><p>The items that were gonna be dropped if the block broke</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/OpenMiNET/OpenAPI/new/master/apiSpec/new?filename=OpenAPI_Events_Block_BlockBreakEvent_Player.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Block.BlockBreakEvent.Player%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/master/apiSpec/new?filename=OpenAPI_Events_Block_BlockBreakEvent_Drops.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Block.BlockBreakEvent.Drops%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenAPI/blob/master/src/OpenAPI/Events/Block/BlockBreakEvent.cs/#L14">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/master/src/OpenAPI/Events/Block/BlockBreakEvent.cs/#L22">View Source</a>
   </span>
-  <a id="OpenAPI_Events_Block_BlockBreakEvent_Player_" data-uid="OpenAPI.Events.Block.BlockBreakEvent.Player*"></a>
-  <h4 id="OpenAPI_Events_Block_BlockBreakEvent_Player" data-uid="OpenAPI.Events.Block.BlockBreakEvent.Player">Player</h4>
-  <div class="markdown level1 summary"><p>The player that broke the block</p>
+  <a id="OpenAPI_Events_Block_BlockBreakEvent_Drops_" data-uid="OpenAPI.Events.Block.BlockBreakEvent.Drops*"></a>
+  <h4 id="OpenAPI_Events_Block_BlockBreakEvent_Drops" data-uid="OpenAPI.Events.Block.BlockBreakEvent.Drops">Drops</h4>
+  <div class="markdown level1 summary"><p>The items that were to be dropped if the block gets broken.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public OpenPlayer Player { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public List&lt;Item&gt; Drops { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -192,7 +198,39 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="OpenAPI.Player.OpenPlayer.html">OpenPlayer</a></td>
+        <td><span class="xref">List</span>&lt;<span class="xref">Item</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/master/apiSpec/new?filename=OpenAPI_Events_Block_BlockBreakEvent_Source.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Block.BlockBreakEvent.Source%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/master/src/OpenAPI/Events/Block/BlockBreakEvent.cs/#L17">View Source</a>
+  </span>
+  <a id="OpenAPI_Events_Block_BlockBreakEvent_Source_" data-uid="OpenAPI.Events.Block.BlockBreakEvent.Source*"></a>
+  <h4 id="OpenAPI_Events_Block_BlockBreakEvent_Source" data-uid="OpenAPI.Events.Block.BlockBreakEvent.Source">Source</h4>
+  <div class="markdown level1 summary"><p>The <see cref="!:MiNET.Entities.Entity"></see> that broke the block.
+This can be a player, a mob or null.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public MiNET.Entities.Entity Source { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">MiNET.Entities.Entity</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -212,7 +250,7 @@
                     <a href="https://github.com/OpenMiNET/OpenAPI/new/master/apiSpec/new?filename=OpenAPI_Events_Block_BlockBreakEvent.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Block.BlockBreakEvent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/OpenMiNET/OpenAPI/blob/master/src/OpenAPI/Events/Block/BlockBreakEvent.cs/#L9" class="contribution-link">View Source</a>
+                    <a href="https://github.com/OpenMiNET/OpenAPI/blob/master/src/OpenAPI/Events/Block/BlockBreakEvent.cs/#L11" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

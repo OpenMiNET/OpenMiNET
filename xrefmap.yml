@@ -784,12 +784,15 @@ references:
   commentId: T:OpenAPI.Events.Block.BlockBreakEvent
   fullName: OpenAPI.Events.Block.BlockBreakEvent
   nameWithType: BlockBreakEvent
-- uid: OpenAPI.Events.Block.BlockBreakEvent.#ctor(OpenAPI.Player.OpenPlayer,MiNET.Blocks.Block)
-  name: BlockBreakEvent(OpenPlayer, MiNET.Blocks.Block)
-  href: api/OpenAPI.Events.Block.BlockBreakEvent.html#OpenAPI_Events_Block_BlockBreakEvent__ctor_OpenAPI_Player_OpenPlayer_MiNET_Blocks_Block_
-  commentId: M:OpenAPI.Events.Block.BlockBreakEvent.#ctor(OpenAPI.Player.OpenPlayer,MiNET.Blocks.Block)
-  fullName: OpenAPI.Events.Block.BlockBreakEvent.BlockBreakEvent(OpenAPI.Player.OpenPlayer, MiNET.Blocks.Block)
-  nameWithType: BlockBreakEvent.BlockBreakEvent(OpenPlayer, MiNET.Blocks.Block)
+- uid: OpenAPI.Events.Block.BlockBreakEvent.#ctor(MiNET.Entities.Entity,MiNET.Blocks.Block,List{Item})
+  name: BlockBreakEvent(MiNET.Entities.Entity, MiNET.Blocks.Block, List<Item>)
+  href: api/OpenAPI.Events.Block.BlockBreakEvent.html#OpenAPI_Events_Block_BlockBreakEvent__ctor_MiNET_Entities_Entity_MiNET_Blocks_Block_List_Item__
+  commentId: M:OpenAPI.Events.Block.BlockBreakEvent.#ctor(MiNET.Entities.Entity,MiNET.Blocks.Block,List{Item})
+  name.vb: BlockBreakEvent(MiNET.Entities.Entity, MiNET.Blocks.Block, List(Of Item))
+  fullName: OpenAPI.Events.Block.BlockBreakEvent.BlockBreakEvent(MiNET.Entities.Entity, MiNET.Blocks.Block, List<Item>)
+  fullName.vb: OpenAPI.Events.Block.BlockBreakEvent.BlockBreakEvent(MiNET.Entities.Entity, MiNET.Blocks.Block, List(Of Item))
+  nameWithType: BlockBreakEvent.BlockBreakEvent(MiNET.Entities.Entity, MiNET.Blocks.Block, List<Item>)
+  nameWithType.vb: BlockBreakEvent.BlockBreakEvent(MiNET.Entities.Entity, MiNET.Blocks.Block, List(Of Item))
 - uid: OpenAPI.Events.Block.BlockBreakEvent.#ctor*
   name: BlockBreakEvent
   href: api/OpenAPI.Events.Block.BlockBreakEvent.html#OpenAPI_Events_Block_BlockBreakEvent__ctor_
@@ -797,19 +800,32 @@ references:
   isSpec: "True"
   fullName: OpenAPI.Events.Block.BlockBreakEvent.BlockBreakEvent
   nameWithType: BlockBreakEvent.BlockBreakEvent
-- uid: OpenAPI.Events.Block.BlockBreakEvent.Player
-  name: Player
-  href: api/OpenAPI.Events.Block.BlockBreakEvent.html#OpenAPI_Events_Block_BlockBreakEvent_Player
-  commentId: P:OpenAPI.Events.Block.BlockBreakEvent.Player
-  fullName: OpenAPI.Events.Block.BlockBreakEvent.Player
-  nameWithType: BlockBreakEvent.Player
-- uid: OpenAPI.Events.Block.BlockBreakEvent.Player*
-  name: Player
-  href: api/OpenAPI.Events.Block.BlockBreakEvent.html#OpenAPI_Events_Block_BlockBreakEvent_Player_
-  commentId: Overload:OpenAPI.Events.Block.BlockBreakEvent.Player
+- uid: OpenAPI.Events.Block.BlockBreakEvent.Drops
+  name: Drops
+  href: api/OpenAPI.Events.Block.BlockBreakEvent.html#OpenAPI_Events_Block_BlockBreakEvent_Drops
+  commentId: P:OpenAPI.Events.Block.BlockBreakEvent.Drops
+  fullName: OpenAPI.Events.Block.BlockBreakEvent.Drops
+  nameWithType: BlockBreakEvent.Drops
+- uid: OpenAPI.Events.Block.BlockBreakEvent.Drops*
+  name: Drops
+  href: api/OpenAPI.Events.Block.BlockBreakEvent.html#OpenAPI_Events_Block_BlockBreakEvent_Drops_
+  commentId: Overload:OpenAPI.Events.Block.BlockBreakEvent.Drops
   isSpec: "True"
-  fullName: OpenAPI.Events.Block.BlockBreakEvent.Player
-  nameWithType: BlockBreakEvent.Player
+  fullName: OpenAPI.Events.Block.BlockBreakEvent.Drops
+  nameWithType: BlockBreakEvent.Drops
+- uid: OpenAPI.Events.Block.BlockBreakEvent.Source
+  name: Source
+  href: api/OpenAPI.Events.Block.BlockBreakEvent.html#OpenAPI_Events_Block_BlockBreakEvent_Source
+  commentId: P:OpenAPI.Events.Block.BlockBreakEvent.Source
+  fullName: OpenAPI.Events.Block.BlockBreakEvent.Source
+  nameWithType: BlockBreakEvent.Source
+- uid: OpenAPI.Events.Block.BlockBreakEvent.Source*
+  name: Source
+  href: api/OpenAPI.Events.Block.BlockBreakEvent.html#OpenAPI_Events_Block_BlockBreakEvent_Source_
+  commentId: Overload:OpenAPI.Events.Block.BlockBreakEvent.Source
+  isSpec: "True"
+  fullName: OpenAPI.Events.Block.BlockBreakEvent.Source
+  nameWithType: BlockBreakEvent.Source
 - uid: OpenAPI.Events.Block.BlockEvent
   name: BlockEvent
   href: api/OpenAPI.Events.Block.BlockEvent.html
@@ -912,12 +928,12 @@ references:
   commentId: T:OpenAPI.Events.Block.BlockStartBreakEvent
   fullName: OpenAPI.Events.Block.BlockStartBreakEvent
   nameWithType: BlockStartBreakEvent
-- uid: OpenAPI.Events.Block.BlockStartBreakEvent.#ctor(OpenAPI.Player.OpenPlayer,MiNET.Blocks.Block)
-  name: BlockStartBreakEvent(OpenPlayer, MiNET.Blocks.Block)
-  href: api/OpenAPI.Events.Block.BlockStartBreakEvent.html#OpenAPI_Events_Block_BlockStartBreakEvent__ctor_OpenAPI_Player_OpenPlayer_MiNET_Blocks_Block_
-  commentId: M:OpenAPI.Events.Block.BlockStartBreakEvent.#ctor(OpenAPI.Player.OpenPlayer,MiNET.Blocks.Block)
-  fullName: OpenAPI.Events.Block.BlockStartBreakEvent.BlockStartBreakEvent(OpenAPI.Player.OpenPlayer, MiNET.Blocks.Block)
-  nameWithType: BlockStartBreakEvent.BlockStartBreakEvent(OpenPlayer, MiNET.Blocks.Block)
+- uid: OpenAPI.Events.Block.BlockStartBreakEvent.#ctor(MiNET.Entities.Entity,MiNET.Blocks.Block)
+  name: BlockStartBreakEvent(MiNET.Entities.Entity, MiNET.Blocks.Block)
+  href: api/OpenAPI.Events.Block.BlockStartBreakEvent.html#OpenAPI_Events_Block_BlockStartBreakEvent__ctor_MiNET_Entities_Entity_MiNET_Blocks_Block_
+  commentId: M:OpenAPI.Events.Block.BlockStartBreakEvent.#ctor(MiNET.Entities.Entity,MiNET.Blocks.Block)
+  fullName: OpenAPI.Events.Block.BlockStartBreakEvent.BlockStartBreakEvent(MiNET.Entities.Entity, MiNET.Blocks.Block)
+  nameWithType: BlockStartBreakEvent.BlockStartBreakEvent(MiNET.Entities.Entity, MiNET.Blocks.Block)
 - uid: OpenAPI.Events.Block.BlockStartBreakEvent.#ctor*
   name: BlockStartBreakEvent
   href: api/OpenAPI.Events.Block.BlockStartBreakEvent.html#OpenAPI_Events_Block_BlockStartBreakEvent__ctor_
@@ -6115,6 +6131,19 @@ references:
   isSpec: "True"
   fullName: OpenAPI.World.OpenLevel.EventDispatcher
   nameWithType: OpenLevel.EventDispatcher
+- uid: OpenAPI.World.OpenLevel.OnBlockBreak(BlockBreakEventArgs)
+  name: OnBlockBreak(BlockBreakEventArgs)
+  href: api/OpenAPI.World.OpenLevel.html#OpenAPI_World_OpenLevel_OnBlockBreak_BlockBreakEventArgs_
+  commentId: M:OpenAPI.World.OpenLevel.OnBlockBreak(BlockBreakEventArgs)
+  fullName: OpenAPI.World.OpenLevel.OnBlockBreak(BlockBreakEventArgs)
+  nameWithType: OpenLevel.OnBlockBreak(BlockBreakEventArgs)
+- uid: OpenAPI.World.OpenLevel.OnBlockBreak*
+  name: OnBlockBreak
+  href: api/OpenAPI.World.OpenLevel.html#OpenAPI_World_OpenLevel_OnBlockBreak_
+  commentId: Overload:OpenAPI.World.OpenLevel.OnBlockBreak
+  isSpec: "True"
+  fullName: OpenAPI.World.OpenLevel.OnBlockBreak
+  nameWithType: OpenLevel.OnBlockBreak
 - uid: OpenAPI.World.OpenLevel.OnBlockPlace(BlockPlaceEventArgs)
   name: OnBlockPlace(BlockPlaceEventArgs)
   href: api/OpenAPI.World.OpenLevel.html#OpenAPI_World_OpenLevel_OnBlockPlace_BlockPlaceEventArgs_
