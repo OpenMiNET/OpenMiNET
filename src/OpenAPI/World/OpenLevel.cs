@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using System.Reflection;
 using System.Threading;
+using fNbt;
 using log4net;
 using MiNET;
 using MiNET.BlockEntities;
@@ -11,6 +12,7 @@ using MiNET.Blocks;
 using MiNET.Entities;
 using MiNET.Items;
 using MiNET.Net;
+using MiNET.Utils;
 using MiNET.Utils.Skins;
 using MiNET.Worlds;
 using OpenAPI.Events;
@@ -160,33 +162,84 @@ namespace OpenAPI.World
 			base.DropItem(coordinates, drop);
 		}
 
+		protected override bool OnBlockBreak(BlockBreakEventArgs e)
+		{
+			return false;
+		}
+
 		public bool BreakBlock(Block block, BlockFace face, OpenPlayer player = null, Item tool = null)
 		{
 			BlockEntity blockEntity = GetBlockEntity(block.Coordinates);
 
 			bool canBreak = player == null || tool == null || tool.BreakBlock(this, player, block, blockEntity);
-			if (canBreak)
+			if (!canBreak || !AllowBreak || player?.GameMode == GameMode.Spectator)
 			{
-				block.BreakBlock(this, face);
-				List<Item> drops = new List<Item>();
-				drops.AddRange(block.GetDrops(tool ?? new ItemAir()));
-
-				if (blockEntity != null)
-				{
-					RemoveBlockEntity(block.Coordinates);
-					drops.AddRange(blockEntity.GetDrops());
-				}
-
-				foreach (Item drop in drops)
-				{
-					DropItem(block.Coordinates, drop);
-				}
-
-				return true;
-			}
-			else
-			{
+				if (player != null)
+					RevertBlockAction(player, block, blockEntity);
+				
 				return false;
+			}
+			
+			//	block.BreakBlock(this, face);
+			List<Item> drops = new List<Item>();
+			drops.AddRange(block.GetDrops(tool ?? new ItemAir()));
+
+			if (blockEntity != null)
+			{
+				//	RemoveBlockEntity(block.Coordinates);
+				drops.AddRange(blockEntity.GetDrops());
+			}
+			
+			BlockBreakEvent e = new BlockBreakEvent(player, block, drops);
+			EventDispatcher.DispatchEvent(e);
+			if (e.IsCancelled)
+			{
+				if (player != null)
+					RevertBlockAction(player, block, blockEntity);
+						
+				return false;
+			}
+
+			block.BreakBlock(this, face);
+				
+			if (blockEntity != null)
+				RemoveBlockEntity(block.Coordinates);
+
+			foreach (Item drop in e.Drops)
+			{
+				DropItem(block.Coordinates, drop);
+			}
+
+			e.OnComplete();
+				
+			return true;
+		}
+		
+		private static void RevertBlockAction(OpenPlayer player, Block block, BlockEntity blockEntity)
+		{
+			var message = McpeUpdateBlock.CreateObject();
+			message.blockRuntimeId = (uint) block.GetRuntimeId();
+			message.coordinates = block.Coordinates;
+			message.blockPriority = 0xb;
+			player.SendPacket(message);
+
+			// Revert block entity if exists
+			if (blockEntity != null)
+			{
+				Nbt nbt = new Nbt
+				{
+					NbtFile = new NbtFile
+					{
+						BigEndian = false,
+						RootTag = blockEntity.GetCompound()
+					}
+				};
+
+				var entityData = McpeBlockEntityData.CreateObject();
+				entityData.namedtag = nbt;
+				entityData.coordinates = blockEntity.Coordinates;
+
+				player.SendPacket(entityData);
 			}
 		}
 

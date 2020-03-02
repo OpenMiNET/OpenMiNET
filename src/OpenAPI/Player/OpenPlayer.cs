@@ -484,17 +484,11 @@ namespace OpenAPI.Player
 			BlockBreakTimer.Reset();
 
 			var b = Level.GetBlock(coords);
-			BlockBreakEvent e = new BlockBreakEvent(this, b);
-			EventDispatcher.DispatchEvent(e);
-			if (e.IsCancelled)
-			{
-                return;
-			}
-
+			
 			Item inHand = Inventory.GetItemInHand();
 			Level.BreakBlock(b, BreakingFace, this, inHand);
 
-            e.OnComplete();
+           // e.OnComplete();
 		}
 
 	    /*protected override bool CanBreakBlock(Block block, Item itemInHand)
