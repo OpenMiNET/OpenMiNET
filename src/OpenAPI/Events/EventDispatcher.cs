@@ -177,14 +177,14 @@ namespace OpenAPI.Events
 			}
 		}
 
-		private void DispatchPrivate(Event e)
+		private async Task DispatchPrivate(Event e)
 		{
 			try
 			{
 				Type type = e.GetType();
 				if (RegisteredEvents.TryGetValue(type, out EventDispatcherValues v))
 				{
-					v.Dispatch(e);
+					await v.DispatchAsync(e);
 				}
 				else
 				{
@@ -203,13 +203,13 @@ namespace OpenAPI.Events
 		/// <param name="e">The event to dispatch</param>
 		public void DispatchEvent(Event e)
 		{
-			DispatchPrivate(e);
+			DispatchPrivate(e).Wait();
 
 			if (!e.IsCancelled)
 			{
 				foreach (var i in ExtraDispatchers)
 				{
-					i.DispatchPrivate(e);
+					i.DispatchPrivate(e).Wait();
 					if (e.IsCancelled) break;
 				}
 			}
@@ -220,25 +220,35 @@ namespace OpenAPI.Events
 			}
 		}
 
-		/*public async Task<TEvent> DispatchEventAsync<TEvent>(TEvent e) where TEvent : Event
+		/// <summary>
+		/// 	Dispatches 
+		/// </summary>
+		/// <param name="e"></param>
+		/// <typeparam name="TEvent"></typeparam>
+		/// <returns></returns>
+		public async Task<TEvent> DispatchEventAsync<TEvent>(TEvent e) where TEvent : Event
 		{
-			try
+			List<Task> dispatchTasks = new List<Task>();
+			dispatchTasks.Add(DispatchPrivate(e));
+
+			if (!e.IsCancelled)
 			{
-				var type = typeof(TEvent);
-				if (RegisteredEvents.TryGetValue(type, out EventDispatcherValues v))
+				foreach (var i in ExtraDispatchers)
 				{
-					v.Dispatch(e);
-				}
-				else
-				{
-					Log.Warn($"Unknown event type found! \"{type}\"");
+					dispatchTasks.Add(i.DispatchPrivate(e));
+					//if (e.IsCancelled) break;
 				}
 			}
-			catch (Exception ex)
+
+			await Task.WhenAll(dispatchTasks);
+
+			if (Api.ServerInfo != null)
 			{
-				Log.Error("Error while dispatching event!", ex);
+				Interlocked.Increment(ref Api.ServerInfo.EventsDispatchedPerSecond);
 			}
-		}*/
+
+			return e;
+		}
 
 		private class EventDispatcherValues
 		{
@@ -303,7 +313,7 @@ namespace OpenAPI.Events
 				//EventHandlers.TryRemove(parent, out method);
 			}
 
-			public void Dispatch(Event e)
+			/*public void Dispatch(Event e)
 			{
 				object[] args = {
 					e
@@ -320,9 +330,9 @@ namespace OpenAPI.Events
 			            pair.Method.Invoke(pair.Parent, args);
 			        });
                 }
-			}
+			}*/
 
-			/*public async Task DispatchAsync(Event e)
+			public async Task DispatchAsync(Event e)
 			{
 				object[] args = {
 					e
@@ -349,13 +359,20 @@ namespace OpenAPI.Events
 						}
 						else if (typeof(Task).IsAssignableFrom(method.ReturnType))
 						{
-							tasks[index] = (Task) method.Invoke(p.Parent, args);
+							tasks[index] = Task.Run(async () =>
+							{
+								if (e.IsCancelled &&
+								    p.Attribute.IgnoreCanceled)
+									return;
+								
+								await (Task) method.Invoke(p.Parent, args);
+							});
 						}
 					}
 
 					await Task.WhenAll(tasks);
 				}
-			}*/
+			}
 
 			private struct Item : IComparable<Item>
 			{

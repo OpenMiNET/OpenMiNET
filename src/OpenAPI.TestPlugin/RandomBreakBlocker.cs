@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using log4net;
 using MiNET.Items;
 using OpenAPI.Events;
@@ -29,25 +30,28 @@ namespace OpenAPI.TestPlugin
         }
 
         [EventHandler]
-        public void OnBlockBreak(BlockBreakEvent e)
+        public Task OnBlockBreak(BlockBreakEvent e)
         {
-            if (Random.NextBool())
+            return Task.Run(() =>
             {
-                Log.Info($"Cancelled block breaking.");
-                e.SetCancelled(true);
-            }
-            else
-            {
-                Log.Info("Did not cancel breaking");
-                
-                if (Random.Next(0, 10) == 5)
+                if (Random.NextBool())
                 {
-                    Log.Info($"Golden apple yay.");
-                    e.Drops.Add(new ItemGoldenApple());
-                    
-                    e.Source.Level.BroadcastMessage($"A goldenapple was found! Lucky!");
+                    Log.Info($"Cancelled block breaking.");
+                    e.SetCancelled(true);
                 }
-            }
+                else
+                {
+                    Log.Info("Did not cancel breaking");
+
+                    if (Random.Next(0, 10) == 5)
+                    {
+                        Log.Info($"Golden apple yay.");
+                        e.Drops.Add(new ItemGoldenApple());
+
+                        e.Source.Level.BroadcastMessage($"A goldenapple was found! Lucky!");
+                    }
+                }
+            });
         }
     }
 }
