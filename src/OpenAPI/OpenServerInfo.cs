@@ -42,16 +42,28 @@ namespace OpenAPI
 			int maxPortThreads;
 			ThreadPool.GetMaxThreads(out maxWorkerThreads, out maxPortThreads);
 
-			double kbitPerSecondOut = Interlocked.Exchange(ref TotalPacketSizeOut, 0) * 8 / 1000000D;
-			double kbitPerSecondIn = Interlocked.Exchange(ref TotalPacketSizeIn, 0) * 8 / 1000000D;
+			
+			Interlocked.Exchange(ref NumberOfDeniedConnectionRequestsPerSecond, 0);
 
-			var numbPacketsOutPerSeconds = Interlocked.Exchange(ref NumberOfPacketsOutPerSecond, 0);
-			var acks = Interlocked.Exchange(ref NumberOfAckReceive, 0);
-			var packetsIn = Interlocked.Exchange(ref NumberOfPacketsInPerSecond, 0);
-			var nak = Interlocked.Exchange(ref NumberOfNakReceive, 0);
-			var resends = Interlocked.Exchange(ref NumberOfResends, 0);
-			var fails = Interlocked.Exchange(ref NumberOfFails, 0);
-			var acksSent = Interlocked.Exchange(ref NumberOfAckSent, 0);
+			long packetSizeOut = Interlocked.Exchange(ref TotalPacketSizeOutPerSecond, 0);
+			long packetSizeIn = Interlocked.Exchange(ref TotalPacketSizeInPerSecond, 0);
+
+			double mbpsPerSecondOut = packetSizeOut * 8 / 1_000_000D;
+			double mbpsPerSecondIn = packetSizeIn * 8 / 1_000_000D;
+
+			long numberOfPacketsOutPerSecond = Interlocked.Exchange(ref NumberOfPacketsOutPerSecond, 0);
+			long numberOfPacketsInPerSecond = Interlocked.Exchange(ref NumberOfPacketsInPerSecond, 0);
+
+			AvgSizePerPacketIn = AvgSizePerPacketIn == 0 ? packetSizeIn * 100 : (long) ((AvgSizePerPacketIn * 99) + (packetSizeIn == 0 ? 0 : numberOfPacketsInPerSecond / ((double) packetSizeIn)));
+			AvgSizePerPacketOut = AvgSizePerPacketOut == 0 ? packetSizeOut * 100 : (long) ((AvgSizePerPacketOut * 99) + (packetSizeOut == 0 ? 0 : numberOfPacketsOutPerSecond / ((double) packetSizeOut)));
+			AvgSizePerPacketIn /= 100; // running avg of 100 prev values
+			AvgSizePerPacketOut /= 100; // running avg of 100 prev values
+			
+			long numberOfAckIn = Interlocked.Exchange(ref NumberOfAckReceive, 0);
+			long numberOfAckOut = Interlocked.Exchange(ref NumberOfAckSent, 0);
+			long numberOfNakIn = Interlocked.Exchange(ref NumberOfNakReceive, 0);
+			long numberOfResend = Interlocked.Exchange(ref NumberOfResends, 0);
+			long numberOfFailed = Interlocked.Exchange(ref NumberOfFails, 0);
 
 			var eventsDispatched = Interlocked.Exchange(ref EventsDispatchedPerSecond, 0);
 			//var levels = Interlocked.Read(ref Levels);
@@ -60,26 +72,24 @@ namespace OpenAPI
 			var e = _stopwatch.ElapsedMilliseconds;
 			if (e >= Interval - ((Interval / 100) * 5))
 			{
+				var message =
+					$"Players {NumberOfPlayers}, " +
+					$"Pkt in/out(#/s) {numberOfPacketsInPerSecond}/{numberOfPacketsOutPerSecond}, " +
+					$"ACK(in-out)/NAK/RSND/FTO(#/s) ({numberOfAckIn}-{numberOfAckOut})/{numberOfNakIn}/{numberOfResend}/{numberOfFailed}, " +
+					$"THR in/out(Mbps) {mbpsPerSecondIn:F}/{mbpsPerSecondOut:F}, " +
+					$"PktSz Total in/out(B/s){packetSizeIn}/{packetSizeOut}, " +
+					$"PktSz Avg(100s) in/out(B){AvgSizePerPacketIn}/{AvgSizePerPacketOut}";
+				
 				if (Config.GetProperty("EnableThroughput", true))
 				{
-					Log.InfoFormat(
-						"{5} Pl(s) Pkt(#/s) (Out={0} In={2}) ACK/NAK/RESD/FTO(#/s) ({1}-{14})/{11}/{12}/{13} Tput(Mbit/s) ({3:F} {7:F}) Avail {8}kb Threads {9} Compl.ports {10}",
-						numbPacketsOutPerSeconds,
-						acks,
-						packetsIn,
-						kbitPerSecondOut,
-						0 /*_level.LastTickProcessingTime*/,
-						NumberOfPlayers,
-						Latency,
-						kbitPerSecondIn,
-						AvailableBytes / 1000,
-						availableWorkerThreads,
-						availablePortThreads,
-						nak,
-						resends,
-						fails,
-						acksSent
-					);
+					if (Config.GetProperty("ServerInfoInTitle", false))
+					{
+						Console.Title = message;
+					}
+					else
+					{
+						Log.InfoFormat(message);
+					}
 				}
 				else if (Config.GetProperty("EnableOpenServerInfo", false))
 				{
@@ -97,7 +107,11 @@ namespace OpenAPI
 			Interlocked.Exchange(ref NumberOfDeniedConnectionRequestsPerSecond, 0);
 		}
 
-	    public void Init()
+		public long AvgSizePerPacketOut { get; set; }
+
+		public long AvgSizePerPacketIn { get; set; }
+
+		public void Init()
 	    {
 	        if (ThroughPut != null)
 	        {

@@ -1,5 +1,6 @@
 ﻿using MiNET;
 using MiNET.Plugins.Attributes;
+using MiNET.Sounds;
 using OpenAPI.Commands;
 using OpenAPI.Permission;
 using OpenAPI.Player;
@@ -43,6 +44,17 @@ namespace OpenAPI.TestPlugin
         public void Sound(OpenPlayer player)
         {
             player.SendSound(player.KnownPosition.GetCoordinates3D(), LevelSoundEventType.Explode);
+            player.SendMessage("Sound send.");
+        }
+        
+        [Command(Name = "sound2")]
+        public void Sound2(OpenPlayer player, LevelSoundEventType sound)
+        {
+            //player.Level.MakeSound(new DoorCloseSound(player.KnownPosition));
+
+            player.Level.BroadcastSound(player.KnownPosition.GetCoordinates3D(), sound);
+            
+          //  player.SendSound(player.KnownPosition.GetCoordinates3D(), LevelSoundEventType.Explode);
             player.SendMessage("Sound send.");
         }
     }
