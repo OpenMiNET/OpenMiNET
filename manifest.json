@@ -390,7 +390,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenAPI.Events.EventDispatcher.html",
-          "hash": "i+/m0yzqjpEexXAdrfJwmQ=="
+          "hash": "FFRdOjP8uceUkXqi6YLU1g=="
         }
       },
       "is_incremental": false,
@@ -1495,16 +1495,16 @@
           "total_file_count": 0,
           "skipped_file_count": 0
         },
-        "ManagedReferenceDocumentProcessor": {
-          "can_incremental": false,
-          "incrementalPhase": "build",
-          "total_file_count": 116,
-          "skipped_file_count": 0
-        },
         "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
           "total_file_count": 3,
+          "skipped_file_count": 0
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 116,
           "skipped_file_count": 0
         }
       }

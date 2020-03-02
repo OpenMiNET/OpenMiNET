@@ -1290,6 +1290,22 @@ references:
   isSpec: "True"
   fullName: OpenAPI.Events.EventDispatcher.DispatchEvent
   nameWithType: EventDispatcher.DispatchEvent
+- uid: OpenAPI.Events.EventDispatcher.DispatchEventAsync*
+  name: DispatchEventAsync
+  href: api/OpenAPI.Events.EventDispatcher.html#OpenAPI_Events_EventDispatcher_DispatchEventAsync_
+  commentId: Overload:OpenAPI.Events.EventDispatcher.DispatchEventAsync
+  isSpec: "True"
+  fullName: OpenAPI.Events.EventDispatcher.DispatchEventAsync
+  nameWithType: EventDispatcher.DispatchEventAsync
+- uid: OpenAPI.Events.EventDispatcher.DispatchEventAsync``1(``0)
+  name: DispatchEventAsync<TEvent>(TEvent)
+  href: api/OpenAPI.Events.EventDispatcher.html#OpenAPI_Events_EventDispatcher_DispatchEventAsync__1___0_
+  commentId: M:OpenAPI.Events.EventDispatcher.DispatchEventAsync``1(``0)
+  name.vb: DispatchEventAsync(Of TEvent)(TEvent)
+  fullName: OpenAPI.Events.EventDispatcher.DispatchEventAsync<TEvent>(TEvent)
+  fullName.vb: OpenAPI.Events.EventDispatcher.DispatchEventAsync(Of TEvent)(TEvent)
+  nameWithType: EventDispatcher.DispatchEventAsync<TEvent>(TEvent)
+  nameWithType.vb: EventDispatcher.DispatchEventAsync(Of TEvent)(TEvent)
 - uid: OpenAPI.Events.EventDispatcher.LoadFrom(Assembly)
   name: LoadFrom(Assembly)
   href: api/OpenAPI.Events.EventDispatcher.html#OpenAPI_Events_EventDispatcher_LoadFrom_Assembly_
