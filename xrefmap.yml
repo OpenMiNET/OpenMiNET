@@ -5571,6 +5571,28 @@ references:
   isSpec: "True"
   fullName: OpenAPI.Utils.ResourcePacks.ResourcePackProvider.UseResourcePack
   nameWithType: ResourcePackProvider.UseResourcePack
+- uid: OpenAPI.Utils.TaskExtensions
+  name: TaskExtensions
+  href: api/OpenAPI.Utils.TaskExtensions.html
+  commentId: T:OpenAPI.Utils.TaskExtensions
+  fullName: OpenAPI.Utils.TaskExtensions
+  nameWithType: TaskExtensions
+- uid: OpenAPI.Utils.TaskExtensions.Then*
+  name: Then
+  href: api/OpenAPI.Utils.TaskExtensions.html#OpenAPI_Utils_TaskExtensions_Then_
+  commentId: Overload:OpenAPI.Utils.TaskExtensions.Then
+  isSpec: "True"
+  fullName: OpenAPI.Utils.TaskExtensions.Then
+  nameWithType: TaskExtensions.Then
+- uid: OpenAPI.Utils.TaskExtensions.Then``1(Task{``0},Action{``0})
+  name: Then<TResult>(Task<TResult>, Action<TResult>)
+  href: api/OpenAPI.Utils.TaskExtensions.html#OpenAPI_Utils_TaskExtensions_Then__1_Task___0__Action___0__
+  commentId: M:OpenAPI.Utils.TaskExtensions.Then``1(Task{``0},Action{``0})
+  name.vb: Then(Of TResult)(Task(Of TResult), Action(Of TResult))
+  fullName: OpenAPI.Utils.TaskExtensions.Then<TResult>(Task<TResult>, Action<TResult>)
+  fullName.vb: OpenAPI.Utils.TaskExtensions.Then(Of TResult)(Task(Of TResult), Action(Of TResult))
+  nameWithType: TaskExtensions.Then<TResult>(Task<TResult>, Action<TResult>)
+  nameWithType.vb: TaskExtensions.Then(Of TResult)(Task(Of TResult), Action(Of TResult))
 - uid: OpenAPI.Utils.ThreadSafeList`1
   name: ThreadSafeList<T>
   href: api/OpenAPI.Utils.ThreadSafeList-1.html

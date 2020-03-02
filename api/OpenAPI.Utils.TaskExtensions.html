@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Namespace OpenAPI.Utils
+    <title>Class TaskExtensions
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Namespace OpenAPI.Utils
+    <meta name="title" content="Class TaskExtensions
    ">
     <meta name="generator" content="docfx 2.45.1.0">
     
@@ -78,70 +78,93 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="OpenAPI.Utils">
+            <article class="content wrap" id="_content" data-uid="OpenAPI.Utils.TaskExtensions">
   
-  <h1 id="OpenAPI_Utils" data-uid="OpenAPI.Utils" class="text-break">Namespace OpenAPI.Utils
+  
+  <h1 id="OpenAPI_Utils_TaskExtensions" data-uid="OpenAPI.Utils.TaskExtensions" class="text-break">Class TaskExtensions
   </h1>
   <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
-  <div class="markdown level0 remarks"></div>
-    <h3 id="classes">Classes
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">TaskExtensions</span></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="OpenAPI.Utils.html">OpenAPI.Utils</a></h6>
+  <h6><strong>Assembly</strong>: OpenAPI.dll</h6>
+  <h5 id="OpenAPI_Utils_TaskExtensions_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class TaskExtensions : object</code></pre>
+  </div>
+  <h3 id="methods">Methods
   </h3>
-      <h4><a class="xref" href="OpenAPI.Utils.CoordinateExtensions.html">CoordinateExtensions</a></h4>
-      <section></section>
-      <h4><a class="xref" href="OpenAPI.Utils.FastMath.html">FastMath</a></h4>
-      <section></section>
-      <h4><a class="xref" href="OpenAPI.Utils.FastRandom.html">FastRandom</a></h4>
-      <section><p>A fast random number generator for .NET
-Colin Green, January 2005</p>
-<p>September 4th 2005
-Added NextBytesUnsafe() - commented out by default.
-Fixed bug in Reinitialise() - y,z and w variables were not being reset.</p>
-<p>Key points:</p>
-<ol>
-<li>Based on a simple and fast xor-shift pseudo random number generator (RNG) specified in:
-Marsaglia, George. (2003). Xorshift RNGs.
-<a href="http://www.jstatsoft.org/v08/i14/xorshift.pdf">http://www.jstatsoft.org/v08/i14/xorshift.pdf</a></li>
-</ol>
-<p>This particular implementation of xorshift has a period of 2^128-1. See the above paper to see
-how this can be easily extened if you need a longer period. At the time of writing I could find no
-information on the period of System.Random for comparison.</p>
-<ol start="2">
-<li><p>Faster than System.Random. Up to 8x faster, depending on which methods are called.</p>
-</li>
-<li><p>Direct replacement for System.Random. This class implements all of the methods that System.Random
-does plus some additional methods. The like named methods are functionally equivalent.</p>
-</li>
-<li><p>Allows fast re-initialisation with a seed, unlike System.Random which accepts a seed at construction
-time which then executes a relatively expensive initialisation routine. This provides a vast speed improvement
-if you need to reset the pseudo-random number sequence many times, e.g. if you want to re-generate the same
-sequence many times. An alternative might be to cache random numbers in an array, but that approach is limited
-by memory capacity and the fact that you may also want a large number of different sequences cached. Each sequence
-can each be represented by a single seed value (int) when using FastRandom.</p>
-</li>
-</ol>
-<p>Notes.
-A further performance improvement can be obtained by declaring local variables as static, thus avoiding
-re-allocation of variables on each call. However care should be taken if multiple instances of
-FastRandom are in use or if being used in a multi-threaded environment.</p>
-</section>
-      <h4><a class="xref" href="OpenAPI.Utils.ListExtensions.html">ListExtensions</a></h4>
-      <section></section>
-      <h4><a class="xref" href="OpenAPI.Utils.ReflectionHelper.html">ReflectionHelper</a></h4>
-      <section></section>
-      <h4><a class="xref" href="OpenAPI.Utils.TaskExtensions.html">TaskExtensions</a></h4>
-      <section></section>
-      <h4><a class="xref" href="OpenAPI.Utils.ThreadSafeList-1.html">ThreadSafeList&lt;T&gt;</a></h4>
-      <section><p>WARNING: NOT ACTUALLY THREADSAFE</p>
-</section>
-      <h4><a class="xref" href="OpenAPI.Utils.TickScheduler.html">TickScheduler</a></h4>
-      <section></section>
-    <h3 id="enums">Enums
-  </h3>
-      <h4><a class="xref" href="OpenAPI.Utils.PlayerInput.html">PlayerInput</a></h4>
-      <section></section>
-      <h4><a class="xref" href="OpenAPI.Utils.PlayerInputState.html">PlayerInputState</a></h4>
-      <section></section>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/master/apiSpec/new?filename=OpenAPI_Utils_TaskExtensions_Then__1_Task___0__Action___0__.md&amp;value=---%0Auid%3A%20OpenAPI.Utils.TaskExtensions.Then%60%601(Task%7B%60%600%7D%2CAction%7B%60%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/master/src/OpenAPI/Utils/TaskExtensions.cs/#L13">View Source</a>
+  </span>
+  <a id="OpenAPI_Utils_TaskExtensions_Then_" data-uid="OpenAPI.Utils.TaskExtensions.Then*"></a>
+  <h4 id="OpenAPI_Utils_TaskExtensions_Then__1_Task___0__Action___0__" data-uid="OpenAPI.Utils.TaskExtensions.Then``1(Task{``0},Action{``0})">Then&lt;TResult&gt;(Task&lt;TResult&gt;, Action&lt;TResult&gt;)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;TResult&gt; Then&lt;TResult&gt;(this Task&lt;TResult&gt; task, Action&lt;TResult&gt; continuationAction)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;TResult&gt;</td>
+        <td><span class="parametername">task</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Action</span>&lt;TResult&gt;</td>
+        <td><span class="parametername">continuationAction</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Task</span>&lt;TResult&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TResult</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
 </article>
           </div>
           
@@ -149,6 +172,12 @@ FastRandom are in use or if being used in a multi-threaded environment.</p>
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
+                  <li>
+                    <a href="https://github.com/OpenMiNET/OpenAPI/new/master/apiSpec/new?filename=OpenAPI_Utils_TaskExtensions.md&amp;value=---%0Auid%3A%20OpenAPI.Utils.TaskExtensions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/OpenMiNET/OpenAPI/blob/master/src/OpenAPI/Utils/TaskExtensions.cs/#L6" class="contribution-link">View Source</a>
+                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">

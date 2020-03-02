@@ -942,7 +942,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenAPI.OpenServerInfo.html",
-          "hash": "jy7PfNAyiTSamgTbAN/ubg=="
+          "hash": "U0CVDX+S32mgQdLUxHR9kA=="
         }
       },
       "is_incremental": false,
@@ -1002,7 +1002,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenAPI.Player.OpenPlayer.html",
-          "hash": "kfWDtfigLLkprIIfD2ViXw=="
+          "hash": "o0klNvPYJpPAVVUu9DFzaA=="
         }
       },
       "is_incremental": false,
@@ -1298,6 +1298,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/OpenAPI.Utils.TaskExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenAPI.Utils.TaskExtensions.html",
+          "hash": "V+CTNsIGAIH49/USOWK8xw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/OpenAPI.Utils.ThreadSafeList-1.yml",
       "output": {
         ".html": {
@@ -1326,7 +1338,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenAPI.Utils.html",
-          "hash": "/9bCNauHo/nbI+Jh7nEe0A=="
+          "hash": "jEWJs9R8FlrktCDpRA0/Eg=="
         }
       },
       "is_incremental": false,
@@ -1422,7 +1434,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "gF+gTK9buW9xleAGs62NZQ=="
+          "hash": "ZLiMJthS5GJyh3S+hLlYWQ=="
         }
       },
       "is_incremental": false,
@@ -1504,7 +1516,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 116,
+          "total_file_count": 117,
           "skipped_file_count": 0
         }
       }
