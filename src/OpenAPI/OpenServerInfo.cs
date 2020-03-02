@@ -91,7 +91,8 @@ namespace OpenAPI
 						Log.InfoFormat(message);
 					}
 				}
-				else if (Config.GetProperty("EnableOpenServerInfo", false))
+				
+				if (Config.GetProperty("EnableOpenServerInfo", false))
 				{
 					Log.Info(
 						$"Players: {NumberOfPlayers} " +

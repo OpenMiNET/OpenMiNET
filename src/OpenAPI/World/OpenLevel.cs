@@ -125,7 +125,7 @@ namespace OpenAPI.World
 			if (Players.TryGetValue(newPlayer.EntityId, out MiNET.Player p))
 			{
 				LevelEntityAddedEvent addedEvent = new LevelEntityAddedEvent(this, p);
-				EventDispatcher.DispatchEvent(addedEvent);
+				EventDispatcher.DispatchEventAsync(addedEvent);
 			}
 		}
 
@@ -144,7 +144,7 @@ namespace OpenAPI.World
 				if (!Players.ContainsKey(player.EntityId))
 				{
 					LevelEntityRemovedEvent removedEvent = new LevelEntityRemovedEvent(this, player);
-					EventDispatcher.DispatchEvent(removedEvent);
+					EventDispatcher.DispatchEventAsync(removedEvent);
 				}
 			}
 		}

@@ -132,7 +132,7 @@ namespace OpenAPI.World
 
                 foreach (var uc in unloadedChunks)
                 {
-                    Level.EventDispatcher.DispatchEvent(new ChunkUnloadEvent(uc, Level));
+                    Level.EventDispatcher.DispatchEventAsync(new ChunkUnloadEvent(uc, Level));
                 }
             }
 

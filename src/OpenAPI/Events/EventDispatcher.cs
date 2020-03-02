@@ -228,9 +228,10 @@ namespace OpenAPI.Events
 		/// <returns></returns>
 		public async Task<TEvent> DispatchEventAsync<TEvent>(TEvent e) where TEvent : Event
 		{
-			List<Task> dispatchTasks = new List<Task>();
-			dispatchTasks.Add(DispatchPrivate(e));
+			await DispatchPrivate(e);
 
+			List<Task> dispatchTasks = new List<Task>();
+			
 			if (!e.IsCancelled)
 			{
 				foreach (var i in ExtraDispatchers)

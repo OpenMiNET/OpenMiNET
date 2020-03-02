@@ -3,6 +3,7 @@ using log4net;
 using MiNET.Items;
 using OpenAPI.Events;
 using OpenAPI.Events.Block;
+using OpenAPI.Events.Player;
 using OpenAPI.Plugins;
 using OpenAPI.Utils;
 
@@ -53,5 +54,11 @@ namespace OpenAPI.TestPlugin
                 }
             });
         }
+
+       /* [EventHandler(EventPriority.Highest)]
+        public void OnPlayerMove(PlayerMoveEvent e)
+        {
+            e.SetCancelled(true);
+        }*/
     }
 }
