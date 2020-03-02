@@ -2865,6 +2865,32 @@ references:
   isSpec: "True"
   fullName: OpenAPI.OpenServerInfo.OpenServerInfo
   nameWithType: OpenServerInfo.OpenServerInfo
+- uid: OpenAPI.OpenServerInfo.AvgSizePerPacketIn
+  name: AvgSizePerPacketIn
+  href: api/OpenAPI.OpenServerInfo.html#OpenAPI_OpenServerInfo_AvgSizePerPacketIn
+  commentId: P:OpenAPI.OpenServerInfo.AvgSizePerPacketIn
+  fullName: OpenAPI.OpenServerInfo.AvgSizePerPacketIn
+  nameWithType: OpenServerInfo.AvgSizePerPacketIn
+- uid: OpenAPI.OpenServerInfo.AvgSizePerPacketIn*
+  name: AvgSizePerPacketIn
+  href: api/OpenAPI.OpenServerInfo.html#OpenAPI_OpenServerInfo_AvgSizePerPacketIn_
+  commentId: Overload:OpenAPI.OpenServerInfo.AvgSizePerPacketIn
+  isSpec: "True"
+  fullName: OpenAPI.OpenServerInfo.AvgSizePerPacketIn
+  nameWithType: OpenServerInfo.AvgSizePerPacketIn
+- uid: OpenAPI.OpenServerInfo.AvgSizePerPacketOut
+  name: AvgSizePerPacketOut
+  href: api/OpenAPI.OpenServerInfo.html#OpenAPI_OpenServerInfo_AvgSizePerPacketOut
+  commentId: P:OpenAPI.OpenServerInfo.AvgSizePerPacketOut
+  fullName: OpenAPI.OpenServerInfo.AvgSizePerPacketOut
+  nameWithType: OpenServerInfo.AvgSizePerPacketOut
+- uid: OpenAPI.OpenServerInfo.AvgSizePerPacketOut*
+  name: AvgSizePerPacketOut
+  href: api/OpenAPI.OpenServerInfo.html#OpenAPI_OpenServerInfo_AvgSizePerPacketOut_
+  commentId: Overload:OpenAPI.OpenServerInfo.AvgSizePerPacketOut
+  isSpec: "True"
+  fullName: OpenAPI.OpenServerInfo.AvgSizePerPacketOut
+  nameWithType: OpenServerInfo.AvgSizePerPacketOut
 - uid: OpenAPI.OpenServerInfo.EventsDispatchedPerSecond
   name: EventsDispatchedPerSecond
   href: api/OpenAPI.OpenServerInfo.html#OpenAPI_OpenServerInfo_EventsDispatchedPerSecond
