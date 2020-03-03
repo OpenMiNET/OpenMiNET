@@ -111,6 +111,8 @@ namespace OpenAPI
 	        {
 		        LevelManager.SetDefaultByConfig();
 	        }
+	        
+	        CommandManager.Init();
         }
 
         internal void OnDisable()

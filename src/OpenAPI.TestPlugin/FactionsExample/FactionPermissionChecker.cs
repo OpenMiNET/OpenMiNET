@@ -6,7 +6,7 @@ using System.Text;
 
 namespace OpenAPI.TestPlugin.FactionsExample
 {
-    public class FactionPermissionChecker : CommandPermissionChecker
+    public class FactionPermissionChecker : CommandPermissionChecker<FactionPermissionAttribute>
     {
         private FactionManager Manager { get; set; }
 
@@ -15,13 +15,8 @@ namespace OpenAPI.TestPlugin.FactionsExample
             Manager = manager;
         }
 
-        public override bool HasPermission(CommandPermissionAttribute attr, OpenPlayer player)
+        public override bool HasPermission(FactionPermissionAttribute attr, OpenPlayer player)
         {
-            if (!(attr is FactionPermissionAttribute))
-            {
-                throw new InvalidOperationException("Invalid permission attribute.");
-            }
-
             return Manager.GetPlayerPermission(player) == ((attr as FactionPermissionAttribute).Permission);
         }
     }
