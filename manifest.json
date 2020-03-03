@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenAPI.Commands.CommandManager.html",
-          "hash": "HqZkaYQqFSqz6VMLIViEWQ=="
+          "hash": "/pN8Bziq1SOD4lzEWNTwWw=="
         }
       },
       "is_incremental": false,
@@ -50,11 +50,35 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/OpenAPI.Commands.CommandPermissionChecker-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenAPI.Commands.CommandPermissionChecker-1.html",
+          "hash": "oX38c3REeICybSPjeUTjdg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/OpenAPI.Commands.CommandPermissionChecker.yml",
       "output": {
         ".html": {
           "relative_path": "api/OpenAPI.Commands.CommandPermissionChecker.html",
-          "hash": "RvJinbkdkDr+aJwIne/yKA=="
+          "hash": "YBdHuirShWcJWy4pXGCbfg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpenAPI.Commands.DefaultPermissionChecker.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenAPI.Commands.DefaultPermissionChecker.html",
+          "hash": "Ly+MO31oUldZMoYVZTy/lA=="
         }
       },
       "is_incremental": false,
@@ -74,23 +98,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/OpenAPI.Commands.StringPermissionChecker.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/OpenAPI.Commands.StringPermissionChecker.html",
-          "hash": "CYMHW1sQQCQEx+H83Mr9uQ=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/OpenAPI.Commands.yml",
       "output": {
         ".html": {
           "relative_path": "api/OpenAPI.Commands.html",
-          "hash": "WqU14EJ0RAYN7loeQRhuLw=="
+          "hash": "1FrPYjTooxGmzhiFdFYjsA=="
         }
       },
       "is_incremental": false,
@@ -1434,7 +1446,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "ZLiMJthS5GJyh3S+hLlYWQ=="
+          "hash": "OJ4oLp7uUATrTN2o8W+xXQ=="
         }
       },
       "is_incremental": false,
@@ -1446,19 +1458,22 @@
       "output": {
         ".html": {
           "relative_path": "articles/intro.html",
-          "hash": "3b426T8oipmNNzBiy4H8iw=="
+          "hash": "hSmv1rya46kQPkbQYvg7Jw=="
         }
       },
       "is_incremental": false,
       "version": ""
     },
     {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
       "type": "Toc",
       "source_relative_path": "articles/toc.yml",
       "output": {
         ".html": {
           "relative_path": "articles/toc.html",
-          "hash": "t7iiFrmuYmrKWisdq+lN6Q=="
+          "hash": "JGT0whWScuX4NvliZGkKUA=="
         }
       },
       "is_incremental": false,
@@ -1470,7 +1485,7 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "Nj5n7XZ0zcZq+u5Bj01kwg=="
+          "hash": "dqGJSPD2Eg05MmNcuqV4pw=="
         }
       },
       "is_incremental": false,
@@ -1516,7 +1531,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 117,
+          "total_file_count": 118,
           "skipped_file_count": 0
         }
       }

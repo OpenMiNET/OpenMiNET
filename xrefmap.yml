@@ -174,6 +174,15 @@ references:
   isSpec: "True"
   fullName: OpenAPI.Commands.CommandManager.RegisterPermissionChecker
   nameWithType: CommandManager.RegisterPermissionChecker
+- uid: OpenAPI.Commands.CommandManager.RegisterPermissionChecker``1(OpenAPI.Commands.CommandPermissionChecker{``0})
+  name: RegisterPermissionChecker<TType>(CommandPermissionChecker<TType>)
+  href: api/OpenAPI.Commands.CommandManager.html#OpenAPI_Commands_CommandManager_RegisterPermissionChecker__1_OpenAPI_Commands_CommandPermissionChecker___0__
+  commentId: M:OpenAPI.Commands.CommandManager.RegisterPermissionChecker``1(OpenAPI.Commands.CommandPermissionChecker{``0})
+  name.vb: RegisterPermissionChecker(Of TType)(CommandPermissionChecker(Of TType))
+  fullName: OpenAPI.Commands.CommandManager.RegisterPermissionChecker<TType>(OpenAPI.Commands.CommandPermissionChecker<TType>)
+  fullName.vb: OpenAPI.Commands.CommandManager.RegisterPermissionChecker(Of TType)(OpenAPI.Commands.CommandPermissionChecker(Of TType))
+  nameWithType: CommandManager.RegisterPermissionChecker<TType>(CommandPermissionChecker<TType>)
+  nameWithType.vb: CommandManager.RegisterPermissionChecker(Of TType)(CommandPermissionChecker(Of TType))
 - uid: OpenAPI.Commands.CommandManager.ToCamelCase(System.String)
   name: ToCamelCase(String)
   href: api/OpenAPI.Commands.CommandManager.html#OpenAPI_Commands_CommandManager_ToCamelCase_System_String_
@@ -225,6 +234,59 @@ references:
   isSpec: "True"
   fullName: OpenAPI.Commands.CommandPermissionChecker.HasPermission
   nameWithType: CommandPermissionChecker.HasPermission
+- uid: OpenAPI.Commands.CommandPermissionChecker`1
+  name: CommandPermissionChecker<TType>
+  href: api/OpenAPI.Commands.CommandPermissionChecker-1.html
+  commentId: T:OpenAPI.Commands.CommandPermissionChecker`1
+  name.vb: CommandPermissionChecker(Of TType)
+  fullName: OpenAPI.Commands.CommandPermissionChecker<TType>
+  fullName.vb: OpenAPI.Commands.CommandPermissionChecker(Of TType)
+  nameWithType: CommandPermissionChecker<TType>
+  nameWithType.vb: CommandPermissionChecker(Of TType)
+- uid: OpenAPI.Commands.CommandPermissionChecker`1.HasPermission(`0,OpenAPI.Player.OpenPlayer)
+  name: HasPermission(TType, OpenPlayer)
+  href: api/OpenAPI.Commands.CommandPermissionChecker-1.html#OpenAPI_Commands_CommandPermissionChecker_1_HasPermission__0_OpenAPI_Player_OpenPlayer_
+  commentId: M:OpenAPI.Commands.CommandPermissionChecker`1.HasPermission(`0,OpenAPI.Player.OpenPlayer)
+  fullName: OpenAPI.Commands.CommandPermissionChecker<TType>.HasPermission(TType, OpenAPI.Player.OpenPlayer)
+  fullName.vb: OpenAPI.Commands.CommandPermissionChecker(Of TType).HasPermission(TType, OpenAPI.Player.OpenPlayer)
+  nameWithType: CommandPermissionChecker<TType>.HasPermission(TType, OpenPlayer)
+  nameWithType.vb: CommandPermissionChecker(Of TType).HasPermission(TType, OpenPlayer)
+- uid: OpenAPI.Commands.CommandPermissionChecker`1.HasPermission(OpenAPI.Commands.CommandPermissionAttribute,OpenAPI.Player.OpenPlayer)
+  name: HasPermission(CommandPermissionAttribute, OpenPlayer)
+  href: api/OpenAPI.Commands.CommandPermissionChecker-1.html#OpenAPI_Commands_CommandPermissionChecker_1_HasPermission_OpenAPI_Commands_CommandPermissionAttribute_OpenAPI_Player_OpenPlayer_
+  commentId: M:OpenAPI.Commands.CommandPermissionChecker`1.HasPermission(OpenAPI.Commands.CommandPermissionAttribute,OpenAPI.Player.OpenPlayer)
+  fullName: OpenAPI.Commands.CommandPermissionChecker<TType>.HasPermission(OpenAPI.Commands.CommandPermissionAttribute, OpenAPI.Player.OpenPlayer)
+  fullName.vb: OpenAPI.Commands.CommandPermissionChecker(Of TType).HasPermission(OpenAPI.Commands.CommandPermissionAttribute, OpenAPI.Player.OpenPlayer)
+  nameWithType: CommandPermissionChecker<TType>.HasPermission(CommandPermissionAttribute, OpenPlayer)
+  nameWithType.vb: CommandPermissionChecker(Of TType).HasPermission(CommandPermissionAttribute, OpenPlayer)
+- uid: OpenAPI.Commands.CommandPermissionChecker`1.HasPermission*
+  name: HasPermission
+  href: api/OpenAPI.Commands.CommandPermissionChecker-1.html#OpenAPI_Commands_CommandPermissionChecker_1_HasPermission_
+  commentId: Overload:OpenAPI.Commands.CommandPermissionChecker`1.HasPermission
+  isSpec: "True"
+  fullName: OpenAPI.Commands.CommandPermissionChecker<TType>.HasPermission
+  fullName.vb: OpenAPI.Commands.CommandPermissionChecker(Of TType).HasPermission
+  nameWithType: CommandPermissionChecker<TType>.HasPermission
+  nameWithType.vb: CommandPermissionChecker(Of TType).HasPermission
+- uid: OpenAPI.Commands.DefaultPermissionChecker
+  name: DefaultPermissionChecker
+  href: api/OpenAPI.Commands.DefaultPermissionChecker.html
+  commentId: T:OpenAPI.Commands.DefaultPermissionChecker
+  fullName: OpenAPI.Commands.DefaultPermissionChecker
+  nameWithType: DefaultPermissionChecker
+- uid: OpenAPI.Commands.DefaultPermissionChecker.HasPermission(OpenAPI.Commands.StringPermissionAttribute,OpenAPI.Player.OpenPlayer)
+  name: HasPermission(StringPermissionAttribute, OpenPlayer)
+  href: api/OpenAPI.Commands.DefaultPermissionChecker.html#OpenAPI_Commands_DefaultPermissionChecker_HasPermission_OpenAPI_Commands_StringPermissionAttribute_OpenAPI_Player_OpenPlayer_
+  commentId: M:OpenAPI.Commands.DefaultPermissionChecker.HasPermission(OpenAPI.Commands.StringPermissionAttribute,OpenAPI.Player.OpenPlayer)
+  fullName: OpenAPI.Commands.DefaultPermissionChecker.HasPermission(OpenAPI.Commands.StringPermissionAttribute, OpenAPI.Player.OpenPlayer)
+  nameWithType: DefaultPermissionChecker.HasPermission(StringPermissionAttribute, OpenPlayer)
+- uid: OpenAPI.Commands.DefaultPermissionChecker.HasPermission*
+  name: HasPermission
+  href: api/OpenAPI.Commands.DefaultPermissionChecker.html#OpenAPI_Commands_DefaultPermissionChecker_HasPermission_
+  commentId: Overload:OpenAPI.Commands.DefaultPermissionChecker.HasPermission
+  isSpec: "True"
+  fullName: OpenAPI.Commands.DefaultPermissionChecker.HasPermission
+  nameWithType: DefaultPermissionChecker.HasPermission
 - uid: OpenAPI.Commands.StringPermissionAttribute
   name: StringPermissionAttribute
   href: api/OpenAPI.Commands.StringPermissionAttribute.html
@@ -257,25 +319,6 @@ references:
   isSpec: "True"
   fullName: OpenAPI.Commands.StringPermissionAttribute.Permission
   nameWithType: StringPermissionAttribute.Permission
-- uid: OpenAPI.Commands.StringPermissionChecker
-  name: StringPermissionChecker
-  href: api/OpenAPI.Commands.StringPermissionChecker.html
-  commentId: T:OpenAPI.Commands.StringPermissionChecker
-  fullName: OpenAPI.Commands.StringPermissionChecker
-  nameWithType: StringPermissionChecker
-- uid: OpenAPI.Commands.StringPermissionChecker.HasPermission(OpenAPI.Commands.CommandPermissionAttribute,OpenAPI.Player.OpenPlayer)
-  name: HasPermission(CommandPermissionAttribute, OpenPlayer)
-  href: api/OpenAPI.Commands.StringPermissionChecker.html#OpenAPI_Commands_StringPermissionChecker_HasPermission_OpenAPI_Commands_CommandPermissionAttribute_OpenAPI_Player_OpenPlayer_
-  commentId: M:OpenAPI.Commands.StringPermissionChecker.HasPermission(OpenAPI.Commands.CommandPermissionAttribute,OpenAPI.Player.OpenPlayer)
-  fullName: OpenAPI.Commands.StringPermissionChecker.HasPermission(OpenAPI.Commands.CommandPermissionAttribute, OpenAPI.Player.OpenPlayer)
-  nameWithType: StringPermissionChecker.HasPermission(CommandPermissionAttribute, OpenPlayer)
-- uid: OpenAPI.Commands.StringPermissionChecker.HasPermission*
-  name: HasPermission
-  href: api/OpenAPI.Commands.StringPermissionChecker.html#OpenAPI_Commands_StringPermissionChecker_HasPermission_
-  commentId: Overload:OpenAPI.Commands.StringPermissionChecker.HasPermission
-  isSpec: "True"
-  fullName: OpenAPI.Commands.StringPermissionChecker.HasPermission
-  nameWithType: StringPermissionChecker.HasPermission
 - uid: OpenAPI.Entities
   name: OpenAPI.Entities
   href: api/OpenAPI.Entities.html

@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class CommandPermissionChecker
+    <title>Class DefaultPermissionChecker
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class CommandPermissionChecker
+    <meta name="title" content="Class DefaultPermissionChecker
    ">
     <meta name="generator" content="docfx 2.45.1.0">
     
@@ -78,41 +78,48 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="OpenAPI.Commands.CommandPermissionChecker">
+            <article class="content wrap" id="_content" data-uid="OpenAPI.Commands.DefaultPermissionChecker">
   
   
-  <h1 id="OpenAPI_Commands_CommandPermissionChecker" data-uid="OpenAPI.Commands.CommandPermissionChecker" class="text-break">Class CommandPermissionChecker
+  <h1 id="OpenAPI_Commands_DefaultPermissionChecker" data-uid="OpenAPI.Commands.DefaultPermissionChecker" class="text-break">Class DefaultPermissionChecker
   </h1>
   <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">CommandPermissionChecker</span></div>
-      <div class="level2"><a class="xref" href="OpenAPI.Commands.CommandPermissionChecker-1.html">CommandPermissionChecker&lt;TType&gt;</a></div>
+    <div class="level1"><a class="xref" href="OpenAPI.Commands.CommandPermissionChecker.html">CommandPermissionChecker</a></div>
+    <div class="level2"><a class="xref" href="OpenAPI.Commands.CommandPermissionChecker-1.html">CommandPermissionChecker</a>&lt;<a class="xref" href="OpenAPI.Commands.StringPermissionAttribute.html">StringPermissionAttribute</a>&gt;</div>
+    <div class="level3"><span class="xref">DefaultPermissionChecker</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="OpenAPI.Commands.CommandPermissionChecker-1.html#OpenAPI_Commands_CommandPermissionChecker_1_HasPermission_OpenAPI_Commands_CommandPermissionAttribute_OpenAPI_Player_OpenPlayer_">CommandPermissionChecker&lt;StringPermissionAttribute&gt;.HasPermission(CommandPermissionAttribute, OpenPlayer)</a>
+    </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="OpenAPI.Commands.html">OpenAPI.Commands</a></h6>
   <h6><strong>Assembly</strong>: OpenAPI.dll</h6>
-  <h5 id="OpenAPI_Commands_CommandPermissionChecker_syntax">Syntax</h5>
+  <h5 id="OpenAPI_Commands_DefaultPermissionChecker_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract class CommandPermissionChecker : object</code></pre>
+    <pre><code class="lang-csharp hljs">public class DefaultPermissionChecker : CommandPermissionChecker&lt;StringPermissionAttribute&gt;</code></pre>
   </div>
   <h3 id="methods">Methods
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/OpenMiNET/OpenAPI/new/master/apiSpec/new?filename=OpenAPI_Commands_CommandPermissionChecker_HasPermission_OpenAPI_Commands_CommandPermissionAttribute_OpenAPI_Player_OpenPlayer_.md&amp;value=---%0Auid%3A%20OpenAPI.Commands.CommandPermissionChecker.HasPermission(OpenAPI.Commands.CommandPermissionAttribute%2COpenAPI.Player.OpenPlayer)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/OpenMiNET/OpenAPI/new/master/apiSpec/new?filename=OpenAPI_Commands_DefaultPermissionChecker_HasPermission_OpenAPI_Commands_StringPermissionAttribute_OpenAPI_Player_OpenPlayer_.md&amp;value=---%0Auid%3A%20OpenAPI.Commands.DefaultPermissionChecker.HasPermission(OpenAPI.Commands.StringPermissionAttribute%2COpenAPI.Player.OpenPlayer)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenAPI/blob/master/src/OpenAPI/Commands/CommandPermissionChecker.cs/#L10">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenAPI/blob/master/src/OpenAPI/Commands/DefaultPermissionChecker.cs/#L11">View Source</a>
   </span>
-  <a id="OpenAPI_Commands_CommandPermissionChecker_HasPermission_" data-uid="OpenAPI.Commands.CommandPermissionChecker.HasPermission*"></a>
-  <h4 id="OpenAPI_Commands_CommandPermissionChecker_HasPermission_OpenAPI_Commands_CommandPermissionAttribute_OpenAPI_Player_OpenPlayer_" data-uid="OpenAPI.Commands.CommandPermissionChecker.HasPermission(OpenAPI.Commands.CommandPermissionAttribute,OpenAPI.Player.OpenPlayer)">HasPermission(CommandPermissionAttribute, OpenPlayer)</h4>
+  <a id="OpenAPI_Commands_DefaultPermissionChecker_HasPermission_" data-uid="OpenAPI.Commands.DefaultPermissionChecker.HasPermission*"></a>
+  <h4 id="OpenAPI_Commands_DefaultPermissionChecker_HasPermission_OpenAPI_Commands_StringPermissionAttribute_OpenAPI_Player_OpenPlayer_" data-uid="OpenAPI.Commands.DefaultPermissionChecker.HasPermission(OpenAPI.Commands.StringPermissionAttribute,OpenAPI.Player.OpenPlayer)">HasPermission(StringPermissionAttribute, OpenPlayer)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract bool HasPermission(CommandPermissionAttribute attr, OpenPlayer player)</code></pre>
+    <pre><code class="lang-csharp hljs">public override bool HasPermission(StringPermissionAttribute attr, OpenPlayer player)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -125,7 +132,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="OpenAPI.Commands.CommandPermissionAttribute.html">CommandPermissionAttribute</a></td>
+        <td><a class="xref" href="OpenAPI.Commands.StringPermissionAttribute.html">StringPermissionAttribute</a></td>
         <td><span class="parametername">attr</span></td>
         <td></td>
       </tr>
@@ -151,6 +158,8 @@
       </tr>
     </tbody>
   </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">OpenAPI.Commands.CommandPermissionChecker&lt;OpenAPI.Commands.StringPermissionAttribute&gt;.HasPermission(OpenAPI.Commands.StringPermissionAttribute, OpenAPI.Player.OpenPlayer)</span></div>
 </article>
           </div>
           
@@ -159,10 +168,10 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/OpenMiNET/OpenAPI/new/master/apiSpec/new?filename=OpenAPI_Commands_CommandPermissionChecker.md&amp;value=---%0Auid%3A%20OpenAPI.Commands.CommandPermissionChecker%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/OpenMiNET/OpenAPI/new/master/apiSpec/new?filename=OpenAPI_Commands_DefaultPermissionChecker.md&amp;value=---%0Auid%3A%20OpenAPI.Commands.DefaultPermissionChecker%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/OpenMiNET/OpenAPI/blob/master/src/OpenAPI/Commands/CommandPermissionChecker.cs/#L8" class="contribution-link">View Source</a>
+                    <a href="https://github.com/OpenMiNET/OpenAPI/blob/master/src/OpenAPI/Commands/DefaultPermissionChecker.cs/#L9" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
