@@ -70,19 +70,23 @@ namespace OpenAPI.Player
         public override void InitializePlayer()
         {
 	        PlayerLoginCompleteEvent e = new PlayerLoginCompleteEvent(this, DateTime.UtcNow);
-	        EventDispatcher.DispatchEvent(e);
-	        if (e.IsCancelled)
+	        EventDispatcher.DispatchEventAsync(e).Then(result =>
 	        {
-		        Disconnect("Error #357. Please report this error.");
-	        }
+		        if (result.IsCancelled)
+		        {
+			        Disconnect("Error #357. Please report this error.");
+		        }
+		        else
+		        {
+			        base.InitializePlayer();
 
-			base.InitializePlayer();
+			        Culture = CultureInfo.CreateSpecificCulture(PlayerInfo.LanguageCode.Replace('_', '-'));
 
-            Culture = CultureInfo.CreateSpecificCulture(PlayerInfo.LanguageCode.Replace('_', '-'));
-
-            HungerManager = new OpenHungerManager(this);
-	        HealthManager = new OpenHealthManager(this);
-		   // HealthManager.PlayerTakeHit += HealthManagerOnPlayerTakeHit;
+			        HungerManager = new OpenHungerManager(this);
+			        HealthManager = new OpenHealthManager(this);
+		        }
+	        });
+	        // HealthManager.PlayerTakeHit += HealthManagerOnPlayerTakeHit;
         }
 
         public override void HandleMcpeCommandRequest(McpeCommandRequest message)
@@ -154,12 +158,12 @@ namespace OpenAPI.Player
             if (isSpawned && !_previousIsSpawned)
             {
                 PlayerSpawnedEvent ev = new PlayerSpawnedEvent(this);
-                EventDispatcher.DispatchEvent(ev);
+                EventDispatcher.DispatchEventAsync(ev);
             }
             else if (!isSpawned && _previousIsSpawned)
             {
                 PlayerDespawnedEvent ev = new PlayerDespawnedEvent(this);
-                EventDispatcher.DispatchEvent(ev);
+                EventDispatcher.DispatchEventAsync(ev);
             }
 
             _previousIsSpawned = isSpawned;
@@ -187,12 +191,12 @@ namespace OpenAPI.Player
 	        if (_hasJoinedServer) return; //Make sure this is only called once when we join the server for the first time.
 	        _hasJoinedServer = true;
 
-			EventDispatcher.DispatchEvent(new PlayerJoinEvent(this));
+			EventDispatcher.DispatchEventAsync(new PlayerJoinEvent(this));
         }
 
         protected override void OnPlayerLeave(PlayerEventArgs e)
         {
-            EventDispatcher.DispatchEvent(new PlayerQuitEvent(this));
+            EventDispatcher.DispatchEventAsync(new PlayerQuitEvent(this));
         }
 
         private bool PlayerMoveEvent(PlayerLocation from, PlayerLocation to, bool teleport = false)
@@ -202,8 +206,52 @@ namespace OpenAPI.Player
             return !playerMoveEvent.IsCancelled;
         }
 
+      /*  private int _lastPlayerMoveSequenceNUmber;
+        private int _lastOrderingIndex;
+        private object _moveSyncLock = new object();
+        public override void HandleMcpeMovePlayer(McpeMovePlayer message)
+        {
+	        if (!IsSpawned || HealthManager.IsDead) return;
+
+	        if (_plugin.OpenServer.ServerRole != ServerRole.Node)
+	        {
+		        lock (_moveSyncLock)
+		        {
+			        if (_lastPlayerMoveSequenceNUmber > message.DatagramSequenceNumber)
+			        {
+				        return;
+			        }
+
+			        _lastPlayerMoveSequenceNUmber = message.DatagramSequenceNumber;
+
+			        if (_lastOrderingIndex > message.OrderingIndex)
+			        {
+				        return;
+			        }
+
+			        _lastOrderingIndex = message.OrderingIndex;
+		        }
+	        }
+
+	        var newPosition = new PlayerLocation(message.x, message.y, message.z, message.headYaw, message.yaw,
+		        message.pitch);
+	        
+	        EventDispatcher.DispatchEventAsync(new PlayerMoveEvent(this, KnownPosition, newPosition, false))
+		        .Then(
+			        result =>
+			        {
+				        if (result.IsCancelled)
+					        return;
+				        
+				        base.HandleMcpeMovePlayer(message);
+				        //base.Teleport(result.To);
+			        });
+        }*/
+
         protected override bool AcceptPlayerMove(McpeMovePlayer message, bool isOnGround, bool isFlyingHorizontally)
         {
+	      //  return true;
+	        
             if (!PlayerMoveEvent(KnownPosition, new PlayerLocation(message.x, message.y, message.z, message.headYaw, message.yaw, message.pitch)))
             {
                 return false;
@@ -214,11 +262,15 @@ namespace OpenAPI.Player
 
         public override void Teleport(PlayerLocation newPosition)
         {
-            if (!PlayerMoveEvent(KnownPosition, newPosition, true))
-            {
-                return;
-            }
-            base.Teleport(newPosition);
+	        EventDispatcher.DispatchEventAsync(new PlayerMoveEvent(this, KnownPosition, newPosition, true))
+		        .Then(
+			        result =>
+			        {
+				        if (result.IsCancelled)
+					        return;
+				        
+				        base.Teleport(result.To);
+			        });
         }
 
 		public void TransferToServer(IPEndPoint endpoint)
@@ -238,12 +290,14 @@ namespace OpenAPI.Player
 
             if (string.IsNullOrEmpty(text)) return;
             PlayerChatEvent chatEvent = new PlayerChatEvent(this, text);
-	        EventDispatcher.DispatchEvent(chatEvent);
-
-	        if (chatEvent.IsCancelled) return;
-
-	        Level.BroadcastMessage(chatEvent.Message, sender: this);
-		}
+	        EventDispatcher.DispatchEventAsync(chatEvent).Then(result =>
+	        {
+		        if (result.IsCancelled)
+			        return;
+		        
+		        Level.BroadcastMessage(chatEvent.Message, sender: this);
+	        });
+        }
 
         protected override void HandleItemUseOnEntityTransaction(ItemUseOnEntityTransaction transaction)
         {
@@ -258,10 +312,13 @@ namespace OpenAPI.Player
 	        var actionType = (McpeInventoryTransaction.ItemUseOnEntityAction) transaction.ActionType;
 			
 	        EntityInteractEvent interactEvent = new EntityInteractEvent(entity, this, actionType);
-	        EventDispatcher.DispatchEvent(interactEvent);
-	        if (interactEvent.IsCancelled) return;
-
-	        base.HandleItemUseOnEntityTransaction(transaction);
+	        EventDispatcher.DispatchEventAsync(interactEvent).Then(result =>
+	        {
+		        if (result.IsCancelled)
+			        return;
+		        
+		        base.HandleItemUseOnEntityTransaction(transaction);
+	        });
         }
         
         protected override void HandleItemReleaseTransaction(ItemReleaseTransaction transaction)
@@ -312,14 +369,15 @@ namespace OpenAPI.Player
 						    ? PlayerInteractEvent.PlayerInteractType.LeftClickAir
 						    : PlayerInteractEvent.PlayerInteractType.LeftClickBlock);
 				    
-				    EventDispatcher.DispatchEvent(interactEvent);
-
-				    if (interactEvent.IsCancelled)
+				    EventDispatcher.DispatchEventAsync(interactEvent).Then(result =>
 				    {
-					    return;
-				    }
+					    if (result.IsCancelled)
+						    return;
+					    
+					    base.HandleItemUseTransaction(transaction);
+				    });
 				    
-				    break;
+				    return;
 			    }
 			    case McpeInventoryTransaction.ItemUseAction.Use:
 			    {
@@ -341,14 +399,15 @@ namespace OpenAPI.Player
 						    ? PlayerInteractEvent.PlayerInteractType.RightClickAir
 						    : PlayerInteractEvent.PlayerInteractType.RightClickBlock);
 				    
-				    EventDispatcher.DispatchEvent(interactEvent);
-
-				    if (interactEvent.IsCancelled)
+				    EventDispatcher.DispatchEventAsync(interactEvent).Then(result =>
 				    {
-					    return;
-				    }
-				    
-				    break;
+					    if (result.IsCancelled)
+						    return;
+					    
+					    base.HandleItemUseTransaction(transaction);
+				    });
+
+				    return;
 			    }
 		    }
 
@@ -420,18 +479,19 @@ namespace OpenAPI.Player
 					BreakingFace = face;
 					
 					var blockStartBreak = new BlockStartBreakEvent(this, block);
-					EventDispatcher.DispatchEvent(blockStartBreak);
-
-					if (blockStartBreak.IsCancelled)
+					EventDispatcher.DispatchEventAsync(blockStartBreak).Then(result =>
 					{
-						SendBlockBreakEnd(block.Coordinates);
-						return;
-					}
-
-					IsBreakingBlock = true;
-					BlockBreakTimer.Restart();
-					BreakingBlockCoordinates = block.Coordinates;
-					BlockBreakTime = breakTime;
+						if (result.IsCancelled)
+						{
+							SendBlockBreakEnd(block.Coordinates);
+							return;
+						}
+						
+						IsBreakingBlock = true;
+						BlockBreakTimer.Restart();
+						BreakingBlockCoordinates = block.Coordinates;
+						BlockBreakTime = breakTime;
+					});
 				}
 				else if (action == PlayerAction.AbortBreak)
 				{
@@ -441,7 +501,7 @@ namespace OpenAPI.Player
 						IsBreakingBlock = false;
 						BlockBreakTimer.Reset();
 
-						EventDispatcher.DispatchEvent(new BlockAbortBreakEvent(this, block));
+						EventDispatcher.DispatchEventAsync(new BlockAbortBreakEvent(this, block));
 					}
 				}
 				else if (action == PlayerAction.StopBreak)
@@ -484,17 +544,11 @@ namespace OpenAPI.Player
 			BlockBreakTimer.Reset();
 
 			var b = Level.GetBlock(coords);
-			BlockBreakEvent e = new BlockBreakEvent(this, b);
-			EventDispatcher.DispatchEvent(e);
-			if (e.IsCancelled)
-			{
-                return;
-			}
-
+			
 			Item inHand = Inventory.GetItemInHand();
 			Level.BreakBlock(b, BreakingFace, this, inHand);
 
-            e.OnComplete();
+           // e.OnComplete();
 		}
 
 	    /*protected override bool CanBreakBlock(Block block, Item itemInHand)

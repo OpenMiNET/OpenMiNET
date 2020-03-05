@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
@@ -30,20 +31,36 @@ namespace OpenAPI.Commands
 		
 		private readonly Dictionary<MethodInfo, CommandData> _pluginCommands = new Dictionary<MethodInfo, CommandData>();
 		private OpenPluginManager PluginManager { get; }
-        private Dictionary<Type, CommandPermissionChecker> permissionCheckers = new Dictionary<Type, CommandPermissionChecker>();
+        private ConcurrentDictionary<Type, CommandPermissionChecker> _permissionCheckers = new ConcurrentDictionary<Type, CommandPermissionChecker>();
         private bool HasPermissionChecker { get; set; } = false;
         public bool HasExternalPermissionChecker { get; set; } = false;
         public CommandManager(OpenPluginManager pluginManager)
 		{
 			PluginManager = pluginManager;
-			RegisterPermissionChecker(typeof(StringPermissionAttribute), new StringPermissionChecker());
 
 			HasExternalPermissionChecker = false;
 		}
 
+        internal void Init()
+        {
+	        if (!_permissionCheckers.ContainsKey(typeof(StringPermissionAttribute)))
+	        {
+		        RegisterPermissionChecker(typeof(StringPermissionAttribute), new DefaultPermissionChecker());
+	        }
+        }
+
+        public void RegisterPermissionChecker<TType>(CommandPermissionChecker<TType> permissionChecker)
+	        where TType : CommandPermissionAttribute
+        {
+	        _permissionCheckers[typeof(TType)] = permissionChecker;
+	        
+	        HasPermissionChecker = true;
+	        HasExternalPermissionChecker = true;
+        }
+
         public void RegisterPermissionChecker(Type type, CommandPermissionChecker permissionChecker)
         {
-            permissionCheckers[type] = permissionChecker;
+            _permissionCheckers[type] = permissionChecker;
 
             HasPermissionChecker = true;
             HasExternalPermissionChecker = true;
@@ -111,7 +128,7 @@ namespace OpenAPI.Commands
 	    {
 		    return GenerateCommandSet(_pluginCommands
 			    .Where(x => x.Value.PermissionAttribute == null || 
-                    (permissionCheckers[x.Value.PermissionAttribute.GetType()] != null && permissionCheckers[x.Value.PermissionAttribute.GetType()].HasPermission(x.Value.PermissionAttribute, player))).Select(x => x.Key).ToArray());
+                    (_permissionCheckers[x.Value.PermissionAttribute.GetType()] != null && _permissionCheckers[x.Value.PermissionAttribute.GetType()].HasPermission(x.Value.PermissionAttribute, player))).Select(x => x.Key).ToArray());
 	    }
 
 	    private CommandSet GenerateCommandSet(MethodInfo[] methods)

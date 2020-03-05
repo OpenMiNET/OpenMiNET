@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
@@ -112,14 +113,15 @@ namespace OpenAPI
                 openInfo?.OnEnable();
 
                 ReflectionHelper.SetPrivateFieldValue(typeof(MiNetServer), this, "_tickerHighPrecisionTimer",
-                    new HighPrecisionTimer(10, (o) => {
+                    new HighPrecisionTimer(10, async (o) => {
                         //ReflectionHelper.InvokePrivateMethod(this, "SendTick", new[] {o});
                         var sessions =
                             ReflectionHelper
                                 .GetPrivateFieldValue<ConcurrentDictionary<IPEndPoint, PlayerNetworkSession>>(
                                     typeof(MiNetServer), this, "_playerSessions");
-                        
-                        Parallel.ForEach(sessions.Values, (session, state) => session.SendTick(null));
+
+                        var tasks = sessions.Values.Select(session => session.SendTickAsync());
+                        await Task.WhenAll(tasks);
                     }, true, true));
 
                 Log.Info("Server open for business on port " + Endpoint?.Port + " ...");

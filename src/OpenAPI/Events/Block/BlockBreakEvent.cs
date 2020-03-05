@@ -1,26 +1,36 @@
 ﻿using System;
+using System.Collections.Generic;
+using MiNET.Items;
 using OpenAPI.Player;
 
 namespace OpenAPI.Events.Block
 {
 	/// <summary>
-	///		Gets dispatched when a <see cref="OpenPlayer"/> breaks a block
+	///		Gets dispatched when a <see cref="MiNET.Entities.Entity"/> breaks a block.
 	/// </summary>
 	public class BlockBreakEvent : BlockExpEvent
 	{
 		/// <summary>
-		/// 	The player that broke the block
+		/// 	The <see cref="MiNET.Entities.Entity"/> that broke the block.
+		/// 	This can be a player, a mob or null.
 		/// </summary>
-		public OpenPlayer Player { get; }
+		public MiNET.Entities.Entity Source { get; }
+		
+		/// <summary>
+		/// 	The items that were to be dropped if the block gets broken.
+		/// </summary>
+		public List<Item> Drops { get; }
 		
 		/// <summary>
 		/// 	
 		/// </summary>
-		/// <param name="player">The player that triggered the event</param>
+		/// <param name="player">The entity that triggered the event</param>
 		/// <param name="block">The block that was broken</param>
-		public BlockBreakEvent(OpenPlayer player, MiNET.Blocks.Block block) : base(block, block.GetExperiencePoints())
+		/// <param name="drops">The items that were gonna be dropped if the block broke</param>
+		public BlockBreakEvent(MiNET.Entities.Entity player, MiNET.Blocks.Block block, List<Item> drops) : base(block, block.GetExperiencePoints())
 		{
-			Player = player;
+			Source = player;
+			Drops = drops;
 		}
 	}
 }

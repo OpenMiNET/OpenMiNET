@@ -23,7 +23,7 @@ namespace OpenAPI.TestPlugin
 
 		public override void Enabled(OpenApi api)
 		{
-            api.CommandManager.RegisterPermissionChecker(typeof(FactionPermissionAttribute), new FactionPermissionChecker(FactionManager));
+            api.CommandManager.RegisterPermissionChecker(new FactionPermissionChecker(FactionManager));
 
 			api.CommandManager.LoadCommands(CommandsClass);
             api.CommandManager.LoadCommands(new FactionCommands(FactionManager));
