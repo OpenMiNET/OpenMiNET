@@ -6,12 +6,14 @@ using System.Reflection;
 using System.Threading;
 using log4net;
 using MiNET.Utils;
+using OpenAPI.GameEngine.Games.Configuration;
 using OpenAPI.GameEngine.Models.Games;
 
 namespace OpenAPI.GameEngine.Games
 {
     public class GameManager
     {
+        private Type Default { get; set; }
         private ConcurrentDictionary<Type, GameEntry> Games { get; }
         
         public GameManager()
@@ -50,7 +52,7 @@ namespace OpenAPI.GameEngine.Games
             {
                 throw new Exception("Could not find suitable constructor!");
             }
-
+            
             return RegisterGame<TGame>((owner) => (TGame) suitableConstructor.Invoke(new object[]
             {
                 owner
@@ -98,6 +100,21 @@ namespace OpenAPI.GameEngine.Games
                 throw new GameNotFoundException(name);
 
             return entry;
+        }
+
+        public GameEntry GetDefault()
+        {
+            if (Games.TryGetValue(Default, out var defaultGame))
+            {
+                return defaultGame;
+            }
+
+            return null;
+        }
+        
+        public void SetDefault<TGame>() where TGame : Game
+        {
+            Default = typeof(TGame);
         }
     }
 

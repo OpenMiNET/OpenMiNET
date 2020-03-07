@@ -36,13 +36,21 @@ namespace OpenAPI.GameEngine.Games
         protected Game(IGameOwner owner)
         {
             Owner = owner;
+
             StageManager = new StageManager(this);
         }
         
+        protected TeamManager TeamManager { get; private set; }
         protected StageManager StageManager { get; }
 
         internal void Initialize()
         {
+            LoadContent();
+            
+            LoadConfig();
+            
+            TeamManager = new TeamManager(Config.Teams);
+            
             OnInitialize();
 
             StageManager.Start();
@@ -50,6 +58,16 @@ namespace OpenAPI.GameEngine.Games
             State = GameState.Ready;
         }
 
+        private void LoadConfig()
+        {
+            Config = new GameConfig();
+        }
+
+        protected virtual void LoadContent()
+        {
+            
+        }
+        
         protected virtual void OnInitialize()
         {
             
@@ -57,9 +75,16 @@ namespace OpenAPI.GameEngine.Games
 
         internal void Tick()
         {
-            if (State == GameState.WaitingForPlayers)
+            if (State == GameState.WaitingForPlayers || State == GameState.Starting)
             {
-                
+                if (TeamManager.CanStart())
+                {
+                    State = GameState.Starting;
+                }
+                else
+                {
+                    State = GameState.WaitingForPlayers;
+                }
             }
             
             OnTick();
@@ -72,6 +97,29 @@ namespace OpenAPI.GameEngine.Games
             
         }
 
+        internal void LeaveGame(OpenPlayer player)
+        {
+            player.GetGameAttribute().Team?.Leave(player);
+        }
+
+        internal bool TryJoin(OpenPlayer player)
+        {
+            if (!CanJoin())
+                return false;
+
+            if (TeamManager.TryAssignTeam(player))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        protected virtual bool CanJoin()
+        {
+            return State == GameState.WaitingForPlayers;
+        }
+        
         public void Dispose()
         {
             

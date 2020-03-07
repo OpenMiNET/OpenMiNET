@@ -101,5 +101,10 @@ namespace OpenAPI.GameEngine.Games.Teams
                     throw new ArgumentOutOfRangeException();
             }
         }
+
+        public bool CanStart()
+        {
+            return Teams.All(x => x.Value.PlayerCount >= Config.MinPlayers) && Teams.Count >= Config.Min;
+        }
     }
 }

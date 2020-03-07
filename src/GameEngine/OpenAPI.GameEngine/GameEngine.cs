@@ -14,19 +14,22 @@ namespace OpenAPI.GameEngine
         private OpenApi Host { get; set; }
         public GameManager GameManager { get; set; }
         
+        private JoinQuitHandler JoinQuitHandler { get; set; }
         public GameEngine()
         {
-            GameManager = new GameManager();    
+            GameManager = new GameManager();
+            JoinQuitHandler = new JoinQuitHandler(GameManager);
         }
         
         public override void Enabled(OpenApi api)
         {
             Host = api;
+            api.EventDispatcher.RegisterEvents(JoinQuitHandler);
         }
 
         public override void Disabled(OpenApi api)
         {
-
+            api.EventDispatcher.UnregisterEvents(JoinQuitHandler);
         }
     }
 }
