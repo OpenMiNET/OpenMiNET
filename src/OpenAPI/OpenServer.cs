@@ -24,6 +24,7 @@ namespace OpenAPI
         private static readonly ILog Log = LogManager.GetLogger(typeof(OpenServer));
 
         private OpenApi OpenApi { get; set; }
+        private Thread ProcessingThread { get; set; }
 
         public static DedicatedThreadPool FastThreadPool => ReflectionHelper.GetPrivateStaticPropertyValue<DedicatedThreadPool>(typeof(MiNetServer), "FastThreadPool");
         public OpenServer()
@@ -33,7 +34,9 @@ namespace OpenAPI
 
         public new bool StartServer()
         {
-            UdpClient c = ReflectionHelper.GetPrivateFieldValue<UdpClient>(typeof(MiNetServer), this, "_listener");
+            var type = typeof(MiNetServer);
+            
+            UdpClient c = ReflectionHelper.GetPrivateFieldValue<UdpClient>(type, this, "_listener");
             if (c != null) return false;
 
             try
@@ -46,7 +49,7 @@ namespace OpenAPI
                     {
                         var ip = IPAddress.Parse(Config.GetProperty("ip", "0.0.0.0"));
                         int port = Config.GetProperty("port", 19132);
-                        ReflectionHelper.SetPrivatePropertyValue(typeof(MiNetServer), this, "Endpoint",
+                        ReflectionHelper.SetPrivatePropertyValue(type, this, "Endpoint",
                             new IPEndPoint(ip, port));
                     }
                 }
@@ -59,7 +62,7 @@ namespace OpenAPI
                     PluginManager = new PluginManager();
                     openInfo = new OpenServerInfo(OpenApi,
                         ReflectionHelper.GetPrivateFieldValue<ConcurrentDictionary<IPEndPoint, PlayerNetworkSession>>(
-                            typeof(MiNetServer), this, "_playerSessions"), OpenApi.LevelManager);
+                            type, this, "_playerSessions"), OpenApi.LevelManager);
                     ServerInfo = openInfo;
                     openInfo.Init();
 
@@ -99,26 +102,28 @@ namespace OpenAPI
                         listener.Client.IOControl((int) SIO_UDP_CONNRESET, new byte[] {Convert.ToByte(false)}, null);
                     }
 
-                    ReflectionHelper.SetPrivateFieldValue(typeof(MiNetServer), this, "_listener", listener);
+                    ReflectionHelper.SetPrivateFieldValue(type, this, "_listener", listener);
 
-                    var processData = typeof(MiNetServer).GetMethod("ProcessDatagrams",
+                    var processData = type.GetMethod("ProcessDatagrams",
                         BindingFlags.NonPublic | BindingFlags.Instance);
                     
-                    new Thread((l) =>
+                    ProcessingThread = new Thread((l) =>
                     {
                         processData?.Invoke(this, new object[] {(UdpClient) l});
-                    }) {IsBackground = true}.Start(listener);
+                    }) {IsBackground = true};
+                    
+                    ProcessingThread.Start();
                 }
 
                 openInfo?.OnEnable();
 
-                ReflectionHelper.SetPrivateFieldValue(typeof(MiNetServer), this, "_tickerHighPrecisionTimer",
+                ReflectionHelper.SetPrivateFieldValue(type, this, "_tickerHighPrecisionTimer",
                     new HighPrecisionTimer(10, async (o) => {
                         //ReflectionHelper.InvokePrivateMethod(this, "SendTick", new[] {o});
                         var sessions =
                             ReflectionHelper
                                 .GetPrivateFieldValue<ConcurrentDictionary<IPEndPoint, PlayerNetworkSession>>(
-                                    typeof(MiNetServer), this, "_playerSessions");
+                                    type, this, "_playerSessions");
 
                         var tasks = sessions.Values.Select(session => session.SendTickAsync());
                         await Task.WhenAll(tasks);
