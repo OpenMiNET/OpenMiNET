@@ -5519,15 +5519,15 @@ references:
   fullName.vb: OpenAPI.Utils.ReflectionHelper.GetPrivateStaticPropertyValue(Of T)(Type, System.String)
   nameWithType: ReflectionHelper.GetPrivateStaticPropertyValue<T>(Type, String)
   nameWithType.vb: ReflectionHelper.GetPrivateStaticPropertyValue(Of T)(Type, String)
-- uid: OpenAPI.Utils.ReflectionHelper.InvokePrivateMethod(System.Object,System.String,System.Object[])
-  name: InvokePrivateMethod(Object, String, Object[])
-  href: api/OpenAPI.Utils.ReflectionHelper.html#OpenAPI_Utils_ReflectionHelper_InvokePrivateMethod_System_Object_System_String_System_Object___
-  commentId: M:OpenAPI.Utils.ReflectionHelper.InvokePrivateMethod(System.Object,System.String,System.Object[])
-  name.vb: InvokePrivateMethod(Object, String, Object())
-  fullName: OpenAPI.Utils.ReflectionHelper.InvokePrivateMethod(System.Object, System.String, System.Object[])
-  fullName.vb: OpenAPI.Utils.ReflectionHelper.InvokePrivateMethod(System.Object, System.String, System.Object())
-  nameWithType: ReflectionHelper.InvokePrivateMethod(Object, String, Object[])
-  nameWithType.vb: ReflectionHelper.InvokePrivateMethod(Object, String, Object())
+- uid: OpenAPI.Utils.ReflectionHelper.InvokePrivateMethod(Type,System.Object,System.String,System.Object[])
+  name: InvokePrivateMethod(Type, Object, String, Object[])
+  href: api/OpenAPI.Utils.ReflectionHelper.html#OpenAPI_Utils_ReflectionHelper_InvokePrivateMethod_Type_System_Object_System_String_System_Object___
+  commentId: M:OpenAPI.Utils.ReflectionHelper.InvokePrivateMethod(Type,System.Object,System.String,System.Object[])
+  name.vb: InvokePrivateMethod(Type, Object, String, Object())
+  fullName: OpenAPI.Utils.ReflectionHelper.InvokePrivateMethod(Type, System.Object, System.String, System.Object[])
+  fullName.vb: OpenAPI.Utils.ReflectionHelper.InvokePrivateMethod(Type, System.Object, System.String, System.Object())
+  nameWithType: ReflectionHelper.InvokePrivateMethod(Type, Object, String, Object[])
+  nameWithType.vb: ReflectionHelper.InvokePrivateMethod(Type, Object, String, Object())
 - uid: OpenAPI.Utils.ReflectionHelper.InvokePrivateMethod*
   name: InvokePrivateMethod
   href: api/OpenAPI.Utils.ReflectionHelper.html#OpenAPI_Utils_ReflectionHelper_InvokePrivateMethod_
