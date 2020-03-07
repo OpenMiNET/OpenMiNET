@@ -1,6 +1,10 @@
 using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using OpenAPI.GameEngine.Games.Configuration;
 using OpenAPI.GameEngine.Games.Stages;
+using OpenAPI.GameEngine.Games.Teams;
+using OpenAPI.Player;
 using OpenAPI.World;
 
 namespace OpenAPI.GameEngine.Games
@@ -28,7 +32,7 @@ namespace OpenAPI.GameEngine.Games
         }
 
         internal string InstanceName { get; set; } = null;
-        
+
         protected Game(IGameOwner owner)
         {
             Owner = owner;
@@ -53,6 +57,11 @@ namespace OpenAPI.GameEngine.Games
 
         internal void Tick()
         {
+            if (State == GameState.WaitingForPlayers)
+            {
+                
+            }
+            
             OnTick();
             
             StageManager.Tick();
