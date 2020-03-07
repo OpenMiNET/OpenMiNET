@@ -1,5 +1,6 @@
 ﻿using System;
 using log4net;
+using OpenAPI.GameEngine.Games;
 using OpenAPI.Plugins;
 
 namespace OpenAPI.GameEngine
@@ -11,10 +12,11 @@ namespace OpenAPI.GameEngine
         private static readonly ILog Log = LogManager.GetLogger(typeof(GameEngine));
 
         private OpenApi Host { get; set; }
-
+        public GameManager GameManager { get; set; }
+        
         public GameEngine()
         {
-            
+            GameManager = new GameManager();    
         }
         
         public override void Enabled(OpenApi api)

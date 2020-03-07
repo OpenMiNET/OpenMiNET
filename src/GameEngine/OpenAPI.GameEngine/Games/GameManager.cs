@@ -3,6 +3,10 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
+using log4net;
+using MiNET.Utils;
+using OpenAPI.GameEngine.Models.Games;
 
 namespace OpenAPI.GameEngine.Games
 {
@@ -52,24 +56,127 @@ namespace OpenAPI.GameEngine.Games
                 owner
             }));
         }
+
+        public void RemoveGame(GameEntry entry)
+        {
+            if (Games.TryRemove(entry.GameType, out var games))
+            {
+                games.Destroy();
+            }
+        }
+
+        public void RemoveGame(Type type)
+        {
+            if (Games.TryGetValue(type, out var entry))
+            {
+                RemoveGame(entry);
+            }
+        }
+
+        public void RemoveGame<TType>()
+        {
+            RemoveGame(typeof(TType));
+        }
+
+        public bool TryGetGame(string game, out GameEntry entry)
+        {
+            entry = default;
+            
+            var gEntry = Games.Values.FirstOrDefault(x =>
+                x.Info.Name.Equals(game, StringComparison.InvariantCultureIgnoreCase));
+            
+            if (gEntry == null)
+                return false;
+
+            entry = gEntry;
+            return true;
+        }
+
+        public GameEntry GetGame(string name)
+        {
+            if (!TryGetGame(name, out GameEntry entry))
+                throw new GameNotFoundException(name);
+
+            return entry;
+        }
     }
 
     public class GameEntry : IGameOwner
     {
-        private List<Game> Instances { get; }
-        private object _lock = new object();
+        private static readonly ILog Log = LogManager.GetLogger(typeof(GameEntry));
         
-        protected GameEntry()
+        public GameInfo Info { get; }
+        private ConcurrentDictionary<string, Game> Instances { get; }
+        
+        internal Type GameType { get; }
+        private long _instanceCounter = 0;
+        
+        private HighPrecisionTimer Ticker { get; set; }
+        
+        protected GameEntry(Type type)
         {
-            Instances = new List<Game>();
+            GameType = type;
+            Instances = new ConcurrentDictionary<string, Game>();
+            Ticker = new HighPrecisionTimer(50, Tick);
+            
+            Info = ResolveInfo();
         }
 
+        private void Tick(object obj)
+        {
+            foreach (var game in Instances.Values
+                .Where(x => x.State == GameState.WaitingForPlayers 
+                            || x.State == GameState.InProgress 
+                            ||
+                           x.State == GameState.Finished).ToArray())
+            {
+                game.Tick();
+            }
+        }
+
+        private GameInfo ResolveInfo()
+        {
+            var instance = CreateInstance();
+            
+            GameInfo info = new GameInfo()
+            {
+                Name = string.IsNullOrWhiteSpace(instance.Config?.Name) ? GameType.Name : instance.Config.Name,
+                Author = string.Empty,
+                Version = string.Empty
+            };
+            
+            var gameAttribute = GameType.GetCustomAttribute<GameAttribute>();
+            if (gameAttribute != null)
+            {
+                if (!string.IsNullOrWhiteSpace(gameAttribute.Name))
+                {
+                    info.Name = gameAttribute.Name;
+                }
+
+                if (!string.IsNullOrWhiteSpace(gameAttribute.Author))
+                {
+                    info.Author = gameAttribute.Author;
+                }
+
+                if (!string.IsNullOrWhiteSpace(gameAttribute.Version))
+                {
+                    info.Version = gameAttribute.Version;
+                }
+            }
+            
+            instance.Dispose();
+            
+            return info;
+        }
+
+        public bool TryGetInstance(string name, out Game instance)
+        {
+            return Instances.TryGetValue(name, out instance);
+        }
+        
         public bool TryGetInstance(GameState state, out Game instance)
         {
-            lock (_lock)
-            {
-                instance = Instances.FirstOrDefault(x => x.State == state);
-            }
+            instance = Instances.FirstOrDefault(x => x.Value.State == state).Value;
 
             return instance != null;
         }
@@ -79,46 +186,46 @@ namespace OpenAPI.GameEngine.Games
             throw new NotImplementedException();
         }
 
-        public bool TryAddInstance(Game game)
+        public void AddInstance(Game game)
         {
-            lock (_lock)
-            {
-                if (Instances.Contains(game))
-                    return false;
-                
-                
-                Instances.Add(game);
-            }
+            if (game.State != GameState.Created)
+                throw new InvalidGameStateException($"Cannot add a game that is not in the Created state");
 
-            return true;
+            if (Instances.Values.Contains(game))
+                throw new DuplicateGameInstanceException($"This instance has already been added!");
+
+            var incremented = Interlocked.Increment(ref _instanceCounter);
+            string instanceName = $"{Info.Name}:{incremented}";
+
+            Instances.TryAdd(instanceName, game);
         }
 
         public bool TryRemoveInstance(Game game)
         {
-            lock (_lock)
-            {
-                if (!Instances.Contains(game))
-                    return false;
-
-                Instances.Remove(game);
-            }
-
+            if (string.IsNullOrWhiteSpace(game.InstanceName))
+                return false;
+            
+            if (!Instances.TryRemove(game.InstanceName, out var _))
+                return false;
+            
             return true;
         }
 
-        public void CheckInstances()
+        private void CheckInstances()
         {
             Game[] instances;
-            lock (_lock)
-            {
-                instances = Instances.ToArray();
-            }
+
+            instances = Instances.Values.ToArray();
 
             var hasJoinableGames = instances.Any(x => x.State == GameState.WaitingForPlayers);
 
             if (!hasJoinableGames)
             {
-                TryAddInstance(CreateInstance());
+                var newInstance = CreateInstance();
+
+                AddInstance(newInstance);
+
+                newInstance.Initialize();
             }
         }
 
@@ -127,23 +234,40 @@ namespace OpenAPI.GameEngine.Games
             switch (newState)
             {
                 case GameState.Ready:
-                    
+                    Log.Info($"Game instance initialized...");
+
+                    game.State = GameState.WaitingForPlayers;
                     break;
                 case GameState.WaitingForPlayers:
-                    
+                    Log.Info($"Game instance is waiting for players...");
                     break;
                 case GameState.Starting:
-                    
+
                     break;
                 case GameState.InProgress:
-                    
+                    CheckInstances();
                     break;
                 case GameState.Finished:
                     
                     break;
                 case GameState.Empty:
                     TryRemoveInstance(game);
+                    CheckInstances();
                     break;
+            }
+        }
+
+        internal void Destroy()
+        {
+            Ticker.Dispose();
+            
+            Game[] instances;
+
+            instances = Instances.Values.ToArray();
+
+            foreach (var instance in instances)
+            {
+                instance.Dispose();
             }
         }
     }
@@ -151,7 +275,7 @@ namespace OpenAPI.GameEngine.Games
     public class GameEntry<TGame> : GameEntry where TGame : Game
     {
         private Func<IGameOwner, TGame> Generator { get; }
-        public GameEntry(Func<IGameOwner, TGame> generator)
+        public GameEntry(Func<IGameOwner, TGame> generator) : base(typeof(TGame))
         {
             Generator = generator;
         }

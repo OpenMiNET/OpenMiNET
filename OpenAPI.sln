@@ -37,6 +37,8 @@ ProjectSection(SolutionItems) = preProject
 	docs\toc.yml = docs\toc.yml
 EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{04950E95-FFE5-484D-9CC2-4856C52D69AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -147,6 +149,7 @@ Global
 		{D3E7049D-6767-401C-B9E5-827465471E24} = {95479C9C-839A-4B00-9073-DDE463C7F2EC}
 		{F604AF39-7B7C-4BB2-BE3A-EBD4A96203A6} = {95479C9C-839A-4B00-9073-DDE463C7F2EC}
 		{BE7D1CA1-25A1-4E1E-B110-ECDD89E70A71} = {95479C9C-839A-4B00-9073-DDE463C7F2EC}
+		{04950E95-FFE5-484D-9CC2-4856C52D69AB} = {E5A08249-B43F-41D5-B561-B4E8F57B29CD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {54A4A95E-F81B-40F9-A529-8E3A0D74B2D8}

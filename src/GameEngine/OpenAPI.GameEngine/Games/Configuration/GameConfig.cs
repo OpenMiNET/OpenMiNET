@@ -5,7 +5,7 @@ namespace OpenAPI.GameEngine.Games.Configuration
     public class GameConfig
     {
         public string Name { get; set; } = "Unknown game";
-
+        public bool AlwaysOpen { get; set; } = false;
         public TeamsConfiguration Teams { get; set; } = new TeamsConfiguration();
     }
 
