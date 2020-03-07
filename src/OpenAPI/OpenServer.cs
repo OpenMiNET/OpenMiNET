@@ -119,14 +119,14 @@ namespace OpenAPI
 
                 ReflectionHelper.SetPrivateFieldValue(type, this, "_tickerHighPrecisionTimer",
                     new HighPrecisionTimer(10, async (o) => {
-                        //ReflectionHelper.InvokePrivateMethod(this, "SendTick", new[] {o});
-                        var sessions =
+                        ReflectionHelper.InvokePrivateMethod(type, this, "SendTick", new object[] {null});
+                       /* var sessions =
                             ReflectionHelper
                                 .GetPrivateFieldValue<ConcurrentDictionary<IPEndPoint, PlayerNetworkSession>>(
                                     type, this, "_playerSessions");
 
                         var tasks = sessions.Values.Select(session => session.SendTickAsync());
-                        await Task.WhenAll(tasks);
+                        await Task.WhenAll(tasks);*/
                     }, true, true));
 
                 Log.Info("Server open for business on port " + Endpoint?.Port + " ...");

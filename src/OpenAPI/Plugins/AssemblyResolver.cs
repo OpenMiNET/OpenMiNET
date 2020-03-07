@@ -136,7 +136,7 @@ namespace OpenAPI.Plugins
 			}
 			else
 			{
-				foreach (var path in AppDomain.CurrentDomain.GetAssemblies().Select(x => x.Location))
+				foreach (var path in AppDomain.CurrentDomain.GetAssemblies().Where(x => !x.IsDynamic).Select(x => x.Location))
 				{
 					file = Path.Combine(path, dllName);
 					if (CompareFileToAssemblyName(file, name) == FileAssemblyComparisonResult.Match)

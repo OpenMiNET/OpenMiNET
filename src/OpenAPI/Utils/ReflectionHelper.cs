@@ -5,9 +5,9 @@ namespace OpenAPI.Utils
 {
     public static class ReflectionHelper
     {
-        public static object InvokePrivateMethod(object obj, string method, object[] parameters)
+        public static object InvokePrivateMethod(Type type, object obj, string method, object[] parameters)
         {
-            var foundMethod = obj.GetType().GetMethod(method,
+            var foundMethod = type.GetMethod(method,
                 BindingFlags.NonPublic | BindingFlags.Instance);
 
             return foundMethod.Invoke(obj, parameters);
