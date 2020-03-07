@@ -112,7 +112,7 @@ namespace OpenAPI
                         processData?.Invoke(this, new object[] {(UdpClient) l});
                     }) {IsBackground = true};
                     
-                    ProcessingThread.Start();
+                    ProcessingThread.Start(listener);
                 }
 
                 openInfo?.OnEnable();
