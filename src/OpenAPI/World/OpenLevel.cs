@@ -164,6 +164,22 @@ namespace OpenAPI.World
 
 		protected override bool OnBlockBreak(BlockBreakEventArgs e)
 		{
+			if (e.Player != null && e.Player is OpenPlayer player)
+			{
+				if (player.GameMode == GameMode.Creative)
+				{
+					BlockBreakEvent ev = new BlockBreakEvent(player, e.Block, e.Drops);
+					EventDispatcher.DispatchEvent(ev);
+
+					if (ev.IsCancelled)
+						return false;
+					
+					ev.OnComplete();
+
+					return true;
+					//BreakBlock(e.Block, BlockFace.None, player);
+				}
+			}
 			return false;
 		}
 
@@ -182,7 +198,9 @@ namespace OpenAPI.World
 			
 			//	block.BreakBlock(this, face);
 			List<Item> drops = new List<Item>();
-			drops.AddRange(block.GetDrops(tool ?? new ItemAir()));
+			
+			if (player == null || player.GameMode != GameMode.Creative)
+				drops.AddRange(block.GetDrops(tool ?? new ItemAir()));
 
 			if (blockEntity != null)
 			{
@@ -205,9 +223,12 @@ namespace OpenAPI.World
 			if (blockEntity != null)
 				RemoveBlockEntity(block.Coordinates);
 
-			foreach (Item drop in e.Drops)
+			if (player == null || player.GameMode != GameMode.Creative)
 			{
-				DropItem(block.Coordinates, drop);
+				foreach (Item drop in e.Drops)
+				{
+					DropItem(block.Coordinates, drop);
+				}
 			}
 
 			e.OnComplete();

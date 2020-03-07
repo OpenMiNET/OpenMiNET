@@ -538,10 +538,13 @@ namespace OpenAPI.Player
 	        Level.RelayBroadcast(levelEvent);
         }
 
-	    private void StopBreak(BlockCoordinates coords)
+	    private void StopBreak(BlockCoordinates coords, bool reset = true)
 		{
-			IsBreakingBlock = false;
-			BlockBreakTimer.Reset();
+			if (reset)
+			{
+				IsBreakingBlock = false;
+				BlockBreakTimer.Reset();
+			}
 
 			var b = Level.GetBlock(coords);
 			
