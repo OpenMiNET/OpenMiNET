@@ -1,4 +1,5 @@
 using OpenAPI.GameEngine.Games.Teams;
+using OpenAPI.GameEngine.Models.Games.Maps;
 
 namespace OpenAPI.GameEngine.Games.Configuration
 {
@@ -7,6 +8,9 @@ namespace OpenAPI.GameEngine.Games.Configuration
         public string Name { get; set; } = "Unknown game";
         public bool AlwaysOpen { get; set; } = false;
         public TeamsConfiguration Teams { get; set; } = new TeamsConfiguration();
+
+        public bool RequiresMap { get; set; } = true;
+        public MapInfo[] Maps { get; set; } = new MapInfo[0];
     }
 
     public class TeamsConfiguration

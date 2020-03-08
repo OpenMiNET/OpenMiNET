@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
 using OpenAPI.GameEngine.Games.Configuration;
 using OpenAPI.GameEngine.Games.Stages;
 using OpenAPI.GameEngine.Games.Teams;
@@ -15,7 +17,7 @@ namespace OpenAPI.GameEngine.Games
         
         public GameConfig Config { get; private set; }
         
-        public OpenLevel Level { get; private set; }
+        public OpenLevel Level { get; internal set; }
         
         private GameState _state = GameState.Created;
         public GameState State
@@ -43,12 +45,14 @@ namespace OpenAPI.GameEngine.Games
         protected TeamManager TeamManager { get; private set; }
         protected StageManager StageManager { get; }
 
-        internal void Initialize()
+        internal void Load()
         {
             LoadContent();
-            
             LoadConfig();
-            
+        }
+        
+        internal void Initialize()
+        {
             TeamManager = new TeamManager(Config.Teams);
             
             OnInitialize();
@@ -60,7 +64,19 @@ namespace OpenAPI.GameEngine.Games
 
         private void LoadConfig()
         {
+            if (Config != null)
+                return;
+            
             Config = new GameConfig();
+            
+            string gameAssemblyPath = Path.GetDirectoryName(GetType().Assembly.Location);
+            string configPath = Path.Combine(gameAssemblyPath, "game.json");
+
+            if (File.Exists(configPath))
+            {
+                var content = File.ReadAllText(configPath);
+                Config = JsonConvert.DeserializeObject<GameConfig>(content);
+            }
         }
 
         protected virtual void LoadContent()
@@ -109,6 +125,7 @@ namespace OpenAPI.GameEngine.Games
 
             if (TeamManager.TryAssignTeam(player))
             {
+                player.SpawnLevel(Level, Level.SpawnPoint, true);
                 return true;
             }
 

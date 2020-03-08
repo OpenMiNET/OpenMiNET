@@ -11,7 +11,7 @@ namespace OpenAPI.GameEngine
         {
             GameManager = gameManager;
         }
-        
+
         [EventHandler(EventPriority.Monitor)]
         public void OnPlayerJoin(PlayerJoinEvent e)
         {
@@ -20,12 +20,15 @@ namespace OpenAPI.GameEngine
 
             var defaultGame = GameManager.GetDefault();
 
-            if (defaultGame.TryGetInstance(GameState.WaitingForPlayers, out var instance))
+            if (defaultGame != null && defaultGame.TryGetInstance(GameState.WaitingForPlayers, out var instance))
             {
                 e.Player.SetGame(instance);
+                return;
             }
+            
+            e.Player.Disconnect($"No game instance found for you to join!");
         }
-        
+
         [EventHandler(EventPriority.Monitor, true)]
         public void OnPlayerQuit(PlayerQuitEvent e)
         {

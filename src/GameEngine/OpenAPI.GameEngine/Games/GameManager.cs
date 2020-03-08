@@ -1,13 +1,17 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
 using log4net;
 using MiNET.Utils;
+using MiNET.Worlds;
 using OpenAPI.GameEngine.Games.Configuration;
 using OpenAPI.GameEngine.Models.Games;
+using OpenAPI.Utils;
+using OpenAPI.World;
 
 namespace OpenAPI.GameEngine.Games
 {
@@ -15,16 +19,17 @@ namespace OpenAPI.GameEngine.Games
     {
         private Type Default { get; set; }
         private ConcurrentDictionary<Type, GameEntry> Games { get; }
-        
-        public GameManager()
+        private OpenLevelManager LevelManager { get; }
+        public GameManager(OpenLevelManager levelManager)
         {
+            LevelManager = levelManager;
             Games = new ConcurrentDictionary<Type, GameEntry>();
         }
 
         public bool RegisterGame<TGame>(Func<IGameOwner, TGame> gameFactory) where TGame : Game
         {
             var type = typeof(TGame);
-            return Games.TryAdd(type, new GameEntry<TGame>(gameFactory));
+            return Games.TryAdd(type, new GameEntry<TGame>(LevelManager, gameFactory));
         }
         
         public bool RegisterGame<TGame>() where TGame : Game
@@ -130,12 +135,15 @@ namespace OpenAPI.GameEngine.Games
         
         private HighPrecisionTimer Ticker { get; set; }
         
-        protected GameEntry(Type type)
+        private OpenLevelManager LevelManager { get; }
+        private FastRandom Rnd { get; }
+        protected GameEntry(OpenLevelManager levelManager, Type type)
         {
+            LevelManager = levelManager;
             GameType = type;
             Instances = new ConcurrentDictionary<string, Game>();
             Ticker = new HighPrecisionTimer(50, Tick);
-            
+            Rnd = new FastRandom();
             Info = ResolveInfo();
         }
 
@@ -159,9 +167,10 @@ namespace OpenAPI.GameEngine.Games
             {
                 Name = string.IsNullOrWhiteSpace(instance.Config?.Name) ? GameType.Name : instance.Config.Name,
                 Author = string.Empty,
-                Version = string.Empty
+                Version = string.Empty,
+                Maps = instance.Config.RequiresMap ? instance.Config.Maps : null
             };
-            
+
             var gameAttribute = GameType.GetCustomAttribute<GameAttribute>();
             if (gameAttribute != null)
             {
@@ -242,6 +251,25 @@ namespace OpenAPI.GameEngine.Games
 
                 AddInstance(newInstance);
 
+                newInstance.Load();
+                
+                //Get openlevel instance.
+               // if (newInstance.Config.RequiresMap)
+                {
+                    var availableMaps = newInstance.Config.Maps.Where(x => x.Enabled).ToArray();
+                    var map = availableMaps[Rnd.NextInt() % availableMaps.Length];
+
+                    string mapPath = map.Path;
+                    if (!Directory.Exists(mapPath))
+                    {
+                        string newPath = Path.Combine(Path.GetDirectoryName(GameType.Assembly.Location), map.Path);
+                        if (Directory.Exists(newPath))
+                            mapPath = newPath;
+                    }
+                    
+                    newInstance.Level = LevelManager.LoadLevel(mapPath);
+                }
+                
                 newInstance.Initialize();
             }
         }
@@ -268,7 +296,10 @@ namespace OpenAPI.GameEngine.Games
                     
                     break;
                 case GameState.Empty:
-                    TryRemoveInstance(game);
+                    if (TryRemoveInstance(game))
+                    {
+                        LevelManager.UnloadLevel(game.Level);
+                    }
                     CheckInstances();
                     break;
             }
@@ -292,7 +323,7 @@ namespace OpenAPI.GameEngine.Games
     public class GameEntry<TGame> : GameEntry where TGame : Game
     {
         private Func<IGameOwner, TGame> Generator { get; }
-        public GameEntry(Func<IGameOwner, TGame> generator) : base(typeof(TGame))
+        public GameEntry(OpenLevelManager levelManager, Func<IGameOwner, TGame> generator) : base(levelManager, typeof(TGame))
         {
             Generator = generator;
         }
