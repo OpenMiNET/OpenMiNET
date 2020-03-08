@@ -17,16 +17,13 @@ namespace OpenAPI.Events
 	{
 		private static readonly ILog Log = LogManager.GetLogger(typeof(EventDispatcher));
 
-		private static readonly ThreadSafeList<Type> EventTypes = new ThreadSafeList<Type>
-		{
-			AppDomain.CurrentDomain.GetAssemblies()
-				.SelectMany(GetEventTypes)
-				.Select(p =>
-				{
-					Log.Info($"Registered event type \"{p.Name}\"");
-					return p;
-				}).ToArray()
-		};
+		private static readonly ThreadSafeList<Type> EventTypes = new ThreadSafeList<Type>(AppDomain.CurrentDomain.GetAssemblies()
+			.SelectMany(GetEventTypes)
+			.Select(p =>
+			{
+				Log.Info($"Registered event type \"{p.Name}\"");
+				return p;
+			}).ToArray());
 
 		/// <summary>
 		/// 	Registers a new <see cref="Event"/> type with the current EventDispatcher

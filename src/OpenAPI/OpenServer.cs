@@ -83,6 +83,9 @@ namespace OpenAPI
                 if (ServerRole == ServerRole.Full || ServerRole == ServerRole.Proxy)
                 {
                     var listener = new UdpClient(Endpoint);
+                    listener.DontFragment = false;
+                    listener.EnableBroadcast = true;
+                    
                     if (!System.Runtime.InteropServices.RuntimeInformation
                         .IsOSPlatform(OSPlatform.Windows))
                     {
