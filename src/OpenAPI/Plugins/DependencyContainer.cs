@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Reflection;
 using OpenAPI.Events;
 
 namespace OpenAPI.Plugins
@@ -149,6 +151,61 @@ namespace OpenAPI.Plugins
             {
                 throw new DuplicateTypeException();
             }
+        }
+
+        /// <summary>
+        ///     Use the DependencyContainer to create an instance for any type with a public constructor.
+        /// </summary>
+        /// <param name="type">The type of the instance to create</param>
+        /// <returns>An instance of <paramref name="type"/></returns>
+        /// <exception cref="MissingMethodException">No public constructors were found</exception>
+        /// <exception cref="Exception">Could not resolve all required parameters</exception>
+        public object CreateInstanceOf(Type type)
+        {
+            var constructors = type.GetConstructors(BindingFlags.Instance | BindingFlags.Public);
+            
+            if (constructors.Length == 0)
+                throw new MissingMethodException($"Could not find a public constructor");
+
+            List<object> parameters = new List<object>();
+            
+            ConstructorInfo resultingConstructor = null;
+            foreach (var constructor in constructors)
+            {
+                var requiredParams = constructor.GetParameters();
+                
+                foreach (var param in requiredParams)
+                {
+                    if (!TryResolve(param.ParameterType, out var obj))
+                        break;
+                    
+                    parameters.Add(obj);
+                }
+
+                if (parameters.Count == requiredParams.Length)
+                {
+                    resultingConstructor = constructor;
+                    break;
+                }
+                
+                parameters.Clear();
+            }
+            
+            if (resultingConstructor == null)
+                throw new Exception("Could not find suitable constructor.");
+
+            var instance = resultingConstructor.Invoke(parameters.ToArray());
+            return instance;
+        }
+        
+        /// <summary>
+        ///     Use the DependencyContainer to create an instance for any type with a public constructor.
+        /// </summary>
+        /// <exception cref="MissingMethodException">No public constructors were found</exception>
+        /// <exception cref="Exception">Could not resolve all required parameters</exception>
+        public TType CreateInstanceOf<TType>()
+        {
+            return (TType) CreateInstanceOf(typeof(TType));
         }
 
         private class ServiceItem : IDisposable
