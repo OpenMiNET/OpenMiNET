@@ -4173,6 +4173,28 @@ references:
   isSpec: "True"
   fullName: OpenAPI.Plugins.DependencyContainer.DependencyContainer
   nameWithType: DependencyContainer.DependencyContainer
+- uid: OpenAPI.Plugins.DependencyContainer.CreateInstanceOf(Type)
+  name: CreateInstanceOf(Type)
+  href: api/OpenAPI.Plugins.DependencyContainer.html#OpenAPI_Plugins_DependencyContainer_CreateInstanceOf_Type_
+  commentId: M:OpenAPI.Plugins.DependencyContainer.CreateInstanceOf(Type)
+  fullName: OpenAPI.Plugins.DependencyContainer.CreateInstanceOf(Type)
+  nameWithType: DependencyContainer.CreateInstanceOf(Type)
+- uid: OpenAPI.Plugins.DependencyContainer.CreateInstanceOf*
+  name: CreateInstanceOf
+  href: api/OpenAPI.Plugins.DependencyContainer.html#OpenAPI_Plugins_DependencyContainer_CreateInstanceOf_
+  commentId: Overload:OpenAPI.Plugins.DependencyContainer.CreateInstanceOf
+  isSpec: "True"
+  fullName: OpenAPI.Plugins.DependencyContainer.CreateInstanceOf
+  nameWithType: DependencyContainer.CreateInstanceOf
+- uid: OpenAPI.Plugins.DependencyContainer.CreateInstanceOf``1
+  name: CreateInstanceOf<TType>()
+  href: api/OpenAPI.Plugins.DependencyContainer.html#OpenAPI_Plugins_DependencyContainer_CreateInstanceOf__1
+  commentId: M:OpenAPI.Plugins.DependencyContainer.CreateInstanceOf``1
+  name.vb: CreateInstanceOf(Of TType)()
+  fullName: OpenAPI.Plugins.DependencyContainer.CreateInstanceOf<TType>()
+  fullName.vb: OpenAPI.Plugins.DependencyContainer.CreateInstanceOf(Of TType)()
+  nameWithType: DependencyContainer.CreateInstanceOf<TType>()
+  nameWithType.vb: DependencyContainer.CreateInstanceOf(Of TType)()
 - uid: OpenAPI.Plugins.DependencyContainer.Register*
   name: Register
   href: api/OpenAPI.Plugins.DependencyContainer.html#OpenAPI_Plugins_DependencyContainer_Register_
@@ -5873,15 +5895,15 @@ references:
   fullName.vb: OpenAPI.Utils.ThreadSafeList(Of T).ThreadSafeList()
   nameWithType: ThreadSafeList<T>.ThreadSafeList()
   nameWithType.vb: ThreadSafeList(Of T).ThreadSafeList()
-- uid: OpenAPI.Utils.ThreadSafeList`1.#ctor(IList{`0})
-  name: ThreadSafeList(IList<T>)
-  href: api/OpenAPI.Utils.ThreadSafeList-1.html#OpenAPI_Utils_ThreadSafeList_1__ctor_IList__0__
-  commentId: M:OpenAPI.Utils.ThreadSafeList`1.#ctor(IList{`0})
-  name.vb: ThreadSafeList(IList(Of T))
-  fullName: OpenAPI.Utils.ThreadSafeList<T>.ThreadSafeList(IList<T>)
-  fullName.vb: OpenAPI.Utils.ThreadSafeList(Of T).ThreadSafeList(IList(Of T))
-  nameWithType: ThreadSafeList<T>.ThreadSafeList(IList<T>)
-  nameWithType.vb: ThreadSafeList(Of T).ThreadSafeList(IList(Of T))
+- uid: OpenAPI.Utils.ThreadSafeList`1.#ctor(IEnumerable{`0})
+  name: ThreadSafeList(IEnumerable<T>)
+  href: api/OpenAPI.Utils.ThreadSafeList-1.html#OpenAPI_Utils_ThreadSafeList_1__ctor_IEnumerable__0__
+  commentId: M:OpenAPI.Utils.ThreadSafeList`1.#ctor(IEnumerable{`0})
+  name.vb: ThreadSafeList(IEnumerable(Of T))
+  fullName: OpenAPI.Utils.ThreadSafeList<T>.ThreadSafeList(IEnumerable<T>)
+  fullName.vb: OpenAPI.Utils.ThreadSafeList(Of T).ThreadSafeList(IEnumerable(Of T))
+  nameWithType: ThreadSafeList<T>.ThreadSafeList(IEnumerable<T>)
+  nameWithType.vb: ThreadSafeList(Of T).ThreadSafeList(IEnumerable(Of T))
 - uid: OpenAPI.Utils.ThreadSafeList`1.#ctor*
   name: ThreadSafeList
   href: api/OpenAPI.Utils.ThreadSafeList-1.html#OpenAPI_Utils_ThreadSafeList_1__ctor_
@@ -5899,15 +5921,6 @@ references:
   fullName.vb: OpenAPI.Utils.ThreadSafeList(Of T).Add(T)
   nameWithType: ThreadSafeList<T>.Add(T)
   nameWithType.vb: ThreadSafeList(Of T).Add(T)
-- uid: OpenAPI.Utils.ThreadSafeList`1.Add(IEnumerable{`0})
-  name: Add(IEnumerable<T>)
-  href: api/OpenAPI.Utils.ThreadSafeList-1.html#OpenAPI_Utils_ThreadSafeList_1_Add_IEnumerable__0__
-  commentId: M:OpenAPI.Utils.ThreadSafeList`1.Add(IEnumerable{`0})
-  name.vb: Add(IEnumerable(Of T))
-  fullName: OpenAPI.Utils.ThreadSafeList<T>.Add(IEnumerable<T>)
-  fullName.vb: OpenAPI.Utils.ThreadSafeList(Of T).Add(IEnumerable(Of T))
-  nameWithType: ThreadSafeList<T>.Add(IEnumerable<T>)
-  nameWithType.vb: ThreadSafeList(Of T).Add(IEnumerable(Of T))
 - uid: OpenAPI.Utils.ThreadSafeList`1.Add*
   name: Add
   href: api/OpenAPI.Utils.ThreadSafeList-1.html#OpenAPI_Utils_ThreadSafeList_1_Add_
@@ -5917,41 +5930,6 @@ references:
   fullName.vb: OpenAPI.Utils.ThreadSafeList(Of T).Add
   nameWithType: ThreadSafeList<T>.Add
   nameWithType.vb: ThreadSafeList(Of T).Add
-- uid: OpenAPI.Utils.ThreadSafeList`1.AddAsync(`0)
-  name: AddAsync(T)
-  href: api/OpenAPI.Utils.ThreadSafeList-1.html#OpenAPI_Utils_ThreadSafeList_1_AddAsync__0_
-  commentId: M:OpenAPI.Utils.ThreadSafeList`1.AddAsync(`0)
-  fullName: OpenAPI.Utils.ThreadSafeList<T>.AddAsync(T)
-  fullName.vb: OpenAPI.Utils.ThreadSafeList(Of T).AddAsync(T)
-  nameWithType: ThreadSafeList<T>.AddAsync(T)
-  nameWithType.vb: ThreadSafeList(Of T).AddAsync(T)
-- uid: OpenAPI.Utils.ThreadSafeList`1.AddAsync*
-  name: AddAsync
-  href: api/OpenAPI.Utils.ThreadSafeList-1.html#OpenAPI_Utils_ThreadSafeList_1_AddAsync_
-  commentId: Overload:OpenAPI.Utils.ThreadSafeList`1.AddAsync
-  isSpec: "True"
-  fullName: OpenAPI.Utils.ThreadSafeList<T>.AddAsync
-  fullName.vb: OpenAPI.Utils.ThreadSafeList(Of T).AddAsync
-  nameWithType: ThreadSafeList<T>.AddAsync
-  nameWithType.vb: ThreadSafeList(Of T).AddAsync
-- uid: OpenAPI.Utils.ThreadSafeList`1.AddRange(IEnumerable{`0},System.Boolean)
-  name: AddRange(IEnumerable<T>, Boolean)
-  href: api/OpenAPI.Utils.ThreadSafeList-1.html#OpenAPI_Utils_ThreadSafeList_1_AddRange_IEnumerable__0__System_Boolean_
-  commentId: M:OpenAPI.Utils.ThreadSafeList`1.AddRange(IEnumerable{`0},System.Boolean)
-  name.vb: AddRange(IEnumerable(Of T), Boolean)
-  fullName: OpenAPI.Utils.ThreadSafeList<T>.AddRange(IEnumerable<T>, System.Boolean)
-  fullName.vb: OpenAPI.Utils.ThreadSafeList(Of T).AddRange(IEnumerable(Of T), System.Boolean)
-  nameWithType: ThreadSafeList<T>.AddRange(IEnumerable<T>, Boolean)
-  nameWithType.vb: ThreadSafeList(Of T).AddRange(IEnumerable(Of T), Boolean)
-- uid: OpenAPI.Utils.ThreadSafeList`1.AddRange*
-  name: AddRange
-  href: api/OpenAPI.Utils.ThreadSafeList-1.html#OpenAPI_Utils_ThreadSafeList_1_AddRange_
-  commentId: Overload:OpenAPI.Utils.ThreadSafeList`1.AddRange
-  isSpec: "True"
-  fullName: OpenAPI.Utils.ThreadSafeList<T>.AddRange
-  fullName.vb: OpenAPI.Utils.ThreadSafeList(Of T).AddRange
-  nameWithType: ThreadSafeList<T>.AddRange
-  nameWithType.vb: ThreadSafeList(Of T).AddRange
 - uid: OpenAPI.Utils.ThreadSafeList`1.Clear
   name: Clear()
   href: api/OpenAPI.Utils.ThreadSafeList-1.html#OpenAPI_Utils_ThreadSafeList_1_Clear
@@ -5969,23 +5947,6 @@ references:
   fullName.vb: OpenAPI.Utils.ThreadSafeList(Of T).Clear
   nameWithType: ThreadSafeList<T>.Clear
   nameWithType.vb: ThreadSafeList(Of T).Clear
-- uid: OpenAPI.Utils.ThreadSafeList`1.Clone(System.Boolean)
-  name: Clone(Boolean)
-  href: api/OpenAPI.Utils.ThreadSafeList-1.html#OpenAPI_Utils_ThreadSafeList_1_Clone_System_Boolean_
-  commentId: M:OpenAPI.Utils.ThreadSafeList`1.Clone(System.Boolean)
-  fullName: OpenAPI.Utils.ThreadSafeList<T>.Clone(System.Boolean)
-  fullName.vb: OpenAPI.Utils.ThreadSafeList(Of T).Clone(System.Boolean)
-  nameWithType: ThreadSafeList<T>.Clone(Boolean)
-  nameWithType.vb: ThreadSafeList(Of T).Clone(Boolean)
-- uid: OpenAPI.Utils.ThreadSafeList`1.Clone*
-  name: Clone
-  href: api/OpenAPI.Utils.ThreadSafeList-1.html#OpenAPI_Utils_ThreadSafeList_1_Clone_
-  commentId: Overload:OpenAPI.Utils.ThreadSafeList`1.Clone
-  isSpec: "True"
-  fullName: OpenAPI.Utils.ThreadSafeList<T>.Clone
-  fullName.vb: OpenAPI.Utils.ThreadSafeList(Of T).Clone
-  nameWithType: ThreadSafeList<T>.Clone
-  nameWithType.vb: ThreadSafeList(Of T).Clone
 - uid: OpenAPI.Utils.ThreadSafeList`1.Contains(`0)
   name: Contains(T)
   href: api/OpenAPI.Utils.ThreadSafeList-1.html#OpenAPI_Utils_ThreadSafeList_1_Contains__0_
@@ -6038,42 +5999,6 @@ references:
   fullName.vb: OpenAPI.Utils.ThreadSafeList(Of T).Count
   nameWithType: ThreadSafeList<T>.Count
   nameWithType.vb: ThreadSafeList(Of T).Count
-- uid: OpenAPI.Utils.ThreadSafeList`1.ForAll(Action{`0},System.Boolean,System.Boolean,System.Boolean)
-  name: ForAll(Action<T>, Boolean, Boolean, Boolean)
-  href: api/OpenAPI.Utils.ThreadSafeList-1.html#OpenAPI_Utils_ThreadSafeList_1_ForAll_Action__0__System_Boolean_System_Boolean_System_Boolean_
-  commentId: M:OpenAPI.Utils.ThreadSafeList`1.ForAll(Action{`0},System.Boolean,System.Boolean,System.Boolean)
-  name.vb: ForAll(Action(Of T), Boolean, Boolean, Boolean)
-  fullName: OpenAPI.Utils.ThreadSafeList<T>.ForAll(Action<T>, System.Boolean, System.Boolean, System.Boolean)
-  fullName.vb: OpenAPI.Utils.ThreadSafeList(Of T).ForAll(Action(Of T), System.Boolean, System.Boolean, System.Boolean)
-  nameWithType: ThreadSafeList<T>.ForAll(Action<T>, Boolean, Boolean, Boolean)
-  nameWithType.vb: ThreadSafeList(Of T).ForAll(Action(Of T), Boolean, Boolean, Boolean)
-- uid: OpenAPI.Utils.ThreadSafeList`1.ForAll*
-  name: ForAll
-  href: api/OpenAPI.Utils.ThreadSafeList-1.html#OpenAPI_Utils_ThreadSafeList_1_ForAll_
-  commentId: Overload:OpenAPI.Utils.ThreadSafeList`1.ForAll
-  isSpec: "True"
-  fullName: OpenAPI.Utils.ThreadSafeList<T>.ForAll
-  fullName.vb: OpenAPI.Utils.ThreadSafeList(Of T).ForAll
-  nameWithType: ThreadSafeList<T>.ForAll
-  nameWithType.vb: ThreadSafeList(Of T).ForAll
-- uid: OpenAPI.Utils.ThreadSafeList`1.ForEach(Action{`0},System.Boolean,System.Boolean,System.Boolean)
-  name: ForEach(Action<T>, Boolean, Boolean, Boolean)
-  href: api/OpenAPI.Utils.ThreadSafeList-1.html#OpenAPI_Utils_ThreadSafeList_1_ForEach_Action__0__System_Boolean_System_Boolean_System_Boolean_
-  commentId: M:OpenAPI.Utils.ThreadSafeList`1.ForEach(Action{`0},System.Boolean,System.Boolean,System.Boolean)
-  name.vb: ForEach(Action(Of T), Boolean, Boolean, Boolean)
-  fullName: OpenAPI.Utils.ThreadSafeList<T>.ForEach(Action<T>, System.Boolean, System.Boolean, System.Boolean)
-  fullName.vb: OpenAPI.Utils.ThreadSafeList(Of T).ForEach(Action(Of T), System.Boolean, System.Boolean, System.Boolean)
-  nameWithType: ThreadSafeList<T>.ForEach(Action<T>, Boolean, Boolean, Boolean)
-  nameWithType.vb: ThreadSafeList(Of T).ForEach(Action(Of T), Boolean, Boolean, Boolean)
-- uid: OpenAPI.Utils.ThreadSafeList`1.ForEach*
-  name: ForEach
-  href: api/OpenAPI.Utils.ThreadSafeList-1.html#OpenAPI_Utils_ThreadSafeList_1_ForEach_
-  commentId: Overload:OpenAPI.Utils.ThreadSafeList`1.ForEach
-  isSpec: "True"
-  fullName: OpenAPI.Utils.ThreadSafeList<T>.ForEach
-  fullName.vb: OpenAPI.Utils.ThreadSafeList(Of T).ForEach
-  nameWithType: ThreadSafeList<T>.ForEach
-  nameWithType.vb: ThreadSafeList(Of T).ForEach
 - uid: OpenAPI.Utils.ThreadSafeList`1.GetEnumerator
   name: GetEnumerator()
   href: api/OpenAPI.Utils.ThreadSafeList-1.html#OpenAPI_Utils_ThreadSafeList_1_GetEnumerator
@@ -6160,23 +6085,6 @@ references:
   fullName.vb: OpenAPI.Utils.ThreadSafeList(Of T).Item
   nameWithType: ThreadSafeList<T>.Item
   nameWithType.vb: ThreadSafeList(Of T).Item
-- uid: OpenAPI.Utils.ThreadSafeList`1.LongCount
-  name: LongCount
-  href: api/OpenAPI.Utils.ThreadSafeList-1.html#OpenAPI_Utils_ThreadSafeList_1_LongCount
-  commentId: P:OpenAPI.Utils.ThreadSafeList`1.LongCount
-  fullName: OpenAPI.Utils.ThreadSafeList<T>.LongCount
-  fullName.vb: OpenAPI.Utils.ThreadSafeList(Of T).LongCount
-  nameWithType: ThreadSafeList<T>.LongCount
-  nameWithType.vb: ThreadSafeList(Of T).LongCount
-- uid: OpenAPI.Utils.ThreadSafeList`1.LongCount*
-  name: LongCount
-  href: api/OpenAPI.Utils.ThreadSafeList-1.html#OpenAPI_Utils_ThreadSafeList_1_LongCount_
-  commentId: Overload:OpenAPI.Utils.ThreadSafeList`1.LongCount
-  isSpec: "True"
-  fullName: OpenAPI.Utils.ThreadSafeList<T>.LongCount
-  fullName.vb: OpenAPI.Utils.ThreadSafeList(Of T).LongCount
-  nameWithType: ThreadSafeList<T>.LongCount
-  nameWithType.vb: ThreadSafeList(Of T).LongCount
 - uid: OpenAPI.Utils.ThreadSafeList`1.Remove(`0)
   name: Remove(T)
   href: api/OpenAPI.Utils.ThreadSafeList-1.html#OpenAPI_Utils_ThreadSafeList_1_Remove__0_
@@ -6211,23 +6119,6 @@ references:
   fullName.vb: OpenAPI.Utils.ThreadSafeList(Of T).RemoveAt
   nameWithType: ThreadSafeList<T>.RemoveAt
   nameWithType.vb: ThreadSafeList(Of T).RemoveAt
-- uid: OpenAPI.Utils.ThreadSafeList`1.TakeAndClear
-  name: TakeAndClear()
-  href: api/OpenAPI.Utils.ThreadSafeList-1.html#OpenAPI_Utils_ThreadSafeList_1_TakeAndClear
-  commentId: M:OpenAPI.Utils.ThreadSafeList`1.TakeAndClear
-  fullName: OpenAPI.Utils.ThreadSafeList<T>.TakeAndClear()
-  fullName.vb: OpenAPI.Utils.ThreadSafeList(Of T).TakeAndClear()
-  nameWithType: ThreadSafeList<T>.TakeAndClear()
-  nameWithType.vb: ThreadSafeList(Of T).TakeAndClear()
-- uid: OpenAPI.Utils.ThreadSafeList`1.TakeAndClear*
-  name: TakeAndClear
-  href: api/OpenAPI.Utils.ThreadSafeList-1.html#OpenAPI_Utils_ThreadSafeList_1_TakeAndClear_
-  commentId: Overload:OpenAPI.Utils.ThreadSafeList`1.TakeAndClear
-  isSpec: "True"
-  fullName: OpenAPI.Utils.ThreadSafeList<T>.TakeAndClear
-  fullName.vb: OpenAPI.Utils.ThreadSafeList(Of T).TakeAndClear
-  nameWithType: ThreadSafeList<T>.TakeAndClear
-  nameWithType.vb: ThreadSafeList(Of T).TakeAndClear
 - uid: OpenAPI.Utils.ThreadSafeList`1.TryAdd(`0)
   name: TryAdd(T)
   href: api/OpenAPI.Utils.ThreadSafeList-1.html#OpenAPI_Utils_ThreadSafeList_1_TryAdd__0_
@@ -6245,42 +6136,6 @@ references:
   fullName.vb: OpenAPI.Utils.ThreadSafeList(Of T).TryAdd
   nameWithType: ThreadSafeList<T>.TryAdd
   nameWithType.vb: ThreadSafeList(Of T).TryAdd
-- uid: OpenAPI.Utils.ThreadSafeList`1.TryTake(`0@)
-  name: TryTake(out T)
-  href: api/OpenAPI.Utils.ThreadSafeList-1.html#OpenAPI_Utils_ThreadSafeList_1_TryTake__0__
-  commentId: M:OpenAPI.Utils.ThreadSafeList`1.TryTake(`0@)
-  name.vb: TryTake(ByRef T)
-  fullName: OpenAPI.Utils.ThreadSafeList<T>.TryTake(out T)
-  fullName.vb: OpenAPI.Utils.ThreadSafeList(Of T).TryTake(ByRef T)
-  nameWithType: ThreadSafeList<T>.TryTake(out T)
-  nameWithType.vb: ThreadSafeList(Of T).TryTake(ByRef T)
-- uid: OpenAPI.Utils.ThreadSafeList`1.TryTake*
-  name: TryTake
-  href: api/OpenAPI.Utils.ThreadSafeList-1.html#OpenAPI_Utils_ThreadSafeList_1_TryTake_
-  commentId: Overload:OpenAPI.Utils.ThreadSafeList`1.TryTake
-  isSpec: "True"
-  fullName: OpenAPI.Utils.ThreadSafeList<T>.TryTake
-  fullName.vb: OpenAPI.Utils.ThreadSafeList(Of T).TryTake
-  nameWithType: ThreadSafeList<T>.TryTake
-  nameWithType.vb: ThreadSafeList(Of T).TryTake
-- uid: OpenAPI.Utils.ThreadSafeList`1.TryTakeOneCopyRest(`0@,List{`0}@)
-  name: TryTakeOneCopyRest(out T, out List<T>)
-  href: api/OpenAPI.Utils.ThreadSafeList-1.html#OpenAPI_Utils_ThreadSafeList_1_TryTakeOneCopyRest__0__List__0___
-  commentId: M:OpenAPI.Utils.ThreadSafeList`1.TryTakeOneCopyRest(`0@,List{`0}@)
-  name.vb: TryTakeOneCopyRest(ByRef T, ByRef List(Of T))
-  fullName: OpenAPI.Utils.ThreadSafeList<T>.TryTakeOneCopyRest(out T, out List<T>)
-  fullName.vb: OpenAPI.Utils.ThreadSafeList(Of T).TryTakeOneCopyRest(ByRef T, ByRef List(Of T))
-  nameWithType: ThreadSafeList<T>.TryTakeOneCopyRest(out T, out List<T>)
-  nameWithType.vb: ThreadSafeList(Of T).TryTakeOneCopyRest(ByRef T, ByRef List(Of T))
-- uid: OpenAPI.Utils.ThreadSafeList`1.TryTakeOneCopyRest*
-  name: TryTakeOneCopyRest
-  href: api/OpenAPI.Utils.ThreadSafeList-1.html#OpenAPI_Utils_ThreadSafeList_1_TryTakeOneCopyRest_
-  commentId: Overload:OpenAPI.Utils.ThreadSafeList`1.TryTakeOneCopyRest
-  isSpec: "True"
-  fullName: OpenAPI.Utils.ThreadSafeList<T>.TryTakeOneCopyRest
-  fullName.vb: OpenAPI.Utils.ThreadSafeList(Of T).TryTakeOneCopyRest
-  nameWithType: ThreadSafeList<T>.TryTakeOneCopyRest
-  nameWithType.vb: ThreadSafeList(Of T).TryTakeOneCopyRest
 - uid: OpenAPI.Utils.TickScheduler
   name: TickScheduler
   href: api/OpenAPI.Utils.TickScheduler.html
