@@ -3,7 +3,7 @@ namespace OpenAPI.GameEngine.Games
     public enum GameState
     {
         Created = 0,
-        Intializing = 1,
+        Initializing = 1,
         Ready = 2,
         WaitingForPlayers = 3,
         Starting = 4,

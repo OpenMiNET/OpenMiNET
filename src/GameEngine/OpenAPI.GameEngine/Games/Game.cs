@@ -53,6 +53,8 @@ namespace OpenAPI.GameEngine.Games
         
         internal void Initialize()
         {
+            State = GameState.Initializing;
+            
             TeamManager = new TeamManager(Config.Teams);
             
             OnInitialize();
