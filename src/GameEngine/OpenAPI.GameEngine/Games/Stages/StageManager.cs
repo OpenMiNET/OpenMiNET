@@ -16,6 +16,8 @@ namespace OpenAPI.GameEngine.Games.Stages
             Stages = new ConcurrentQueue<GameStage>();
         }
 
+        public GameStage CurrentStage => Current;
+
         public void Start()
         {
             Next();
@@ -27,6 +29,8 @@ namespace OpenAPI.GameEngine.Games.Stages
             {
                 Current?.Finish();
                 Current = stage;
+                stage.Start();
+                
                 return true;
             }
 

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using log4net;
+using MiNET.Blocks;
 using MiNET.Utils;
 using MiNET.Worlds;
 using OpenAPI.GameEngine.Games.Configuration;
@@ -17,6 +18,8 @@ namespace OpenAPI.GameEngine.Games
 {
     public class GameManager
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(GameManager));
+        
         private Type Default { get; set; }
         private ConcurrentDictionary<Type, GameEntry> Games { get; }
         private OpenLevelManager LevelManager { get; }
@@ -29,7 +32,14 @@ namespace OpenAPI.GameEngine.Games
         public bool RegisterGame<TGame>(Func<IGameOwner, TGame> gameFactory) where TGame : Game
         {
             var type = typeof(TGame);
-            return Games.TryAdd(type, new GameEntry<TGame>(LevelManager, gameFactory));
+            var gameEntry = new GameEntry<TGame>(LevelManager, gameFactory);
+            if (Games.TryAdd(type, gameEntry))
+            {
+                gameEntry.Init();
+                return true;
+            }
+
+            return false;
         }
         
         public bool RegisterGame<TGame>() where TGame : Game
@@ -40,14 +50,23 @@ namespace OpenAPI.GameEngine.Games
             foreach (var constructor in type.GetConstructors())
             {
                 if (!constructor.IsPublic)
+                {
+                    Log.Warn("No public constructor.");
                     continue;
+                }
                 
                 var parameters = constructor.GetParameters();
                 if (parameters.Length != 1)
+                {
+                    Log.Warn($"To many parameters");
                     continue;
-                
-                if (parameters[0].GetType() != typeof(IGameOwner))
+                }
+
+                if (!typeof(IGameOwner).IsAssignableFrom(parameters[0].ParameterType))
+                {
+                    Log.Warn($"Wrong type.");
                     continue;
+                }
 
                 suitableConstructor = constructor;
                 break;
@@ -58,10 +77,15 @@ namespace OpenAPI.GameEngine.Games
                 throw new Exception("Could not find suitable constructor!");
             }
             
-            return RegisterGame<TGame>((owner) => (TGame) suitableConstructor.Invoke(new object[]
+            return RegisterGame<TGame>((owner) =>
             {
-                owner
-            }));
+                var instance = suitableConstructor.Invoke(new object[]
+                {
+                    owner
+                });
+                    
+                return (TGame) instance;
+            });
         }
 
         public void RemoveGame(GameEntry entry)
@@ -127,7 +151,7 @@ namespace OpenAPI.GameEngine.Games
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(GameEntry));
         
-        public GameInfo Info { get; }
+        public GameInfo Info { get; private set; }
         private ConcurrentDictionary<string, Game> Instances { get; }
         
         internal Type GameType { get; }
@@ -144,13 +168,20 @@ namespace OpenAPI.GameEngine.Games
             Instances = new ConcurrentDictionary<string, Game>();
             Ticker = new HighPrecisionTimer(50, Tick);
             Rnd = new FastRandom();
+        }
+
+        internal void Init()
+        {
             Info = ResolveInfo();
+
+            CheckInstances();
         }
 
         private void Tick(object obj)
         {
             foreach (var game in Instances.Values
                 .Where(x => x.State == GameState.WaitingForPlayers 
+                            || x.State == GameState.Starting
                             || x.State == GameState.InProgress 
                             ||
                            x.State == GameState.Finished).ToArray())
@@ -162,6 +193,7 @@ namespace OpenAPI.GameEngine.Games
         private GameInfo ResolveInfo()
         {
             var instance = CreateInstance();
+            instance.Load();
             
             GameInfo info = new GameInfo()
             {
@@ -223,6 +255,8 @@ namespace OpenAPI.GameEngine.Games
             var incremented = Interlocked.Increment(ref _instanceCounter);
             string instanceName = $"{Info.Name}:{incremented}";
 
+            game.InstanceName = instanceName;
+            
             Instances.TryAdd(instanceName, game);
         }
 
@@ -268,9 +302,12 @@ namespace OpenAPI.GameEngine.Games
                     }
                     
                     newInstance.Level = LevelManager.LoadLevel(mapPath);
+                    newInstance.Map = map;
                 }
                 
                 newInstance.Initialize();
+                
+                Log.Info($"Created new game instance: {newInstance.InstanceName}");
             }
         }
 
@@ -279,12 +316,12 @@ namespace OpenAPI.GameEngine.Games
             switch (newState)
             {
                 case GameState.Ready:
-                    Log.Info($"Game instance initialized...");
+                    Log.Info($"Game instance initialized... (Instance={game.InstanceName})");
 
                     game.State = GameState.WaitingForPlayers;
                     break;
                 case GameState.WaitingForPlayers:
-                    Log.Info($"Game instance is waiting for players...");
+                    Log.Info($"Game instance is waiting for players... (Instance={game.InstanceName})");
                     break;
                 case GameState.Starting:
 
@@ -322,6 +359,8 @@ namespace OpenAPI.GameEngine.Games
     
     public class GameEntry<TGame> : GameEntry where TGame : Game
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(GameEntry));
+        
         private Func<IGameOwner, TGame> Generator { get; }
         public GameEntry(OpenLevelManager levelManager, Func<IGameOwner, TGame> generator) : base(levelManager, typeof(TGame))
         {

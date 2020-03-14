@@ -104,7 +104,7 @@ namespace OpenAPI.GameEngine.Games.Teams
 
         public bool CanStart()
         {
-            return Teams.All(x => x.Value.PlayerCount >= Config.MinPlayers) && Teams.Count >= Config.Min;
+            return Teams.Count(x => x.Value.PlayerCount >= Config.MinPlayers) >= Config.Min && Teams.Count >= Config.Min;
         }
     }
 }

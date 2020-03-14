@@ -151,7 +151,10 @@ namespace OpenAPI.World
 					ReadSkyLight = !Config.GetProperty("CalculateLights", false),
 					ReadBlockLight = !Config.GetProperty("CalculateLights", false),
 				};*/
-			var worldProvider = new AnvilWorldProvider(levelDirectory);
+			var worldProvider = new AnvilWorldProvider(levelDirectory)
+			{
+				MissingChunkProvider = new SuperflatGenerator(Dimension.Overworld)
+			};
 
 			var openLevel = new OpenLevel(Api/*, Api.EventDispatcher*/, this, newLevelId, worldProvider, EntityManager, _gameMode, _difficulty, _viewDistance)
 			{

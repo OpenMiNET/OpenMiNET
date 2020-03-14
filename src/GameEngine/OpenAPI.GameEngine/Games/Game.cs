@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using OpenAPI.GameEngine.Games.Configuration;
 using OpenAPI.GameEngine.Games.Stages;
 using OpenAPI.GameEngine.Games.Teams;
+using OpenAPI.GameEngine.Models.Games.Maps;
 using OpenAPI.Player;
 using OpenAPI.World;
 
@@ -15,7 +16,8 @@ namespace OpenAPI.GameEngine.Games
     {
         private IGameOwner Owner { get; }
         
-        public GameConfig Config { get; private set; }
+        public GameConfig<MapInfo> Config { get; private set; }
+        public MapInfo Map { get; internal set; }
         
         public OpenLevel Level { get; internal set; }
         
@@ -26,6 +28,9 @@ namespace OpenAPI.GameEngine.Games
             internal set
             {
                 var oldState = _state;
+
+                if (oldState == value)
+                    return;
                 
                 _state = value;
                 
@@ -34,7 +39,7 @@ namespace OpenAPI.GameEngine.Games
         }
 
         internal string InstanceName { get; set; } = null;
-
+        
         protected Game(IGameOwner owner)
         {
             Owner = owner;
@@ -42,7 +47,7 @@ namespace OpenAPI.GameEngine.Games
             StageManager = new StageManager(this);
         }
         
-        protected TeamManager TeamManager { get; private set; }
+        public TeamManager TeamManager { get; private set; }
         protected StageManager StageManager { get; }
 
         internal void Load()
@@ -69,7 +74,7 @@ namespace OpenAPI.GameEngine.Games
             if (Config != null)
                 return;
             
-            Config = new GameConfig();
+            Config = new GameConfig<MapInfo>();
             
             string gameAssemblyPath = Path.GetDirectoryName(GetType().Assembly.Location);
             string configPath = Path.Combine(gameAssemblyPath, "game.json");
@@ -77,7 +82,8 @@ namespace OpenAPI.GameEngine.Games
             if (File.Exists(configPath))
             {
                 var content = File.ReadAllText(configPath);
-                Config = JsonConvert.DeserializeObject<GameConfig>(content);
+                Config = JsonConvert.DeserializeObject<GameConfig<MapInfo>>(content);
+                //Config = JsonConvert.DeserializeObject<GameConfig>(content);
             }
         }
 
@@ -93,18 +99,6 @@ namespace OpenAPI.GameEngine.Games
 
         internal void Tick()
         {
-            if (State == GameState.WaitingForPlayers || State == GameState.Starting)
-            {
-                if (TeamManager.CanStart())
-                {
-                    State = GameState.Starting;
-                }
-                else
-                {
-                    State = GameState.WaitingForPlayers;
-                }
-            }
-            
             OnTick();
             
             StageManager.Tick();
@@ -127,7 +121,7 @@ namespace OpenAPI.GameEngine.Games
 
             if (TeamManager.TryAssignTeam(player))
             {
-                player.SpawnLevel(Level, Level.SpawnPoint, true);
+                player.SpawnLevel(Level, Level.SpawnPoint, false);
                 return true;
             }
 
