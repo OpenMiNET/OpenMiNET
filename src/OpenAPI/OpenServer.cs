@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using log4net;
 using MiNET;
 using MiNET.Items;
+using MiNET.Net.RakNet;
 using MiNET.Plugins;
 using MiNET.Utils;
 using OpenAPI.Events.Server;
@@ -61,16 +62,16 @@ namespace OpenAPI
                 {
                     PluginManager = new PluginManager();
                     openInfo = new OpenServerInfo(OpenApi,
-                        ReflectionHelper.GetPrivateFieldValue<ConcurrentDictionary<IPEndPoint, PlayerNetworkSession>>(
+                        ReflectionHelper.GetPrivateFieldValue<ConcurrentDictionary<IPEndPoint, RakSession>>(
                             type, this, "_playerSessions"), OpenApi.LevelManager);
-                    ServerInfo = openInfo;
+                    ConnectionInfo = openInfo;
                     openInfo.Init();
 
                     OpenApi.ServerInfo = openInfo;
 
                     global::MiNET.Items.ItemFactory.CustomItemFactory = OpenApi.ItemFactory;
 
-                    GreylistManager = GreylistManager ?? new GreylistManager(this);
+                    GreyListManager = GreyListManager ?? new GreyListManager(ConnectionInfo);
                     SessionManager = SessionManager ?? new SessionManager();
                     LevelManager = OpenApi.LevelManager;
                     PlayerFactory = OpenApi.PlayerManager;
@@ -148,8 +149,8 @@ namespace OpenAPI
         }
 
         public new bool StopServer()
-	    {
-		    if (base.StopServer())
+        {
+            base.StopServer();
 		    {
 				OpenApi?.OnDisable();
 			    return true;

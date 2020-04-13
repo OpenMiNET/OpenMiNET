@@ -5,22 +5,23 @@ using System.Net;
 using System.Threading;
 using log4net;
 using MiNET;
+using MiNET.Net.RakNet;
 using MiNET.Utils;
 using OpenAPI.World;
 using Timer = System.Threading.Timer;
 
 namespace OpenAPI
 {
-	public class OpenServerInfo : ServerInfo
+	public class OpenServerInfo : ConnectionInfo
 	{
-		private static readonly ILog Log = LogManager.GetLogger(typeof(ServerInfo));
+		private static readonly ILog Log = LogManager.GetLogger(typeof(OpenServerInfo));
 
 		public long EventsDispatchedPerSecond;
 		public long Levels;
 		private OpenApi Api { get; }
 		private int Interval { get; } = 1000;
 		private Stopwatch _stopwatch = Stopwatch.StartNew();
-		public OpenServerInfo(OpenApi api, ConcurrentDictionary<IPEndPoint, PlayerNetworkSession> playerSessions, LevelManager levelManager) : base(levelManager, playerSessions)
+		public OpenServerInfo(OpenApi api, ConcurrentDictionary<IPEndPoint, RakSession> playerSessions, LevelManager levelManager) : base(playerSessions)
 		{
 			Api = api;
 
@@ -34,7 +35,7 @@ namespace OpenAPI
 
 		private void OnThroughPut(object state)
 		{
-			NumberOfPlayers = PlayerSessions.Count;
+			NumberOfPlayers = RakSessions.Count;
 			
 			int availableWorkerThreads;
 			int availablePortThreads;
