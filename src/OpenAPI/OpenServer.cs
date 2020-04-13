@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using log4net;
 using MiNET;
 using MiNET.Items;
+using MiNET.Net;
 using MiNET.Net.RakNet;
 using MiNET.Plugins;
 using MiNET.Utils;
@@ -37,7 +38,7 @@ namespace OpenAPI
         {
             var type = typeof(MiNetServer);
             
-            UdpClient c = ReflectionHelper.GetPrivateFieldValue<UdpClient>(type, this, "_listener");
+            RakConnection c = ReflectionHelper.GetPrivateFieldValue<RakConnection>(type, this, "_listener");
             if (c != null) return false;
 
             try
@@ -61,13 +62,6 @@ namespace OpenAPI
                 if (ServerRole == ServerRole.Full || ServerRole == ServerRole.Node)
                 {
                     PluginManager = new PluginManager();
-                    openInfo = new OpenServerInfo(OpenApi,
-                        ReflectionHelper.GetPrivateFieldValue<ConcurrentDictionary<IPEndPoint, RakSession>>(
-                            type, this, "_playerSessions"), OpenApi.LevelManager);
-                    ConnectionInfo = openInfo;
-                    openInfo.Init();
-
-                    OpenApi.ServerInfo = openInfo;
 
                     global::MiNET.Items.ItemFactory.CustomItemFactory = OpenApi.ItemFactory;
 
@@ -83,8 +77,9 @@ namespace OpenAPI
 
                 if (ServerRole == ServerRole.Full || ServerRole == ServerRole.Proxy)
                 {
-                    var listener = new UdpClient(Endpoint);
-                    listener.DontFragment = false;
+                    RakConnection listener = new RakConnection(Endpoint, GreyListManager, MotdProvider);
+                    listener.CustomMessageHandlerFactory = session => new BedrockMessageHandler(session, ServerManager, PluginManager);
+                   /* listener.DontFragment = false;
                     listener.EnableBroadcast = true;
                     
                     if (!System.Runtime.InteropServices.RuntimeInformation
@@ -104,24 +99,32 @@ namespace OpenAPI
                         uint IOC_VENDOR = 0x18000000;
                         uint SIO_UDP_CONNRESET = IOC_IN | IOC_VENDOR | 12;
                         listener.Client.IOControl((int) SIO_UDP_CONNRESET, new byte[] {Convert.ToByte(false)}, null);
-                    }
+                    }*/
+                   
+                   openInfo = new OpenServerInfo(OpenApi,
+                       listener.ConnectionInfo.RakSessions, OpenApi.LevelManager);
+                   ConnectionInfo = openInfo;
+                   openInfo.Init();
+
+                   OpenApi.ServerInfo = openInfo;
 
                     ReflectionHelper.SetPrivateFieldValue(type, this, "_listener", listener);
-
-                    var processData = type.GetMethod("ProcessDatagrams",
+                    listener.Start();
+                    /*var processData = type.GetMethod("ProcessDatagrams",
                         BindingFlags.NonPublic | BindingFlags.Instance);
                     
+                   
                     ProcessingThread = new Thread((l) =>
                     {
                         processData?.Invoke(this, new object[] {(UdpClient) l});
                     }) {IsBackground = true};
                     
-                    ProcessingThread.Start(listener);
+                    ProcessingThread.Start(listener);*/
                 }
 
                 openInfo?.OnEnable();
 
-                ReflectionHelper.SetPrivateFieldValue(type, this, "_tickerHighPrecisionTimer",
+               /* ReflectionHelper.SetPrivateFieldValue(type, this, "_tickerHighPrecisionTimer",
                     new HighPrecisionTimer(10, async (o) => {
                         ReflectionHelper.InvokePrivateMethod(type, this, "SendTick", new object[] {null});
                        /* var sessions =
@@ -130,8 +133,8 @@ namespace OpenAPI
                                     type, this, "_playerSessions");
 
                         var tasks = sessions.Values.Select(session => session.SendTickAsync());
-                        await Task.WhenAll(tasks);*/
-                    }, true, true));
+                        await Task.WhenAll(tasks);*
+                    }, true, true));*/
 
                 Log.Info("Server open for business on port " + Endpoint?.Port + " ...");
 
