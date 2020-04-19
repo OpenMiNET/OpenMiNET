@@ -21,8 +21,10 @@ namespace OpenAPI
 		private OpenApi Api { get; }
 		private int Interval { get; } = 1000;
 		private Stopwatch _stopwatch = Stopwatch.StartNew();
-		public OpenServerInfo(OpenApi api, ConcurrentDictionary<IPEndPoint, RakSession> playerSessions, LevelManager levelManager) : base(playerSessions)
+		private ConnectionInfo ConnectionInfo { get; }
+		public OpenServerInfo(ConnectionInfo info, OpenApi api, ConcurrentDictionary<IPEndPoint, RakSession> playerSessions, LevelManager levelManager) : base(playerSessions)
 		{
+			ConnectionInfo = info;
 			Api = api;
 
 			Interval = Config.GetProperty("InfoInterval", 1000);

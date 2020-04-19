@@ -79,34 +79,40 @@ namespace OpenAPI
                 {
                     RakConnection listener = new RakConnection(Endpoint, GreyListManager, MotdProvider);
                     listener.CustomMessageHandlerFactory = session => new BedrockMessageHandler(session, ServerManager, PluginManager);
-                   /* listener.DontFragment = false;
-                    listener.EnableBroadcast = true;
-                    
-                    if (!System.Runtime.InteropServices.RuntimeInformation
-                        .IsOSPlatform(OSPlatform.Windows))
-                    {
-                        listener.Client.ReceiveBufferSize = 1024 * 1024 * 3;
-                        listener.Client.SendBufferSize = 4096;
-                    }
-                    else
-                    {
-                        listener.Client.ReceiveBufferSize = int.MaxValue;
-                        listener.Client.SendBufferSize = int.MaxValue;
-                        listener.DontFragment = false;
-                        listener.EnableBroadcast = false;
 
-                        uint IOC_IN = 0x80000000;
-                        uint IOC_VENDOR = 0x18000000;
-                        uint SIO_UDP_CONNRESET = IOC_IN | IOC_VENDOR | 12;
-                        listener.Client.IOControl((int) SIO_UDP_CONNRESET, new byte[] {Convert.ToByte(false)}, null);
-                    }*/
+                    /* listener.DontFragment = false;
+                     listener.EnableBroadcast = true;
+                     
+                     if (!System.Runtime.InteropServices.RuntimeInformation
+                         .IsOSPlatform(OSPlatform.Windows))
+                     {
+                         listener.Client.ReceiveBufferSize = 1024 * 1024 * 3;
+                         listener.Client.SendBufferSize = 4096;
+                     }
+                     else
+                     {
+                         listener.Client.ReceiveBufferSize = int.MaxValue;
+                         listener.Client.SendBufferSize = int.MaxValue;
+                         listener.DontFragment = false;
+                         listener.EnableBroadcast = false;
+ 
+                         uint IOC_IN = 0x80000000;
+                         uint IOC_VENDOR = 0x18000000;
+                         uint SIO_UDP_CONNRESET = IOC_IN | IOC_VENDOR | 12;
+                         listener.Client.IOControl((int) SIO_UDP_CONNRESET, new byte[] {Convert.ToByte(false)}, null);
+                     }*/
                    
-                   openInfo = new OpenServerInfo(OpenApi,
+                   openInfo = new OpenServerInfo(listener.ConnectionInfo, OpenApi,
                        listener.ConnectionInfo.RakSessions, OpenApi.LevelManager);
                    ConnectionInfo = openInfo;
                    openInfo.Init();
 
                    OpenApi.ServerInfo = openInfo;
+                   
+                   if (!Config.GetProperty("EnableThroughput", true))
+                   {
+                       listener.ConnectionInfo.ThroughPut.Change(Timeout.Infinite, Timeout.Infinite);
+                   }
 
                     ReflectionHelper.SetPrivateFieldValue(type, this, "_listener", listener);
                     listener.Start();
@@ -124,17 +130,17 @@ namespace OpenAPI
 
                 openInfo?.OnEnable();
 
-               /* ReflectionHelper.SetPrivateFieldValue(type, this, "_tickerHighPrecisionTimer",
-                    new HighPrecisionTimer(10, async (o) => {
-                        ReflectionHelper.InvokePrivateMethod(type, this, "SendTick", new object[] {null});
-                       /* var sessions =
-                            ReflectionHelper
-                                .GetPrivateFieldValue<ConcurrentDictionary<IPEndPoint, PlayerNetworkSession>>(
-                                    type, this, "_playerSessions");
-
-                        var tasks = sessions.Values.Select(session => session.SendTickAsync());
-                        await Task.WhenAll(tasks);*
-                    }, true, true));*/
+                /* ReflectionHelper.SetPrivateFieldValue(type, this, "_tickerHighPrecisionTimer",
+                     new HighPrecisionTimer(10, async (o) => {
+                         ReflectionHelper.InvokePrivateMethod(type, this, "SendTick", new object[] {null});
+                        /* var sessions =
+                             ReflectionHelper
+                                 .GetPrivateFieldValue<ConcurrentDictionary<IPEndPoint, PlayerNetworkSession>>(
+                                     type, this, "_playerSessions");
+ 
+                         var tasks = sessions.Values.Select(session => session.SendTickAsync());
+                         await Task.WhenAll(tasks);*
+                     }, true, true));*/
 
                 Log.Info("Server open for business on port " + Endpoint?.Port + " ...");
 
