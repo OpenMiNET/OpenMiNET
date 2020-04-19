@@ -1,6 +1,7 @@
 ﻿using MiNET;
 using MiNET.Plugins.Attributes;
 using MiNET.Sounds;
+using MiNET.Worlds;
 using OpenAPI.Commands;
 using OpenAPI.Permission;
 using OpenAPI.Player;
@@ -56,6 +57,13 @@ namespace OpenAPI.TestPlugin
             
           //  player.SendSound(player.KnownPosition.GetCoordinates3D(), LevelSoundEventType.Explode);
             player.SendMessage("Sound send.");
+        }
+
+        [Command(Name = "gm")]
+        public void Gamemode(OpenPlayer player, GameMode gameMode)
+        {
+            player.SetGamemode(gameMode);
+            player.SendMessage($"Gamemode set to: {gameMode}");
         }
     }
 }

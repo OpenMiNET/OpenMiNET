@@ -1,3 +1,4 @@
+using MiNET.Blocks;
 using MiNET.Items;
 using MiNET.Worlds;
 using OpenAPI.Events;
@@ -33,10 +34,15 @@ namespace OpenAPI.TestPlugin
         public void OnPlayerSpawn(PlayerSpawnedEvent e)
         {
             e.Player.SetGamemode(GameMode.Survival);
-            e.Player.Inventory.AddItem(new ItemDiamondPickaxe(), true);
-            e.Player.Inventory.AddItem(new ItemGoldenPickaxe(), true);
-            e.Player.Inventory.AddItem(new ItemStonePickaxe(), true);
-            e.Player.Inventory.AddItem(new ItemWoodenPickaxe(), true);
+            e.Player.Inventory.AddItem(new ItemBlock(new Planks())
+            {
+                Count = 64
+            }, true);
+            e.Player.Inventory.AddItem(new ItemDiamondAxe(), true);
+            e.Player.Inventory.AddItem(new ItemGoldenAxe(), true);
+            e.Player.Inventory.AddItem(new ItemIronAxe(), true);
+            e.Player.Inventory.AddItem(new ItemStoneAxe(), true);
+            e.Player.Inventory.AddItem(new ItemWoodenAxe(), true);
         }
     }
 }
