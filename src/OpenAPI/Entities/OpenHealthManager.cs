@@ -46,6 +46,7 @@ namespace OpenAPI.Entities
 		    if (Entity is MiNET.Player player)
 		    {
 		        ResetHealth();
+				player.HungerManager.ResetHunger();
 
 		        player.SendUpdateAttributes();
                 player.BroadcastSetEntityData();
