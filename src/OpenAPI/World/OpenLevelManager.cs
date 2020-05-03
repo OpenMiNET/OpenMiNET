@@ -151,9 +151,17 @@ namespace OpenAPI.World
 					ReadSkyLight = !Config.GetProperty("CalculateLights", false),
 					ReadBlockLight = !Config.GetProperty("CalculateLights", false),
 				};*/
+			Log.Error("====================================");
+			Log.Error("====================================");
+			Log.Error("====================================");
+			Log.Error("====================================");
+			Log.Error("====================================");
+			Log.Error("====================================");
+			Log.Error("====================================");
 			var worldProvider = new AnvilWorldProvider(levelDirectory)
 			{
-				MissingChunkProvider = new SuperflatGenerator(Dimension.Overworld)
+				MissingChunkProvider = new TestGenerator(Dimension.Overworld)
+				// MissingChunkProvider = new SuperflatGenerator(Dimension.Overworld)
 			};
 
 			var openLevel = new OpenLevel(Api/*, Api.EventDispatcher*/, this, newLevelId, worldProvider, EntityManager, _gameMode, _difficulty, _viewDistance)
@@ -251,7 +259,7 @@ namespace OpenAPI.World
 
 		internal void SetDefaultByConfig()
 		{
-			var missingGenerator = new SuperflatGenerator(Dimension.Overworld);
+			var missingGenerator = new TestGenerator(Dimension.Overworld);
 			    
 			IWorldProvider worldProvider;
 			switch (Config.GetProperty("WorldProvider", "anvil").ToLower().Trim())
