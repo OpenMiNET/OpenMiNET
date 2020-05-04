@@ -45,6 +45,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TNTRun", "src\GameEngine\Ex
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingWorldGenConsoleReal", "TestingWorldGenConsoleReal\TestingWorldGenConsoleReal.csproj", "{50BC3A3C-AF9B-491F-BB1F-86B7ECDE9162}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiNET", "..\MiNET\src\MiNET\MiNET\MiNET.csproj", "{77B837F2-1ACE-4DCE-8D38-7EC2A10E0413}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -169,6 +171,16 @@ Global
 		{50BC3A3C-AF9B-491F-BB1F-86B7ECDE9162}.Release|x64.Build.0 = Release|Any CPU
 		{50BC3A3C-AF9B-491F-BB1F-86B7ECDE9162}.AppVeyor|Any CPU.ActiveCfg = Debug|Any CPU
 		{50BC3A3C-AF9B-491F-BB1F-86B7ECDE9162}.AppVeyor|Any CPU.Build.0 = Debug|Any CPU
+		{77B837F2-1ACE-4DCE-8D38-7EC2A10E0413}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77B837F2-1ACE-4DCE-8D38-7EC2A10E0413}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77B837F2-1ACE-4DCE-8D38-7EC2A10E0413}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{77B837F2-1ACE-4DCE-8D38-7EC2A10E0413}.Debug|x64.Build.0 = Debug|Any CPU
+		{77B837F2-1ACE-4DCE-8D38-7EC2A10E0413}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77B837F2-1ACE-4DCE-8D38-7EC2A10E0413}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77B837F2-1ACE-4DCE-8D38-7EC2A10E0413}.Release|x64.ActiveCfg = Release|Any CPU
+		{77B837F2-1ACE-4DCE-8D38-7EC2A10E0413}.Release|x64.Build.0 = Release|Any CPU
+		{77B837F2-1ACE-4DCE-8D38-7EC2A10E0413}.AppVeyor|Any CPU.ActiveCfg = Debug|Any CPU
+		{77B837F2-1ACE-4DCE-8D38-7EC2A10E0413}.AppVeyor|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

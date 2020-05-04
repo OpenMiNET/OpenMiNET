@@ -14,6 +14,8 @@ namespace OpenAPI.World
 
         private readonly FastNoise HeightNoise; // Create a FastNoise object
         private readonly FastNoise TempatureNoise; // Create a FastNoise object
+        private readonly FastNoise RainNoise; // Create a FastNoise object
+        private readonly FastNoise WaterNoise; // Create a FastNoise object
 
         public TestGenerator(Dimension dimension)
         {
@@ -22,10 +24,17 @@ namespace OpenAPI.World
             // myNoise.SetNoiseType(FastNoise.NoiseType.Perlin); // Set the desired noise type
             HeightNoise.SetNoiseType(FastNoise.NoiseType.Cubic); // Set the desired noise type
             // HeightNoise.SetFrequency(0.015f);
-            HeightNoise.SetFrequency(0.015f);
-            TempatureNoise = new FastNoise(123123);
+            HeightNoise.SetFrequency(0.010f);
+            HeightNoise.SetGradientPerturbAmp(15.0f);
+            TempatureNoise = new FastNoise(1337);
             TempatureNoise.SetNoiseType(FastNoise.NoiseType.Cubic); // Set the desired noise type
             TempatureNoise.SetFrequency(0.005f);
+            RainNoise = new FastNoise(133337);
+            RainNoise.SetNoiseType(FastNoise.NoiseType.Cubic); // Set the desired noise type
+            RainNoise.SetFrequency(0.005f);
+            WaterNoise = new FastNoise(1231551);
+            WaterNoise.SetNoiseType(FastNoise.NoiseType.Cubic); // Set the desired noise type
+            WaterNoise.SetFrequency(0.005f);
             // myNoise.SetInterp(FastNoise.Interp.Quintic);
         }
 
@@ -134,8 +143,57 @@ namespace OpenAPI.World
             return !flag ? -1 : num - 1;
         }
 
-        public void RePopulateChunk(ChunkColumn chunk)
+        public class AdvancedBiome
         {
+            public String name;
+            public float startrain;//0 - 1
+            public float stoprain;
+            public float starttemp;//-1 - 1
+            public float stoptemp;
+            public int heightvariation;
+            public int startheight = 80;
+            public bool waterbiome = false;
+
+            public AdvancedBiome(string name, float startrain, float stoprain, float starttemp, float stoptemp, int heightvariation)
+            {
+                this.name = name;
+                this.startrain = startrain;
+                this.stoprain = stoprain;
+                this.starttemp = starttemp;
+                this.stoptemp = stoptemp;
+                this.heightvariation = heightvariation;
+            }
+
+            public bool check(float temp, float rain)
+            {
+                return (startrain <= rain && stoprain >= rain && starttemp <= temp && stoptemp >= temp);
+            }
+        }
+        
+        public List<AdvancedBiome> BiomeList = new List<AdvancedBiome>();
+        
+        public void registerBiomes()
+        {
+            BiomeList.Add(new AdvancedBiome("Snow",0,1,-1,0.05f,30));
+            BiomeList.Add(new AdvancedBiome("Mountain",0,1,0,0.2f,60));
+            BiomeList.Add(new AdvancedBiome("Plain",0,1,.5f,0.8f,5));
+            BiomeList.Add(new AdvancedBiome("DEFAULT",0,1,0f,1f,15));
+            
+        }
+        
+        public AdvancedBiome getBiomeFromTemp(float temp, float downfall)
+        {
+            foreach (var b in BiomeList)
+            {
+                if (b.check(temp, downfall)) return b;
+            }
+
+            return new AdvancedBiome("DEFAULT", 0, 1, 0f, 1f, 15);
+        }
+        
+        public void RePopulateChunk(ChunkColumn chunk, float temp, float rain)
+        {
+            var b = getBiomeFromTemp(temp, rain);
             var sx = chunk.X;
             var sz = chunk.Z;
             for (var bx = 0; bx < 16; ++bx)
@@ -147,7 +205,7 @@ namespace OpenAPI.World
                     var tx = sx * 16 + bx;
                     var tz = sz * 16 + bz;
                     var height = Math.Abs(HeightNoise.GetNoise(tx, tz));
-                    var maxheight = (int) (height * 128) + 128;
+                    var maxheight = (int) (height * b.heightvariation) + b.startheight;
                     var grassheightstart = 128 + maxheight - rnd.Next(2, 6) - 1;
                     var grassheightstop = 128 + grassheightstart + (maxheight - grassheightstart) - 1;
                     if (bx == 0 && bz == 0)
@@ -184,8 +242,10 @@ namespace OpenAPI.World
             var sz = chunk.Z;
             var blockLayers = BlockLayers;
             float tempn = Math.Abs(HeightNoise.GetNoise(sx*16, sz*16));
-            int temp = 2 * tempn;
-            RePopulateChunk(chunk);
+            float rainn = Math.Abs(HeightNoise.GetNoise(sx*16, sz*16));
+            float temp = 2 * tempn;
+            
+            RePopulateChunk(chunk,temp,rainn);
             // OpenServer.FastThreadPool.QueueUserWorkItem(() => { RePopulateChunk(chunk); });
             // for (var bx = 0; bx < 16; ++bx)
             // {
