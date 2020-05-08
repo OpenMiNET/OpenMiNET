@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Numerics;
-using System.Timers;
 using MiNET.Blocks;
 using MiNET.Utils;
 using MiNET.Worlds;
 
 namespace OpenAPI.World
 {
-    public class TestGenerator : IWorldGenerator
+    public class TestGenerator2 : IWorldGenerator
     {
         private int generatedchunks;
 
@@ -19,7 +18,7 @@ namespace OpenAPI.World
         private readonly FastNoise RainNoise; // Create a FastNoise object
         private readonly FastNoise WaterNoise; // Create a FastNoise object
 
-        public TestGenerator(Dimension dimension)
+        public TestGenerator2(Dimension dimension)
         {
             Dimension = dimension;
             HeightNoise = new FastNoise(123123);
@@ -161,7 +160,7 @@ namespace OpenAPI.World
             return !flag ? -1 : num - 1;
         }
 
-        //
+
         // public List<AdvancedBiome> BiomeList = new List<AdvancedBiome>();
         //
         // public void registerBiomes()
@@ -182,7 +181,7 @@ namespace OpenAPI.World
         //
         //     return new AdvancedBiome("DEFAULT", 0, 1, 0f, 1f, 25);
         // }
-        
+        // //
         // public void RePopulateChunk(ChunkColumn chunk, float temp, float rain)
         // {
         //     // var b = getBiomeFromTemp(temp, rain);
@@ -293,4 +292,5 @@ namespace OpenAPI.World
             return blockList;
         }
     }
+
 }
