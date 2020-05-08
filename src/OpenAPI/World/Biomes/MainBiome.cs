@@ -24,7 +24,7 @@ namespace OpenAPI.World
         private float dirtNoise = 0.004f;
         private float dirtNoiseHeight = 10;
         private int waterLevel = 25;
-        public MainBiome() : base("MAIN", new BiomeQualifications(0,2,0,2,40))
+        public MainBiome() : base("MAIN", new BiomeQualifications(0,2,0,2,0,2,40))
         {
             startheight = 90;
         }
@@ -33,7 +33,7 @@ namespace OpenAPI.World
         /// 
         /// </summary>
         /// <param name="chunk"></param>
-        public override void PopulateChunk(ChunkColumn chunk, float rain, float temp)
+        public override void PopulateChunk(ChunkColumn chunk, float[] rtf)
         {
             int trees = new Random().Next(0, 10);
             int[,] treeBasePositions = new int[trees, 2];

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Numerics;
 using MiNET.Blocks;
 using MiNET.Utils;
 using MiNET.Worlds;
@@ -271,7 +270,7 @@ namespace OpenAPI.World
                                     }
                                     else if (ySeg * 8 + yIn <= seaHeight)
                                     {
-                                        chunk.SetBlock(xSeg * 4 + zIn, ySeg * 8 + yIn, zSeg * 4 + xIn, new Water());
+                                        chunk.SetBlock(xSeg * 4 + zIn, ySeg * 8 + yIn, zSeg * 4 + xIn, new MiNET.Blocks.Water());
                                     }
                                 }
 

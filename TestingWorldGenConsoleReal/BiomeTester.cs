@@ -10,11 +10,11 @@ namespace TestingWorldGenConsoleReal
 {
     public class BiomeTester
     {
-        public static int MASTERX = 100*2;
-        public static int MASTERZ = 100*2;
+        public static int MASTERX = 100 * 2;
+        public static int MASTERZ = 100 * 2;
 
         // private static readonly Bitmap image = new Bitmap(MASTERX * 16, MASTERZ * 16);
-        private static readonly Bitmap image = new Bitmap(MASTERX , MASTERZ );
+        private static readonly Bitmap image = new Bitmap(MASTERX, MASTERZ);
 
         private static void main()
         {
@@ -223,11 +223,12 @@ namespace TestingWorldGenConsoleReal
             // _imageBuffer[offset+3] = 255;
         }
 
-        public static bool check(float minr, float maxr, float mint, float maxt, float minh, float maxh, float r, float t,float h)
+        public static bool check(float minr, float maxr, float mint, float maxt, float minh, float maxh, float r,
+            float t, float h)
         {
             return (minr < r && maxr > r && mint < t && maxt > t && minh < h && maxh > h);
         }
-        
+
         public static void start()
         {
             new BiomeManager();
@@ -252,7 +253,7 @@ namespace TestingWorldGenConsoleReal
                     //CALCULATE RAIN
                     var rainnoise = new FastNoise(123123);
                     rainnoise.SetNoiseType(FastNoise.NoiseType.SimplexFractal);
-                    rainnoise.SetFrequency(.015f);
+                    rainnoise.SetFrequency(.007f); //.015
                     rainnoise.SetFractalType(FastNoise.FractalType.FBM);
                     rainnoise.SetFractalOctaves(1);
                     rainnoise.SetFractalLacunarity(.25f);
@@ -260,7 +261,7 @@ namespace TestingWorldGenConsoleReal
                     //CALCULATE TEMP
                     var tempnoise = new FastNoise(123123 + 1);
                     tempnoise.SetNoiseType(FastNoise.NoiseType.SimplexFractal);
-                    tempnoise.SetFrequency(.015f);
+                    tempnoise.SetFrequency(.004f); //.015f
                     tempnoise.SetFractalType(FastNoise.FractalType.FBM);
                     tempnoise.SetFractalOctaves(1);
                     tempnoise.SetFractalLacunarity(.25f);
@@ -281,113 +282,116 @@ namespace TestingWorldGenConsoleReal
 
 //CALCULATE BIOME'S COLOR
                     byte[] v = new byte[3];
-                    if (check(0,2,0,.5f,0,.5f,rain,temp,height))
+                    if (check(0, 2, 0, .5f, 0, .5f, rain, temp, height))
                     {
                         //A-Snow Icy Chunk
                         // v = new byte[] {0, 208, 255};
                         var a = Color.Beige;
-                        v = new [] {a.R,a.G,a.B};
+                        v = new[] {a.R, a.G, a.B};
                     }
-                    else if (check(0,2,0,.5f,1.25f,2,rain,temp,height))
+                    else if (check(0, 2, 0, .5f, 1.25f, 2, rain, temp, height))
                     {
                         v = new byte[] {0, 153, 255};
-                        
+
                         var a = Color.Bisque;
-                        v = new [] {a.R,a.G,a.B};
+                        v = new[] {a.R, a.G, a.B};
                         //A-Snow Mountian
                     }
-                    else if (check(.5f,1.25f,0,.5f,.75f,1.25f,rain,temp,height))
+                    else if (check(.5f, 1.25f, 0, .5f, .75f, 1.25f, rain, temp, height))
                     {
-                        
                         var a = Color.LightGreen;
-                        v = new [] {a.R,a.G,a.B};
+                        v = new[] {a.R, a.G, a.B};
                         v = new byte[] {0, 255, 229};
                         //A-Snow Taiga / Forest
                     }
-                    else if (check(0,2,0,.5f,1,.5f,rain,temp,height))
+                    else if (check(0, 2, 0, .5f, 1, .5f, rain, temp, height))
                     {
                         v = new byte[] {56, 115, 138};
-                        
+
                         var a = Color.Fuchsia;
-                        v = new [] {a.R,a.G,a.B};
+                        v = new[] {a.R, a.G, a.B};
                         //A-Snow Tundra
                     }
-                    else if (check(0.25f,1,0.75f,1.75f,1.25f,2,rain,temp,height))
+                    else if (check(0.25f, 1, 0.75f, 1.75f, 1.25f, 2, rain, temp, height))
                     {
                         v = new byte[] {4, 128, 0};
-                     
+
                         var a = Color.Coral;
-                        v = new [] {a.R,a.G,a.B};
+                        v = new[] {a.R, a.G, a.B};
                         //B-Mountains
                     }
-                    else if (check(0,.25f,.5f,.75f,1.25f,2,rain,temp,height))
+                    else if (check(0, .25f, .5f, .75f, 1.25f, 2, rain, temp, height))
                     {
-                        
                         v = new byte[] {133, 133, 133};
-                        
+
                         var a = Color.Gray;
-                        v = new [] {a.R,a.G,a.B};
+                        v = new[] {a.R, a.G, a.B};
                         //B-Stone Mountains
                     }
-                    else if (check(1,2,0.5f,1.75f,1.25f,2,rain,temp,height))
+                    else if (check(1, 2, 0.5f, 1.75f, 1.25f, 2, rain, temp, height))
                     {
-                        
                         v = new byte[] {0, 208, 255};
-                        
+
                         var a = Color.Khaki;
-                        v = new [] {a.R,a.G,a.B};
+                        v = new[] {a.R, a.G, a.B};
                         //B-Forest Mountains
                     }
-                    else if (check(0.5f,1,0.5f,1.75f,0.5f,1.25f,rain,temp,height))
+                    else if (check(0.5f, 1, 0.5f, 1.75f, 0.5f, 1.25f, rain, temp, height))
                     {
                         v = new byte[] {0, 208, 255};
-                        
-                        
+
+
                         var a = Color.ForestGreen;
-                        v = new [] {a.R,a.G,a.B};
+                        v = new[] {a.R, a.G, a.B};
                         //B-Taiga/Forest
                     }
-                    else if (check(0,2,1,1.75f,0,.5f,rain,temp,height))
+                    else if (check(0, 2, 1, 1.75f, 0, .5f, rain, temp, height))
                     {
                         var a = Color.Aqua;
-                        v = new [] {a.R,a.G,a.B};
+                        v = new[] {a.R, a.G, a.B};
                         //B-Water
                     }
-                    else if (check(0.5f,1.5f,0.5f,1.75f,0.5f,1,rain,temp,height))
+                    else if (check(0.5f, 1.5f, 0.5f, 1.75f, 0.5f, 1, rain, temp, height))
                     {
                         v = new byte[] {196, 255, 168};
-                     
+
                         var a = Color.Gold;
-                        v = new [] {a.R,a.G,a.B};
+                        v = new[] {a.R, a.G, a.B};
                         //B-Plains
                     }
-                    else if (check(0,2,1.75f,2,.5f,1,rain,temp,height))
+                    else if (check(0, 2, 1.75f, 2, .5f, 1, rain, temp, height))
                     {
                         v = new byte[] {255, 254, 168};
-                        
+
                         var a = Color.DarkGoldenrod;
-                        v = new [] {a.R,a.G,a.B};
+                        v = new[] {a.R, a.G, a.B};
                         //C-Desert
                     }
-                    else if (check(1.25f,2,.5f,1,.75f,1.5f,rain,temp,height))
+                    else if (check(1.25f, 2, .5f, 1, .75f, 1.5f, rain, temp, height))
                     {
                         v = new byte[] {255, 254, 168};
-                        
+
                         var a = Color.Blue;
-                        v = new [] {a.R,a.G,a.B};
+                        v = new[] {a.R, a.G, a.B};
                         //C-Desert
                     }
                     else
                     {
                         v = new byte[] {0, 0, 0};
-                        Console.WriteLine($"ERRRRRRRRRRRRRROOOOOOOOOOOOOORRRRRRRRRRRR WTFFFFFFFFFFFFFFFFFFFFFFFF {rain} {temp} {height}");
-                        Console.WriteLine($"ERRRRRRRRRRRRRROOOOOOOOOOOOOORRRRRRRRRRRR WTFFFFFFFFFFFFFFFFFFFFFFFF {rain} {temp} {height}");
-                        Console.WriteLine($"ERRRRRRRRRRRRRROOOOOOOOOOOOOORRRRRRRRRRRR WTFFFFFFFFFFFFFFFFFFFFFFFF {rain} {temp} {height}");
-                        Console.WriteLine($"ERRRRRRRRRRRRRROOOOOOOOOOOOOORRRRRRRRRRRR WTFFFFFFFFFFFFFFFFFFFFFFFF {rain} {temp} {height}");
-                        Console.WriteLine($"ERRRRRRRRRRRRRROOOOOOOOOOOOOORRRRRRRRRRRR WTFFFFFFFFFFFFFFFFFFFFFFFF {rain} {temp} {height}");
-                        Console.WriteLine($"ERRRRRRRRRRRRRROOOOOOOOOOOOOORRRRRRRRRRRR WTFFFFFFFFFFFFFFFFFFFFFFFF {rain} {temp} {height}");
-                        Console.WriteLine($"ERRRRRRRRRRRRRROOOOOOOOOOOOOORRRRRRRRRRRR WTFFFFFFFFFFFFFFFFFFFFFFFF {rain} {temp} {height}");
-                        
+                        Console.WriteLine(
+                            $"ERRRRRRRRRRRRRROOOOOOOOOOOOOORRRRRRRRRRRR WTFFFFFFFFFFFFFFFFFFFFFFFF {rain} {temp} {height}");
+                        Console.WriteLine(
+                            $"ERRRRRRRRRRRRRROOOOOOOOOOOOOORRRRRRRRRRRR WTFFFFFFFFFFFFFFFFFFFFFFFF {rain} {temp} {height}");
+                        Console.WriteLine(
+                            $"ERRRRRRRRRRRRRROOOOOOOOOOOOOORRRRRRRRRRRR WTFFFFFFFFFFFFFFFFFFFFFFFF {rain} {temp} {height}");
+                        Console.WriteLine(
+                            $"ERRRRRRRRRRRRRROOOOOOOOOOOOOORRRRRRRRRRRR WTFFFFFFFFFFFFFFFFFFFFFFFF {rain} {temp} {height}");
+                        Console.WriteLine(
+                            $"ERRRRRRRRRRRRRROOOOOOOOOOOOOORRRRRRRRRRRR WTFFFFFFFFFFFFFFFFFFFFFFFF {rain} {temp} {height}");
+                        Console.WriteLine(
+                            $"ERRRRRRRRRRRRRROOOOOOOOOOOOOORRRRRRRRRRRR WTFFFFFFFFFFFFFFFFFFFFFFFF {rain} {temp} {height}");
+                        Console.WriteLine(
+                            $"ERRRRRRRRRRRRRROOOOOOOOOOOOOORRRRRRRRRRRR WTFFFFFFFFFFFFFFFFFFFFFFFF {rain} {temp} {height}");
                     }
 
                     PlotPixel(c.X, c.Z, (byte) v[0], (byte) v[1], (byte) v[2]);
@@ -402,7 +406,7 @@ namespace TestingWorldGenConsoleReal
             }
 
             Console.WriteLine("Chunk Generation Done!");
-            
+
             image.Save("D:\\WORLDGEN.png");
             s3.Stop();
             Console.WriteLine("ERROR YO THIS TOOK " + s3.Elapsed);

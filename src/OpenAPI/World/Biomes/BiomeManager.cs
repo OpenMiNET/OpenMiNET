@@ -9,8 +9,17 @@ namespace OpenAPI.World
         {
             // AddBiome(new MainBiome());
             AddBiome(new ForestBiome());
-            AddBiome(new WarmForestBiome());
-            AddBiome(new HotForestBiome());
+            AddBiome(new SnowyIcyChunk());
+            AddBiome(new Desert());
+            AddBiome(new Mountains());
+            AddBiome(new Plains());
+            AddBiome(new WaterBiome());
+            AddBiome(new ForestBiome());
+            AddBiome(new SnowForest());
+            AddBiome(new SnowTundra());
+            AddBiome(new SnowyIcyChunk());
+            AddBiome(new TropicalRainForest());
+            AddBiome(new TropicalSeasonalForest());
         }
 
         public static List<AdvancedBiome> Biomes = new List<AdvancedBiome>();
@@ -28,13 +37,14 @@ namespace OpenAPI.World
             }
             return new MainBiome();
         }
-        public static AdvancedBiome GetBiome(float rain,float temp)
+        public static AdvancedBiome GetBiome(float[] rth)
         {
-            foreach (var ab in Biomes)
+            foreach (AdvancedBiome ab in Biomes)
             {
-                if (ab.check(temp, rain)) return ab;
+                if (ab.check(rth)) return ab;
             }
-            return new MainBiome();
+            // return new MainBiome();
+            return new WaterBiome();
         }
         
     }

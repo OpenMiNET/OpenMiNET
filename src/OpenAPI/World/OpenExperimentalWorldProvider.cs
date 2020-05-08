@@ -4,6 +4,7 @@ using System.Numerics;
 using MiNET.Blocks;
 using MiNET.Utils;
 using MiNET.Worlds;
+using Newtonsoft.Json.Serialization;
 
 namespace OpenAPI.World
 {
@@ -49,33 +50,41 @@ namespace OpenAPI.World
             if (_chunkCache.TryGetValue(chunkCoordinates, out cachedChunk)) return cachedChunk;
 
             //CALCULATE RAIN
-            var rainnoise = new FastNoise(Seed);
+            var rainnoise = new FastNoise(123123);
             rainnoise.SetNoiseType(FastNoise.NoiseType.SimplexFractal);
-            rainnoise.SetFrequency(.015f);
+            rainnoise.SetFrequency(.007f); //.015
             rainnoise.SetFractalType(FastNoise.FractalType.FBM);
             rainnoise.SetFractalOctaves(1);
             rainnoise.SetFractalLacunarity(.25f);
             rainnoise.SetFractalGain(1);
             //CALCULATE TEMP
-            var tempnoise = new FastNoise(Seed+1);
+            var tempnoise = new FastNoise(123123 + 1);
             tempnoise.SetNoiseType(FastNoise.NoiseType.SimplexFractal);
-            tempnoise.SetFrequency(.015f);
+            tempnoise.SetFrequency(.004f); //.015f
             tempnoise.SetFractalType(FastNoise.FractalType.FBM);
             tempnoise.SetFractalOctaves(1);
             tempnoise.SetFractalLacunarity(.25f);
             tempnoise.SetFractalGain(1);
-            
+            //CALCULATE HEIGHT
+            var heightnoise = new FastNoise(123123 + 2);
+            heightnoise.SetNoiseType(FastNoise.NoiseType.SimplexFractal);
+            heightnoise.SetFrequency(.015f);
+            heightnoise.SetFractalType(FastNoise.FractalType.FBM);
+            heightnoise.SetFractalOctaves(1);
+            heightnoise.SetFractalLacunarity(.25f);
+            heightnoise.SetFractalGain(1);
+
             var chunk = new ChunkColumn();
             chunk.X = chunkCoordinates.X;
             chunk.Z = chunkCoordinates.Z;
 
-            float rain = rainnoise.GetNoise(chunk.X, chunk.Z)+1;
-            float temp = tempnoise.GetNoise(chunk.X, chunk.Z)+1;
-          
-            
-            
+            float rain = rainnoise.GetNoise(chunk.X, chunk.Z) + 1;
+            float temp = tempnoise.GetNoise(chunk.X, chunk.Z) + 1;
+            float height = heightnoise.GetNoise(chunk.X, chunk.Z) + 1;
+            float[] rth = {rain, temp, height};
 
-            PopulateChunk(chunk,rain,temp);
+
+            PopulateChunk(chunk, rth);
 
             _chunkCache[chunkCoordinates] = chunk;
 
@@ -117,11 +126,11 @@ namespace OpenAPI.World
             return false;
         }
 
-        public void PopulateChunk(ChunkColumn chunk, float rain, float temp)
+        public void PopulateChunk(ChunkColumn chunk, float[] rth)
         {
-            var b =BiomeManager.GetBiome(rain,temp);
+            var b = BiomeManager.GetBiome(rth);
             // var b = new MainBiome();
-            b.prePopulate(chunk, rain, temp);
+            b.prePopulate(chunk, rth);
             // b.PopulateChunk(chunk, rain, temp);
 
 // Console.WriteLine($"GENERATORED YO BITCH >> {chunk.X} {chunk.Z}");
