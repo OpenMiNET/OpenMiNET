@@ -8,5 +8,9 @@
     <ItemGroup>
         <ProjectReference Include="..\src\OpenAPI\OpenAPI.csproj" />
     </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="F:\Projects\MiNET\src\MiNET\MiNET\MiNET.csproj" />
+    </ItemGroup>
+
 
 </Project>
