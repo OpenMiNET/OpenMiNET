@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Numerics;
+using System.Threading.Tasks;
 using MiNET.Blocks;
 using MiNET.Utils;
 using MiNET.Worlds;
@@ -39,16 +40,14 @@ namespace OpenAPI.World
         }
 
         public bool IsCaching { get; }
+        public OpenLevel Level { get; set; }
 
         public void Initialize()
         {
         }
 
-        public ChunkColumn GenerateChunkColumn(ChunkCoordinates chunkCoordinates, bool cacheOnly = false)
+        public float[] getChunkRTH(ChunkColumn chunk)
         {
-            ChunkColumn cachedChunk;
-            if (_chunkCache.TryGetValue(chunkCoordinates, out cachedChunk)) return cachedChunk;
-
             //CALCULATE RAIN
             var rainnoise = new FastNoise(123123);
             rainnoise.SetNoiseType(FastNoise.NoiseType.SimplexFractal);
@@ -73,18 +72,30 @@ namespace OpenAPI.World
             heightnoise.SetFractalOctaves(1);
             heightnoise.SetFractalLacunarity(.25f);
             heightnoise.SetFractalGain(1);
-
-            var chunk = new ChunkColumn();
-            chunk.X = chunkCoordinates.X;
-            chunk.Z = chunkCoordinates.Z;
-
+            
             float rain = rainnoise.GetNoise(chunk.X, chunk.Z) + 1;
             float temp = tempnoise.GetNoise(chunk.X, chunk.Z) + 1;
             float height = heightnoise.GetNoise(chunk.X, chunk.Z) + 1;
-            float[] rth = {rain, temp, height};
+            return new []{rain, temp, height};
+        }
+        
+        public ChunkColumn GenerateChunkColumn(ChunkCoordinates chunkCoordinates, bool cacheOnly = false)
+        {
+            ChunkColumn cachedChunk;
+            if (_chunkCache.TryGetValue(chunkCoordinates, out cachedChunk)) return cachedChunk;
+
+                ChunkColumn chunk;
+            if (cacheOnly)return null;
+            
+
+            chunk = new ChunkColumn();
+            chunk.X = chunkCoordinates.X;
+            chunk.Z = chunkCoordinates.Z;
+            var rth = getChunkRTH(chunk);
 
 
-            PopulateChunk(chunk, rth);
+            PopulateChunk(this,chunk, rth);
+            SmoothChunk(this,chunk, rth);
 
             _chunkCache[chunkCoordinates] = chunk;
 
@@ -126,11 +137,20 @@ namespace OpenAPI.World
             return false;
         }
 
-        public void PopulateChunk(ChunkColumn chunk, float[] rth)
+        public void SmoothChunk(OpenExperimentalWorldProvider openExperimentalWorldProvider, ChunkColumn chunk,
+            float[] rth)
+        {
+            
+            var b = BiomeManager.GetBiome(rth);
+            b.preSmooth(openExperimentalWorldProvider,chunk, rth);
+        }
+        public async Task<ChunkColumn> PopulateChunk(OpenExperimentalWorldProvider openExperimentalWorldProvider, ChunkColumn chunk,
+            float[] rth)
         {
             var b = BiomeManager.GetBiome(rth);
             // var b = new MainBiome();
-            b.prePopulate(chunk, rth);
+            var a = await b.prePopulate(openExperimentalWorldProvider,chunk, rth);
+            return a;
             // b.PopulateChunk(chunk, rain, temp);
 
 // Console.WriteLine($"GENERATORED YO BITCH >> {chunk.X} {chunk.Z}");

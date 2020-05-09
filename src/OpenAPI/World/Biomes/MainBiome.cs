@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using MiNET.Blocks;
 using MiNET.Worlds;
 
@@ -32,8 +33,11 @@ namespace OpenAPI.World
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="openExperimentalWorldProvider"></param>
         /// <param name="chunk"></param>
-        public override void PopulateChunk(ChunkColumn chunk, float[] rtf)
+        /// <param name="rtf"></param>
+        public override void PopulateChunk(OpenExperimentalWorldProvider openExperimentalWorldProvider,
+            ChunkColumn chunk, float[] rtf)
         {
             int trees = new Random().Next(0, 10);
             int[,] treeBasePositions = new int[trees, 2];
@@ -181,6 +185,8 @@ namespace OpenAPI.World
                     }
                 }
             }
+            //
+            // return chunk;
         }
         
         private void GenerateTree(ChunkColumn chunk, int x, int treebase, int z)

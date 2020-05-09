@@ -203,6 +203,12 @@ namespace OpenAPI.World
         {
             openLevel.Initialize();
 
+            if (openLevel.WorldProvider is OpenExperimentalWorldProvider)
+            {
+                var o = (OpenExperimentalWorldProvider)openLevel.WorldProvider;
+                o.Level = openLevel;
+            }
+            
             if (Config.GetProperty("CalculateLights", false) && openLevel.WorldProvider is WrappedWorldProvider wawp &&
                 wawp.WorldProvider is AnvilWorldProvider anvilWorldProvider)
             {

@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Reflection.Metadata;
+using System.Threading;
+using System.Threading.Tasks;
+using LibNoise.Writer;
+using MiNET;
 using MiNET.Utils;
 using MiNET.Worlds;
 
@@ -8,17 +12,19 @@ namespace OpenAPI.World
 {
     public class BiomeQualifications
     {
-        public float startrain;//0 - 1
+        public float startrain; //0 - 1
         public float stoprain;
-        public float starttemp;//0 - 2
+        public float starttemp; //0 - 2
         public float stoptemp;
-        public float startheight;//0-2
+        public float startheight; //0-2
         public float stopheight;
         public int heightvariation;
+        public int baseheight = 75;
         public bool waterbiome = false;
 
 
-        public BiomeQualifications(float startrain, float stoprain, float starttemp, float stoptemp, float startheight, float stopheight, int heightvariation,bool waterbiome = false)
+        public BiomeQualifications(float startrain, float stoprain, float starttemp, float stoptemp, float startheight,
+            float stopheight, int heightvariation, bool waterbiome = false)
         {
             this.startrain = startrain;
             this.stoprain = stoprain;
@@ -31,52 +37,130 @@ namespace OpenAPI.World
         }
 
 
-        public bool check( float[] rth)
+        public bool check(float[] rth)
         {
-            float rain=rth[0];
-            float temp=rth[1];
-            float height=rth[2];
-            return (startrain <= rain && stoprain >= rain && starttemp <= temp && stoptemp >= temp && startheight <= height && stopheight >= height );
+            float rain = rth[0];
+            float temp = rth[1];
+            float height = rth[2];
+            return (startrain <= rain && stoprain >= rain && starttemp <= temp && stoptemp >= temp &&
+                    startheight <= height && stopheight >= height);
         }
-        public bool check( float rain,float temp,float height)
+
+        public bool check(float rain, float temp, float height)
         {
-            return (startrain <= rain && stoprain >= rain && starttemp <= temp && stoptemp >= temp && startheight <= height && stopheight >= height );
+            return (startrain <= rain && stoprain >= rain && starttemp <= temp && stoptemp >= temp &&
+                    startheight <= height && stopheight >= height);
         }
     }
-    
+
     public abstract class AdvancedBiome
     {
         public String name;
-       
+
         public int startheight = 80;
         public BiomeQualifications BiomeQualifications;
+public FastNoise HeightNoise = new FastNoise(121212);
         public AdvancedBiome(string name, BiomeQualifications bq)
         {
             BiomeQualifications = bq;
+            HeightNoise.SetGradientPerturbAmp(3);
+            HeightNoise.SetFrequency(.24f);
+            HeightNoise.SetNoiseType(FastNoise.NoiseType.CubicFractal);
+            HeightNoise.SetFractalOctaves(2);
+            HeightNoise.SetFractalLacunarity(.35f);
+            HeightNoise.SetFractalGain(1);
             this.name = name;
         }
-        public bool check( float[] rth)
+
+        public bool check(float[] rth)
         {
             return BiomeQualifications.check(rth);
         }
-        public void prePopulate(ChunkColumn chunk, float[] rth)
+
+        public void preSmooth(OpenExperimentalWorldProvider openExperimentalWorldProvider, ChunkColumn chunk,
+            float[] rth)
         {
-            // var t = new Stopwatch();
-            // t.Start();
-            PopulateChunk(chunk,rth);
-            // t.Stop();
-            // Console.WriteLine($"CHUNK POPULATION OF {chunk.X} {chunk.Z} TOOK {t.Elapsed}");
+            var t = new Stopwatch();
+            t.Start();
+            SmoothChunk(openExperimentalWorldProvider, chunk, rth);
+            t.Stop();
+            Console.WriteLine($"CHUNK SMOOTHING OF {chunk.X} {chunk.Z} TOOK {t.Elapsed}");
+        }
+
+        public async Task<ChunkColumn>  prePopulate(OpenExperimentalWorldProvider openExperimentalWorldProvider, ChunkColumn chunk,
+            float[] rth)
+        {
+            var t = new Stopwatch();
+            t.Start();
+            // OpenServer.FastThreadPool.QueueUserWorkItem(() => { PopulateChunk(openExperimentalWorldProvider,chunk, rth); });
+              PopulateChunk(openExperimentalWorldProvider,chunk, rth);
+            t.Stop();
+            // int minWorker, minIOC,maxworker,maxIOC;
+            // ThreadPool.GetMinThreads(out minWorker, out minIOC);
+            // ThreadPool.GetMaxThreads(out maxworker, out maxIOC);
+            // if(minWorker != 20  && !ThreadPool.SetMinThreads(20,20))Console.WriteLine("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+            var a = OpenServer.FastThreadPool.Settings.NumThreads;
+            Console.WriteLine($"CHUNK POPULATION OF {chunk.X} {chunk.Z} TOOK {t.Elapsed} ||| {a}");
+            return chunk;
         }
 
         /// <summary>
         /// Populate Chunk from Biome
         /// </summary>
+        /// <param name="openExperimentalWorldProvider"></param>
         /// <param name="c"></param>
-        public abstract void PopulateChunk(ChunkColumn c, float[] rth);
+        /// <param name="rth"></param>
+        public abstract /*Task*/ void PopulateChunk(OpenExperimentalWorldProvider openExperimentalWorldProvider, ChunkColumn c,
+            float[] rth);
+
+        public void SmoothChunk(OpenExperimentalWorldProvider openExperimentalWorldProvider, ChunkColumn c, float[] rth)
+        {
+            // var points = new int[,];
+            ChunkColumn[] cc = new ChunkColumn[8];
+            int a = 0;
+            cc[0] = openExperimentalWorldProvider.GenerateChunkColumn(new ChunkCoordinates()
+            {
+                X = c.X - 1,
+                Z = c.Z + 1
+            },true);
+            cc[1] = openExperimentalWorldProvider.GenerateChunkColumn(new ChunkCoordinates()
+            {
+                X = c.X,
+                Z = c.Z + 1
+            },true);
+            cc[2] = openExperimentalWorldProvider.GenerateChunkColumn(new ChunkCoordinates()
+            {
+                X = c.X + 1,
+                Z = c.Z + 1
+            },true);
+            cc[3] = openExperimentalWorldProvider.GenerateChunkColumn(new ChunkCoordinates()
+            {
+                X = c.X - 1,
+                Z = c.Z
+            },true);
+            cc[4] = openExperimentalWorldProvider.GenerateChunkColumn(new ChunkCoordinates()
+            {
+                X = c.X + 1,
+                Z = c.Z
+            },true);
+            cc[5] = openExperimentalWorldProvider.GenerateChunkColumn(new ChunkCoordinates()
+            {
+                X = c.X - 1,
+                Z = c.Z - 1
+            },true);
+            cc[6] = openExperimentalWorldProvider.GenerateChunkColumn(new ChunkCoordinates()
+            {
+                X = c.X,
+                Z = c.Z - 1
+            },true);
+            cc[7] = openExperimentalWorldProvider.GenerateChunkColumn(new ChunkCoordinates()
+            {
+                X = c.X - 1,
+                Z = c.Z - 1
+            },true);
+        }
 
 
-     
-        
         public static AdvancedBiome GetBiome(int biomeId)
         {
             // return Biomes.FirstOrDefault(biome => biome.Id == biomeId) ?? new OpenBiome
@@ -86,10 +170,10 @@ namespace OpenAPI.World
             // };
             return new MainBiome();
         }
-        
+
         private static readonly OpenSimplexNoise OpenNoise = new OpenSimplexNoise("a-seed".GetHashCode());
 
-        
+
         public static int GetNoise(int x, int z, float scale, int max)
         {
             return (int) Math.Floor((OpenNoise.Evaluate(x * scale, z * scale) + 1f) * (max / 2f));
