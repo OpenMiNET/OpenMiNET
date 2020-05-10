@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using LibNoise.Writer;
 using MiNET;
+using MiNET.Blocks;
 using MiNET.Utils;
 using MiNET.Worlds;
 
@@ -60,6 +61,14 @@ namespace OpenAPI.World
 
     public abstract class AdvancedBiome
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool BorderChunk = false;
+        /// <summary>
+        /// 
+        /// </summary>
+        public AdvancedBiome BorderBiome;
         public int LocalID =-1;
         public String name;
         public Random RNDM = new Random();
@@ -94,6 +103,7 @@ namespace OpenAPI.World
             // Console.WriteLine($"CHUNK SMOOTHING OF {chunk.X} {chunk.Z} TOOK {t.Elapsed}");
         }
 
+        public static int count = 0;
         public async Task<ChunkColumn> prePopulate(OpenExperimentalWorldProvider openExperimentalWorldProvider,
             ChunkColumn chunk,
             float[] rth)
@@ -101,7 +111,21 @@ namespace OpenAPI.World
             var t = new Stopwatch();
             t.Start();
             // OpenServer.FastThreadPool.QueueUserWorkItem(() => { PopulateChunk(openExperimentalWorldProvider,chunk, rth); });
+            //CHECK IF BORDER CHUNK AND CHANGE SETTINGS
+           if (BorderChunk)
+            {
+                var bro = BorderBiome;
+                int h = (bro.BiomeQualifications.heightvariation + BiomeQualifications.heightvariation) / 2;
+                
+                BiomeQualifications.heightvariation = h;
+                Console.WriteLine($"THE CHUNK AT {chunk.X} {chunk.Z} IS A BORDER CHUNK WITH VAL {bro} ||| {count}");
+                count++;
+            }
             PopulateChunk(openExperimentalWorldProvider, chunk, rth);
+            if (BorderChunk)
+            {
+                chunk.SetBlock(8,110,8, new EmeraldBlock());
+            }
             t.Stop();
             // int minWorker, minIOC,maxworker,maxIOC;
             // ThreadPool.GetMinThreads(out minWorker, out minIOC);
@@ -238,12 +262,7 @@ namespace OpenAPI.World
 
         public static AdvancedBiome GetBiome(int biomeId)
         {
-            // return Biomes.FirstOrDefault(biome => biome.Id == biomeId) ?? new OpenBiome
-            // {
-            //     Id = biomeId,
-            //     Name = "" + biomeId
-            // };
-            return new MainBiome();
+            return BiomeManager.GetBiome(biomeId);
         }
 
         private static readonly OpenSimplexNoise OpenNoise = new OpenSimplexNoise("a-seed".GetHashCode());
