@@ -33,7 +33,6 @@ namespace OpenAPI.World
 
         public static void AddBiome(AdvancedBiome biome)
         {
-            Console.WriteLine(biome.name+" >>>>> IS "+biome.BorderChunk);
             biome.BorderChunk = false;
             Biomes.Add(biome);
             biome.LocalID = N;
@@ -47,8 +46,6 @@ namespace OpenAPI.World
             {
                 if (ab.LocalID == name)
                 {
-                    
-                    Console.WriteLine(ab.name+" >>>>> IS GET FROM INT "+ab.BorderChunk);
                     return ab;
                 }
             }
@@ -62,8 +59,6 @@ namespace OpenAPI.World
             {
                 if (ab.name == name)
                 {
-                    
-                    Console.WriteLine(ab.name+" >>>>> IS GET FROM NAME "+ab.BorderChunk);
                     return ab;
                 }
             }
@@ -142,31 +137,15 @@ namespace OpenAPI.World
                                 delta2 = c;
                             }
                         }
-                        
-                        // Console.WriteLine($"++++++>>>> WINNDER 1: {winner} ======= {delta}");
-                        // Console.WriteLine($"++++++>>>> WINNDER 2: {winner2} ======= {delta2}");
-                        // Console.WriteLine($"++++++>>>> difc 2: {difc} ");
 
 
                         var b = GetBiome(winner);
-                        Console.WriteLine(b.name+" AAAAAA >>>>> IS  FROM ADV "+b.BorderChunk+" BUT DIFC + "+difc);
                         if (difc > 1)
-                        {
-                            // int ddd = 0;
-                            // foreach (var dd in d)
-                            // {
-                            //     Console.WriteLine($"++++++>>>> {ddd} ======= {dd}");
-                            //     ddd++;
-                            // }
-                            // Console.WriteLine($"++++++>>>>=-===========================");
-                            // Console.WriteLine($"DIFFFFFFFFFFFFFFFFFFFFFFF BETWEENB {winner} &*& {winner2}");
-                            b.BorderChunk = true;
+                        {b.BorderChunk = true;
                             b.BorderBiome = GetBiome(winner2);
                         }
                         else b.BorderChunk = false;
 
-                        Console.WriteLine(ab.name+" >>>>> IS GET FROM ADV "+ab.BorderChunk);
-                        Console.WriteLine(b.name+" BBBBB>>>>> IS GET FROM ADV "+b.BorderChunk);
                         return b;
                     }
 
