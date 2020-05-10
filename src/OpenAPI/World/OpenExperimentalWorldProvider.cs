@@ -65,17 +65,19 @@ namespace OpenAPI.World
             tempnoise.SetFractalLacunarity(.25f);
             tempnoise.SetFractalGain(1);
             //CALCULATE HEIGHT
-            var heightnoise = new FastNoise(123123 + 2);
-            heightnoise.SetNoiseType(FastNoise.NoiseType.SimplexFractal);
-            heightnoise.SetFrequency(.015f);
-            heightnoise.SetFractalType(FastNoise.FractalType.FBM);
-            heightnoise.SetFractalOctaves(1);
-            heightnoise.SetFractalLacunarity(.25f);
-            heightnoise.SetFractalGain(1);
+            // var heightnoise = new FastNoise(123123 + 2);
+            // heightnoise.SetNoiseType(FastNoise.NoiseType.SimplexFractal);
+            // heightnoise.SetFrequency(.015f);
+            // heightnoise.SetFractalType(FastNoise.FractalType.FBM);
+            // heightnoise.SetFractalOctaves(1);
+            // heightnoise.SetFractalLacunarity(.25f);
+            // heightnoise.SetFractalGain(1);
+            
+            
             
             float rain = rainnoise.GetNoise(chunk.X, chunk.Z) + 1;
             float temp = tempnoise.GetNoise(chunk.X, chunk.Z) + 1;
-            float height = heightnoise.GetNoise(chunk.X, chunk.Z) + 1;
+            float height = GetNoise(chunk.X, chunk.Z, 0.015f,2);;
             return new []{rain, temp, height};
         }
         
@@ -189,9 +191,9 @@ namespace OpenAPI.World
             }
         }
 
-        public static int GetNoise(int x, int z, float scale, int max)
+        public static float GetNoise(int x, int z, float scale, int max)
         {
-            return (int) Math.Floor((OpenNoise.Evaluate(x * scale, z * scale) + 1f) * (max / 2f));
+            return (float)((OpenNoise.Evaluate(x * scale, z * scale) + 1f) * (max / 2f));
         }
     }
 }

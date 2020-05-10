@@ -1,8 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
-using MiNET.Blocks;
+﻿using MiNET.Blocks;
 using MiNET.Worlds;
-using OpenAPI.Player;
 
 namespace OpenAPI.World
 {
@@ -10,284 +7,6 @@ namespace OpenAPI.World
     {
         public ForestBiome() : base("ForestBiome", new BiomeQualifications(0.5f, 1, 0.5f, 1.75f, 0.5f, 1.25f
             , 30))
-        {
-        }
-
-        public override void PopulateChunk(OpenExperimentalWorldProvider openExperimentalWorldProvider, ChunkColumn c,
-            float[] rth)
-        {
-            int sh =
-                (int) Math.Floor(BiomeQualifications.baseheight + (rth[2] * BiomeQualifications.heightvariation));
-            for (var x = 0; x < 16; x++)
-            for (var z = 0; z < 16; z++)
-            for (var y = 0; y < 255; y++)
-            {
-                if (y == 0)
-                {
-                    c.SetBlock(x, y, z, new Bedrock());
-                    continue;
-                }
-
-                if (y <= sh)
-                {
-                    c.SetBlock(x, y, z, new Stone());
-                    continue;
-                }
-
-                c.SetBlock(x, y, z, new Wood());
-                c.SetHeight(x, z, (short) y);
-                break;
-            }
-        }
-    }
-
-
-    public class SnowyIcyChunk : AdvancedBiome
-    {
-        public SnowyIcyChunk() : base("SnowyIcyChunk", new BiomeQualifications(0, 2, 0, .5f, 0, .5f, 30))
-        {
-        }
-
-
-        public override void PopulateChunk(OpenExperimentalWorldProvider openExperimentalWorldProvider, ChunkColumn c,
-            float[] rth)
-        {
-            int sh =
-                (int) Math.Floor(BiomeQualifications.baseheight + (rth[2] * BiomeQualifications.heightvariation));
-            for (var x = 0; x < 16; x++)
-            for (var z = 0; z < 16; z++)
-            for (var y = 0; y < 255; y++)
-            {
-                if (y == 0)
-                {
-                    c.SetBlock(x, y, z, new Bedrock());
-                    continue;
-                }
-
-                if (y <= sh)
-                {
-                    c.SetBlock(x, y, z, new Stone());
-                    continue;
-                }
-
-                c.SetBlock(x, y, z, new PackedIce());
-                c.SetHeight(x, z, (short) y);
-                break;
-            }
-        }
-    }
-
-
-    public class SnowForest : AdvancedBiome
-    {
-        public SnowForest() : base("SnowForest", new BiomeQualifications(.5f, 1.25f, 0, 0.5f, .75f, 1.25f, 30))
-        {
-        }
-
-        public override void PopulateChunk(OpenExperimentalWorldProvider openExperimentalWorldProvider, ChunkColumn c,
-            float[] rth)
-        {
-            int sh =
-                (int) Math.Floor(BiomeQualifications.baseheight + (rth[2] * BiomeQualifications.heightvariation));
-            for (var x = 0; x < 16; x++)
-            for (var z = 0; z < 16; z++)
-            for (var y = 0; y < 255; y++)
-            {
-                if (y == 0)
-                {
-                    c.SetBlock(x, y, z, new Bedrock());
-                    continue;
-                }
-
-                if (y <= sh)
-                {
-                    c.SetBlock(x, y, z, new Stone());
-                    continue;
-                }
-
-                c.SetBlock(x, y, z, new Wool() {Color = "yellow"});
-                c.SetHeight(x, z, (short) y);
-                break;
-            }
-        }
-    }
-
-
-    public class SnowTundra : AdvancedBiome
-    {
-        public SnowTundra() : base("SnowTundra", new BiomeQualifications(0, 2, 0, .5f, .5f, 1, 30))
-        {
-        }
-
-        public override void PopulateChunk(OpenExperimentalWorldProvider openExperimentalWorldProvider, ChunkColumn c,
-            float[] rth)
-        {
-            int sh =
-                (int) Math.Floor(BiomeQualifications.baseheight + (rth[2] * BiomeQualifications.heightvariation));
-            for (var x = 0; x < 16; x++)
-            for (var z = 0; z < 16; z++)
-            for (var y = 0; y < 255; y++)
-            {
-                if (y == 0)
-                {
-                    c.SetBlock(x, y, z, new Bedrock());
-                    continue;
-                }
-
-                if (y <= sh)
-                {
-                    c.SetBlock(x, y, z, new Stone());
-                    continue;
-                }
-
-                c.SetBlock(x, y, z, new BlueIce());
-                c.SetHeight(x, z, (short) y);
-                break;
-            }
-        }
-    }
-
-
-    public class Mountains : AdvancedBiome
-    {
-        public Mountains() : base("Mountains", new BiomeQualifications(.25f, 1, .75f, 1.75f, 1.25f, 2, 30))
-        {
-        }
-
-        public override void PopulateChunk(OpenExperimentalWorldProvider openExperimentalWorldProvider, ChunkColumn c,
-            float[] rth)
-        {
-            int sh =
-                (int) Math.Floor(BiomeQualifications.baseheight + (rth[2] * BiomeQualifications.heightvariation));
-            for (var x = 0; x < 16; x++)
-            for (var z = 0; z < 16; z++)
-            for (var y = 0; y < 255; y++)
-            {
-                if (y == 0)
-                {
-                    c.SetBlock(x, y, z, new Bedrock());
-                    continue;
-                }
-
-                if (y <= sh)
-                {
-                    c.SetBlock(x, y, z, new Stone());
-                    continue;
-                }
-
-                c.SetBlock(x, y, z, new Stonebrick());
-                c.SetHeight(x, z, (short) y);
-                break;
-            }
-        }
-    }
-
-
-    public class ForestMountain : AdvancedBiome
-    {
-        public ForestMountain() : base("ForestMountain", new BiomeQualifications(1, 2, .5f, 1.75f, 1.25f, 2, 30))
-        {
-        }
-
-        public override void PopulateChunk(OpenExperimentalWorldProvider openExperimentalWorldProvider, ChunkColumn c,
-            float[] rth)
-        {
-            int sh =
-                (int) Math.Floor(BiomeQualifications.baseheight + (rth[2] * BiomeQualifications.heightvariation));
-            for (var x = 0; x < 16; x++)
-            for (var z = 0; z < 16; z++)
-            for (var y = 0; y < 255; y++)
-            {
-                if (y == 0)
-                {
-                    c.SetBlock(x, y, z, new Bedrock());
-                    continue;
-                }
-
-                if (y <= sh)
-                {
-                    c.SetBlock(x, y, z, new Stone());
-                    continue;
-                }
-
-                var w = new Wool();
-                w.Color = "green";
-                c.SetBlock(x, y, z, w);
-                c.SetHeight(x, z, (short) y);
-                break;
-            }
-        }
-    }
-
-
-    public class WaterBiome : AdvancedBiome
-    {
-        public WaterBiome() : base("Water", new BiomeQualifications(0, 2, 1, 1.75f, 0, 0.5f
-            , 30))
-        {
-        }
-
-        public override async void PopulateChunk(OpenExperimentalWorldProvider openExperimentalWorldProvider,
-            ChunkColumn c,
-            float[] rth)
-        {
-            int stopheight =
-                (int) Math.Floor(BiomeQualifications.baseheight + (rth[2] * BiomeQualifications.heightvariation));
-
-            int sh = stopheight - BiomeQualifications.baseheight / 2;
-            for (var x = 0; x < 16; x++)
-            for (var z = 0; z < 16; z++)
-            for (var y = 0; y < 255; y++)
-            {
-                if (y == 0)
-                {
-                    c.SetBlock(x, y, z, new Bedrock());
-                    continue;
-                }
-
-                if (y <= sh - 3)
-                {
-                    c.SetBlock(x, y, z, new Stone());
-                    continue;
-                }
-
-                if (y <= sh)
-                {
-                    var i = 0;
-                    i = (new Random()).Next(0, 10);
-                    if (i > 8) c.SetBlock(x, y, z, new Sand());
-                    else if (i > 6) c.SetBlock(x, y, z, new Clay());
-                    else if (i > 4) c.SetBlock(x, y, z, new Kelp());
-                    else c.SetBlock(x, y, z, new Sand());
-                    continue;
-                }
-
-                if (y <= stopheight)
-                {
-                    c.SetBlock(x, y, z, new FlowingWater());
-                    continue;
-                }
-
-                c.SetBlock(x, y, z, new FlowingWater());
-                c.SetHeight(x, z, (short) y);
-                break;
-            }
-
-            // foreach (OpenPlayer p in openExperimentalWorldProvider.Level.GetSpawnedPlayers())
-            // {
-            //     if ((int) p.KnownPosition.X << 16 == c.X && (int) p.KnownPosition.Z << 16 == c.Z)
-            //     {
-            //         p.ForcedSendChunks();
-            //         p.ForcedSendChunks();
-            //     }
-            // }
-        }
-    }
-
-
-    public class Plains : AdvancedBiome
-    {
-        public Plains() : base("Plains", new BiomeQualifications(0.5f, 1.5f, 0.5f, 1.75f, 0.5f, 1f, 30))
         {
         }
 
@@ -300,9 +19,26 @@ namespace OpenAPI.World
             for (var z = 0; z < 16; z++)
             {
                 // float h = HeightNoise.GetNoise(c.X * 16 + x, c.Z * 16 + z)+1;
-                int sh= (int) Math.Floor(BiomeQualifications.baseheight + ((rth[2] )* BiomeQualifications.heightvariation))+(int)(HeightNoise.GetNoise(c.X * 16 + x, c.Z * 16 + z) * 4);
-                // int sh= (int) Math.Floor(BiomeQualifications.baseheight + ((rth[2])* BiomeQualifications.heightvariation));
+                // int sh= (int) Math.Floor(BiomeQualifications.baseheight + ((rth[2] )* BiomeQualifications.heightvariation))+(int)(HeightNoise.GetNoise(c.X * 16 + x, c.Z * 16 + z) * 10);
+                // int sh= (int) Math.Floor(BiomeQualifications.baseheight + ((rth[2] )* BiomeQualifications.heightvariation))+(int)(GetNoise(c.X * 16 + x, c.Z * 16 + z,0.035f,10));
+                // int sh = (int) (BiomeQualifications.baseheight +
+                //                 (rth[2] * BiomeQualifications.heightvariation) +
+                //                 (int) (GetNoise(c.X * 16 + x, c.Z * 16 + z, 0.035f, 5)));
+                var sh = BiomeQualifications.baseheight +
+                         (int) GetNoise(c.X * 16 + x, c.Z * 16 + z, /*rth[2] / */.035f,
+                             BiomeQualifications.heightvariation);
+                // (int) (GetNoise(c.X * 16 + x, c.Z * 16 + z, 0.035f, 5)); //10
+                // Console.WriteLine("FORRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR >>>>>>>>>>>>>>> " + sh + " |||| " + rth[2]);
 
+                // int sh = (int) (BiomeQualifications.baseheight +
+                //                 (GetNoise(c.X * 16 + x, c.Z * 16 + z, 0.035f / 3,
+                //                     BiomeQualifications.heightvariation)) +
+                //                 (int) (GetNoise(c.X * 16 + x, c.Z * 16 + z, 0.035f, 5)));
+
+
+                // int sh= (int) (BiomeQualifications.baseheight + GetNoise(c.X * 16 + x, c.Z * 16 + z,0.035f,(int)((rth[2] )* BiomeQualifications.heightvariation)+10));
+                // int sh= (int) Math.Floor(BiomeQualifications.baseheight + ((rth[2])* BiomeQualifications.heightvariation));
+                var fy = 0;
                 for (var y = 0; y < 255; y++)
                 {
                     if (y == 0)
@@ -315,137 +51,124 @@ namespace OpenAPI.World
                     {
                         c.SetBlock(x, y, z, new Stone());
                         continue;
-                    } 
-                    if (y < sh )
+                    }
+
+                    if (y < sh)
                     {
-                        int r = (new Random()).Next(0, 3);
-                        if(r == 0)c.SetBlock(x, y, z, new Stone());
-                        if(r == 1)c.SetBlock(x, y, z, new Dirt());
-                        if(r == 2)c.SetBlock(x, y, z, new Dirt());
-                        if(r == 3)c.SetBlock(x, y, z, new Stone());
+                        var r = RNDM.Next(0, 3);
+                        if (r == 0) c.SetBlock(x, y, z, new Stone());
+                        if (r == 1) c.SetBlock(x, y, z, new Dirt());
+                        if (r == 2) c.SetBlock(x, y, z, new Dirt());
+                        if (r == 3) c.SetBlock(x, y, z, new Stone());
                         continue;
                     }
 
-                    c.SetBlock(x, y, z, new Grass());
+                    c.SetBlock(x, y, z, new GrassPath());
+
+
                     c.SetHeight(x, z, (short) y);
+                    fy = y;
                     break;
                 }
-            }
-        }
-    }
 
+                if (RNDM.Next(0, 100) < 15) c.SetBlock(x, fy + 1, z, new Tallgrass());
 
-    public class Desert : AdvancedBiome
-    {
-        public Desert() : base("Desert", new BiomeQualifications(0, 2, 1.75f, 2, 0.5f, 1
-            , 30))
-        {
-        }
+                if (RNDM.Next(0, 300) < 3) c.SetBlock(x, fy + 1, z, new YellowFlower());
 
-        public override void PopulateChunk(OpenExperimentalWorldProvider openExperimentalWorldProvider,
-            ChunkColumn c, float[] rth)
-        {
-            int sh =
-                (int) Math.Floor(BiomeQualifications.baseheight + (rth[2] * BiomeQualifications.heightvariation));
-            for (var x = 0; x < 16; x++)
-            for (var z = 0; z < 16; z++)
-            for (var y = 0; y < 255; y++)
-            {
-                if (y == 0)
+                if (RNDM.Next(0, 300) < 3) c.SetBlock(x, fy + 1, z, new RedFlower());
+
+                if (RNDM.Next(0, 300) < 8)
                 {
-                    c.SetBlock(x, y, z, new Bedrock());
-                    continue;
+                    c.SetBlock(x, fy + 1, z, new DoublePlant());
+                    c.SetBlock(x, fy + 2, z, new YellowFlower());
                 }
 
-                if (y <= sh)
+                //TREE
+                var ffy = 0;
+                if (x > 4 && x < 12 && z > 4 && z < 12)
                 {
-                    c.SetBlock(x, y, z, new Stone());
-                    continue;
+                    var r = RNDM.Next(0, 256);
+                    if (r < 8)
+                    {
+                        var w = RNDM.Next(3, 5);
+                        var h = RNDM.Next(6, 14);
+                        var v = h - w;
+                        var vv = 0;
+                        ffy = fy + h;
+                        for (var hh = 1; hh < h; hh++)
+                        {
+                            c.SetBlock(x, fy + hh, z, new Wood
+                            {
+                                WoodType = "birch"
+                            });
+                            //Bottom Half Leaves
+                            if (hh > v /*&& v < (int)Math.Ceiling(w/3f)*/)
+                            {
+                                vv++;
+                                var ww = vv;
+                                for (var teir = 1; teir <= ww; teir++)
+                                for (var teirn = 1; teirn <= teir; teirn++)
+                                for (var xx = 0; xx <= teirn; xx++)
+                                for (var zz = 0; zz <= teirn; zz++)
+                                {
+                                    if (xx == 0 && zz == 0) continue;
+                                    // c.SetBlock(x , fy + hh, z+zz, new Leaves());
+                                    c.SetBlock(x + xx, fy + hh, z + zz, new Leaves
+                                    {
+                                        OldLeafType = "jungle"
+                                    });
+                                    c.SetBlock(x + xx, fy + hh, z - zz, new Leaves
+                                    {
+                                        OldLeafType = "jungle"
+                                    });
+                                    c.SetBlock(x - xx, fy + hh, z + zz, new Leaves
+                                    {
+                                        OldLeafType = "jungle"
+                                    });
+                                    c.SetBlock(x - xx, fy + hh, z - zz, new Leaves
+                                    {
+                                        OldLeafType = "jungle"
+                                    });
+                                }
+                            }
+                        }
+
+                        //Top Leaves
+                        for (var vvv = vv; vvv > 0; vvv--)
+                        {
+                            for (var teir = vvv; teir > 0; teir--)
+                            for (var teirn = 1; teirn <= teir; teirn++)
+                            for (var xx = 0; xx <= teirn; xx++)
+                            for (var zz = 0; zz <= teirn; zz++)
+                            {
+                                // if(xx == 0 && zz == 0)continue;
+
+                                c.SetBlock(x + xx, ffy, z + zz, new Leaves
+                                {
+                                    OldLeafType = "jungle"
+                                });
+                                c.SetBlock(x + xx, ffy, z - zz, new Leaves
+                                {
+                                    OldLeafType = "jungle"
+                                });
+                                c.SetBlock(x - xx, ffy, z + zz, new Leaves
+                                {
+                                    OldLeafType = "jungle"
+                                });
+                                c.SetBlock(x - xx, ffy, z - zz, new Leaves
+                                {
+                                    OldLeafType = "jungle"
+                                });
+                            }
+
+                            ffy++;
+                        }
+
+                        for (var teir = 0; teir <= v; teir++)
+                        {
+                        }
+                    }
                 }
-
-                c.SetBlock(x, y, z, new RedSandstoneStairs());
-                c.SetHeight(x, z, (short) y);
-                break;
-            }
-        }
-    }
-
-
-    public class TropicalRainForest : AdvancedBiome
-    {
-        public TropicalRainForest() : base("TropicalRainForest", new BiomeQualifications(1.25f, 2, 0, 0.5f, 0.5f,
-            1.5f
-            , 30))
-        {
-        }
-
-        public override void PopulateChunk(OpenExperimentalWorldProvider openExperimentalWorldProvider,
-            ChunkColumn c, float[] rth)
-        {
-            int sh =
-                (int) Math.Floor(BiomeQualifications.baseheight +
-                                 (rth[2] * BiomeQualifications.heightvariation) * 1.5f);
-            for (var x = 0; x < 16; x++)
-            for (var z = 0; z < 16; z++)
-            for (var y = 0; y < 255; y++)
-            {
-                if (y == 0)
-                {
-                    c.SetBlock(x, y, z, new Bedrock());
-                    continue;
-                }
-
-                if (y <= sh)
-                {
-                    c.SetBlock(x, y, z, new Stone());
-                    continue;
-                }
-
-                c.SetBlock(x, y, z, new Leaves()
-                {
-                    OldLeafType = "jungle"
-                });
-                c.SetHeight(x, z, (short) y);
-                break;
-            }
-        }
-    }
-
-
-    public class TropicalSeasonalForest : AdvancedBiome
-    {
-        public TropicalSeasonalForest() : base("TropicalSeasonalForest", new BiomeQualifications(0.5f, 1.25f, 0f,
-            0.5f,
-            0.5f, 1.5f
-            , 30))
-        {
-        }
-
-        public override void PopulateChunk(OpenExperimentalWorldProvider openExperimentalWorldProvider,
-            ChunkColumn c, float[] rth)
-        {
-            int sh =
-                (int) Math.Floor(BiomeQualifications.baseheight +
-                                 (rth[2] * BiomeQualifications.heightvariation) * 1.5f);
-            for (var x = 0; x < 16; x++)
-            for (var z = 0; z < 16; z++)
-            for (var y = 0; y < 255; y++)
-            {
-                if (y == 0)
-                {
-                    c.SetBlock(x, y, z, new Bedrock());
-                    continue;
-                }
-
-                if (y <= sh)
-                {
-                    c.SetBlock(x, y, z, new Stone());
-                    continue;
-                }
-
-                c.SetBlock(x, y, z, new RedstoneOre());
-                c.SetHeight(x, z, (short) y);
-                break;
             }
         }
     }

@@ -18,8 +18,11 @@ namespace OpenAPI.World
         public float stoptemp;
         public float startheight; //0-2
         public float stopheight;
+
         public int heightvariation;
-        public int baseheight = 75;
+
+        public int baseheight = 70;
+        // public int baseheight = 20;
         public bool waterbiome = false;
 
 
@@ -56,10 +59,11 @@ namespace OpenAPI.World
     public abstract class AdvancedBiome
     {
         public String name;
-
+        public Random RNDM = new Random();
         public int startheight = 80;
         public BiomeQualifications BiomeQualifications;
-public FastNoise HeightNoise = new FastNoise(121212);
+        public FastNoise HeightNoise = new FastNoise(121212);
+
         public AdvancedBiome(string name, BiomeQualifications bq)
         {
             BiomeQualifications = bq;
@@ -84,23 +88,24 @@ public FastNoise HeightNoise = new FastNoise(121212);
             t.Start();
             SmoothChunk(openExperimentalWorldProvider, chunk, rth);
             t.Stop();
-            Console.WriteLine($"CHUNK SMOOTHING OF {chunk.X} {chunk.Z} TOOK {t.Elapsed}");
+            // Console.WriteLine($"CHUNK SMOOTHING OF {chunk.X} {chunk.Z} TOOK {t.Elapsed}");
         }
 
-        public async Task<ChunkColumn>  prePopulate(OpenExperimentalWorldProvider openExperimentalWorldProvider, ChunkColumn chunk,
+        public async Task<ChunkColumn> prePopulate(OpenExperimentalWorldProvider openExperimentalWorldProvider,
+            ChunkColumn chunk,
             float[] rth)
         {
             var t = new Stopwatch();
             t.Start();
             // OpenServer.FastThreadPool.QueueUserWorkItem(() => { PopulateChunk(openExperimentalWorldProvider,chunk, rth); });
-              PopulateChunk(openExperimentalWorldProvider,chunk, rth);
+            PopulateChunk(openExperimentalWorldProvider, chunk, rth);
             t.Stop();
             // int minWorker, minIOC,maxworker,maxIOC;
             // ThreadPool.GetMinThreads(out minWorker, out minIOC);
             // ThreadPool.GetMaxThreads(out maxworker, out maxIOC);
             // if(minWorker != 20  && !ThreadPool.SetMinThreads(20,20))Console.WriteLine("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
             var a = OpenServer.FastThreadPool.Settings.NumThreads;
-            Console.WriteLine($"CHUNK POPULATION OF {chunk.X} {chunk.Z} TOOK {t.Elapsed} ||| {a}");
+            // Console.WriteLine($"CHUNK POPULATION OF {chunk.X} {chunk.Z} TOOK {t.Elapsed} ||| {a}");
             return chunk;
         }
 
@@ -110,56 +115,87 @@ public FastNoise HeightNoise = new FastNoise(121212);
         /// <param name="openExperimentalWorldProvider"></param>
         /// <param name="c"></param>
         /// <param name="rth"></param>
-        public abstract /*Task*/ void PopulateChunk(OpenExperimentalWorldProvider openExperimentalWorldProvider, ChunkColumn c,
+        public abstract /*Task*/ void PopulateChunk(OpenExperimentalWorldProvider openExperimentalWorldProvider,
+            ChunkColumn c,
             float[] rth);
 
         public void SmoothChunk(OpenExperimentalWorldProvider openExperimentalWorldProvider, ChunkColumn c, float[] rth)
         {
+            //Smooth Biome
             // var points = new int[,];
+            int maxadjust = 20;
             ChunkColumn[] cc = new ChunkColumn[8];
             int a = 0;
             cc[0] = openExperimentalWorldProvider.GenerateChunkColumn(new ChunkCoordinates()
             {
                 X = c.X - 1,
                 Z = c.Z + 1
-            },true);
+            }, true);
             cc[1] = openExperimentalWorldProvider.GenerateChunkColumn(new ChunkCoordinates()
             {
                 X = c.X,
                 Z = c.Z + 1
-            },true);
+            }, true);
             cc[2] = openExperimentalWorldProvider.GenerateChunkColumn(new ChunkCoordinates()
             {
                 X = c.X + 1,
                 Z = c.Z + 1
-            },true);
+            }, true);
             cc[3] = openExperimentalWorldProvider.GenerateChunkColumn(new ChunkCoordinates()
             {
                 X = c.X - 1,
                 Z = c.Z
-            },true);
+            }, true);
             cc[4] = openExperimentalWorldProvider.GenerateChunkColumn(new ChunkCoordinates()
             {
                 X = c.X + 1,
                 Z = c.Z
-            },true);
+            }, true);
             cc[5] = openExperimentalWorldProvider.GenerateChunkColumn(new ChunkCoordinates()
             {
                 X = c.X - 1,
                 Z = c.Z - 1
-            },true);
+            }, true);
             cc[6] = openExperimentalWorldProvider.GenerateChunkColumn(new ChunkCoordinates()
             {
                 X = c.X,
                 Z = c.Z - 1
-            },true);
+            }, true);
             cc[7] = openExperimentalWorldProvider.GenerateChunkColumn(new ChunkCoordinates()
             {
                 X = c.X - 1,
                 Z = c.Z - 1
-            },true);
+            }, true);
+            // int ah = getAverageHeight(c);
+            // int avgh = 0;
+            // ChunkColumn workingchunk;
+            // workingchunk = cc[1];
+            // if (workingchunk != null)
+            // {
+            //     //TOP = 1
+            //     avgh = getAverageHeight(workingchunk);
+            //     bool up = ah < avgh;
+            //     if (up)
+            //     {
+            //         
+            //     }
+            //
+            // }
         }
 
+
+        public int getAverageHeight(ChunkColumn c)
+        {
+            int avg = 0;
+            for (var x = 0; x < 16; x++)
+            for (var z = 0; z < 16; z++)
+            {
+                var h = c.GetHeight(x, z);
+                avg = (avg + h) / 2;
+            }
+
+            return avg;
+        }
 
         public static AdvancedBiome GetBiome(int biomeId)
         {
@@ -174,9 +210,9 @@ public FastNoise HeightNoise = new FastNoise(121212);
         private static readonly OpenSimplexNoise OpenNoise = new OpenSimplexNoise("a-seed".GetHashCode());
 
 
-        public static int GetNoise(int x, int z, float scale, int max)
+        public static float GetNoise(int x, int z, float scale, int max)
         {
-            return (int) Math.Floor((OpenNoise.Evaluate(x * scale, z * scale) + 1f) * (max / 2f));
+            return (float)((OpenNoise.Evaluate(x * scale, z * scale) + 1f) * (max / 2f));
         }
     }
 }

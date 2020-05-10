@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using OpenAPI.World.Biomes;
+using OpenAPI.World.Populator;
 
 namespace OpenAPI.World
 {
@@ -13,6 +15,7 @@ namespace OpenAPI.World
             AddBiome(new Desert());
             AddBiome(new Mountains());
             AddBiome(new Plains());
+            AddBiome(new HighPlains());
             AddBiome(new WaterBiome());
             AddBiome(new ForestBiome());
             AddBiome(new SnowForest());
@@ -45,6 +48,8 @@ namespace OpenAPI.World
             }
             // return new MainBiome();
             return new WaterBiome();
+            // return new HighPlains();
+
         }
         
     }

@@ -18,7 +18,8 @@ namespace TestingWorldGenConsoleReal
             // Console.WriteLine("+++++++++++++++++++++++++++++++++++ "+x);
             // if (x == 48)
             // {
-                BiomeTester.start();
+                BiomeChunkTester.start();
+                // BiomeTester.start();
             // }
             // else
             // {

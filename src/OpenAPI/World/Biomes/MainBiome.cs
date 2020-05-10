@@ -56,17 +56,17 @@ namespace OpenAPI.World
                 {
                     int stoneHeight = (int) Math.Floor(stoneBaseHeight);
                     waterLevel = stoneHeight;
-                    stoneHeight += GetNoise(chunk.X * 16 + x, chunk.Z * 16 + z, stoneMountainFrequency,
+                    stoneHeight += (int)GetNoise(chunk.X * 16 + x, chunk.Z * 16 + z, stoneMountainFrequency,
                         (int) Math.Floor(stoneMountainHeight));
 
                     if (stoneHeight < stoneMinHeight)
                         stoneHeight = (int) Math.Floor(stoneMinHeight);
 
-                    stoneHeight += GetNoise(chunk.X * 16 + x, chunk.Z * 16 + z, stoneBaseNoise,
+                    stoneHeight += (int)GetNoise(chunk.X * 16 + x, chunk.Z * 16 + z, stoneBaseNoise,
                         (int) Math.Floor(stoneBaseNoiseHeight));
 
                     int dirtHeight = stoneHeight + (int) Math.Floor(dirtBaseHeight);
-                    dirtHeight += GetNoise(chunk.X * 16 + x, chunk.Z * 16 + z, dirtNoise,
+                    dirtHeight += (int)GetNoise(chunk.X * 16 + x, chunk.Z * 16 + z, dirtNoise,
                         (int) Math.Floor(dirtNoiseHeight));
                     // int riverint = GetNoise(chunk.X * 16 + x, chunk.Z * 16 + z, dirtNoise,
                     //     10);
