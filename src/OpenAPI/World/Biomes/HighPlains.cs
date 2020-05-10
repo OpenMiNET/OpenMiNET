@@ -21,9 +21,9 @@ namespace OpenAPI.World.Biomes
                 // float h = HeightNoise.GetNoise(c.X * 16 + x, c.Z * 16 + z)+1;
                 // int sh= (int) Math.Floor(BiomeQualifications.baseheight + ((rth[2] )* BiomeQualifications.heightvariation))+(int)(HeightNoise.GetNoise(c.X * 16 + x, c.Z * 16 + z) * 10);
                 // int sh= (int) Math.Floor(BiomeQualifications.baseheight + ((rth[2] )* BiomeQualifications.heightvariation))+(int)(GetNoise(c.X * 16 + x, c.Z * 16 + z,0.035f,10));
-                int sh = (int) (BiomeQualifications.baseheight +
-                                (rth[2] * BiomeQualifications.heightvariation) +
-                                (int) (GetNoise(c.X * 16 + x, c.Z * 16 + z, 0.035f, 5)));
+                var sh = BiomeQualifications.baseheight +
+                         (int) GetNoise(c.X * 16 + x, c.Z * 16 + z, /*rth[2] / */.035f,
+                             BiomeQualifications.heightvariation);
                 // int sh= (int) (BiomeQualifications.baseheight + GetNoise(c.X * 16 + x, c.Z * 16 + z,0.035f,(int)((rth[2] )* BiomeQualifications.heightvariation)+10));
                 // int sh= (int) Math.Floor(BiomeQualifications.baseheight + ((rth[2])* BiomeQualifications.heightvariation));
                 int fy = 0;

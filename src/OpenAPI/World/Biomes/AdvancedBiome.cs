@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Numerics;
 using System.Reflection.Metadata;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,6 +23,7 @@ namespace OpenAPI.World
         public int heightvariation;
 
         public int baseheight = 70;
+
         // public int baseheight = 20;
         public bool waterbiome = false;
 
@@ -166,21 +168,57 @@ namespace OpenAPI.World
                 X = c.X - 1,
                 Z = c.Z - 1
             }, true);
-            // int ah = getAverageHeight(c);
-            // int avgh = 0;
-            // ChunkColumn workingchunk;
-            // workingchunk = cc[1];
-            // if (workingchunk != null)
-            // {
-            //     //TOP = 1
-            //     avgh = getAverageHeight(workingchunk);
-            //     bool up = ah < avgh;
-            //     if (up)
-            //     {
-            //         
-            //     }
-            //
-            // }
+
+            //TODO Create Gradiant Map of the 2 chunks
+            int ah = getAverageHeight(c);
+            int avgh = 0;
+            ChunkColumn workingchunk;
+            workingchunk = cc[1];
+            int[,] mainhm = new int[17,17]; 
+            int[,] whm = new int[17,17]; 
+            int[,] fhm = new int[33,33]; 
+            if (workingchunk != null)
+            {
+                // //TOP = 1 // X+
+                // for (var x = 0; x < 16; x++)
+                // {
+                //     for (var z = 0; z < 16; z++)
+                //     {
+                //         mainhm[x, z] = c.GetHeight(x, z);
+                //         whm[x, z] = workingchunk.GetHeight(x, z);
+                //     }
+                // }
+                // //Combine
+                // for (var x = 0; x < 16; x++)
+                // {
+                //     for (var z = 0; z < 16; z++)
+                //     {
+                //         fhm[x, z+16] = mainhm[x, z];
+                //         fhm[x, z] = whm[x, z];
+                //     }
+                // }
+
+                // int maxDropoff = 2;
+                // for (var x = 0; x < 16; x++)
+                // {
+                //     for (var z = 0; z < 32-1; z++)
+                //     {
+                //         int ch = fhm[x, z];
+                //         int h = fhm[x, z + 1];
+                //         if()
+                //         if(maxDropoff + h < ch)
+                //     }
+                // }         Vector3 d = new Vector3(-1,0,0);
+                // for (var x = 0; x < 16; x++)
+                // {
+                //     for (var z = 0; z < 32; z++)
+                //     {
+                //         int lh = c.GetHeight(x, z + 1);
+                //         int n = (int)GetNoise(x, z, .015f, 2);
+                //         
+                //     }
+                // }
+            }
         }
 
 
@@ -212,7 +250,7 @@ namespace OpenAPI.World
 
         public static float GetNoise(int x, int z, float scale, int max)
         {
-            return (float)((OpenNoise.Evaluate(x * scale, z * scale) + 1f) * (max / 2f));
+            return (float) ((OpenNoise.Evaluate(x * scale, z * scale) + 1f) * (max / 2f));
         }
     }
 }

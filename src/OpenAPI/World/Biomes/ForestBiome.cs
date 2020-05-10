@@ -24,9 +24,9 @@ namespace OpenAPI.World
                 // int sh = (int) (BiomeQualifications.baseheight +
                 //                 (rth[2] * BiomeQualifications.heightvariation) +
                 //                 (int) (GetNoise(c.X * 16 + x, c.Z * 16 + z, 0.035f, 5)));
-                var sh = BiomeQualifications.baseheight +
+                var sh = BiomeQualifications.baseheight +12+
                          (int) GetNoise(c.X * 16 + x, c.Z * 16 + z, /*rth[2] / */.035f,
-                             BiomeQualifications.heightvariation);
+                             BiomeQualifications.heightvariation/5);
                 // (int) (GetNoise(c.X * 16 + x, c.Z * 16 + z, 0.035f, 5)); //10
                 // Console.WriteLine("FORRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR >>>>>>>>>>>>>>> " + sh + " |||| " + rth[2]);
 
