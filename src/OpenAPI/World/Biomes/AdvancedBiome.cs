@@ -60,6 +60,7 @@ namespace OpenAPI.World
 
     public abstract class AdvancedBiome
     {
+        public int LocalID =-1;
         public String name;
         public Random RNDM = new Random();
         public int startheight = 80;

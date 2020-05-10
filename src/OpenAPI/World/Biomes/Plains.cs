@@ -5,7 +5,7 @@ namespace OpenAPI.World.Populator
 {
    public class Plains : AdvancedBiome
     {
-        public Plains() : base("Plains", new BiomeQualifications(0.5f, 1.5f, 0.5f, 1.75f, 0.5f, .75f, 30))
+        public Plains() : base("Plains", new BiomeQualifications(0.5f, 1.5f, 0.5f, 1.75f, 0.5f, .75f, 5))
         {
         }
 

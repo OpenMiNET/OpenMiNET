@@ -104,7 +104,8 @@ namespace TestingWorldGenConsoleReal
                         Console.WriteLine($"LOWWW HEIGHTTT AT {c.X} {c.Z} VAL {height}");
                     }
 
-                    var biome = BiomeManager.GetBiome(new[] {rain, temp, height});
+                    //TODO FIX THIS IS OLD GET BIOME METHOD
+                    var biome = BiomeManager.GetBiome2(new[] {rain, temp, height});
 
 //CALCULATE BIOME'S COLOR
                     byte[] v = new byte[3];
