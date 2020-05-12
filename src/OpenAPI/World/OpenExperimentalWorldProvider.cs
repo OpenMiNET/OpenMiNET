@@ -80,8 +80,12 @@ namespace OpenAPI.World
             float height = GetNoise(chunk.X, chunk.Z, 0.015f,2);;
             return new []{rain, temp, height};
         }
-        
+
         public ChunkColumn GenerateChunkColumn(ChunkCoordinates chunkCoordinates, bool cacheOnly = false)
+        {
+            return GenerateChunkColumn(chunkCoordinates, true, cacheOnly);
+        }
+        public ChunkColumn GenerateChunkColumn(ChunkCoordinates chunkCoordinates, bool smooth = true,bool cacheOnly = false)
         {
             ChunkColumn cachedChunk;
             if (_chunkCache.TryGetValue(chunkCoordinates, out cachedChunk)) return cachedChunk;
@@ -96,8 +100,9 @@ namespace OpenAPI.World
             var rth = getChunkRTH(chunk);
 
 
-            PopulateChunk(this,chunk, rth);
-            SmoothChunk(this,chunk, rth);
+            chunk = PopulateChunk(this,chunk, rth).Result;
+           
+            if(smooth)chunk = SmoothChunk(this,chunk, rth).Result;
 
             _chunkCache[chunkCoordinates] = chunk;
 
@@ -139,12 +144,13 @@ namespace OpenAPI.World
             return false;
         }
 
-        public void SmoothChunk(OpenExperimentalWorldProvider openExperimentalWorldProvider, ChunkColumn chunk,
+        public async Task<ChunkColumn> SmoothChunk(OpenExperimentalWorldProvider openExperimentalWorldProvider, ChunkColumn chunk,
             float[] rth)
         {
             
             var b = BiomeManager.GetBiome(rth,chunk,openExperimentalWorldProvider);
-            b.preSmooth(openExperimentalWorldProvider,chunk, rth);
+           var a = await b.preSmooth(openExperimentalWorldProvider,chunk, rth);
+            return a;
         }
         public async Task<ChunkColumn> PopulateChunk(OpenExperimentalWorldProvider openExperimentalWorldProvider, ChunkColumn chunk,
             float[] rth)
