@@ -274,7 +274,19 @@ namespace OpenAPI.World
 
                     int lh = map[x, z - 1];
                     int ch = map[x, z];
-                    if (ch > th)
+                    int dist = map.GetLength(0) - x;
+                    int hd = th - ch;
+                    int delta;
+                    if (hd != 0)
+                    {
+                        delta = dist / hd;
+                    }
+                    else
+                    {
+                        delta = 0;
+                    }
+
+                    if (delta > 0)
                     {
                         //SUBTRACT
                         // int nch = (int) Math.Floor((ch + th) / 2f);
@@ -282,7 +294,7 @@ namespace OpenAPI.World
                         if (nch >= lh) nch = lh - 1;
                         newmap[x, z] = nch;
                     }
-                    else if (ch == th)
+                    else if (delta == 0)
                     {
                         newmap[x, z] = ch;
                     }
@@ -339,6 +351,10 @@ namespace OpenAPI.World
                     {
                         if (chunk.GetBlockId(x, y, z) == 0) break;
                         chunk.SetBlock(x, y, z, new Air());
+                    }else if (y == dif)
+                    {
+
+                        chunk.SetBlock(x, y, z, new EmeraldBlock());
                     }
                     else
                     {
@@ -355,14 +371,18 @@ namespace OpenAPI.World
                 {
                     if (y > dif)
                     {
-                        if (chunk.GetBlockId(x - xo, y, z - zo) == 0) break;
-                        chunk.SetBlock(x - xo, y, z - zo, new Air());
+                        if (nc.GetBlockId(x - xo, y, z - zo) == 0) break;
+                        nc.SetBlock(x - xo, y, z - zo, new Air());
+                    }else if (y == dif)
+                    {
+
+                        nc.SetBlock(x-xo, y, z-zo, new EmeraldBlock());
                     }
                     else
                     {
-                        if (chunk.GetBlockId(x - xo, y, z - zo) == 0)
+                        if (nc.GetBlockId(x - xo, y, z - zo) == 0)
                         {
-                            chunk.SetBlock(x - xo, y, z - zo, new Stone());
+                            nc.SetBlock(x - xo, y, z - zo, new Stone());
                         }
                     }
                 }
@@ -407,63 +427,63 @@ namespace OpenAPI.World
                     h = CreateMapFrom2Chunks(chunk, nc, pos);
                 }
 
-                if (pos == 0)
-                {
-                    Console.WriteLine("OLD WAY RUNNING!");
-                    n = BiomeManager.GetBiome(o.getChunkRTH(new ChunkColumn {X = chunk.X, Z = chunk.Z + 1}), chunk, o,
-                        i);
-                    if (n.LocalID == workingchunk.LocalID && pos == 0)
-                    {
-                        //TOP
-                        nc = o.GenerateChunkColumn(new ChunkCoordinates {X = chunk.X, Z = chunk.Z + 1}, true);
-                        if (nc != null)
-                        {
-                            pos = 1;
-                            h = CreateMapFrom2Chunks(chunk,
-                                nc, pos);
-                        }
-                    }
-
-                    n = BiomeManager.GetBiome(o.getChunkRTH(new ChunkColumn {X = chunk.X + 1, Z = chunk.Z}), chunk, o,
-                        i);
-                    if (n.LocalID == workingchunk.LocalID && pos == 0)
-                    {
-                        //RIGHT
-                        nc = o.GenerateChunkColumn(new ChunkCoordinates {X = chunk.X + 1, Z = chunk.Z}, true);
-                        if (nc != null)
-                        {
-                            pos = 2;
-                            h = CreateMapFrom2Chunks(chunk, nc, pos);
-                        }
-                    }
-
-                    n = BiomeManager.GetBiome(o.getChunkRTH(new ChunkColumn {X = chunk.X, Z = chunk.Z - 1}), chunk, o,
-                        i);
-                    if (n.LocalID == workingchunk.LocalID && pos == 0)
-                    {
-                        //BOTTOM
-                        nc = o.GenerateChunkColumn(new ChunkCoordinates {X = chunk.X, Z = chunk.Z - 1}, true);
-                        if (nc != null)
-                        {
-                            pos = 3;
-                            h = CreateMapFrom2Chunks(chunk, nc, pos);
-                        }
-                    }
-
-                    n = BiomeManager.GetBiome(o.getChunkRTH(new ChunkColumn {X = chunk.X - 1, Z = chunk.Z}), chunk, o,
-                        i);
-                    if (n.LocalID == workingchunk.LocalID && pos == 0)
-                    {
-                        //LEFT
-                        nc = o.GenerateChunkColumn(new ChunkCoordinates {X = chunk.X - 1, Z = chunk.Z}, true);
-                        if (nc != null)
-                        {
-                            pos = 4;
-                            h = CreateMapFrom2Chunks(chunk,
-                                nc, pos);
-                        }
-                    }
-                }
+                // if (pos == 0)
+                // {
+                //     Console.WriteLine("OLD WAY RUNNING!");
+                //     n = BiomeManager.GetBiome(o.getChunkRTH(new ChunkColumn {X = chunk.X, Z = chunk.Z + 1}), chunk, o,
+                //         i);
+                //     if (n.LocalID == workingchunk.LocalID && pos == 0)
+                //     {
+                //         //TOP
+                //         nc = o.GenerateChunkColumn(new ChunkCoordinates {X = chunk.X, Z = chunk.Z + 1}, true);
+                //         if (nc != null)
+                //         {
+                //             pos = 1;
+                //             h = CreateMapFrom2Chunks(chunk,
+                //                 nc, pos);
+                //         }
+                //     }
+                //
+                //     n = BiomeManager.GetBiome(o.getChunkRTH(new ChunkColumn {X = chunk.X + 1, Z = chunk.Z}), chunk, o,
+                //         i);
+                //     if (n.LocalID == workingchunk.LocalID && pos == 0)
+                //     {
+                //         //RIGHT
+                //         nc = o.GenerateChunkColumn(new ChunkCoordinates {X = chunk.X + 1, Z = chunk.Z}, true);
+                //         if (nc != null)
+                //         {
+                //             pos = 2;
+                //             h = CreateMapFrom2Chunks(chunk, nc, pos);
+                //         }
+                //     }
+                //
+                //     n = BiomeManager.GetBiome(o.getChunkRTH(new ChunkColumn {X = chunk.X, Z = chunk.Z - 1}), chunk, o,
+                //         i);
+                //     if (n.LocalID == workingchunk.LocalID && pos == 0)
+                //     {
+                //         //BOTTOM
+                //         nc = o.GenerateChunkColumn(new ChunkCoordinates {X = chunk.X, Z = chunk.Z - 1}, true);
+                //         if (nc != null)
+                //         {
+                //             pos = 3;
+                //             h = CreateMapFrom2Chunks(chunk, nc, pos);
+                //         }
+                //     }
+                //
+                //     n = BiomeManager.GetBiome(o.getChunkRTH(new ChunkColumn {X = chunk.X - 1, Z = chunk.Z}), chunk, o,
+                //         i);
+                //     if (n.LocalID == workingchunk.LocalID && pos == 0)
+                //     {
+                //         //LEFT
+                //         nc = o.GenerateChunkColumn(new ChunkCoordinates {X = chunk.X - 1, Z = chunk.Z}, true);
+                //         if (nc != null)
+                //         {
+                //             pos = 4;
+                //             h = CreateMapFrom2Chunks(chunk,
+                //                 nc, pos);
+                //         }
+                //     }
+                // }
 
                 if (pos == 0)
                 {
@@ -531,7 +551,7 @@ namespace OpenAPI.World
                             else if (pos == 2 || pos == 4)
                             {
                                 FormatChunk(x, z, 16, 0, dif, chunk, nc);
-                                if(x == 0 || x == 16 )
+                                // if(x == 0 || x == 16 )
                                 if (pos == 2) chunk.SetBlock(8+1, 110, 8 , new Furnace());
                                 if (pos == 4) chunk.SetBlock(8+1, 110, 8 , new Furnace());
                             }
@@ -548,20 +568,6 @@ namespace OpenAPI.World
             }
         }
 
-
-        public int getAverageHeight(ChunkColumn c)
-        {
-            var avg = 0;
-            for (var x = 0; x < 16; x++)
-            for (var z = 0; z < 16; z++)
-            {
-                var h = c.GetHeight(x, z);
-                avg = (avg + h) / 2;
-            }
-
-            return avg;
-        }
-
         public static AdvancedBiome GetBiome(int biomeId)
         {
             return BiomeManager.GetBiome(biomeId);
@@ -570,7 +576,15 @@ namespace OpenAPI.World
 
         public static float GetNoise(int x, int z, float scale, int max)
         {
-            return (float) ((OpenNoise.Evaluate(x * scale, z * scale) + 1f) * (max / 2f));
+            var heightnoise = new FastNoise(123123 + 2);
+            heightnoise.SetNoiseType(FastNoise.NoiseType.SimplexFractal);
+            heightnoise.SetFrequency(scale);
+            heightnoise.SetFractalType(FastNoise.FractalType.FBM);
+            heightnoise.SetFractalOctaves(1);
+            heightnoise.SetFractalLacunarity(2);
+            heightnoise.SetFractalGain(.5f);
+            return (heightnoise.GetNoise(x, z)+1 )*(max/2f);
+            // return (float) ((OpenNoise.Evaluate(x * scale, z * scale) + 1f) * (max / 2f));
         }
     }
 }

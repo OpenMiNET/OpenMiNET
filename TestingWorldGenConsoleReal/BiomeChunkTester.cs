@@ -22,7 +22,7 @@ namespace TestingWorldGenConsoleReal
         {
             Console.WriteLine("Hello World!");
             Console.WriteLine("Genertating 16 X 16 (256 Chunks) Chunk Radius to an Image!");
-            start();
+            new BiomeChunkTester().start();
         }
 
 
@@ -46,7 +46,7 @@ namespace TestingWorldGenConsoleReal
             return (minr < r && maxr > r && mint < t && maxt > t && minh < h && maxh > h);
         }
 
-        public static void start()
+        public void start()
         {
             new BiomeManager();
             var s1 = new Stopwatch();
@@ -67,49 +67,54 @@ namespace TestingWorldGenConsoleReal
                     c.X = ax;
                     c.Z = az;
 
-                    //CALCULATE RAIN
-                    var rainnoise = new FastNoise(123123);
-                    rainnoise.SetNoiseType(FastNoise.NoiseType.SimplexFractal);
-                    rainnoise.SetFrequency(.007f); //.015
-                    rainnoise.SetFractalType(FastNoise.FractalType.FBM);
-                    rainnoise.SetFractalOctaves(1);
-                    rainnoise.SetFractalLacunarity(.25f);
-                    rainnoise.SetFractalGain(1);
-                    //CALCULATE TEMP
-                    var tempnoise = new FastNoise(123123 + 1);
-                    tempnoise.SetNoiseType(FastNoise.NoiseType.SimplexFractal);
-                    tempnoise.SetFrequency(.004f); //.015f
-                    tempnoise.SetFractalType(FastNoise.FractalType.FBM);
-                    tempnoise.SetFractalOctaves(1);
-                    tempnoise.SetFractalLacunarity(.25f);
-                    tempnoise.SetFractalGain(1);
-                    //CALCULATE HEIGHT
-                    var heightnoise = new FastNoise(123123 + 2);
-                    heightnoise.SetNoiseType(FastNoise.NoiseType.SimplexFractal);
-                    heightnoise.SetFrequency(.015f);
-                    heightnoise.SetFractalType(FastNoise.FractalType.FBM);
-                    heightnoise.SetFractalOctaves(1);
-                    heightnoise.SetFractalLacunarity(.25f);
-                    heightnoise.SetFractalGain(1);
-
-
-                    float rain = rainnoise.GetNoise(c.X, c.Z) + 1;
-                    float temp = tempnoise.GetNoise(c.X, c.Z) + 1;
-                    var height =  GetNoise(c.X, c.Z, 0.005f,
-                        2);;
-
-                    // var h =
-                    if (height <= .5f)
-                    {
-                        Console.WriteLine($"LOWWW HEIGHTTT AT {c.X} {c.Z} VAL {height}");
-                    }
+                   
 
                     //TODO FIX THIS IS OLD GET BIOME METHOD
-                    var biome = BiomeManager.GetBiome2(new[] {rain, temp, height});
+                    var rth = getChunkRTH(c.X, c.Z);
+                    var biome = BiomeManager.GetBiome2(rth);
+                    
+                    //CHEKC IF BOREDR CHUNK
+                    //Top
+                    var tb = BiomeManager.GetBiome2(getChunkRTH(c.X, c.Z+1));
+                    var rb = BiomeManager.GetBiome2(getChunkRTH(c.X+1, c.Z));
+                    var bb = BiomeManager.GetBiome2(getChunkRTH(c.X, c.Z-1));
+                    var lb = BiomeManager.GetBiome2(getChunkRTH(c.X-1, c.Z));
+                    if (tb.LocalID != biome.LocalID)
+                    {
+                        biome.BorderChunk = true;
+                        biome.BorderBiome = tb;
+                        biome.BorderType = 1;
+                    }else if(rb.LocalID != biome.LocalID)
+                    {
+                        biome.BorderChunk = true;
+                        biome.BorderBiome = rb;
+                        biome.BorderType = 1;
+                    }else if(bb.LocalID != biome.LocalID)
+                    {
+                        biome.BorderChunk = true;
+                        biome.BorderBiome = bb;
+                        biome.BorderType = 1;
+                    }else if(lb.LocalID != biome.LocalID)
+                    {
+                        biome.BorderChunk = true;
+                        biome.BorderBiome = lb;
+                        biome.BorderType = 1;
+                    }
+                    else
+                    {
+                        biome.BorderChunk = false;
+                    }
+
+
+
+
+                    var rain = rth[0];
+                    var temp = rth[1];
+                    var height = rth[2];
 
 //CALCULATE BIOME'S COLOR
                     byte[] v = new byte[3];
-                    if (check(0, 2, 0, .5f, 0, .5f, rain, temp, height))
+                     if (check(0, 2, 0, .5f, 0, .5f, rain, temp, height))
                     {
                         //A-Snow Icy Chunk
                         // v = new byte[] {0, 208, 255};
@@ -208,23 +213,32 @@ namespace TestingWorldGenConsoleReal
                         //C-Desert
                     }
                     else
-                    {
-                        v = new byte[] {0, 0, 0};
-                        // Console.WriteLine(
-                            // $"ERRRRRRRRRRRRRROOOOOOOOOOOOOORRRRRRRRRRRR WTFFFFFFFFFFFFFFFFFFFFFFFF {rain} {temp} {height}");
-                        // Console.WriteLine(
-                        //     $"ERRRRRRRRRRRRRROOOOOOOOOOOOOORRRRRRRRRRRR WTFFFFFFFFFFFFFFFFFFFFFFFF {rain} {temp} {height}");
-                        // Console.WriteLine(
-                        //     $"ERRRRRRRRRRRRRROOOOOOOOOOOOOORRRRRRRRRRRR WTFFFFFFFFFFFFFFFFFFFFFFFF {rain} {temp} {height}");
-                        // Console.WriteLine(
-                        //     $"ERRRRRRRRRRRRRROOOOOOOOOOOOOORRRRRRRRRRRR WTFFFFFFFFFFFFFFFFFFFFFFFF {rain} {temp} {height}");
-                        // Console.WriteLine(
-                        //     $"ERRRRRRRRRRRRRROOOOOOOOOOOOOORRRRRRRRRRRR WTFFFFFFFFFFFFFFFFFFFFFFFF {rain} {temp} {height}");
-                        // Console.WriteLine(
-                        //     $"ERRRRRRRRRRRRRROOOOOOOOOOOOOORRRRRRRRRRRR WTFFFFFFFFFFFFFFFFFFFFFFFF {rain} {temp} {height}");
-                        // Console.WriteLine(
-                        //     $"ERRRRRRRRRRRRRROOOOOOOOOOOOOORRRRRRRRRRRR WTFFFFFFFFFFFFFFFFFFFFFFFF {rain} {temp} {height}");
-                    }
+                     {
+                         var cc = Color.Purple;
+                         v[0] = cc.R;
+                         v[1] = cc.G;
+                         v[2] = cc.B;
+                         // Console.WriteLine(
+                         // $"ERRRRRRRRRRRRRROOOOOOOOOOOOOORRRRRRRRRRRR WTFFFFFFFFFFFFFFFFFFFFFFFF {rain} {temp} {height}");
+                         // Console.WriteLine(
+                         //     $"ERRRRRRRRRRRRRROOOOOOOOOOOOOORRRRRRRRRRRR WTFFFFFFFFFFFFFFFFFFFFFFFF {rain} {temp} {height}");
+                         // Console.WriteLine(
+                         //     $"ERRRRRRRRRRRRRROOOOOOOOOOOOOORRRRRRRRRRRR WTFFFFFFFFFFFFFFFFFFFFFFFF {rain} {temp} {height}");
+                         // Console.WriteLine(
+                         //     $"ERRRRRRRRRRRRRROOOOOOOOOOOOOORRRRRRRRRRRR WTFFFFFFFFFFFFFFFFFFFFFFFF {rain} {temp} {height}");
+                         // Console.WriteLine(
+                         //     $"ERRRRRRRRRRRRRROOOOOOOOOOOOOORRRRRRRRRRRR WTFFFFFFFFFFFFFFFFFFFFFFFF {rain} {temp} {height}");
+                         // Console.WriteLine(
+                         //     $"ERRRRRRRRRRRRRROOOOOOOOOOOOOORRRRRRRRRRRR WTFFFFFFFFFFFFFFFFFFFFFFFF {rain} {temp} {height}");
+                         // Console.WriteLine(
+                         //     $"ERRRRRRRRRRRRRROOOOOOOOOOOOOORRRRRRRRRRRR WTFFFFFFFFFFFFFFFFFFFFFFFF {rain} {temp} {height}");
+                     }
+                     if (biome.BorderChunk)
+                     {
+                         v[0] = 255;
+                         v[1] = 0;
+                         v[2] = 0;
+                     }
 
                     PlotPixel(c.X, c.Z, (byte) v[0], (byte) v[1], (byte) v[2]);
 
@@ -243,11 +257,47 @@ namespace TestingWorldGenConsoleReal
             s3.Stop();
             Console.WriteLine("ERROR YO THIS TOOK " + s3.Elapsed);
         }
+
+        private static float[] getChunkRTH(in int cX, in int cZ)
+        {
+            //CALCULATE RAIN
+            var rainnoise = new FastNoise(123123);
+            rainnoise.SetNoiseType(FastNoise.NoiseType.SimplexFractal);
+            rainnoise.SetFrequency(.007f); //.015
+            rainnoise.SetFractalType(FastNoise.FractalType.FBM);
+            rainnoise.SetFractalOctaves(1);
+            rainnoise.SetFractalLacunarity(.25f);
+            rainnoise.SetFractalGain(1);
+            //CALCULATE TEMP
+            var tempnoise = new FastNoise(123123 + 1);
+            tempnoise.SetNoiseType(FastNoise.NoiseType.SimplexFractal);
+            tempnoise.SetFrequency(.004f); //.015f
+            tempnoise.SetFractalType(FastNoise.FractalType.FBM);
+            tempnoise.SetFractalOctaves(1);
+            tempnoise.SetFractalLacunarity(.25f);
+            tempnoise.SetFractalGain(1);
+            
+            float rain = rainnoise.GetNoise(cX, cZ) + 1;
+            float temp = tempnoise.GetNoise(cX, cZ) + 1;
+            var height =  GetNoise(cX, cZ, 0.005f,
+                2);;
+            return new[] {rain, temp, height};
+
+        }
+
         private static readonly OpenSimplexNoise OpenNoise = new OpenSimplexNoise("a-seed".GetHashCode());
 
 
         public static float GetNoise(int x, int z, float scale, int max)
-        {
+        {//CALCULATE HEIGHT
+            var heightnoise = new FastNoise(123123 + 2);
+            heightnoise.SetNoiseType(FastNoise.NoiseType.SimplexFractal);
+            heightnoise.SetFrequency(scale);
+            heightnoise.SetFractalType(FastNoise.FractalType.FBM);
+            heightnoise.SetFractalOctaves(1);
+            heightnoise.SetFractalLacunarity(2);
+            heightnoise.SetFractalGain(.5f);
+            return (heightnoise.GetNoise(x, z)+1 )*(max/2f);
             return (float)(OpenNoise.Evaluate(x * scale, z * scale) + 1f) * (max / 2f);
         }
     }

@@ -148,14 +148,14 @@ namespace OpenAPI.World
             float[] rth)
         {
             
-            var b = BiomeManager.GetBiome(rth,chunk,openExperimentalWorldProvider);
+            var b = BiomeManager.GetBiome(chunk);
            var a = await b.preSmooth(openExperimentalWorldProvider,chunk, rth);
             return a;
         }
         public async Task<ChunkColumn> PopulateChunk(OpenExperimentalWorldProvider openExperimentalWorldProvider, ChunkColumn chunk,
             float[] rth)
         {
-            var b = BiomeManager.GetBiome(rth,chunk, openExperimentalWorldProvider);
+            var b = BiomeManager.GetBiome(chunk);
             // var b = new MainBiome();
             var a = await b.prePopulate(openExperimentalWorldProvider,chunk, rth);
             return a;
