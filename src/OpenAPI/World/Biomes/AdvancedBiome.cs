@@ -257,58 +257,61 @@ namespace OpenAPI.World
             }
         }
 
+        public int[,] SmoothMapV3(int[,] map)
+        {
+            int[,] newmap = new int[map.GetLength(0), map.GetLength(1)];
+            // int[,]  newmap = map;
+            for (int x = 0; x < map.GetLength(0); x++)
+            {
+                for (int z = 0; z < map.GetLength(1); z++)
+                {
+                    if (x == 0 || x == map.GetLength(0) || z == 0 || z == map.GetLength(1))
+                    {
+                        newmap[x, z] = map[x, z];
+                        continue;
+                    }
+
+                    //X AXIS
+                    float nhx = Lerp(map[0,z], map[map.GetLength(0) - 1,z], x / map.GetLength(0));
+                    float nhz = Lerp(map[x, 0], map[x,map.GetLength(1) - 1], z / map.GetLength(1));
+                    // float nhx = Lerp(map[0, z], map[map.GetLength(0) - 1, z], x / map.GetLength(0));
+                    // float nhz = Lerp(map[x, 0], map[x, map.GetLength(1) - 1], z / map.GetLength(1));
+                    newmap[x, z] = (int) Math.Floor((nhx + nhz) / 2f);
+                    // newmap[x, z] = BiomeQualifications.baseheight + x+z;
+                }
+            }
+
+            return newmap;
+        }
+
         public int[,] SmoothMapV2(int[,] map)
         {
             int[,] newmap = new int[map.GetLength(0), map.GetLength(1)];
             // int[,]  newmap = map;
             for (int x = 0; x < map.GetLength(0); x++)
             {
-                int th = map[x, map.GetLength(1) - 1];
                 for (int z = 0; z < map.GetLength(1); z++)
                 {
-                    if (x == 0 || x == 16 || z == 0 || z == 16)
+                    if (x == 0 || x == map.GetLength(0) || z == 0 || z == map.GetLength(1))
                     {
                         newmap[x, z] = map[x, z];
                         continue;
                     }
 
-                    int lh = map[x, z - 1];
-                    int ch = map[x, z];
-                    int dist = map.GetLength(0) - x;
-                    int hd = th - ch;
-                    int delta;
-                    if (hd != 0)
-                    {
-                        delta = dist / hd;
-                    }
-                    else
-                    {
-                        delta = 0;
-                    }
-
-                    if (delta > 0)
-                    {
-                        //SUBTRACT
-                        // int nch = (int) Math.Floor((ch + th) / 2f);
-                        int nch = ch - 1;
-                        if (nch >= lh) nch = lh - 1;
-                        newmap[x, z] = nch;
-                    }
-                    else if (delta == 0)
-                    {
-                        newmap[x, z] = ch;
-                    }
-                    else
-                    {
-                        int nch = ch - 1;
-                        if (nch >= lh) nch = lh - 1;
-                        newmap[x, z] = nch;
-                        //ADD
-                    }
+                    float nhx = Lerp(map[x, 0], map[x, map.GetLength(1) - 1], z / map.GetLength(1));
+                    float nhz = Lerp(map[0, z], map[map.GetLength(0) - 1, z], x / map.GetLength(0));
+                    // float nhx = Lerp(map[0, z], map[map.GetLength(0) - 1, z], x / map.GetLength(0));
+                    // float nhz = Lerp(map[x, 0], map[x, map.GetLength(1) - 1], z / map.GetLength(1));
+                    newmap[x, z] = (int) Math.Floor((nhx + nhz) / 2f);
                 }
             }
 
             return newmap;
+        }
+
+        public float Lerp(int firstFloat, int secondFloat, float by)
+        {
+            return firstFloat * (1 - by) + secondFloat * by;
         }
 
         public static void printDisplayTable(int[,] table, string title = "Testing1")
@@ -345,45 +348,51 @@ namespace OpenAPI.World
         {
             if (x < 16 && z < 16)
             {
-                for (var y = BiomeQualifications.baseheight; y < 255; y++)
+                for (var y = 20; y < 255; y++)
                 {
                     if (y > dif)
                     {
                         if (chunk.GetBlockId(x, y, z) == 0) break;
                         chunk.SetBlock(x, y, z, new Air());
-                    }else if (y == dif)
+                    }
+                    else if (y == dif)
                     {
-
-                        chunk.SetBlock(x, y, z, new EmeraldBlock());
+                        chunk.SetBlock(x, y, z, new StainedGlass()
+                        {
+                            Color = "orange"
+                        });
                     }
                     else
                     {
-                        if (chunk.GetBlockId(x, y, z) == 0)
-                        {
+                        // if (chunk.GetBlockId(x, y, z) == 0)
+                        // {
                             chunk.SetBlock(x, y, z, new Stone());
-                        }
+                        // }
                     }
                 }
             }
             else
             {
-                for (var y = BiomeQualifications.baseheight; y < 255; y++)
+                for (var y = 20; y < 255; y++)
                 {
                     if (y > dif)
                     {
-                        if (nc.GetBlockId(x - xo, y, z - zo) == 0) break;
-                        nc.SetBlock(x - xo, y, z - zo, new Air());
-                    }else if (y == dif)
+                        if (nc.GetBlockId(x-xo, y, z-zo) == 0) break;
+                        nc.SetBlock(x-xo, y, z-zo, new Air());
+                    }
+                    else if (y == dif)
                     {
-
-                        nc.SetBlock(x-xo, y, z-zo, new EmeraldBlock());
+                        nc.SetBlock(x-xo, y, z-zo, new StainedGlass()
+                        {
+                            Color = "orange"
+                        });
                     }
                     else
                     {
-                        if (nc.GetBlockId(x - xo, y, z - zo) == 0)
-                        {
-                            nc.SetBlock(x - xo, y, z - zo, new Stone());
-                        }
+                        // if (chunk.GetBlockId(x, y, z) == 0)
+                        // {
+                        nc.SetBlock(x-xo, y, z-zo, new Stone());
+                        // }
                     }
                 }
             }
@@ -427,64 +436,6 @@ namespace OpenAPI.World
                     h = CreateMapFrom2Chunks(chunk, nc, pos);
                 }
 
-                // if (pos == 0)
-                // {
-                //     Console.WriteLine("OLD WAY RUNNING!");
-                //     n = BiomeManager.GetBiome(o.getChunkRTH(new ChunkColumn {X = chunk.X, Z = chunk.Z + 1}), chunk, o,
-                //         i);
-                //     if (n.LocalID == workingchunk.LocalID && pos == 0)
-                //     {
-                //         //TOP
-                //         nc = o.GenerateChunkColumn(new ChunkCoordinates {X = chunk.X, Z = chunk.Z + 1}, true);
-                //         if (nc != null)
-                //         {
-                //             pos = 1;
-                //             h = CreateMapFrom2Chunks(chunk,
-                //                 nc, pos);
-                //         }
-                //     }
-                //
-                //     n = BiomeManager.GetBiome(o.getChunkRTH(new ChunkColumn {X = chunk.X + 1, Z = chunk.Z}), chunk, o,
-                //         i);
-                //     if (n.LocalID == workingchunk.LocalID && pos == 0)
-                //     {
-                //         //RIGHT
-                //         nc = o.GenerateChunkColumn(new ChunkCoordinates {X = chunk.X + 1, Z = chunk.Z}, true);
-                //         if (nc != null)
-                //         {
-                //             pos = 2;
-                //             h = CreateMapFrom2Chunks(chunk, nc, pos);
-                //         }
-                //     }
-                //
-                //     n = BiomeManager.GetBiome(o.getChunkRTH(new ChunkColumn {X = chunk.X, Z = chunk.Z - 1}), chunk, o,
-                //         i);
-                //     if (n.LocalID == workingchunk.LocalID && pos == 0)
-                //     {
-                //         //BOTTOM
-                //         nc = o.GenerateChunkColumn(new ChunkCoordinates {X = chunk.X, Z = chunk.Z - 1}, true);
-                //         if (nc != null)
-                //         {
-                //             pos = 3;
-                //             h = CreateMapFrom2Chunks(chunk, nc, pos);
-                //         }
-                //     }
-                //
-                //     n = BiomeManager.GetBiome(o.getChunkRTH(new ChunkColumn {X = chunk.X - 1, Z = chunk.Z}), chunk, o,
-                //         i);
-                //     if (n.LocalID == workingchunk.LocalID && pos == 0)
-                //     {
-                //         //LEFT
-                //         nc = o.GenerateChunkColumn(new ChunkCoordinates {X = chunk.X - 1, Z = chunk.Z}, true);
-                //         if (nc != null)
-                //         {
-                //             pos = 4;
-                //             h = CreateMapFrom2Chunks(chunk,
-                //                 nc, pos);
-                //         }
-                //     }
-                // }
-
                 if (pos == 0)
                 {
                     Console.WriteLine("ERRRRRRRRRRRR NOOOOOOOOOOaaaaaaaa SMOOOOOOOOOOOOOOTHHHHHHHHH");
@@ -503,19 +454,10 @@ namespace OpenAPI.World
                 {
                     chunk.SetBlock(8, 111, 8, new RedstoneBlock());
                     Console.WriteLine($"SMOOTHING CHUNK {chunk.X} {chunk.Z}");
-                    var nh = SmoothMapV2(h);
+                    var nh = SmoothMapV3(h);
 
-                    // printDisplayTable(nh);
-                    var sx = chunk.X >> 16;
-                    var sz = chunk.Z >> 16;
-                    if (pos == 3 && pos == 4)
-                    {
-                        sx = nc.X >> 16;
-                        sz = nc.Z >> 16;
-                    }
-
-                    var stopx = nc.X >> (16 + 15);
-                    var stopz = nc.Z >> (16 + 15);
+                    printDisplayTable(nh,$"{chunk.X} {chunk.Z}");
+                    
 
                     // var xx = 0;
                     // var zz = 0;
@@ -544,16 +486,30 @@ namespace OpenAPI.World
 
                             if (pos == 1 || pos == 3)
                             {
-                                FormatChunk(x, z, 0, 16, dif, chunk, nc);
-                                if (pos == 1) chunk.SetBlock(8, 110, 8 + 1, new Furnace());
-                                if (pos == 3) chunk.SetBlock(8, 110, 8 - 1, new Furnace());
+                                if (pos == 1)
+                                {
+                                    chunk.SetBlock(8, 110, 8 + 1, new Furnace());
+                                    FormatChunk(x, z, 0, 16, dif, chunk, nc);
+                                }
+                                else if (pos == 3)
+                                {
+                                    chunk.SetBlock(8, 110, 8 - 1, new Furnace());
+                                    FormatChunk(x, z, 0, 16, dif, nc, chunk);
+                                }
                             }
                             else if (pos == 2 || pos == 4)
                             {
-                                FormatChunk(x, z, 16, 0, dif, chunk, nc);
                                 // if(x == 0 || x == 16 )
-                                if (pos == 2) chunk.SetBlock(8+1, 110, 8 , new Furnace());
-                                if (pos == 4) chunk.SetBlock(8+1, 110, 8 , new Furnace());
+                                if (pos == 2)
+                                {
+                                    chunk.SetBlock(8 + 1, 110, 8, new Furnace());
+                                    FormatChunk(x, z, 16, 0, dif, chunk, nc);
+                                }
+                                else if (pos == 4)
+                                {
+                                    chunk.SetBlock(8 - 1, 110, 8, new Furnace());
+                                    FormatChunk(x, z, 16, 0, dif, nc, chunk);
+                                }
                             }
 
                             // xx++;
@@ -583,7 +539,7 @@ namespace OpenAPI.World
             heightnoise.SetFractalOctaves(1);
             heightnoise.SetFractalLacunarity(2);
             heightnoise.SetFractalGain(.5f);
-            return (heightnoise.GetNoise(x, z)+1 )*(max/2f);
+            return (heightnoise.GetNoise(x, z) + 1) * (max / 2f);
             // return (float) ((OpenNoise.Evaluate(x * scale, z * scale) + 1f) * (max / 2f));
         }
     }

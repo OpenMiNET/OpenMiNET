@@ -149,7 +149,7 @@ namespace OpenAPI.World
                 int sh = (int) (BiomeQualifications.baseheight +
                                 (int) (GetNoise(c.X * 16 + x, c.Z * 16 + z, /*rth[2] / */.035f,
                                     BiomeQualifications.heightvariation)));
-                Console.WriteLine("WATTTTTTTTTEEEEEEEERRRRRRRRRRR >>>>>>>>>>>>>>> " + sh + " |||| " + rth[2]);
+                // Console.WriteLine("WATTTTTTTTTEEEEEEEERRRRRRRRRRR >>>>>>>>>>>>>>> " + sh + " |||| " + rth[2]);
                 for (short y = 0; y < 255; y++)
                 {
                     if (y == 0)
