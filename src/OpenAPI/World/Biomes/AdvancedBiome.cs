@@ -7,6 +7,7 @@ using MiNET.Blocks;
 using MiNET.Net;
 using MiNET.Utils;
 using MiNET.Worlds;
+using Org.BouncyCastle.Tsp;
 
 namespace OpenAPI.World
 {
@@ -160,14 +161,14 @@ namespace OpenAPI.World
                 // if()
                 // if (cn >= 6) cn--;
                 ChunkColumn cc;
-                if (cn == 5)
+                if (cn == 4)
                 {
                     cc = c;
                     // continue;
                 }
                 else
                 {
-                    if (cn > 5) cn--;
+                    if (cn > 4) cn--;
                     cc = ca[cn];
                 }
 
@@ -197,7 +198,7 @@ namespace OpenAPI.World
                     {
                         if (x == 0 || z == map.GetLength(0) - 1 || z == 0 || z == map.GetLength(1) - 1)
                             cc.SetBlock(rxx, y, rzz, new EmeraldBlock());
-                        else cc.SetBlock(rxx,y,rzz,new Grass());
+                        else cc.SetBlock(rxx, y, rzz, new Grass());
                     }
                     else
                     {
@@ -440,7 +441,7 @@ namespace OpenAPI.World
                         }
 
                         int fv = a;
-                        Console.WriteLine($"{x} {z} => {cv} ||| LV{lv} NV{nv} | A{a} | DV{dv} | {fv}");
+                        // Console.WriteLine($"{x} {z} => {cv} ||| LV{lv} NV{nv} | A{a} | DV{dv} | {fv}");
                         map[x, z] = fv;
                         // if (x == 0)
                         // {
@@ -467,8 +468,8 @@ namespace OpenAPI.World
 
                         // float nhx = Lerp(map[0, z], map[map.GetLength(0) - 1, z], (float) x / (map.GetLength(0) - 1));
                         // float nhz = Lerp(map[x, 0], map[x, map.GetLength(1) - 1], (float) z / (map.GetLength(1) - 1));
-
-                        // map[x, z] =
+                        //
+                        // // map[x, z] =
                         //     int v = map[x, z];
                     }
                 }
@@ -484,13 +485,59 @@ namespace OpenAPI.World
                         continue;
                     }
 
+                    int cv = map[x, z];
+                    int lvx = map[x - 1, z];
+                    int lvz = map[x, z - 1];
+                    int nvx = map[x + 1, z];
+                    int nvz = map[x, z + 1];
+                    int c1 = map[x - 1, z + 1];
+                    int c2 = map[x + 1, z + 1];
+                    int c3 = map[x - 1, z - 1];
+                    int c4 = map[x - 1, z - 1];
+                    int tvx = map[map.GetLength(0) - 1, z];
+                    int tvz = map[x, map.GetLength(1) - 1];
+                    int lndx = nvx - lvx;
+                    int lndz = nvz - lvz;
+                    int lnax = (nvx + lvx) / 2;
+                    //Smooth Z
+                    int lnaz = (nvz + lvz + lnax) / 3;
+                    newmap[x, z] = lnaz;
+                    // Console.WriteLine($" OK >> LAN> {lnax} {lnaz}");
+                    // map[x, z] = lnax;
+                    float lnaxm = lnax / (float) cv;
+                    float lnazm = lnaz / (float) cv;
+                    // int m =  
+                    int lna = (int) Math.Ceiling((lnax + lnaz + c1 + c2 + c3 + c4) / 6f);
+                    // if (nvx > lna+1)
+                    // {
+                    //     lna = lvx + 1;
+                    // }else if (nvz > lna + 1)
+                    // {
+                    //     lna = lvz + 1;
+                    // }
+                    // if (lvx + 1 < lna)
+                    // { - cv;
+                    //     lna = lvx + 1;
+                    //     if(nvx < lna)
+                    //         lna = nvx - 1;
+                    // }
+                    // if (lvz + 1 < lna)
+                    // {
+                    //     lna = lvz + 1;
+                    //     if(nvz < lna)
+                    //         lna = nvz - 1;
+                    // }
+
                     //X AXIS
-                    float nhx = Lerp(map[0, z], map[map.GetLength(0) - 1, z], (float) x / (map.GetLength(0) - 1));
-                    float nhz = Lerp(map[x, 0], map[x, map.GetLength(1) - 1], (float) z / (map.GetLength(1) - 1));
+                    // float nhx = Lerp(map[0, z], map[map.GetLength(0) - 1, z], (float) x / (map.GetLength(0) - 1));
+                    // //Z AXIS
+                    // float nhz = Lerp(map[x, 0], map[x, map.GetLength(1) - 1], (float) z / (map.GetLength(1) - 1));
+                    // newmap[x, z] = (int) Math.Floor((nhx + nhz) / 2f);
+                    // newmap[x, z] = lna;
+
                     // Console.WriteLine($"LERPING CHHUNK FROM {map[x,0]} TO {map[x,map.GetLength(1) - 1]} WITH {(float)z / map.GetLength(1)} ====== {nhz}");
                     // float nhx = Lerp(map[0, z], map[map.GetLength(0) - 1, z], x / map.GetLength(0));
                     // float nhz = Lerp(map[x, 0], map[x, map.GetLength(1) - 1], z / map.GetLength(1));
-                    newmap[x, z] = (int) Math.Floor((nhx + nhz) / 2f);
                     // newmap[x, z] = (int) Math.Floor(((float)(x+z)/(map.GetLength(0)+map.GetLength(1)))*100 + 50);
                     // newmap[x, z] = (int) Math.Floor(( nhz) );
                     // newmap[x, z] = BiomeQualifications.baseheight + x+z;
@@ -669,6 +716,7 @@ namespace OpenAPI.World
 
                     h = CreateMapFrom8Chunks(chunk, chunks);
                     var nh = SmoothMapV3(h);
+                    // nh = SmoothMapV4(nh);
 
                     printDisplayTable(h, $"C{chunk.X}{chunk.Z}Pre");
                     printDisplayTable(nh, $"C{chunk.X}{chunk.Z}Post");
@@ -762,6 +810,59 @@ namespace OpenAPI.World
 
                 Console.WriteLine("=========================||======================");
             }
+        }
+
+        private int[,] SmoothMapV4(int[,] map)
+        {
+            int[,] newmap = map;
+            for (int x = 1; x < map.GetLength(0) - 2; x++)
+            {
+                for (int z = 1; z < map.GetLength(1) - 2; z++)
+                {
+                    int cv = map[x, z];
+                    int lvx = map[x - 1, z];
+                    int nvx = map[x + 1, z];
+                    int d = -lvx + nvx;
+                    int v1 = lvx - cv;
+                    int v2 = cv - nvx;
+                    Console.WriteLine($"{x} {z} ||>> {lvx} | {cv} | {nvx} ||| {v1} VS {v2} TO");
+                    if (v1 >= 1 || v2 >= 1 || v1 <= -1 || v2 <= -1)
+                        // if ((v1 >= 1 || v2 >= 1) && (v1 <= -1 || v2 <= -1))
+                    {
+                        //Between -1 & 1
+                        newmap[x, z] = map[x, z];
+                        continue;
+                    }
+
+                    newmap[x, z] = lvx + ((d >= 0 ? 1 : -1));
+                    //Z SMOOTH NOW
+                }
+            }
+            for (int x = 1; x < map.GetLength(0) - 2; x++)
+            {
+                for (int z = 1; z < map.GetLength(1) - 2; z++)
+                {
+                    int cv = map[x, z];
+                    int lvz = map[x , z-1];
+                    int nvz = map[x , 1+z];
+                    int d = -lvz + nvz;
+                    int v1 = lvz - cv;
+                    int v2 = cv - nvz;
+                    Console.WriteLine($"{x} {z} ||>> {lvz} | {cv} | {nvz} ||| {v1} VS {v2} TO");
+                    if (v1 >= 1 || v2 >= 1 || v1 <= -1 || v2 <= -1)
+                        // if ((v1 >= 1 || v2 >= 1) && (v1 <= -1 || v2 <= -1))
+                    {
+                        //Between -1 & 1
+                        // newmap[x, z] = map[x, z];
+                        continue;
+                    }
+
+                    newmap[x, z] = lvz + ((d >= 0 ? 1 : -1));
+                    //Z SMOOTH NOW
+                }
+            }
+
+            return newmap;
         }
 
         public static AdvancedBiome GetBiome(int biomeId)
