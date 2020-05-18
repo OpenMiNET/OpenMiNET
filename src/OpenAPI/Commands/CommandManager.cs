@@ -213,6 +213,12 @@ namespace OpenAPI.Commands
 						continue;
 					}
 					isFirstParam = false;
+					
+					if (PluginManager.Services.TryResolve(parameter.ParameterType, out _))
+					{
+						//This is a depencency injected param
+						continue;
+					}
 
 					Parameter param = new Parameter();
 					param.Name = ToCamelCase(parameter.Name);
@@ -545,6 +551,12 @@ namespace OpenAPI.Commands
 						return false;
 					}
 
+					if (PluginManager.Services.TryResolve(parameter.ParameterType, out var param))
+					{
+						objectArgs[k] = param;
+						continue;
+					}
+
 					if (parameter.IsOptional && args.Length <= i)
 					{
 						objectArgs[k] = parameter.DefaultValue;
@@ -697,7 +709,7 @@ namespace OpenAPI.Commands
 			}
 			catch (Exception e)
 			{
-				if (Log.IsDebugEnabled)
+			//	if (Log.IsDebugEnabled)
 				{
 					Log.Error("Trying to execute command overload", e);
 				}
