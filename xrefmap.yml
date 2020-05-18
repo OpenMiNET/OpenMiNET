@@ -6419,6 +6419,19 @@ references:
   isSpec: "True"
   fullName: OpenAPI.World.OpenLevelManager.GetLevel
   nameWithType: OpenLevelManager.GetLevel
+- uid: OpenAPI.World.OpenLevelManager.GetLevels
+  name: GetLevels
+  href: api/OpenAPI.World.OpenLevelManager.html#OpenAPI_World_OpenLevelManager_GetLevels
+  commentId: P:OpenAPI.World.OpenLevelManager.GetLevels
+  fullName: OpenAPI.World.OpenLevelManager.GetLevels
+  nameWithType: OpenLevelManager.GetLevels
+- uid: OpenAPI.World.OpenLevelManager.GetLevels*
+  name: GetLevels
+  href: api/OpenAPI.World.OpenLevelManager.html#OpenAPI_World_OpenLevelManager_GetLevels_
+  commentId: Overload:OpenAPI.World.OpenLevelManager.GetLevels
+  isSpec: "True"
+  fullName: OpenAPI.World.OpenLevelManager.GetLevels
+  nameWithType: OpenLevelManager.GetLevels
 - uid: OpenAPI.World.OpenLevelManager.HasDefaultLevel
   name: HasDefaultLevel
   href: api/OpenAPI.World.OpenLevelManager.html#OpenAPI_World_OpenLevelManager_HasDefaultLevel
