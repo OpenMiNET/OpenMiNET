@@ -105,8 +105,8 @@ namespace OpenAPI.World
             SmoothChunk(openExperimentalWorldProvider, chunk, rth);
             t.Stop();
 
+            Console.WriteLine($"CHUNK SMOOTHING OF {chunk.X} {chunk.Z} TOOK {t.Elapsed}");
             return chunk;
-            // Console.WriteLine($"CHUNK SMOOTHING OF {chunk.X} {chunk.Z} TOOK {t.Elapsed}");
         }
 
         public async Task<ChunkColumn> prePopulate(OpenExperimentalWorldProvider openExperimentalWorldProvider,
@@ -134,9 +134,9 @@ namespace OpenAPI.World
             // ThreadPool.GetMinThreads(out minWorker, out minIOC);
             // ThreadPool.GetMaxThreads(out maxworker, out maxIOC);
             // if(minWorker != 20  && !ThreadPool.SetMinThreads(20,20))Console.WriteLine("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
-            var a = OpenServer.FastThreadPool.Settings.NumThreads;
+     
             // SmoothChunk(openExperimentalWorldProvider,chunk,rth);
-            // Console.WriteLine($"CHUNK POPULATION OF {chunk.X} {chunk.Z} TOOK {t.Elapsed} ||| {a}");
+            Console.WriteLine($"CHUNK POPULATION OF {chunk.X} {chunk.Z} TOOK {t.Elapsed}");
             return chunk;
         }
 
@@ -196,13 +196,13 @@ namespace OpenAPI.World
                     // else if (cc.GetBlockId(rx, y, rz) == 0) break;
                     else if (y == h - 1)
                     {
-                        if (x == 0 || z == map.GetLength(0) - 1 || z == 0 || z == map.GetLength(1) - 1)
-                            cc.SetBlock(rxx, y, rzz, new EmeraldBlock());
-                        else cc.SetBlock(rxx, y, rzz, new Grass());
+                        // if (x == 0 || z == map.GetLength(0) - 1 || z == 0 || z == map.GetLength(1) - 1)
+                        //     cc.SetBlock(rxx, y, rzz, new EmeraldBlock());
+                        /*else*/ cc.SetBlock(rxx, y, rzz, new Grass());
                     }
                     else
                     {
-                        if (cc.GetBlockId(rxx, y, rzz) == 0) break;
+                        if (cc.GetBlockId(rxx, y, rzz) == 0 || cc.GetBlockId(rxx, y, rzz) == new Wood().Id) break;
                         cc.SetBlock(rxx, y, rzz, new Air());
                     }
 
@@ -671,11 +671,10 @@ namespace OpenAPI.World
         {
             //Smooth Biome
 
-            if (BorderChunk && max < 255)
+            if (BorderChunk)
             {
                 max++;
                 chunk.SetBlock(8, 110, 8, new EmeraldBlock());
-                var workingchunk = BorderBiome;
                 AdvancedBiome n;
                 var nc = new ChunkColumn();
                 var pos = 0;
@@ -684,47 +683,30 @@ namespace OpenAPI.World
 
                 if (BorderType != 0)
                 {
-                    Console.WriteLine("YESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS" + BorderType);
-                    pos = BorderType;
-                    Console.WriteLine("YESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS" + pos);
                     ChunkColumn[] chunks = new ChunkColumn[8];
                     int ab = 0;
-                    chunks[0] = o.GenerateChunkColumn(new ChunkCoordinates {X = chunk.X - 1, Z = chunk.Z + 1}, false,
-                        false);
-                    chunks[1] = o.GenerateChunkColumn(new ChunkCoordinates {X = chunk.X, Z = chunk.Z + 1}, false,
-                        false);
-                    chunks[2] = o.GenerateChunkColumn(new ChunkCoordinates {X = chunk.X + 1, Z = chunk.Z + 1}, false,
-                        false);
-                    chunks[3] = o.GenerateChunkColumn(new ChunkCoordinates {X = chunk.X - 1, Z = chunk.Z}, false,
-                        false);
-                    chunks[4] = o.GenerateChunkColumn(new ChunkCoordinates {X = chunk.X + 1, Z = chunk.Z}, false,
-                        false);
-                    chunks[5] = o.GenerateChunkColumn(new ChunkCoordinates {X = chunk.X - 1, Z = chunk.Z - 1}, false,
-                        false);
-                    chunks[6] = o.GenerateChunkColumn(new ChunkCoordinates {X = chunk.X, Z = chunk.Z - 1}, false,
-                        false);
-                    chunks[7] = o.GenerateChunkColumn(new ChunkCoordinates {X = chunk.X + 1, Z = chunk.Z - 1}, false,
-                        false);
-                    bool nu = false;
-                    var ccc = 0;
-                    foreach (var cc in chunks)
-                    {
-                        if (cc == null) nu = true;
-                        else Console.WriteLine($"WAS NOT NULL {ccc++}/8");
-                    }
+                    chunks[0] = o.GenerateChunkColumn2(new ChunkCoordinates {X = chunk.X - 1, Z = chunk.Z + 1}, false);
+                    chunks[1] = o.GenerateChunkColumn2(new ChunkCoordinates {X = chunk.X, Z = chunk.Z + 1}, false);
+                    chunks[2] = o.GenerateChunkColumn2(new ChunkCoordinates {X = chunk.X + 1, Z = chunk.Z + 1}, false);
+                    chunks[3] = o.GenerateChunkColumn2(new ChunkCoordinates {X = chunk.X - 1, Z = chunk.Z}, false);
+                    chunks[4] = o.GenerateChunkColumn2(new ChunkCoordinates {X = chunk.X + 1, Z = chunk.Z}, false);
+                    chunks[5] = o.GenerateChunkColumn2(new ChunkCoordinates {X = chunk.X - 1, Z = chunk.Z - 1}, false);
+                    chunks[6] = o.GenerateChunkColumn2(new ChunkCoordinates {X = chunk.X, Z = chunk.Z - 1}, false);
+                    chunks[7] = o.GenerateChunkColumn2(new ChunkCoordinates {X = chunk.X + 1, Z = chunk.Z - 1}, false);
+                 
 
 
                     h = CreateMapFrom8Chunks(chunk, chunks);
                     var nh = SmoothMapV3(h);
-                    // nh = SmoothMapV4(nh);
+                    nh = SmoothMapV4(nh);
 
-                    printDisplayTable(h, $"C{chunk.X}{chunk.Z}Pre");
-                    printDisplayTable(nh, $"C{chunk.X}{chunk.Z}Post");
+                    // printDisplayTable(h, $"C{chunk.X}{chunk.Z}Pre");
+                    // printDisplayTable(nh, $"C{chunk.X}{chunk.Z}Post");
 
                     SetHeightMapToChunks(chunk, chunks, nh);
                 }
 
-                // if (pos == 0)
+                // if (pos == 0) 
                 // {
                 //     Console.WriteLine("ERRRRRRRRRRRR NOOOOOOOOOOaaaaaaaa SMOOOOOOOOOOOOOOTHHHHHHHHH");
                 // }
@@ -817,52 +799,117 @@ namespace OpenAPI.World
             int[,] newmap = map;
             for (int x = 1; x < map.GetLength(0) - 2; x++)
             {
+                var zstrip = SmoothStrip(Fillstripz(1,map.GetLength(1)-2,x,map));
+                int cnt = 0;
                 for (int z = 1; z < map.GetLength(1) - 2; z++)
                 {
-                    int cv = map[x, z];
-                    int lvx = map[x - 1, z];
-                    int nvx = map[x + 1, z];
-                    int d = -lvx + nvx;
-                    int v1 = lvx - cv;
-                    int v2 = cv - nvx;
-                    Console.WriteLine($"{x} {z} ||>> {lvx} | {cv} | {nvx} ||| {v1} VS {v2} TO");
-                    if (v1 >= 1 || v2 >= 1 || v1 <= -1 || v2 <= -1)
-                        // if ((v1 >= 1 || v2 >= 1) && (v1 <= -1 || v2 <= -1))
-                    {
-                        //Between -1 & 1
-                        newmap[x, z] = map[x, z];
-                        continue;
-                    }
-
-                    newmap[x, z] = lvx + ((d >= 0 ? 1 : -1));
-                    //Z SMOOTH NOW
+                    map[x, z] = zstrip[cnt];
+                    cnt++;
                 }
+                // for (int z = 1; z < map.GetLength(1) - 2; z++)
+                // {
+                //     
+                //     
+                //     
+                //     int cv = map[x, z];
+                //     int lvx = map[x - 1, z];
+                //     int nvx = map[x + 1, z];
+                //     int d = -lvx + nvx;
+                //     int v1 = lvx - cv;
+                //     int v2 = cv - nvx;
+                //     Console.WriteLine($"{x} {z} ||>> {lvx} | {cv} | {nvx} ||| {v1} VS {v2} TO");
+                //     if (v1 >= 1 || v2 >= 1 || v1 <= -1 || v2 <= -1)
+                //         // if ((v1 >= 1 || v2 >= 1) && (v1 <= -1 || v2 <= -1))
+                //     {
+                //         //Between -1 & 1
+                //         newmap[x, z] = map[x, z];
+                //         continue;
+                //     }
+                //
+                //     newmap[x, z] = lvx + ((d >= 0 ? 1 : -1));
+                //     //Z SMOOTH NOW
+                // }
             }
-            for (int x = 1; x < map.GetLength(0) - 2; x++)
+            for (int z = 1;z < map.GetLength(1) - 2; z++)
             {
-                for (int z = 1; z < map.GetLength(1) - 2; z++)
+                var xstrip = SmoothStrip(Fillstripx(1,map.GetLength(1)-2,z,map));
+                int cnt = 0;
+                for (int x = 1; x < map.GetLength(0) - 2; x++)
                 {
-                    int cv = map[x, z];
-                    int lvz = map[x , z-1];
-                    int nvz = map[x , 1+z];
-                    int d = -lvz + nvz;
-                    int v1 = lvz - cv;
-                    int v2 = cv - nvz;
-                    Console.WriteLine($"{x} {z} ||>> {lvz} | {cv} | {nvz} ||| {v1} VS {v2} TO");
-                    if (v1 >= 1 || v2 >= 1 || v1 <= -1 || v2 <= -1)
-                        // if ((v1 >= 1 || v2 >= 1) && (v1 <= -1 || v2 <= -1))
-                    {
-                        //Between -1 & 1
-                        // newmap[x, z] = map[x, z];
-                        continue;
-                    }
-
-                    newmap[x, z] = lvz + ((d >= 0 ? 1 : -1));
-                    //Z SMOOTH NOW
+                    map[x, z] = xstrip[cnt];
+                    cnt++;
                 }
             }
+            // for (int x = 1; x < map.GetLength(0) - 2; x++)
+            // {
+            //     for (int z = 1; z < map.GetLength(1) - 2; z++)
+            //     {
+            //         int cv = map[x, z];
+            //         int lvz = map[x , z-1];
+            //         int nvz = map[x , 1+z];
+            //         int d = -lvz + nvz;
+            //         int v1 = lvz - cv;
+            //         int v2 = cv - nvz;
+            //         Console.WriteLine($"{x} {z} ||>> {lvz} | {cv} | {nvz} ||| {v1} VS {v2} TO");
+            //         if (v1 >= 1 || v2 >= 1 || v1 <= -1 || v2 <= -1)
+            //             // if ((v1 >= 1 || v2 >= 1) && (v1 <= -1 || v2 <= -1))
+            //         {
+            //             //Between -1 & 1
+            //             // newmap[x, z] = map[x, z];
+            //             continue;
+            //         }
+            //
+            //         newmap[x, z] = lvz + ((d >= 0 ? 1 : -1));
+            //         //Z SMOOTH NOW
+            //     }
+            // }
 
             return newmap;
+        }
+
+        private int[] SmoothStrip(int[] fillstripz)
+        {
+            for (int i = 0; i < fillstripz.Length-1; i++)
+            {
+                if (i == 0 || i == fillstripz.Length - 1) continue;
+                int lv = fillstripz[i - 1];
+                int nv = fillstripz[i + 1];
+                int v = fillstripz[i];
+                //DOWN OR UP
+                int du = nv - lv;
+                //UP
+                if (du > 0)
+                {
+                    v = lv + 1;
+                }else if (du < 0)
+                {
+                    v = lv - 1;
+                }
+                else v = lv;
+
+                fillstripz[i] = v;
+            }
+
+            return fillstripz;
+        }
+
+        private int[] Fillstripx(int i, int getLength, int z, int[,] map)
+        {
+            List<int> strip = new List<int>();
+            for (int a = i; a < getLength; a++)
+            {
+                strip.Add(map[a,z]);
+            }
+            return strip.ToArray();
+        }
+        private int[] Fillstripz(int i, int getLength, int x, int[,] map)
+        {
+            List<int> strip = new List<int>();
+            for (int a = i; a < getLength; a++)
+            {
+                strip.Add(map[x,a]);
+            }
+            return strip.ToArray();
         }
 
         public static AdvancedBiome GetBiome(int biomeId)
@@ -882,6 +929,19 @@ namespace OpenAPI.World
             heightnoise.SetFractalGain(.5f);
             return (heightnoise.GetNoise(x, z) + 1) * (max / 2f);
             // return (float) ((OpenNoise.Evaluate(x * scale, z * scale) + 1f) * (max / 2f));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="openExperimentalWorldProvider"></param>
+        /// <param name="chunk"></param>
+        /// <param name="rth"></param>
+        /// <returns></returns>
+        public virtual ChunkColumn GenerateSurfaceItems(OpenExperimentalWorldProvider openExperimentalWorldProvider, ChunkColumn chunk, float[] rth)
+        {
+            
+            return chunk;
         }
     }
 }

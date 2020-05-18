@@ -289,6 +289,7 @@ namespace OpenAPI.World
             if (debug)
             {
                 worldProvider = new OpenExperimentalWorldProvider(123123);
+                
             }
             else
                 switch (Config.GetProperty("WorldProvider", "anvil").ToLower().Trim())
@@ -339,6 +340,8 @@ namespace OpenAPI.World
                 RandomTickSpeed = Config.GetProperty("GameRule.RandomTickSpeed", 3)
             };
 
+            
+            ((OpenExperimentalWorldProvider)worldProvider).Level = lvl;
             SetDefaultLevel((OpenLevel) lvl);
         }
     }
