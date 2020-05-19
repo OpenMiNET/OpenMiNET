@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using MiNET.Blocks;
 using MiNET.Worlds;
 
@@ -24,7 +25,7 @@ namespace OpenAPI.World
         private float dirtNoise = 0.004f;
         private float dirtNoiseHeight = 10;
         private int waterLevel = 25;
-        public MainBiome() : base("MAIN", new BiomeQualifications(0,2,0,2,40))
+        public MainBiome() : base("MAIN", new BiomeQualifications(0,2,0,2,0,2,40))
         {
             startheight = 90;
         }
@@ -32,8 +33,11 @@ namespace OpenAPI.World
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="openExperimentalWorldProvider"></param>
         /// <param name="chunk"></param>
-        public override void PopulateChunk(ChunkColumn chunk, float rain, float temp)
+        /// <param name="rtf"></param>
+        public override void PopulateChunk(OpenExperimentalWorldProvider openExperimentalWorldProvider,
+            ChunkColumn chunk, float[] rtf)
         {
             int trees = new Random().Next(0, 10);
             int[,] treeBasePositions = new int[trees, 2];
@@ -52,17 +56,17 @@ namespace OpenAPI.World
                 {
                     int stoneHeight = (int) Math.Floor(stoneBaseHeight);
                     waterLevel = stoneHeight;
-                    stoneHeight += GetNoise(chunk.X * 16 + x, chunk.Z * 16 + z, stoneMountainFrequency,
+                    stoneHeight += (int)GetNoise(chunk.X * 16 + x, chunk.Z * 16 + z, stoneMountainFrequency,
                         (int) Math.Floor(stoneMountainHeight));
 
                     if (stoneHeight < stoneMinHeight)
                         stoneHeight = (int) Math.Floor(stoneMinHeight);
 
-                    stoneHeight += GetNoise(chunk.X * 16 + x, chunk.Z * 16 + z, stoneBaseNoise,
+                    stoneHeight += (int)GetNoise(chunk.X * 16 + x, chunk.Z * 16 + z, stoneBaseNoise,
                         (int) Math.Floor(stoneBaseNoiseHeight));
 
                     int dirtHeight = stoneHeight + (int) Math.Floor(dirtBaseHeight);
-                    dirtHeight += GetNoise(chunk.X * 16 + x, chunk.Z * 16 + z, dirtNoise,
+                    dirtHeight += (int)GetNoise(chunk.X * 16 + x, chunk.Z * 16 + z, dirtNoise,
                         (int) Math.Floor(dirtNoiseHeight));
                     // int riverint = GetNoise(chunk.X * 16 + x, chunk.Z * 16 + z, dirtNoise,
                     //     10);
@@ -181,6 +185,8 @@ namespace OpenAPI.World
                     }
                 }
             }
+            //
+            // return chunk;
         }
         
         private void GenerateTree(ChunkColumn chunk, int x, int treebase, int z)

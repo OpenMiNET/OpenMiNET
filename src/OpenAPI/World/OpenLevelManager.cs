@@ -203,6 +203,12 @@ namespace OpenAPI.World
         {
             openLevel.Initialize();
 
+            if (openLevel.WorldProvider is OpenExperimentalWorldProvider)
+            {
+                var o = (OpenExperimentalWorldProvider)openLevel.WorldProvider;
+                o.Level = openLevel;
+            }
+            
             if (Config.GetProperty("CalculateLights", false) && openLevel.WorldProvider is WrappedWorldProvider wawp &&
                 wawp.WorldProvider is AnvilWorldProvider anvilWorldProvider)
             {
@@ -283,6 +289,7 @@ namespace OpenAPI.World
             if (debug)
             {
                 worldProvider = new OpenExperimentalWorldProvider(123123);
+                
             }
             else
                 switch (Config.GetProperty("WorldProvider", "anvil").ToLower().Trim())
@@ -333,6 +340,8 @@ namespace OpenAPI.World
                 RandomTickSpeed = Config.GetProperty("GameRule.RandomTickSpeed", 3)
             };
 
+            
+            ((OpenExperimentalWorldProvider)worldProvider).Level = lvl;
             SetDefaultLevel((OpenLevel) lvl);
         }
     }

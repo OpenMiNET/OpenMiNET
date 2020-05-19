@@ -18,7 +18,8 @@ namespace TestingWorldGenConsoleReal
             // Console.WriteLine("+++++++++++++++++++++++++++++++++++ "+x);
             // if (x == 48)
             // {
-                BiomeTester.start();
+                new BiomeChunkTester().start();
+                // BiomeTester.start();
             // }
             // else
             // {
@@ -254,65 +255,66 @@ namespace TestingWorldGenConsoleReal
             // // Fixed alpha value (No transparency)
             // _imageBuffer[offset+3] = 255;
         }
-
-        public static void start()
-        {
-            new BiomeManager();
-            Stopwatch s1 = new Stopwatch();
-            Stopwatch s2 = new Stopwatch();
-            Stopwatch s3 = new Stopwatch();
-            s3.Start();
-            var tg = new OpenExperimentalWorldProvider(123123);
-            var ccl = new List<ChunkColumn>();
-            for (var ax = 0; ax < MASTERX; ++ax)
-            {
-                s1.Reset();
-                s1.Start();
-                for (var az = 0; az < MASTERZ; ++az)
-                {
-                    s2.Reset();
-                    s2.Start();
-                    var c = new ChunkColumn();
-                    c.X = ax;
-                    c.Z = az;
-
-                    //CALCULATE RAIN
-                    var rainnoise = new FastNoise(123123);
-                    rainnoise.SetNoiseType(FastNoise.NoiseType.SimplexFractal);
-                    rainnoise.SetFrequency(.015f);
-                    rainnoise.SetFractalType(FastNoise.FractalType.FBM);
-                    rainnoise.SetFractalOctaves(1);
-                    rainnoise.SetFractalLacunarity(.25f);
-                    rainnoise.SetFractalGain(1);
-                    //CALCULATE TEMP
-                    var tempnoise = new FastNoise(123123 + 1);
-                    tempnoise.SetNoiseType(FastNoise.NoiseType.SimplexFractal);
-                    tempnoise.SetFrequency(.015f);
-                    tempnoise.SetFractalType(FastNoise.FractalType.FBM);
-                    tempnoise.SetFractalOctaves(1);
-                    tempnoise.SetFractalLacunarity(.25f);
-                    tempnoise.SetFractalGain(1);
-
-
-                    float rain = rainnoise.GetNoise(c.X, c.Z) + 1;
-                    float temp = tempnoise.GetNoise(c.X, c.Z) + 1;
-
-
-                    tg.PopulateChunk(c, rain, temp);
-                    ccl.Add(c);
-                    s2.Stop();
-                    // Console.WriteLine($"1111111ZZZZZZZZ === WARNING IT TOOOKKKK {s2.Elapsed} FOR 1 CHUNK");
-                }
-
-                s1.Stop();
-                Console.WriteLine(
-                    $"1111111XXXXXXXXXXXXXXXXXXXXXXXXXXXX !!!! TOOOOOKKKK {s1.Elapsed} FOR {MASTERZ} CHUNKS FOR ROW {ax}");
-            }
-
-            Console.WriteLine("Chunk Generation Done!");
-            CalcuateHeightImage(ccl);
-            s3.Stop();
-            Console.WriteLine("ERROR YO THIS TOOK " + s3.Elapsed);
-        }
+        //
+        // public static void start()
+        // {
+        //     new BiomeManager();
+        //     Stopwatch s1 = new Stopwatch();
+        //     Stopwatch s2 = new Stopwatch();
+        //     Stopwatch s3 = new Stopwatch();
+        //     s3.Start();
+        //     var tg = new OpenExperimentalWorldProvider(123123);
+        //     var ccl = new List<ChunkColumn>();
+        //     for (var ax = 0; ax < MASTERX; ++ax)
+        //     {
+        //         s1.Reset();
+        //         s1.Start();
+        //         for (var az = 0; az < MASTERZ; ++az)
+        //         {
+        //             s2.Reset();
+        //             s2.Start();
+        //             var c = new ChunkColumn();
+        //             c.X = ax;
+        //             c.Z = az;
+        //
+        //             //CALCULATE RAIN
+        //             var rainnoise = new FastNoise(123123);
+        //             rainnoise.SetNoiseType(FastNoise.NoiseType.SimplexFractal);
+        //             rainnoise.SetFrequency(.015f);
+        //             rainnoise.SetFractalType(FastNoise.FractalType.FBM);
+        //             rainnoise.SetFractalOctaves(1);
+        //             rainnoise.SetFractalLacunarity(.25f);
+        //             rainnoise.SetFractalGain(1);
+        //             //CALCULATE TEMP
+        //             var tempnoise = new FastNoise(123123 + 1);
+        //             tempnoise.SetNoiseType(FastNoise.NoiseType.SimplexFractal);
+        //             tempnoise.SetFrequency(.015f);
+        //             tempnoise.SetFractalType(FastNoise.FractalType.FBM);
+        //             tempnoise.SetFractalOctaves(1);
+        //             tempnoise.SetFractalLacunarity(.25f);
+        //             tempnoise.SetFractalGain(1);
+        //
+        //
+        //             float rain = rainnoise.GetNoise(c.X, c.Z) + 1;
+        //             float temp = tempnoise.GetNoise(c.X, c.Z) + 1;
+        //
+        //
+        //             tg.PopulateChunk(c, rain, temp);
+        //             ccl.Add(c);
+        //             s2.Stop();
+        //             // Console.WriteLine($"1111111ZZZZZZZZ === WARNING IT TOOOKKKK {s2.Elapsed} FOR 1 CHUNK");
+        //         }
+        //
+        //         s1.Stop();
+        //         Console.WriteLine(
+        //             $"1111111XXXXXXXXXXXXXXXXXXXXXXXXXXXX !!!! TOOOOOKKKK {s1.Elapsed} FOR {MASTERZ} CHUNKS FOR ROW {ax}");
+        //     }
+        //
+        //     Console.WriteLine("Chunk Generation Done!");
+        //     CalcuateHeightImage(ccl);
+        //     s3.Stop();
+        //     Console.WriteLine("ERROR YO THIS TOOK " + s3.Elapsed);
+        // }
+        //
     }
 }
