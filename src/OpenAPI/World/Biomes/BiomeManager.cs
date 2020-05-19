@@ -23,7 +23,6 @@ namespace OpenAPI.World
             AddBiome(new Plains());
             AddBiome(new HighPlains());
             AddBiome(new WaterBiome());
-            AddBiome(new ForestBiome());
             AddBiome(new SnowForest());
             AddBiome(new SnowTundra());
             AddBiome(new SnowyIcyChunk());
@@ -80,14 +79,22 @@ namespace OpenAPI.World
             
             float rain = rainnoise.GetNoise(chunk.X, chunk.Z) + 1;
             float temp = tempnoise.GetNoise(chunk.X, chunk.Z) + 1;
-            float height = GetNoise(chunk.X, chunk.Z, 0.015f,2);;
+            float height = GetChunkHeightNoise(chunk.X, chunk.Z, 0.015f,2);;
             return new []{rain, temp, height};
         }
 
          private static readonly OpenSimplexNoise OpenNoise = new OpenSimplexNoise("a-seed".GetHashCode());
 
 
-         public static float GetNoise(int x, int z, float scale, int max)
+         /// <summary>
+         /// 
+         /// </summary>
+         /// <param name="x"></param>
+         /// <param name="z"></param>
+         /// <param name="scale"></param>
+         /// <param name="max"></param>
+         /// <returns></returns>
+         public static float GetChunkHeightNoise(int x, int z, float scale, int max)
          {//CALCULATE HEIGHT
              var heightnoise = new FastNoise(123123 + 2);
              heightnoise.SetNoiseType(FastNoise.NoiseType.SimplexFractal);
@@ -99,6 +106,48 @@ namespace OpenAPI.World
              return (heightnoise.GetNoise(x, z)+1 )*(max/2f);
              return (float)(OpenNoise.Evaluate(x * scale, z * scale) + 1f) * (max / 2f);
          }
+           /// <summary>
+           /// 
+           /// </summary>
+           /// <param name="x"></param>
+           /// <param name="z"></param>
+           /// <param name="max"></param>
+           /// <returns></returns>
+           public static float GetHeightNoiseBlock(int x, int z)
+           {//CALCULATE HEIGHT
+             
+               var heightnoise = new FastNoise(123123 + 2);
+               heightnoise.SetNoiseType(FastNoise.NoiseType.SimplexFractal);
+               heightnoise.SetFrequency(.015f/16);
+               heightnoise.SetFractalType(FastNoise.FractalType.FBM);
+               heightnoise.SetFractalOctaves(1);
+               heightnoise.SetFractalLacunarity(2);
+               heightnoise.SetFractalGain(.5f);
+               return (heightnoise.GetNoise(x, z)+1 );
+                              
+               // return (float)(OpenNoise.Evaluate(x * scale, z * scale) + 1f) * (max / 2f);
+           }public static float GetRainNoiseBlock(int x, int z)
+           {//CALCULATE RAIN
+               var rainnoise = new FastNoise(123123);
+               rainnoise.SetNoiseType(FastNoise.NoiseType.SimplexFractal);
+               rainnoise.SetFrequency(.007f/16); //.015
+               rainnoise.SetFractalType(FastNoise.FractalType.FBM);
+               rainnoise.SetFractalOctaves(1);
+               rainnoise.SetFractalLacunarity(.25f);
+               rainnoise.SetFractalGain(1);
+               return (rainnoise.GetNoise(x, z)+1 );
+           }
+           public static float GetTempNoiseBlock(int x, int z)
+           {//CALCULATE TEMP
+               var tempnoise = new FastNoise(123123 + 1);
+               tempnoise.SetNoiseType(FastNoise.NoiseType.SimplexFractal);
+               tempnoise.SetFrequency(.004f/16); //.015f
+               tempnoise.SetFractalType(FastNoise.FractalType.FBM);
+               tempnoise.SetFractalOctaves(1);
+               tempnoise.SetFractalLacunarity(.25f);
+               tempnoise.SetFractalGain(1);
+               return (tempnoise.GetNoise(x, z)+1 );
+           }
          
         //CHECKED 5/10 @ 5:23 And this works fine!
         public static AdvancedBiome GetBiome(ChunkColumn chunk)

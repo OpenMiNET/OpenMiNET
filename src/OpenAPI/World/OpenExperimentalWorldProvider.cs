@@ -7,6 +7,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 using fNbt;
 using log4net;
 using MiNET.BlockEntities;
@@ -20,7 +21,6 @@ namespace OpenAPI.World
 {
     public class OpenExperimentalWorldProvider : IWorldProvider
     {
-
         private bool _isInitialized = false;
         private object _initializeSync = new object();
 
@@ -82,7 +82,7 @@ namespace OpenAPI.World
         {
             return LevelInfo.LevelName;
         }
-        
+
         public Vector3 GetSpawnPoint()
         {
             var spawnPoint = new Vector3(LevelInfo.SpawnX, LevelInfo.SpawnY + 2 /* + WaterOffsetY*/, LevelInfo.SpawnZ);
@@ -99,6 +99,7 @@ namespace OpenAPI.World
 
             return spawnPoint;
         }
+
         private static readonly Random getrandom = new Random();
         private static readonly object syncLock = new object();
 
@@ -115,6 +116,43 @@ namespace OpenAPI.World
         public ConcurrentDictionary<ChunkCoordinates, ChunkColumn> _chunkCache =
             new ConcurrentDictionary<ChunkCoordinates, ChunkColumn>();
 
+        private HighPrecisionTimer _tickerHighPrecisionTimer;
+
+        public void Run(object o)
+        {
+            if (Level != null && _isInitialized)
+            {
+                Log.Info("RE-ADDER RAN=========================================");
+                List<String> Completed = new List<string>();
+                foreach (var v in new Dictionary<String, List<Block>>(BlocksToBeAddedDuringChunkGeneration))
+                {
+                    var chunkkey = v.Key;
+                    ChunkCoordinates cc = new ChunkCoordinates(int.Parse(chunkkey.Split("|")[0]),
+                        int.Parse(chunkkey.Split("|")[1]));
+                    var c = GenerateChunkColumn(cc, true);
+                    if (c != null)
+                    {
+                        foreach (var block in BlocksToBeAddedDuringChunkGeneration[v.Key])
+                        {
+                            var ccc = block.Coordinates;
+                            int ax = (ccc.X % 16);
+                            if (ax < 0) ax += 16;
+                            int az = (ccc.Z % 16);
+                            if (az < 0) az += 16;
+                            c.SetBlock(ax, ccc.Y, az, block);
+                            Log.Info($"=================================SETTING BLOCK AT {c} || {ax} {az} || {block.Id}");
+                        }
+                        // Completed.Add(v.Key);
+                        BlocksToBeAddedDuringChunkGeneration[chunkkey].Clear();
+                    }
+                }
+
+                // foreach (var comp in Completed)
+                // {
+                //     BlocksToBeAddedDuringChunkGeneration[comp].Clear();
+                // }
+            }
+        }
 
         private float dirtBaseHeight = 3;
         private float dirtNoise = 0.004f;
@@ -133,6 +171,8 @@ namespace OpenAPI.World
         {
             Seed = seed;
             BasePath = Config.GetProperty("PCWorldFolder", "World").Trim();
+
+            _tickerHighPrecisionTimer = new HighPrecisionTimer(50 * 10, Run, false, false);
         }
 
         public string BasePath { get; set; }
@@ -193,17 +233,74 @@ namespace OpenAPI.World
         public ChunkColumn GenerateChunkColumn2(ChunkCoordinates chunkCoordinates, bool smooth = true,
             bool cacheOnly = false)
         {
-            var v = NOWGenerateChunkColumn(chunkCoordinates,smooth,cacheOnly);
+            var v = NOWGenerateChunkColumn(chunkCoordinates, smooth, cacheOnly);
             if (v == null) return null;
-            Console.WriteLine("CHUNK IS NOT NULL");
+            // Console.WriteLine($"CHUNK IS NOT NULL  {chunkCoordinates}");
 
+            //Move into method About 2 \/\/\/
             v.Generated = true;
-            if(v.Generated && !v.SurfaceItemsGenerated)v = PreGenerateSurfaceItems(this, v, null);
+            if (v.Generated && !v.SurfaceItemsGenerated) v = PreGenerateSurfaceItems(this, v, null);
 
-            Console.WriteLine("Done PreGen!");
+            // Console.WriteLine($"Done PreGen! {chunkCoordinates}");
             _chunkCache[chunkCoordinates] = v;
             return v;
         }
+
+        public static void AddBlocksToBeAddedDuringChunkGeneration(ChunkCoordinates chunkCoordinates,
+            List<Block> blocks)
+        {
+            var c = chunkCoordinates.X + "|" + chunkCoordinates.Z;
+            if (!BlocksToBeAddedDuringChunkGeneration.ContainsKey(c))
+                BlocksToBeAddedDuringChunkGeneration[c] = new List<Block>();
+
+            foreach (var block in blocks)
+            {
+                OpenExperimentalWorldProvider
+                    .BlocksToBeAddedDuringChunkGeneration[c].Add(block);
+            }
+        }
+
+        public static void AddBlocksToBeAddedDuringChunkGeneration(String c, List<Block> blocks)
+        {
+            if (!BlocksToBeAddedDuringChunkGeneration.ContainsKey(c))
+                BlocksToBeAddedDuringChunkGeneration[c] = new List<Block>();
+
+            foreach (var block in blocks)
+            {
+                OpenExperimentalWorldProvider
+                    .BlocksToBeAddedDuringChunkGeneration[c].Add(block);
+            }
+        }
+
+        /// <summary>
+        /// Key is X|Z
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="block"></param>
+        public static void AddBlockToBeAddedDuringChunkGeneration(String c, Block block)
+        {
+            if (!BlocksToBeAddedDuringChunkGeneration.ContainsKey(c))
+                BlocksToBeAddedDuringChunkGeneration[c] = new List<Block>();
+
+            OpenExperimentalWorldProvider
+                .BlocksToBeAddedDuringChunkGeneration[c].Add(block);
+        }
+
+        public static void AddBlockToBeAddedDuringChunkGeneration(ChunkCoordinates chunkCoordinates, Block block)
+        {
+            var c = chunkCoordinates.X + "|" + chunkCoordinates.Z;
+            if (!BlocksToBeAddedDuringChunkGeneration.ContainsKey(c))
+                BlocksToBeAddedDuringChunkGeneration[c] = new List<Block>();
+
+            OpenExperimentalWorldProvider
+                .BlocksToBeAddedDuringChunkGeneration[c].Add(block);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static Dictionary<String, List<Block>> BlocksToBeAddedDuringChunkGeneration =
+            new Dictionary<String, List<Block>>();
 
         public ChunkColumn NOWGenerateChunkColumn(ChunkCoordinates chunkCoordinates, bool smooth = true,
             bool cacheOnly = false)
@@ -216,7 +313,28 @@ namespace OpenAPI.World
             chunk = PreGetChunk(chunkCoordinates, BasePath).Result;
             if (chunk != null)
             {
-                _chunkCache[chunkCoordinates]  = chunk;
+                // if (BlocksToBeAddedDuringChunkGeneration.ContainsKey(chunkCoordinates.X + "|" + chunkCoordinates.Z))
+                // {
+                //     var aaa = BlocksToBeAddedDuringChunkGeneration[chunkCoordinates.X + "|" + chunkCoordinates.Z];
+                //     if (aaa.Count != 0)
+                //     {
+                //         Log.Info($"{chunkCoordinates} HAS2 {aaa.Count} TO ADD");
+                //         foreach (var a in aaa)
+                //         {
+                //             var c = a.Coordinates;
+                //             int ax = (c.X % 16);
+                //             if (ax < 0) ax += 15;
+                //             int az = (c.Z % 16);
+                //             if (az < 0) az += 15;
+                //             chunk.SetBlock(ax, c.Y, az, a);
+                //             Log.Info($"SETTING2 BLOCK AT {c} || {ax} {az} || {a.Id}");
+                //         }
+                //     }
+                //
+                //     BlocksToBeAddedDuringChunkGeneration[chunkCoordinates.X + "|" + chunkCoordinates.Z].Clear();
+                // }
+
+                _chunkCache[chunkCoordinates] = chunk;
                 return chunk;
             }
 
@@ -226,14 +344,37 @@ namespace OpenAPI.World
             chunk.Z = chunkCoordinates.Z;
             var rth = getChunkRTH(chunk);
 
-Console.WriteLine("STARTING POPULATIOaN");
+            // Console.WriteLine("STARTING POPULATIOaN");
             chunk = PopulateChunk(this, chunk, rth).Result;
 
             if (smooth)
             {
-                Console.WriteLine("STARTING SMOOTHING");
+                // Console.WriteLine("STARTING SMOOTHING");
                 chunk = SmoothChunk(this, chunk, rth).Result;
             }
+
+            // if (BlocksToBeAddedDuringChunkGeneration.ContainsKey(chunkCoordinates.X + "|" + chunkCoordinates.Z))
+            // {
+            //     var aaa = BlocksToBeAddedDuringChunkGeneration[chunkCoordinates.X + "|" + chunkCoordinates.Z];
+            //     if (aaa.Count != 0)
+            //     {
+            //         Log.Info($"{chunkCoordinates} HAS {aaa.Count} TO ADD");
+            //         foreach (var a in aaa)
+            //         {
+            //             var c = a.Coordinates;
+            //             int ax = (c.X % 16);
+            //             if (ax < 0) ax += 16;
+            //             int az = (c.Z % 16);
+            //             if (az < 0) az += 16;
+            //             chunk.SetBlock(ax, c.Y, az, a);
+            //             Log.Info($"SETTING BLOCK AT {c} || {ax} {az} || {a.Id}");
+            //         }
+            //
+            //         BlocksToBeAddedDuringChunkGeneration[chunkCoordinates.X + "|" + chunkCoordinates.Z].Clear();
+            //     }
+            // }
+
+
             Console.WriteLine("FINISHED & 1st Return of Chunk");
 
             return chunk;
@@ -529,6 +670,7 @@ Console.WriteLine("STARTING POPULATIOaN");
         {
             return await GetChunk(coordinates, basePath);
         }
+
         public async Task<ChunkColumn> GetChunk(ChunkCoordinates coordinates, string basePath)
         {
             try
@@ -876,20 +1018,20 @@ Console.WriteLine("STARTING POPULATIOaN");
 
 // Console.WriteLine($"GENERATORED YO BITCH >> {chunk.X} {chunk.Z}");
         }
-        public  ChunkColumn PreGenerateSurfaceItems(OpenExperimentalWorldProvider openExperimentalWorldProvider,
+
+        public ChunkColumn PreGenerateSurfaceItems(OpenExperimentalWorldProvider openExperimentalWorldProvider,
             ChunkColumn chunk,
             float[] rth)
         {
-            
-            var a =  GenerateSurfaceItems(openExperimentalWorldProvider, chunk, rth);
-            a.SurfaceItemsGenerated = true;
+            chunk.SurfaceItemsGenerated = true;
+            var a = GenerateSurfaceItems(openExperimentalWorldProvider, chunk, rth);
             return a;
             // b.PopulateChunk(chunk, rain, temp);
 
 // Console.WriteLine($"GENERATORED YO BITCH >> {chunk.X} {chunk.Z}");
         }
 
-        public  ChunkColumn GenerateSurfaceItems(OpenExperimentalWorldProvider openExperimentalWorldProvider,
+        public ChunkColumn GenerateSurfaceItems(OpenExperimentalWorldProvider openExperimentalWorldProvider,
             ChunkColumn chunk,
             float[] rth)
         {
@@ -901,7 +1043,7 @@ Console.WriteLine("STARTING POPULATIOaN");
 
 // Console.WriteLine($"GENERATORED YO BITCH >> {chunk.X} {chunk.Z}");
         }
-        
+
         private void GenerateTree(ChunkColumn chunk, int x, int treebase, int z)
         {
             var treeheight = GetRandomNumber(4, 5);

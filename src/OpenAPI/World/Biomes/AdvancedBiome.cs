@@ -105,7 +105,7 @@ namespace OpenAPI.World
             SmoothChunk(openExperimentalWorldProvider, chunk, rth);
             t.Stop();
 
-            Console.WriteLine($"CHUNK SMOOTHING OF {chunk.X} {chunk.Z} TOOK {t.Elapsed}");
+            // Console.WriteLine($"CHUNK SMOOTHING OF {chunk.X} {chunk.Z} TOOK {t.Elapsed}");
             return chunk;
         }
 
@@ -136,7 +136,7 @@ namespace OpenAPI.World
             // if(minWorker != 20  && !ThreadPool.SetMinThreads(20,20))Console.WriteLine("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
      
             // SmoothChunk(openExperimentalWorldProvider,chunk,rth);
-            Console.WriteLine($"CHUNK POPULATION OF {chunk.X} {chunk.Z} TOOK {t.Elapsed}");
+            // Console.WriteLine($"CHUNK POPULATION OF {chunk.X} {chunk.Z} TOOK {t.Elapsed}");
             return chunk;
         }
 

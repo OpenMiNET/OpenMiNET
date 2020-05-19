@@ -28,7 +28,6 @@ namespace OpenAPI.World
 	public class OpenLevel : Level
 	{
 		private static readonly ILog Log = LogManager.GetLogger(typeof(OpenLevel));
-		
 		public EventDispatcher EventDispatcher { get; }
 		public TickScheduler TickScheduler { get; }
 		public OpenApi OpenAPI { get; }
@@ -58,7 +57,11 @@ namespace OpenAPI.World
 			{
 				wrapped.Level = this;
 			}
+			
+			
 		}
+
+		
 
 		private bool _closed;
 	/*	public override void AddEntity(Entity entity)
