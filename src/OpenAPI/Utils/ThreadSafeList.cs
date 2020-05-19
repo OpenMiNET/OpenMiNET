@@ -33,442 +33,245 @@ namespace OpenAPI.Utils
 	// Modified by: Kenny van Vulpen (https://github.com/kennyvv/)
 
 	#endregion
-
-	/// <summary>
-	/// 	WARNING: NOT ACTUALLY THREADSAFE
-	/// </summary>
-	/// <typeparam name="T"></typeparam>
+	
 	[DebuggerDisplay("Count={Count}")]
 	public sealed class ThreadSafeList<T> : IList<T>
-	{
-		private IList<T> Items { get; }
-		private FastRandom Random { get; } = new FastRandom();
-		private ReaderWriterLockSlim RwLock { get; } = new ReaderWriterLockSlim();
+    {
+        private readonly ReaderWriterLockSlim _lock;
+        private readonly List<T> _list;
+ 
+        public ThreadSafeList()
+        {
+            _list = new List<T>();
+            _lock = new ReaderWriterLockSlim();
+        }
 
-		public ThreadSafeList(IList<T> dataHolder)
-		{
-			Items = dataHolder;
-		}
+        public ThreadSafeList(IEnumerable<T> items)
+        {
+            _list = new List<T>(items);
+            _lock = new ReaderWriterLockSlim();
+        }
+ 
+        public int Count
+        {
+            get
+            {
+                _lock.EnterReadLock();
+ 
+                int count;
+                try
+                {
+                    count = _list.Count;
+                }
+                finally
+                {
+                    _lock.ExitReadLock();
+                }
+ 
+                return count;
+            }
+        }
+ 
+        public bool IsReadOnly
+        {
+            get
+            {
+                return false;
+            }
+        }
+ 
+        public T this[int index]
+        {
+            get
+            {
+                _lock.EnterReadLock();
+ 
+                T result;
+                try
+                {
+                    result = _list[index];
+                }
+                finally
+                {
+                    _lock.ExitReadLock();
+                }
+ 
+                return result;
+            }
+            set
+            {
+                _lock.EnterWriteLock();
+ 
+                try
+                {
+                    _list[index] = value;
+                }
+                finally
+                {
+                    _lock.ExitWriteLock();
+                }
+            }
+        }
 
-		public ThreadSafeList() : this(new List<T>()) { }
+        public bool TryAdd(T item)
+        {
+            _lock.EnterWriteLock();
 
-		public long LongCount
-		{
-			get
-			{
-				using (RwLock.Read())
-				{
-					return Items.LongCount();
-				}
-			}
-		}
-
-		public int Count
-		{
-			get
-			{
-				using (RwLock.Read())
-				{
-					return Items.Count;
-				}
-			}
-		}
-
-		public bool IsReadOnly => false;
-
-		public T this[int index]
-		{
-			get
-			{
-				using (RwLock.Read())
-				{
-					return Items[index];
-				}
-			}
-
-			set
-			{
-				using (RwLock.Write())
-				{
-					Items[index] = value;
-				}
-			}
-		}
-
-		public void Add(T item)
-		{
-			using (RwLock.Write())
-			{
-				Items.Add(item);
-			}
-		}
-
-		public void Clear()
-		{
-			using (RwLock.Write())
-			{
-				Items.Clear();
-			}
-		}
-
-		public bool Contains(T item)
-		{
-			using (RwLock.Read())
-			{
-				return Items.Contains(item);
-			}
-		}
-
-		public void CopyTo(T[] array, int arrayIndex)
-		{
-			using (RwLock.Read())
-			{
-				Items.CopyTo(array, arrayIndex);
-			}
-		}
-
-		public IEnumerator<T> GetEnumerator()
-		{
-			return Clone().GetEnumerator();
-		}
-
-		IEnumerator IEnumerable.GetEnumerator()
-		{
-			return GetEnumerator();
-		}
-
-		public int IndexOf(T item)
-		{
-			using (RwLock.Read())
-			{
-				return Items.IndexOf(item);
-			}
-		}
-
-		public void Insert(int index, T item)
-		{
-			using (RwLock.Write())
-			{
-				Items.Insert(index, item);
-			}
-		}
-
-		public bool Remove(T item)
-		{
-			using (RwLock.Write())
-			{
-				return Items.Remove(item);
-			}
-		}
-
-		public void RemoveAt(int index)
-		{
-			using (RwLock.Write())
-			{
-				Items.RemoveAt(index);
-			}
-		}
-
-		public Task AddAsync(T item)
-		{
-			return Task.Run(() => { TryAdd(item); });
-		}
-
-		/// <summary>
-		///     Add in an enumerable of items.
-		/// </summary>
-		/// <param name="collection"></param>
-		/// <param name="asParallel"></param>
-		public void AddRange(IEnumerable<T> collection, bool asParallel = true)
-		{
-			if (null == collection)
-			{
-				return;
-			}
-			using (RwLock.Write())
-			{
-				Items.AddRange(asParallel ? collection.AsParallel() : collection);
-			}
-		}
-
-		/// <summary>
-		///     Returns a new copy of all items in the <see cref="List{T}" />.
-		/// </summary>
-		/// <returns></returns>
-		public List<T> Clone(bool asParallel = true)
-		{
-			using (RwLock.Read())
-			{
-				return asParallel ? new List<T>(Items.AsParallel()) : new List<T>(Items);
-			}
-		}
-
-		/// <summary>
-		///     Perform the <paramref name="action" /> on each item in the list.
-		/// </summary>
-		/// <param name="action"><paramref name="action" /> to perform on each item.</param>
-		/// <param name="performActionOnClones">
-		///     If true, the <paramref name="action" /> will be performed on a <see cref="Clone" /> of
-		///     the items.
-		/// </param>
-		/// <param name="asParallel">Use the <see cref="ParallelQuery{TSource}" /> method.</param>
-		/// <param name="inParallel">
-		///     Use the
-		///     <see
-		///         cref="Parallel.ForEach{TSource}(System.Collections.Generic.IEnumerable{TSource},System.Action{TSource})" />
-		///     method.
-		/// </param>
-		public void ForAll(Action<T> action, bool performActionOnClones = true, bool asParallel = true,
-			bool inParallel = false)
-		{
-			if (action == null)
-			{
-				throw new ArgumentNullException("action");
-			}
-			Action<T> wrapper = obj =>
-			{
-				try
-				{
-					action(obj);
-				}
-				catch (ArgumentNullException)
-				{
-					//if a null gets into the list then swallow an ArgumentNullException so we can continue adding
-				}
-			};
-			if (performActionOnClones)
-			{
-				List<T> clones = Clone(asParallel);
-				if (asParallel)
-				{
-					clones.AsParallel().ForAll(wrapper);
-				}
-				else if (inParallel)
-				{
-					Parallel.ForEach(clones, wrapper);
-				}
-				else
-				{
-					clones.ForEach(wrapper);
-				}
-			}
-			else
-			{
-				using (RwLock.Read())
-				{
-					if (asParallel)
-					{
-						Items.AsParallel().ForAll(wrapper);
-					}
-					else if (inParallel)
-					{
-						Parallel.ForEach(Items, wrapper);
-					}
-					else
-					{
-						Items.ForEach(wrapper);
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		///     Perform the <paramref name="action" /> on each item in the list.
-		/// </summary>
-		/// <param name="action">
-		///     <paramref name="action" /> to perform on each item.
-		/// </param>
-		/// <param name="performActionOnClones">
-		///     If true, the <paramref name="action" /> will be performed on a <see cref="Clone" /> of the items.
-		/// </param>
-		/// <param name="asParallel">
-		///     Use the <see cref="ParallelQuery{TSource}" /> method.
-		/// </param>
-		/// <param name="inParallel">
-		///     Use the
-		///     <see
-		///         cref="Parallel.ForEach{TSource}(System.Collections.Generic.IEnumerable{TSource},System.Action{TSource})" />
-		///     method.
-		/// </param>
-		public void ForEach(Action<T> action, bool performActionOnClones = true, bool asParallel = true,
-			bool inParallel = false)
-		{
-			if (action == null)
-			{
-				throw new ArgumentNullException("action");
-			}
-			Action<T> wrapper = obj =>
-			{
-				try
-				{
-					action(obj);
-				}
-				catch (ArgumentNullException)
-				{
-					//if a null gets into the list then swallow an ArgumentNullException so we can continue adding
-				}
-			};
-			if (performActionOnClones)
-			{
-				List<T> clones = Clone(asParallel);
-				if (asParallel)
-				{
-					clones.AsParallel().ForAll(wrapper);
-				}
-				else if (inParallel)
-				{
-					Parallel.ForEach(clones, wrapper);
-				}
-				else
-				{
-					clones.ForEach(wrapper);
-				}
-			}
-			else
-			{
-				using (RwLock.Read())
-				{
-					if (asParallel)
-					{
-						Items.AsParallel().ForAll(wrapper);
-					}
-					else if (inParallel)
-					{
-						Parallel.ForEach(Items, wrapper);
-					}
-					else
-					{
-						Items.ForEach(wrapper);
-					}
-				}
-			}
-		}
-
-		public bool TryAdd(T item)
-		{
-			bool written = false;
-			try
-			{
-				RwLock.EnterUpgradeableReadLock();
-				if (!Items.Contains(item))
-				{
-					try
-					{
-						RwLock.EnterWriteLock();
-						Items.Add(item);
-						written = true;
-					}
-					finally
-					{
-						RwLock.ExitWriteLock();
-					}
-				}
-			}
-			catch (NullReferenceException)
-			{
-			}
-			catch (ObjectDisposedException)
-			{
-			}
-			catch (ArgumentNullException)
-			{
-			}
-			catch (ArgumentOutOfRangeException)
-			{
-			}
-			catch (ArgumentException)
-			{
-			}
-			finally
-			{
-				RwLock.ExitUpgradeableReadLock();
-			}
-
-			return written;
-		}
-
-		public bool TryTake(out T item)
-		{
-			using (RwLock.Read())
-			{
-				int count = Items.Count;
-				if (count >= 1)
-				{
-					int idx = Random.Next(0, count);
-					item = Items[idx];
-					Items.RemoveAt(idx);
-					return true;
-				}
-			}
-			item = default(T);
-			return false;
-		}
-
-		/// <summary>
-		///     Remove one item, and return a list-copy of the rest.
-		/// </summary>
-		/// <param name="item"></param>
-		/// <param name="rest"></param>
-		/// <returns></returns>
-		public bool TryTakeOneCopyRest(out T item, out List<T> rest)
-		{
-			using (RwLock.Write())
-			{
-				int count = Items.Count;
-				if (count >= 1)
-				{
-					item = Items[0];
-					Items.RemoveAt(0);
-					rest = new List<T>(Items);
-					return true;
-				}
-			}
-			item = default(T);
-			rest = default(List<T>);
-			return false;
-		}
-
-		public T[] TakeAndClear()
-		{
-			T[] result;
-			using (RwLock.Write())
-			{
-				result = Items.ToArray();
-				Items.Clear();
-			}
-
-			return result;
-		}
-
-		public void Add(IEnumerable<T> items)
-		{
-			try
-			{
-				RwLock.EnterUpgradeableReadLock();
-				foreach (var item in items)
-				{
-					if (Items.Contains(item))
-					{
-						continue;
-					}
-					else
-					{
-						RwLock.EnterWriteLock();
-						try
-						{
-							Items.Add(item);
-						}
-						finally
-						{
-							RwLock.ExitWriteLock();
-						}
-					}
-				}
-			}
-			finally
-			{
-				RwLock.ExitUpgradeableReadLock();
-			}
-		}
-	}
+            try
+            {
+                if (_list.Contains(item))
+                    return false;
+                
+                _list.Add(item);
+                return true;
+            }
+            finally
+            {
+                _lock.ExitWriteLock();
+            }
+        }
+        
+        public void Add(T item)
+        {
+            _lock.EnterWriteLock();
+ 
+            try
+            {
+                _list.Add(item);
+            }
+            finally
+            {
+                _lock.ExitWriteLock();
+            }
+        }
+ 
+        public int IndexOf(T item)
+        {
+            _lock.EnterReadLock();
+ 
+            int result;
+            try
+            {
+                result = _list.IndexOf(item);
+            }
+            finally
+            {
+                _lock.ExitReadLock();
+            }
+ 
+            return result;
+        }
+ 
+        public void Insert(int index, T item)
+        {
+            _lock.EnterWriteLock();
+ 
+            try
+            {
+                _list.Insert(index, item);
+            }
+            finally
+            {
+                _lock.ExitWriteLock();
+            }
+        }
+ 
+        public void RemoveAt(int index)
+        {
+            _lock.EnterWriteLock();
+ 
+            try
+            {
+                _list.RemoveAt(index);
+            }
+            finally
+            {
+                _lock.ExitWriteLock();
+            }
+        }
+ 
+        public void Clear()
+        {
+            _lock.EnterWriteLock();
+ 
+            try
+            {
+                _list.Clear();
+            }
+            finally
+            {
+                _lock.ExitWriteLock();
+            }
+        }
+ 
+        public bool Contains(T item)
+        {
+            _lock.EnterReadLock();
+ 
+            bool result;
+            try
+            {
+                result = _list.Contains(item);
+            }
+            finally
+            {
+                _lock.ExitReadLock();
+            }
+ 
+            return result;
+        }
+ 
+        public void CopyTo(T[] array, int arrayIndex)
+        {
+            _lock.EnterWriteLock();
+ 
+            try
+            {
+                _list.CopyTo(array, arrayIndex);
+            }
+            finally
+            {
+                _lock.ExitWriteLock();
+            }
+        }
+ 
+        public bool Remove(T item)
+        {
+            _lock.EnterWriteLock();
+ 
+            bool result;
+            try
+            {
+                result = _list.Remove(item);
+            }
+            finally
+            {
+                _lock.ExitWriteLock();
+            }
+ 
+            return result;
+        }
+ 
+        public IEnumerator<T> GetEnumerator()
+        {
+            _lock.EnterReadLock();
+ 
+            try
+            {
+                foreach (T value in _list)
+                {
+                    yield return value;
+                }
+            }
+            finally
+            {
+                _lock.ExitReadLock();
+            }
+        }
+ 
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+    }
 }

@@ -10,6 +10,7 @@ using MiNET;
 using MiNET.BlockEntities;
 using MiNET.Blocks;
 using MiNET.Entities;
+using MiNET.Entities.World;
 using MiNET.Items;
 using MiNET.Net;
 using MiNET.Utils;
@@ -27,7 +28,6 @@ namespace OpenAPI.World
 	public class OpenLevel : Level
 	{
 		private static readonly ILog Log = LogManager.GetLogger(typeof(OpenLevel));
-		
 		public EventDispatcher EventDispatcher { get; }
 		public TickScheduler TickScheduler { get; }
 		public OpenApi OpenAPI { get; }
@@ -57,7 +57,11 @@ namespace OpenAPI.World
 			{
 				wrapped.Level = this;
 			}
+			
+			
 		}
+
+		
 
 		private bool _closed;
 	/*	public override void AddEntity(Entity entity)
@@ -149,6 +153,7 @@ namespace OpenAPI.World
 			}
 		}
 
+		private FastRandom FastRandom { get; } = new FastRandom();
 		public override void DropItem(Vector3 coordinates, Item drop)
 		{
 			//if (GameMode == GameMode.Creative) return;
@@ -159,11 +164,37 @@ namespace OpenAPI.World
 
 			//PlayerItemDropEvent dropEvent = new PlayerItemDropEvent();
 
-			base.DropItem(coordinates, drop);
+			//if (this.AutoSmelt)
+			//	drop = drop.GetSmelt() ?? drop;
+			
+			ItemEntity itemEntity = new ItemEntity(this, drop);
+			itemEntity.KnownPosition.X = coordinates.X + 0.5f;
+			itemEntity.KnownPosition.Y = coordinates.Y + 0.5f;
+			itemEntity.KnownPosition.Z = coordinates.Z + 0.5f;
+			itemEntity.Velocity = new Vector3((float) (FastRandom.NextDouble() * 0.005), (float) (FastRandom.NextDouble() * 0.2), (float) (FastRandom.NextDouble() * 0.005));
+			itemEntity.SpawnEntity();
+			
+			//base.DropItem(coordinates, drop);
 		}
 
 		protected override bool OnBlockBreak(BlockBreakEventArgs e)
 		{
+			if (e.Player != null && e.Player is OpenPlayer player)
+			{
+				if (player.GameMode == GameMode.Creative)
+				{
+					BlockBreakEvent ev = new BlockBreakEvent(player, e.Block, e.Drops);
+					EventDispatcher.DispatchEvent(ev);
+
+					if (ev.IsCancelled)
+						return false;
+					
+					ev.OnComplete();
+
+					return true;
+					//BreakBlock(e.Block, BlockFace.None, player);
+				}
+			}
 			return false;
 		}
 
@@ -182,7 +213,9 @@ namespace OpenAPI.World
 			
 			//	block.BreakBlock(this, face);
 			List<Item> drops = new List<Item>();
-			drops.AddRange(block.GetDrops(tool ?? new ItemAir()));
+			
+			if (player == null || player.GameMode != GameMode.Creative)
+				drops.AddRange(block.GetDrops(tool ?? new ItemAir()));
 
 			if (blockEntity != null)
 			{
@@ -205,9 +238,12 @@ namespace OpenAPI.World
 			if (blockEntity != null)
 				RemoveBlockEntity(block.Coordinates);
 
-			foreach (Item drop in e.Drops)
+			if (player == null || player.GameMode != GameMode.Creative)
 			{
-				DropItem(block.Coordinates, drop);
+				foreach (Item drop in e.Drops)
+				{
+					DropItem(block.Coordinates, drop);
+				}
 			}
 
 			e.OnComplete();

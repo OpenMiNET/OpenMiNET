@@ -5,23 +5,26 @@ using System.Net;
 using System.Threading;
 using log4net;
 using MiNET;
+using MiNET.Net.RakNet;
 using MiNET.Utils;
 using OpenAPI.World;
 using Timer = System.Threading.Timer;
 
 namespace OpenAPI
 {
-	public class OpenServerInfo : ServerInfo
+	public class OpenServerInfo : ConnectionInfo
 	{
-		private static readonly ILog Log = LogManager.GetLogger(typeof(ServerInfo));
+		private static readonly ILog Log = LogManager.GetLogger(typeof(OpenServerInfo));
 
 		public long EventsDispatchedPerSecond;
 		public long Levels;
 		private OpenApi Api { get; }
 		private int Interval { get; } = 1000;
 		private Stopwatch _stopwatch = Stopwatch.StartNew();
-		public OpenServerInfo(OpenApi api, ConcurrentDictionary<IPEndPoint, PlayerNetworkSession> playerSessions, LevelManager levelManager) : base(levelManager, playerSessions)
+		private ConnectionInfo ConnectionInfo { get; }
+		public OpenServerInfo(ConnectionInfo info, OpenApi api, ConcurrentDictionary<IPEndPoint, RakSession> playerSessions, LevelManager levelManager) : base(playerSessions)
 		{
+			ConnectionInfo = info;
 			Api = api;
 
 			Interval = Config.GetProperty("InfoInterval", 1000);
@@ -30,9 +33,11 @@ namespace OpenAPI
 		        Config.GetProperty("MaxNumberOfConcurrentConnects", Config.GetProperty("MaxNumberOfPlayers", 1000));
 		}
 
+		public EventHandler<MetricsEvent> OnMetricsReport;
+
 		private void OnThroughPut(object state)
 		{
-			NumberOfPlayers = PlayerSessions.Count;
+			NumberOfPlayers = RakSessions.Count;
 			
 			int availableWorkerThreads;
 			int availablePortThreads;
@@ -105,7 +110,28 @@ namespace OpenAPI
 				_stopwatch.Restart();
 			}
 
-			Interlocked.Exchange(ref NumberOfDeniedConnectionRequestsPerSecond, 0);
+			var deniedConns = Interlocked.Exchange(ref NumberOfDeniedConnectionRequestsPerSecond, 0);
+			
+			OnMetricsReport?.Invoke(this, new MetricsEvent()
+			{
+				Players = NumberOfPlayers,
+				PacketsIn = numberOfPacketsInPerSecond,
+				PacketsOut = numberOfPacketsOutPerSecond,
+				NetworkDownloadBps = packetSizeIn,
+				NetworkUploadBps = packetSizeOut,
+				Failures = numberOfFailed,
+				Resends = numberOfResend,
+				AckIn = numberOfAckIn,
+				AckOut = numberOfAckOut,
+				DeniedConnections = deniedConns,
+				EventsDispatched = eventsDispatched,
+				NakIn = numberOfNakIn,
+				PortThreads = maxPortThreads - availablePortThreads,
+				WorkerThreads = maxWorkerThreads - availableWorkerThreads,
+				AvgSizePerPacketIn = AvgSizePerPacketIn,
+				AvgSizePerPacketOut = AvgSizePerPacketOut
+				
+			});
 		}
 
 		public long AvgSizePerPacketOut { get; set; }
@@ -135,6 +161,82 @@ namespace OpenAPI
 
 				ThroughPut = null;
 			}
+		}
+
+		public class MetricsEvent
+		{
+			/// <summary>
+			/// 	The amount of packets that have come in since last measurement
+			/// </summary>
+			public long PacketsIn { get; set; }
+			
+			/// <summary>
+			/// 	The amount of packets that have gone out since last measurement
+			/// </summary>
+			public long PacketsOut { get; set; }
+			
+			public long AvgSizePerPacketIn { get; set; }
+			public long AvgSizePerPacketOut { get; set; }
+			
+			/// <summary>
+			/// 	The amount of bytes received since last measurement
+			/// </summary>
+			public long NetworkDownloadBps { get; set; }
+			
+			/// <summary>
+			/// 	The amount of bytes uploaded since last measurement
+			/// </summary>
+			public long NetworkUploadBps { get; set; }
+			
+			/// <summary>
+			/// 	The amount of ack's received since last measurement
+			/// </summary>
+			public long AckIn { get; set; }
+			
+			/// <summary>
+			/// 	The amount of ack's sent since last measurement
+			/// </summary>
+			public long AckOut { get; set; }
+			
+			/// <summary>
+			/// 	The amount of nak's received since last measurement
+			/// </summary>
+			public long NakIn { get; set; }
+			
+			/// <summary>
+			/// 	The amount of packet re-sends  since last measurement
+			/// </summary>
+			public long Resends { get; set; }
+			
+			/// <summary>
+			/// 	The amount of packet failures since last measurement
+			/// </summary>
+			public long Failures { get; set; }
+			
+			/// <summary>
+			/// 	The amount of events dispatched since last measurement
+			/// </summary>
+			public long EventsDispatched { get; set; }
+			
+			/// <summary>
+			/// 	The amount of connections that were denied since last measurement
+			/// </summary>
+			public long DeniedConnections { get; set; }
+			
+			/// <summary>
+			/// 	The amount of completion ports used at time of measurement
+			/// </summary>
+			public long PortThreads { get; set; }
+			
+			/// <summary>
+			/// 	The amount of worker threads used at time of measurement
+			/// </summary>
+			public long WorkerThreads { get; set; }
+			
+			/// <summary>
+			/// 	The amount of players connected to the server at time of measurement
+			/// </summary>
+			public long Players { get; set; }
 		}
 	}
 }

@@ -1,0 +1,18 @@
+{
+  "Name": "TNTRun",
+  "Teams": {
+    "Min": 1,
+    "Max": 8,
+    "MinPlayers": 1,
+    "MaxPlayers": 1,
+    "FillMode": "FillMinSpread"
+  },
+  "RequiresMap": true,
+  "Maps": [
+    {
+      "Name": "Test",
+      "Path": "maps/test",
+      "Enabled": true
+    }
+  ]
+}

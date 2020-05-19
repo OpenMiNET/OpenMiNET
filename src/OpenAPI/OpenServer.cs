@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using log4net;
 using MiNET;
 using MiNET.Items;
+using MiNET.Net;
+using MiNET.Net.RakNet;
 using MiNET.Plugins;
 using MiNET.Utils;
 using OpenAPI.Events.Server;
@@ -24,6 +26,7 @@ namespace OpenAPI
         private static readonly ILog Log = LogManager.GetLogger(typeof(OpenServer));
 
         private OpenApi OpenApi { get; set; }
+        private Thread ProcessingThread { get; set; }
 
         public static DedicatedThreadPool FastThreadPool => ReflectionHelper.GetPrivateStaticPropertyValue<DedicatedThreadPool>(typeof(MiNetServer), "FastThreadPool");
         public OpenServer()
@@ -33,7 +36,9 @@ namespace OpenAPI
 
         public new bool StartServer()
         {
-            UdpClient c = ReflectionHelper.GetPrivateFieldValue<UdpClient>(typeof(MiNetServer), this, "_listener");
+            var type = typeof(MiNetServer);
+            
+            RakConnection c = ReflectionHelper.GetPrivateFieldValue<RakConnection>(type, this, "_listener");
             if (c != null) return false;
 
             try
@@ -46,7 +51,7 @@ namespace OpenAPI
                     {
                         var ip = IPAddress.Parse(Config.GetProperty("ip", "0.0.0.0"));
                         int port = Config.GetProperty("port", 19132);
-                        ReflectionHelper.SetPrivatePropertyValue(typeof(MiNetServer), this, "Endpoint",
+                        ReflectionHelper.SetPrivatePropertyValue(type, this, "Endpoint",
                             new IPEndPoint(ip, port));
                     }
                 }
@@ -57,17 +62,10 @@ namespace OpenAPI
                 if (ServerRole == ServerRole.Full || ServerRole == ServerRole.Node)
                 {
                     PluginManager = new PluginManager();
-                    openInfo = new OpenServerInfo(OpenApi,
-                        ReflectionHelper.GetPrivateFieldValue<ConcurrentDictionary<IPEndPoint, PlayerNetworkSession>>(
-                            typeof(MiNetServer), this, "_playerSessions"), OpenApi.LevelManager);
-                    ServerInfo = openInfo;
-                    openInfo.Init();
-
-                    OpenApi.ServerInfo = openInfo;
 
                     global::MiNET.Items.ItemFactory.CustomItemFactory = OpenApi.ItemFactory;
 
-                    GreylistManager = GreylistManager ?? new GreylistManager(this);
+                    GreyListManager = GreyListManager ?? new GreyListManager(ConnectionInfo);
                     SessionManager = SessionManager ?? new SessionManager();
                     LevelManager = OpenApi.LevelManager;
                     PlayerFactory = OpenApi.PlayerManager;
@@ -79,50 +77,70 @@ namespace OpenAPI
 
                 if (ServerRole == ServerRole.Full || ServerRole == ServerRole.Proxy)
                 {
-                    var listener = new UdpClient(Endpoint);
-                    if (!System.Runtime.InteropServices.RuntimeInformation
-                        .IsOSPlatform(OSPlatform.Windows))
-                    {
-                        listener.Client.ReceiveBufferSize = 1024 * 1024 * 3;
-                        listener.Client.SendBufferSize = 4096;
-                    }
-                    else
-                    {
-                        listener.Client.ReceiveBufferSize = int.MaxValue;
-                        listener.Client.SendBufferSize = int.MaxValue;
-                        listener.DontFragment = false;
-                        listener.EnableBroadcast = false;
+                    RakConnection listener = new RakConnection(Endpoint, GreyListManager, MotdProvider);
+                    listener.CustomMessageHandlerFactory = session => new BedrockMessageHandler(session, ServerManager, PluginManager);
 
-                        uint IOC_IN = 0x80000000;
-                        uint IOC_VENDOR = 0x18000000;
-                        uint SIO_UDP_CONNRESET = IOC_IN | IOC_VENDOR | 12;
-                        listener.Client.IOControl((int) SIO_UDP_CONNRESET, new byte[] {Convert.ToByte(false)}, null);
-                    }
+                    /* listener.DontFragment = false;
+                     listener.EnableBroadcast = true;
+                     
+                     if (!System.Runtime.InteropServices.RuntimeInformation
+                         .IsOSPlatform(OSPlatform.Windows))
+                     {
+                         listener.Client.ReceiveBufferSize = 1024 * 1024 * 3;
+                         listener.Client.SendBufferSize = 4096;
+                     }
+                     else
+                     {
+                         listener.Client.ReceiveBufferSize = int.MaxValue;
+                         listener.Client.SendBufferSize = int.MaxValue;
+                         listener.DontFragment = false;
+                         listener.EnableBroadcast = false;
+ 
+                         uint IOC_IN = 0x80000000;
+                         uint IOC_VENDOR = 0x18000000;
+                         uint SIO_UDP_CONNRESET = IOC_IN | IOC_VENDOR | 12;
+                         listener.Client.IOControl((int) SIO_UDP_CONNRESET, new byte[] {Convert.ToByte(false)}, null);
+                     }*/
+                   
+                   openInfo = new OpenServerInfo(listener.ConnectionInfo, OpenApi,
+                       listener.ConnectionInfo.RakSessions, OpenApi.LevelManager);
+                   ConnectionInfo = openInfo;
+                   openInfo.Init();
 
-                    ReflectionHelper.SetPrivateFieldValue(typeof(MiNetServer), this, "_listener", listener);
+                   OpenApi.ServerInfo = openInfo;
+                   
+                   if (!Config.GetProperty("EnableThroughput", true))
+                   {
+                       listener.ConnectionInfo.ThroughPut.Change(Timeout.Infinite, Timeout.Infinite);
+                   }
 
-                    var processData = typeof(MiNetServer).GetMethod("ProcessDatagrams",
+                    ReflectionHelper.SetPrivateFieldValue(type, this, "_listener", listener);
+                    listener.Start();
+                    /*var processData = type.GetMethod("ProcessDatagrams",
                         BindingFlags.NonPublic | BindingFlags.Instance);
                     
-                    new Thread((l) =>
+                   
+                    ProcessingThread = new Thread((l) =>
                     {
                         processData?.Invoke(this, new object[] {(UdpClient) l});
-                    }) {IsBackground = true}.Start(listener);
+                    }) {IsBackground = true};
+                    
+                    ProcessingThread.Start(listener);*/
                 }
 
                 openInfo?.OnEnable();
 
-                ReflectionHelper.SetPrivateFieldValue(typeof(MiNetServer), this, "_tickerHighPrecisionTimer",
-                    new HighPrecisionTimer(10, async (o) => {
-                        //ReflectionHelper.InvokePrivateMethod(this, "SendTick", new[] {o});
-                        var sessions =
-                            ReflectionHelper
-                                .GetPrivateFieldValue<ConcurrentDictionary<IPEndPoint, PlayerNetworkSession>>(
-                                    typeof(MiNetServer), this, "_playerSessions");
-
-                        var tasks = sessions.Values.Select(session => session.SendTickAsync());
-                        await Task.WhenAll(tasks);
-                    }, true, true));
+                /* ReflectionHelper.SetPrivateFieldValue(type, this, "_tickerHighPrecisionTimer",
+                     new HighPrecisionTimer(10, async (o) => {
+                         ReflectionHelper.InvokePrivateMethod(type, this, "SendTick", new object[] {null});
+                        /* var sessions =
+                             ReflectionHelper
+                                 .GetPrivateFieldValue<ConcurrentDictionary<IPEndPoint, PlayerNetworkSession>>(
+                                     type, this, "_playerSessions");
+ 
+                         var tasks = sessions.Values.Select(session => session.SendTickAsync());
+                         await Task.WhenAll(tasks);*
+                     }, true, true));*/
 
                 Log.Info("Server open for business on port " + Endpoint?.Port + " ...");
 
@@ -140,8 +158,8 @@ namespace OpenAPI
         }
 
         public new bool StopServer()
-	    {
-		    if (base.StopServer())
+        {
+            base.StopServer();
 		    {
 				OpenApi?.OnDisable();
 			    return true;

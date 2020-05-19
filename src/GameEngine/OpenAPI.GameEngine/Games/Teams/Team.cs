@@ -32,7 +32,11 @@ namespace OpenAPI.GameEngine.Games.Teams
             {
                 if (PlayerCount < MaxPlayers)
                 {
-                    return Members.TryAdd(player.GetIdentifier(), player);
+                    if (Members.TryAdd(player.GetIdentifier(), player))
+                    {
+                        player.SetTeam(this);
+                        return true;
+                    }
                 }
             }
 
@@ -41,7 +45,10 @@ namespace OpenAPI.GameEngine.Games.Teams
 
         public virtual void Leave(OpenPlayer player)
         {
-            Members.TryRemove(player.GetIdentifier(), out _);
+            if (Members.TryRemove(player.GetIdentifier(), out _))
+            {
+                player.SetTeam(null);
+            }
         }
     }
 }

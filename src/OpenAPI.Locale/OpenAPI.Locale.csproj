@@ -27,9 +27,14 @@
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='AppVeyor|AnyCPU'">
 		<OutputPath>..\..\build\appveyor\</OutputPath>
 	</PropertyGroup>
-	
-  <ItemGroup>
-    <PackageReference Include="MiNET" Version="1.0.2071" />
+
+	<ItemGroup>
+		<ProjectReference Include="F:\Projects\MiNET\src\MiNET\MiNET\MiNET.csproj" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+<!--    <PackageReference Include="MiNET" Version="1.0.2093" />-->
   </ItemGroup>
 
 	<ItemGroup>

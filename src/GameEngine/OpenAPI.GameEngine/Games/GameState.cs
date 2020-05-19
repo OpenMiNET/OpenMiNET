@@ -2,12 +2,13 @@ namespace OpenAPI.GameEngine.Games
 {
     public enum GameState
     {
-        Intializing = 0,
-        Ready = 1,
-        WaitingForPlayers = 2,
-        Starting = 3,
-        InProgress = 4,
-        Finished = 5,
-        Empty = 6
+        Created = 0,
+        Initializing = 1,
+        Ready = 2,
+        WaitingForPlayers = 3,
+        Starting = 4,
+        InProgress = 5,
+        Finished = 6,
+        Empty = 7
     }
 }

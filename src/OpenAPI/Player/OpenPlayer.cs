@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Numerics;
 using System.Reflection;
 using System.Resources;
 using System.Threading;
@@ -14,9 +15,11 @@ using log4net;
 using MiNET;
 using MiNET.BlockEntities;
 using MiNET.Blocks;
+using MiNET.Effects;
 using MiNET.Entities;
 using MiNET.Items;
 using MiNET.Net;
+using MiNET.Net.RakNet;
 using MiNET.Plugins;
 using MiNET.Utils;
 using MiNET.Worlds;
@@ -471,12 +474,70 @@ namespace OpenAPI.Player
 				if (action == PlayerAction.StartBreak)
 				{
 					block = Level.GetBlock(message.coordinates);
-					var drops = block.GetDrops(Inventory.GetItemInHand());
+					var inHand = Inventory.GetItemInHand();
+					var drops = block.GetDrops(inHand);
+					
 					float tooltypeFactor = drops == null || drops.Length == 0 ? 5f : 1.5f; // 1.5 if proper tool
-					double breakTime = Math.Ceiling(block.Hardness * tooltypeFactor * 20);
+					
+					var multiplier = 1f;
+					switch (inHand.ItemMaterial)
+					{
+						case ItemMaterial.None:
+							break;
+						case ItemMaterial.Wood:
+							multiplier = 2f;
+							break;
+						case ItemMaterial.Stone:
+							multiplier = 4f;
+							break;
+						case ItemMaterial.Gold:
+							multiplier = 12f;
+							break;
+						case ItemMaterial.Iron:
+							multiplier = 6f;
+							break;
+						case ItemMaterial.Diamond:
+							multiplier = 8f;
+							break;
+					}
+
+					foreach (var enchantment in inHand.GetEnchantings())
+					{
+						if (enchantment.Id == EnchantingType.Efficiency && enchantment.Level > 0)
+						{
+							multiplier += MathF.Sqrt(enchantment.Level) + 1;
+						}
+					}
+
+					if (Effects.TryGetValue(EffectType.Haste, out var effect))
+					{
+						if (effect is Haste haste && haste.Level > 0f)
+						{
+							multiplier *= 1f + (haste.Level * 0.2f);
+						}
+					}
+
+					var hardness = block.Hardness;
+					
+					double breakTime = MathF.Ceiling((hardness * tooltypeFactor * 20f));
+
+					McpeLevelEvent message1 = McpeLevelEvent.CreateObject();
+					message1.eventId = 3600;
+					message1.position = message.coordinates;
+					message1.data = (int) ((double) ushort.MaxValue / (breakTime / multiplier));
+					
+					Level.RelayBroadcast(message1);
+					
 					BlockFace face = (BlockFace) message.face;
 
+					IsBreakingBlock = true;
+					BlockBreakTimer.Restart();
+					BreakingBlockCoordinates = block.Coordinates;
+					BlockBreakTime = breakTime / multiplier;
 					BreakingFace = face;
+
+			//		Log.Info(
+			//			$"Start Breaking block. Hardness: {hardness} | ToolTypeFactor; {tooltypeFactor} | BreakTime: {breakTime} | Multiplier: {multiplier} | BLockBreakTime: {breakTime / multiplier} | IsBreaking: {IsBreakingBlock}");
 					
 					var blockStartBreak = new BlockStartBreakEvent(this, block);
 					EventDispatcher.DispatchEventAsync(blockStartBreak).Then(result =>
@@ -486,15 +547,17 @@ namespace OpenAPI.Player
 							SendBlockBreakEnd(block.Coordinates);
 							return;
 						}
-						
-						IsBreakingBlock = true;
-						BlockBreakTimer.Restart();
-						BreakingBlockCoordinates = block.Coordinates;
-						BlockBreakTime = breakTime;
 					});
+					
+					return;
 				}
 				else if (action == PlayerAction.AbortBreak)
 				{
+					var elapsed = BlockBreakTimer.ElapsedMilliseconds;
+					var elapsedTicks = elapsed / 50d;
+					
+				//	Log.Info($"!! Abort Break !!! Ticks elapsed: {elapsedTicks} | Required: {BlockBreakTime} | IsBreaking: {IsBreakingBlock}");
+					
 					block = Level.GetBlock(message.coordinates);
 					if (IsBreakingBlock && BreakingBlockCoordinates == block.Coordinates)
 					{
@@ -503,19 +566,27 @@ namespace OpenAPI.Player
 
 						EventDispatcher.DispatchEventAsync(new BlockAbortBreakEvent(this, block));
 					}
+					
+					return;
 				}
 				else if (action == PlayerAction.StopBreak)
 				{
+					var elapsed = BlockBreakTimer.ElapsedMilliseconds;
+					var elapsedTicks = elapsed / 50d;
+					
+					//Log.Info($"## !! Stop Break !!! Ticks elapsed: {elapsedTicks} | Required: {BlockBreakTime} | IsBreaking: {IsBreakingBlock}");
+					
 					if (IsBreakingBlock)
 					{
 						//BlockFace face = (BlockFace) message.face;
-						
-						var elapsed = BlockBreakTimer.Elapsed.TotalMilliseconds;
-						var elapsedTicks = elapsed / 50;
-						if (elapsedTicks > BlockBreakTime || Math.Abs(elapsedTicks - BlockBreakTime) < 2.5
+						if (elapsedTicks >= BlockBreakTime || Math.Abs(elapsedTicks - BlockBreakTime) < 2.5
 						) //Give a max time difference of 2.5 ticks.
 						{
 							StopBreak(BreakingBlockCoordinates);
+						}
+						else
+						{
+							
 						}
 					}
 					else
@@ -523,6 +594,8 @@ namespace OpenAPI.Player
 						IsBreakingBlock = false;
 						BlockBreakTimer.Reset();
 					}
+
+					return;
 				}
 			}
 
@@ -538,10 +611,13 @@ namespace OpenAPI.Player
 	        Level.RelayBroadcast(levelEvent);
         }
 
-	    private void StopBreak(BlockCoordinates coords)
+	    private void StopBreak(BlockCoordinates coords, bool reset = true)
 		{
-			IsBreakingBlock = false;
-			BlockBreakTimer.Reset();
+			if (reset)
+			{
+				IsBreakingBlock = false;
+				BlockBreakTimer.Reset();
+			}
 
 			var b = Level.GetBlock(coords);
 			
@@ -686,11 +762,81 @@ namespace OpenAPI.Player
 	        }
 	        else if (message.responseStatus == 4)
 	        {
+		        Console.WriteLine("HEEETTTTTT");
+		        Console.WriteLine("HEEETTTTTT");
+		        Console.WriteLine("HEEETTTTTT");
+		        Console.WriteLine("HEEETTTTTT");
 		        OpenServer.FastThreadPool.QueueUserWorkItem(() => { Start(null); });
+		        Console.WriteLine("HEEETTTTTT");
 		        return;
 	        }
         }
 
+    //     public new void Start(object o)
+    // {
+    //   Stopwatch stopwatch = new Stopwatch();
+    //   stopwatch.Restart();
+    //   try
+    //   {
+    //    
+    //     if (this.Level == null)
+    //     {
+    //       this.Disconnect("No level assigned.", true);
+    //       return;
+    //     }
+    //     this.OnPlayerJoining(new PlayerEventArgs(this));
+    //     Log.Info("`1111111111111");
+    //     this.SpawnPosition = (PlayerLocation) (this.SpawnPosition ?? this.Level.SpawnPoint).Clone();
+    //     this.KnownPosition = (PlayerLocation) this.SpawnPosition.Clone();
+    //     Log.Info("`2222222222222222222222");
+    //     this.Level.RemoveDuplicatePlayers(this.Username, this.ClientId);
+    //     Log.Info("`1111111111111");
+    //     this.Level.EntityManager.AddEntity((Entity) this);
+    //     Log.Info("`2222222222222222222222");
+    //     this.GameMode = Config.GetProperty("Player.GameMode", this.Level.GameMode);
+    //     Log.Info("`2222222222222222222222");
+    //     this.SendSetTime();
+    //     Log.Info("`2222222222222222222222");
+    //     this.SendStartGame();
+    //     Log.Info("`2222222222222222222222");
+    //     this.SendAvailableEntityIdentifiers();
+    //     Log.Info("`2222222222222222222222");
+    //     this.SendBiomeDefinitionList();
+    //     Log.Info("`2222222222222222222222");
+    //     this.BroadcastSetEntityData();
+    //     Log.Info("`2222222222222222222222");
+    //     
+    //     this.SendSetTime();
+    //     Log.Info("`2222222222222222222222");
+    //     this.SendSetDificulty();
+    //     Log.Info("`333333333333333333333333333333333333333333");
+    //     this.SendSetCommandsEnabled();
+    //     Log.Info("`333333333333333333333333333333333333333333");
+    //     this.SendAdventureSettings();
+    //     Log.Info("`333333333333333333333333333333333333333333");
+    //     this.SendGameRules();
+    //     Log.Info("`4444444444444444444444444");
+    //     this.Level.AddPlayer(this, false);
+    //     this.SendUpdateAttributes();
+    //     Log.Info("`4444444444444444444444444");
+    //     this.SendPlayerInventory();
+    //     this.SendCreativeInventory();
+    //     this.SendCraftingRecipes();
+    //     Log.Info("`44444444444444444444444444444444444444444444444444");
+    //     this.SendAvailableCommands();
+    //     this.SendNetworkChunkPublisherUpdate();
+    //     Log.Info("`444444eeeeeeeeeeeeeeeeeeeeeee44444444444444444444444444444444444444444444");
+    //     
+    //   }
+    //   catch (Exception ex)
+    //   {
+    //     Log.Error((object) ex);
+    //   }
+    //   this.LastUpdatedTime = DateTime.UtcNow;
+    //   Log.InfoFormat("AAAAAAAAAAALogin complete by: {0} from {2} in {1}ms", (object) this.Username, (object) stopwatch.ElapsedMilliseconds, (object) this.EndPoint);
+    //   base.Start(o);
+    // }
+    //     
         public override void SendResourcePacksInfo()
         {
 	        McpeResourcePacksInfo info = McpeResourcePacksInfo.CreateObject();

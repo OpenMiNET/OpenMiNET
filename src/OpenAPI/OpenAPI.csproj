@@ -32,9 +32,13 @@
     <DocumentationFile>..\..\build\appveyor\OpenAPI.xml</DocumentationFile>
   </PropertyGroup>
 
+
   <ItemGroup>
-    <PackageReference Include="MiNET" Version="1.0.2071" />
-    <PackageReference Include="log4net" Version="2.0.8" />
+    <ProjectReference Include="F:\Projects\MiNET\src\MiNET\MiNET\MiNET.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+<!--    <PackageReference Include="MiNET" Version="1.0.2093" />-->
     <PackageReference Include="Mono.Cecil" Version="0.11.2" />
   </ItemGroup>
 

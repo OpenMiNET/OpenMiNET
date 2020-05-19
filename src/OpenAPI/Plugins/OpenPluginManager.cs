@@ -259,17 +259,6 @@ namespace OpenAPI.Plugins
 				    parameters.Add(parameter);
 				    continue;
 			    }
-			    
-			//    Log.Info($"Need: {param.Type} | Plugin Instance? {param.IsPluginInstance}");
-			 /*   if (param.IsPluginInstance)
-			    {
-				    if (!assemblies.TryGetValue(param.Type.Assembly, out var loadedAssembly))
-					    throw new Exception();
-
-				    var instance = loadedAssembly.FirstOrDefault(x => x.GetType() == param.Type);
-				    parameters.Add(instance);
-				    continue;
-			    }*/
 
 			    pluginInstance = null;
 			    return false;
@@ -414,7 +403,7 @@ namespace OpenAPI.Plugins
 				    assemblyDatas.Add(new PluginConstructorData(type, constructorInfo));
 				    continue;
 			    }
-
+			    
 			    foreach (ConstructorInfo constructor in type.GetConstructors())
 			    {
 				    var constructorParameters = constructor.GetParameters();
