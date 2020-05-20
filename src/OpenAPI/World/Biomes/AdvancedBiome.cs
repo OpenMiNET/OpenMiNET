@@ -13,7 +13,7 @@ namespace OpenAPI.World
 {
     public class BiomeQualifications
     {
-        public int baseheight = 70;
+        public int baseheight = 80;
 
         public int heightvariation;
         public float startheight; //0-2
@@ -105,7 +105,7 @@ namespace OpenAPI.World
             SmoothChunk(openExperimentalWorldProvider, chunk, rth);
             t.Stop();
 
-            // Console.WriteLine($"CHUNK SMOOTHING OF {chunk.X} {chunk.Z} TOOK {t.Elapsed}");
+            Console.WriteLine($"CHUNK SMOOTHING OF {chunk.X} {chunk.Z} TOOK {t.Elapsed}");
             return chunk;
         }
 
@@ -134,9 +134,9 @@ namespace OpenAPI.World
             // ThreadPool.GetMinThreads(out minWorker, out minIOC);
             // ThreadPool.GetMaxThreads(out maxworker, out maxIOC);
             // if(minWorker != 20  && !ThreadPool.SetMinThreads(20,20))Console.WriteLine("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
-     
+
             // SmoothChunk(openExperimentalWorldProvider,chunk,rth);
-            // Console.WriteLine($"CHUNK POPULATION OF {chunk.X} {chunk.Z} TOOK {t.Elapsed}");
+            Console.WriteLine($"CHUNK POPULATION OF {chunk.X} {chunk.Z} TOOK {t.Elapsed}");
             return chunk;
         }
 
@@ -150,33 +150,26 @@ namespace OpenAPI.World
             ChunkColumn c,
             float[] rth);
 
-        public void SetHeightMapToChunks(ChunkColumn c, ChunkColumn[] ca, int[,] map)
+        public void SetHeightMapToChunks(ChunkColumn[] ca, int[,] map)
         {
+            int l = (int) Math.Sqrt(ca.Length);
+            Console.WriteLine($"{l} =================================================== 5? {ca.Length}");
             for (int x = 0; x < map.GetLength(0); x++)
             for (int z = 0; z < map.GetLength(1); z++)
             {
                 int cnx = (int) Math.Floor(x / 16f);
                 int cnz = (int) Math.Floor(z / 16f);
-                int cn = cnx + (cnz * 3);
+                int cn = cnx + (cnz * l);
                 // if()
                 // if (cn >= 6) cn--;
-                ChunkColumn cc;
-                if (cn == 4)
-                {
-                    cc = c;
-                    // continue;
-                }
-                else
-                {
-                    if (cn > 4) cn--;
-                    cc = ca[cn];
-                }
+                Console.WriteLine($"{x} {z} >>>>>>> {cn}");
+                ChunkColumn cc = ca[cn];
 
                 int rx = x % 16;
                 int rz = z % 16;
                 int h = map[x, z];
-                int rzz = (15 - rz);
-                // int rzz = ( rz);
+                // int rzz = (15 - rz);
+                int rzz = ( rz);
                 // int rxx = ( 15-rx);
                 int rxx = rx;
                 // map[x, z] = cc.GetHeight(rx, rz);
@@ -198,7 +191,8 @@ namespace OpenAPI.World
                     {
                         // if (x == 0 || z == map.GetLength(0) - 1 || z == 0 || z == map.GetLength(1) - 1)
                         //     cc.SetBlock(rxx, y, rzz, new EmeraldBlock());
-                        /*else*/ cc.SetBlock(rxx, y, rzz, new Grass());
+                        /*else*/
+                        cc.SetBlock(rxx, y, rzz, new Grass());
                     }
                     else
                     {
@@ -222,29 +216,23 @@ namespace OpenAPI.World
             }
         }
 
-        public int[,] CreateMapFrom8Chunks(ChunkColumn c, ChunkColumn[] ca)
+        public int[,] CreateMapFrom8Chunks(ChunkColumn[] ca)
         {
-            var map = new int[16 * 3, 16 * 3];
+            int l = (int) Math.Sqrt(ca.Length);
+            var map = new int[16 * l, 16 * l];
             for (int z = 0; z < map.GetLength(1); z++)
             for (int x = 0; x < map.GetLength(0); x++)
             {
                 int rx = x % 16;
-                int rz = 15 - z % 16;
+                int rz = /*15 -*/ z % 16;
                 int cnx = (int) Math.Floor(x / 16f);
                 int cnz = (int) Math.Floor(z / 16f);
-                int cn = cnx + (cnz * 3);
+                int cn = cnx + (cnz * l);
                 // if()
                 // if (cn >= 6) cn--;
                 ChunkColumn cc;
-                if (cn == 4)
-                {
-                    cc = c;
-                }
-                else
-                {
-                    if (cn > 4) cn--;
-                    cc = ca[cn];
-                }
+
+                cc = ca[cn];
                 // Console.WriteLine($"{x} AND {z} GAVE ({cnx} AND {cnz}) {cn} AND CHUNK {ca[cn]}");
 
                 map[x, z] = cc.GetHeight(rx, rz);
@@ -674,165 +662,131 @@ namespace OpenAPI.World
             if (BorderChunk)
             {
                 max++;
-                chunk.SetBlock(8, 110, 8, new EmeraldBlock());
+                chunk.SetBlock(8, 125, 8, new EmeraldBlock());
                 AdvancedBiome n;
                 var nc = new ChunkColumn();
                 var pos = 0;
                 int[,] h = null;
                 var i = -1;
 
-                if (BorderType != 0)
+
+                ChunkColumn[] chunks = new ChunkColumn[25];
+                int ab = 0;
+                for (int zz = 2; zz >= -2; zz--)
+                for (int xx = -2; xx <= 2; xx++)
                 {
-                    ChunkColumn[] chunks = new ChunkColumn[8];
-                    int ab = 0;
-                    chunks[0] = o.GenerateChunkColumn2(new ChunkCoordinates {X = chunk.X - 1, Z = chunk.Z + 1}, false);
-                    chunks[1] = o.GenerateChunkColumn2(new ChunkCoordinates {X = chunk.X, Z = chunk.Z + 1}, false);
-                    chunks[2] = o.GenerateChunkColumn2(new ChunkCoordinates {X = chunk.X + 1, Z = chunk.Z + 1}, false);
-                    chunks[3] = o.GenerateChunkColumn2(new ChunkCoordinates {X = chunk.X - 1, Z = chunk.Z}, false);
-                    chunks[4] = o.GenerateChunkColumn2(new ChunkCoordinates {X = chunk.X + 1, Z = chunk.Z}, false);
-                    chunks[5] = o.GenerateChunkColumn2(new ChunkCoordinates {X = chunk.X - 1, Z = chunk.Z - 1}, false);
-                    chunks[6] = o.GenerateChunkColumn2(new ChunkCoordinates {X = chunk.X, Z = chunk.Z - 1}, false);
-                    chunks[7] = o.GenerateChunkColumn2(new ChunkCoordinates {X = chunk.X + 1, Z = chunk.Z - 1}, false);
-                 
-
-
-                    h = CreateMapFrom8Chunks(chunk, chunks);
-                    var nh = SmoothMapV3(h);
-                    nh = SmoothMapV4(nh);
-
-                    // printDisplayTable(h, $"C{chunk.X}{chunk.Z}Pre");
-                    // printDisplayTable(nh, $"C{chunk.X}{chunk.Z}Post");
-
-                    SetHeightMapToChunks(chunk, chunks, nh);
+                    int k = xx +2 +((zz+2)*(int)Math.Sqrt(chunks.Length));
+                    Console.WriteLine($"#{ab} || {xx} {zz} || {k}");
+                    if (xx == 0 && zz == 0) chunks[k] = chunk;
+                    else
+                        chunks[k] = o.GenerateChunkColumn2(new ChunkCoordinates {X = chunk.X + xx, Z = chunk.Z + zz},
+                            false);
+                    ab++;
                 }
 
-                // if (pos == 0) 
-                // {
-                //     Console.WriteLine("ERRRRRRRRRRRR NOOOOOOOOOOaaaaaaaa SMOOOOOOOOOOOOOOTHHHHHHHHH");
-                // }
-                // else
-                // {
-                //     // var nh = SmoothMapV2(h);
-                //     // printDisplayTable(nh);
-                //
-                //     // chunk.SetBlock(8, 109, 8, new Netherrack());
-                //     // chunk.SetBlock(8, 109 - pos, 8, new EmeraldBlock());
-                //     Console.WriteLine($"ABOUT TO SMOOTH BUT POS={pos} NC={nc} ");
-                // }
-                //
-                // if (pos != 0 && nc != null)
-                // {
-                //     chunk.SetBlock(8, 111, 8, new RedstoneBlock());
-                //     Console.WriteLine($"SMOOTHING CHUNK {chunk.X} {chunk.Z}");
-                //     var nh = SmoothMapV3(h);
-                //
-                //     printDisplayTable(nh,$"{chunk.X} {chunk.Z}");
-                //     
-                //
-                //     // var xx = 0;
-                //     // var zz = 0;
-                //     Console.WriteLine($" X:{nh.GetLength(0)} ||| Z:{nh.GetLength(1)}");
-                //     for (var z = 0; z < nh.GetLength(1); z++)
-                //     {
-                //         for (var x = 0; x < nh.GetLength(0); x++)
-                //         {
-                //             // Console.WriteLine($"STARTING ON {x} ::: {z}");
-                //             // for (var z = sz; z < stopz; z++)
-                //             // {
-                //             //     for (var x = sx; x < stopx; x++)
-                //             //     {
-                //             var dif = nh[x, z];
-                //             // dif = h[x, z];
-                //
-                //             // for (var y = 50; y < 255; y++)
-                //             // {
-                //             //     if (y >= dif)
-                //             //         o.Level.SetBlock(new Air()
-                //             //         {
-                //             //             Coordinates = new BlockCoordinates(sx+x,y,sz+z)
-                //             //         });
-                //             //     if (o.Level.GetBlock(new PlayerLocation(x, y, z)).Id == 0) break;
-                //             // }
-                //
-                //             if (pos == 1 || pos == 3)
-                //             {
-                //                 if (pos == 1)
-                //                 {
-                //                     chunk.SetBlock(8, 110, 8 + 1, new Furnace());
-                //                     FormatChunk(x, z, 0, 16, dif, chunk, nc);
-                //                 }
-                //                 else if (pos == 3)
-                //                 {
-                //                     chunk.SetBlock(8, 110, 8 - 1, new Furnace());
-                //                     FormatChunk(x, z, 0, 16, dif, nc, chunk);
-                //                 }
-                //             }
-                //             else if (pos == 2 || pos == 4)
-                //             {
-                //                 // if(x == 0 || x == 16 )
-                //                 if (pos == 2)
-                //                 {
-                //                     chunk.SetBlock(8 + 1, 110, 8, new Furnace());
-                //                     FormatChunk(x, z, 16, 0, dif, chunk, nc);
-                //                 }
-                //                 else if (pos == 4)
-                //                 {
-                //                     chunk.SetBlock(8 - 1, 110, 8, new Furnace());
-                //                     FormatChunk(x, z, 16, 0, dif, nc, chunk);
-                //                 }
-                //             }
-                //
-                //             // xx++;
-                //         }
-                //
-                //         // xx = 0;
-                //         // zz++;
-                //     }
-                // }
 
-                Console.WriteLine("=========================||======================");
+                h = CreateMapFrom8Chunks(chunks);
+                var nh = SmoothMapV3(h);
+                nh = SmoothMapV4(nh);
+
+                printDisplayTable(h, $"C{chunk.X}{chunk.Z}Pre");
+                printDisplayTable(nh, $"C{chunk.X}{chunk.Z}Post");
+
+                SetHeightMapToChunks(chunks, nh);
             }
+
+            // if (pos == 0) 
+            // {
+            //     Console.WriteLine("ERRRRRRRRRRRR NOOOOOOOOOOaaaaaaaa SMOOOOOOOOOOOOOOTHHHHHHHHH");
+            // }
+            // else
+            // {
+            //     // var nh = SmoothMapV2(h);
+            //     // printDisplayTable(nh);
+            //
+            //     // chunk.SetBlock(8, 109, 8, new Netherrack());
+            //     // chunk.SetBlock(8, 109 - pos, 8, new EmeraldBlock());
+            //     Console.WriteLine($"ABOUT TO SMOOTH BUT POS={pos} NC={nc} ");
+            // }
+            //
+            // if (pos != 0 && nc != null)
+            // {
+            //     chunk.SetBlock(8, 111, 8, new RedstoneBlock());
+            //     Console.WriteLine($"SMOOTHING CHUNK {chunk.X} {chunk.Z}");
+            //     var nh = SmoothMapV3(h);
+            //
+            //     printDisplayTable(nh,$"{chunk.X} {chunk.Z}");
+            //     
+            //
+            //     // var xx = 0;
+            //     // var zz = 0;
+            //     Console.WriteLine($" X:{nh.GetLength(0)} ||| Z:{nh.GetLength(1)}");
+            //     for (var z = 0; z < nh.GetLength(1); z++)
+            //     {
+            //         for (var x = 0; x < nh.GetLength(0); x++)
+            //         {
+            //             // Console.WriteLine($"STARTING ON {x} ::: {z}");
+            //             // for (var z = sz; z < stopz; z++)
+            //             // {
+            //             //     for (var x = sx; x < stopx; x++)
+            //             //     {
+            //             var dif = nh[x, z];
+            //             // dif = h[x, z];
+            //
+            //             // for (var y = 50; y < 255; y++)
+            //             // {
+            //             //     if (y >= dif)
+            //             //         o.Level.SetBlock(new Air()
+            //             //         {
+            //             //             Coordinates = new BlockCoordinates(sx+x,y,sz+z)
+            //             //         });
+            //             //     if (o.Level.GetBlock(new PlayerLocation(x, y, z)).Id == 0) break;
+            //             // }
+            //
+            //             if (pos == 1 || pos == 3)
+            //             {
+            //                 if (pos == 1)
+            //                 {
+            //                     chunk.SetBlock(8, 110, 8 + 1, new Furnace());
+            //                     FormatChunk(x, z, 0, 16, dif, chunk, nc);
+            //                 }
+            //                 else if (pos == 3)
+            //                 {
+            //                     chunk.SetBlock(8, 110, 8 - 1, new Furnace());
+            //                     FormatChunk(x, z, 0, 16, dif, nc, chunk);
+            //                 }
+            //             }
+            //             else if (pos == 2 || pos == 4)
+            //             {
+            //                 // if(x == 0 || x == 16 )
+            //                 if (pos == 2)
+            //                 {
+            //                     chunk.SetBlock(8 + 1, 110, 8, new Furnace());
+            //                     FormatChunk(x, z, 16, 0, dif, chunk, nc);
+            //                 }
+            //                 else if (pos == 4)
+            //                 {
+            //                     chunk.SetBlock(8 - 1, 110, 8, new Furnace());
+            //                     FormatChunk(x, z, 16, 0, dif, nc, chunk);
+            //                 }
+            //             }
+            //
+            //             // xx++;
+            //         }
+            //
+            //         // xx = 0;
+            //         // zz++;
+            //     }
+            // }
         }
+
 
         private int[,] SmoothMapV4(int[,] map)
         {
             int[,] newmap = map;
-            for (int x = 1; x < map.GetLength(0) - 2; x++)
+            for (int z = 1; z < map.GetLength(1) - 2; z++)
             {
-                var zstrip = SmoothStrip(Fillstripz(1,map.GetLength(1)-2,x,map));
-                int cnt = 0;
-                for (int z = 1; z < map.GetLength(1) - 2; z++)
-                {
-                    map[x, z] = zstrip[cnt];
-                    cnt++;
-                }
-                // for (int z = 1; z < map.GetLength(1) - 2; z++)
-                // {
-                //     
-                //     
-                //     
-                //     int cv = map[x, z];
-                //     int lvx = map[x - 1, z];
-                //     int nvx = map[x + 1, z];
-                //     int d = -lvx + nvx;
-                //     int v1 = lvx - cv;
-                //     int v2 = cv - nvx;
-                //     Console.WriteLine($"{x} {z} ||>> {lvx} | {cv} | {nvx} ||| {v1} VS {v2} TO");
-                //     if (v1 >= 1 || v2 >= 1 || v1 <= -1 || v2 <= -1)
-                //         // if ((v1 >= 1 || v2 >= 1) && (v1 <= -1 || v2 <= -1))
-                //     {
-                //         //Between -1 & 1
-                //         newmap[x, z] = map[x, z];
-                //         continue;
-                //     }
-                //
-                //     newmap[x, z] = lvx + ((d >= 0 ? 1 : -1));
-                //     //Z SMOOTH NOW
-                // }
-            }
-            for (int z = 1;z < map.GetLength(1) - 2; z++)
-            {
-                var xstrip = SmoothStrip(Fillstripx(1,map.GetLength(1)-2,z,map));
+                var xstrip = SmoothStrip(Fillstripx(0, map.GetLength(0) - 1, z, map));
                 int cnt = 0;
                 for (int x = 1; x < map.GetLength(0) - 2; x++)
                 {
@@ -840,6 +794,18 @@ namespace OpenAPI.World
                     cnt++;
                 }
             }
+            for (int x = 1; x < map.GetLength(0) - 2; x++)
+            {
+                var zstrip = SmoothStrip(Fillstripz(0, map.GetLength(1) - 1, x, map));
+                int cnt = 0;
+                for (int z = 1; z < map.GetLength(1) - 2; z++)
+                {
+                    map[x, z] = zstrip[cnt];
+                    cnt++;
+                }
+            }
+
+            
             // for (int x = 1; x < map.GetLength(0) - 2; x++)
             // {
             //     for (int z = 1; z < map.GetLength(1) - 2; z++)
@@ -869,7 +835,7 @@ namespace OpenAPI.World
 
         private int[] SmoothStrip(int[] fillstripz)
         {
-            for (int i = 0; i < fillstripz.Length-1; i++)
+            for (int i = 0; i < fillstripz.Length - 1; i++)
             {
                 if (i == 0 || i == fillstripz.Length - 1) continue;
                 int lv = fillstripz[i - 1];
@@ -881,7 +847,8 @@ namespace OpenAPI.World
                 if (du > 0)
                 {
                     v = lv + 1;
-                }else if (du < 0)
+                }
+                else if (du < 0)
                 {
                     v = lv - 1;
                 }
@@ -898,17 +865,20 @@ namespace OpenAPI.World
             List<int> strip = new List<int>();
             for (int a = i; a < getLength; a++)
             {
-                strip.Add(map[a,z]);
+                strip.Add(map[a, z]);
             }
+
             return strip.ToArray();
         }
+
         private int[] Fillstripz(int i, int getLength, int x, int[,] map)
         {
             List<int> strip = new List<int>();
             for (int a = i; a < getLength; a++)
             {
-                strip.Add(map[x,a]);
+                strip.Add(map[x, a]);
             }
+
             return strip.ToArray();
         }
 
@@ -938,9 +908,9 @@ namespace OpenAPI.World
         /// <param name="chunk"></param>
         /// <param name="rth"></param>
         /// <returns></returns>
-        public virtual ChunkColumn GenerateSurfaceItems(OpenExperimentalWorldProvider openExperimentalWorldProvider, ChunkColumn chunk, float[] rth)
+        public virtual ChunkColumn GenerateSurfaceItems(OpenExperimentalWorldProvider openExperimentalWorldProvider,
+            ChunkColumn chunk, float[] rth)
         {
-            
             return chunk;
         }
     }

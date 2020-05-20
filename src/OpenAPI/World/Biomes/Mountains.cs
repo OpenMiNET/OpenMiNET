@@ -6,8 +6,9 @@ namespace OpenAPI.World.Biomes
 {
     public class Mountains : AdvancedBiome
     {
-        public Mountains() : base("Mountains", new BiomeQualifications(.25f, 1, .75f, 1.75f, 1.25f, 2, 30))
+        public Mountains() : base("Mountains", new BiomeQualifications(.25f, 1, .75f, 1.75f, 1.25f, 2, 40))
         {
+            BiomeQualifications.baseheight += 10;
         }
 
         public override void PopulateChunk(OpenExperimentalWorldProvider openExperimentalWorldProvider, ChunkColumn c,
@@ -17,7 +18,7 @@ namespace OpenAPI.World.Biomes
             for (var z = 0; z < 16; z++)
             {
                 var sh = BiomeQualifications.baseheight +
-                         (int) GetNoise(c.X * 16 + x, c.Z * 16 + z, /*rth[2] / */.035f,
+                         (int) GetNoise(c.X * 16 + x, c.Z * 16 + z, /*rth[2] / */.015f,
                              BiomeQualifications.heightvariation);
             for (var y = 0; y < 255; y++)
             {
@@ -27,7 +28,7 @@ namespace OpenAPI.World.Biomes
                     continue;
                 }
 
-                if (y <= sh)
+                if (y < sh)
                 {
                     c.SetBlock(x, y, z, new Stone());
                     continue;

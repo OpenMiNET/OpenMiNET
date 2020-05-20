@@ -7,11 +7,12 @@ namespace OpenAPI.World
         public class WaterBiome : AdvancedBiome
     {
         public WaterBiome() : base("Water", new BiomeQualifications(0, 2, 1, 1.75f, 0, 0.5f
-            , 30))
+            , 55))
         {
+            BiomeQualifications.baseheight = 30;
         }
 
-        int waterlevel = 85;
+        int waterlevel = 75;
 
         /// <summary>
         /// 

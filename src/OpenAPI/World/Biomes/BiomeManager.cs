@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MiNET.Utils;
 using MiNET.Worlds;
 using OpenAPI.World.Biomes;
@@ -58,7 +59,7 @@ namespace OpenAPI.World
         }
         
         
-         public static float[] getChunkRTH(ChunkColumn chunk)
+         public static float[] getChunkRTH(ChunkCoordinates chunk)
         {
             //CALCULATE RAIN
             var rainnoise = new FastNoise(123123);
@@ -152,7 +153,7 @@ namespace OpenAPI.World
         //CHECKED 5/10 @ 5:23 And this works fine!
         public static AdvancedBiome GetBiome(ChunkColumn chunk)
         {
-            var rth = getChunkRTH(new ChunkColumn()
+            var rth = getChunkRTH(new ChunkCoordinates()
                     {
                         X = chunk.X,
                         Z = chunk.Z
@@ -160,53 +161,27 @@ namespace OpenAPI.World
             foreach (var biome in Biomes)
                 if (biome.check(rth))
                 {
+                    bool BC = false;
+                    for (int zz = -1; zz <= 1; zz++)
+                    for (int xx = -1; xx <= 1; xx++)
+                    {
+                        if (xx == 0 && zz == 0) continue;
+                        var tb = BiomeManager.GetBiome2(getChunkRTH(new ChunkCoordinates()
+                        {
+                            X = chunk.X+xx,
+                            Z = chunk.Z+zz
+                        }));
+                        if (tb.LocalID != biome.LocalID)
+                        {
+                            BC = true;
+                            break;
+                        }
+                    }
                     //CHEKC IF BOREDR CHUNK
                     //Top
-                    var tb = BiomeManager.GetBiome2(getChunkRTH(new ChunkColumn()
-                    {
-                        X = chunk.X,
-                        Z = chunk.Z+1
-                    }));
-                    var rb = BiomeManager.GetBiome2(getChunkRTH(new ChunkColumn()
-                    {
-                        X = chunk.X+1,
-                        Z = chunk.Z
-                    }));
-                    var bb = BiomeManager.GetBiome2(getChunkRTH(new ChunkColumn()
-                    {
-                        X = chunk.X,
-                        Z = chunk.Z-1
-                    }));
-                    var lb = BiomeManager.GetBiome2(getChunkRTH(new ChunkColumn()
-                    {
-                        X = chunk.X-1,
-                        Z = chunk.Z
-                    }));
-                    if (tb.LocalID != biome.LocalID&& !tb.BorderChunk)
-                    {
-                        biome.BorderChunk = true;
-                        biome.BorderBiome = tb;
-                        biome.BorderType = 1;
-                    }else if(rb.LocalID != biome.LocalID&& !rb.BorderChunk)
-                    {
-                        biome.BorderChunk = true;
-                        biome.BorderBiome = rb;
-                        biome.BorderType = 2;
-                    }else if(bb.LocalID != biome.LocalID&& !bb.BorderChunk)
-                    {
-                        biome.BorderChunk = true;
-                        biome.BorderBiome = bb;
-                        biome.BorderType = 3;
-                    }else if(lb.LocalID != biome.LocalID && !lb.BorderChunk)
-                    {
-                        biome.BorderChunk = true;
-                        biome.BorderBiome = lb;
-                        biome.BorderType = 4;
-                    }
-                    else
-                    {
-                        biome.BorderChunk = false;
-                    }
+                    
+                    biome.BorderChunk = BC;
+                    // Console.WriteLine($"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB {BC}");
                     
                     // if (calculate > -1)
                     // {

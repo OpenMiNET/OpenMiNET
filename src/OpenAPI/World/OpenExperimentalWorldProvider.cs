@@ -122,7 +122,7 @@ namespace OpenAPI.World
         {
             if (Level != null && _isInitialized)
             {
-                Log.Info("RE-ADDER RAN=========================================");
+                // Log.Info("RE-ADDER RAN=========================================");
                 List<String> Completed = new List<string>();
                 foreach (var v in new Dictionary<String, List<Block>>(BlocksToBeAddedDuringChunkGeneration))
                 {
@@ -139,8 +139,9 @@ namespace OpenAPI.World
                             if (ax < 0) ax += 16;
                             int az = (ccc.Z % 16);
                             if (az < 0) az += 16;
-                            c.SetBlock(ax, ccc.Y, az, block);
-                            Log.Info($"=================================SETTING BLOCK AT {c} || {ax} {az} || {block.Id}");
+                            if(c.GetBlockId(ax,ccc.Y,az) != new Wood().Id)
+                                c.SetBlock(ax, ccc.Y, az, block);
+                            // Log.Info($"=================================SETTING BLOCK AT {c} || {ax} {az} || {block.Id}");
                         }
                         // Completed.Add(v.Key);
                         BlocksToBeAddedDuringChunkGeneration[chunkkey].Clear();
@@ -313,27 +314,6 @@ namespace OpenAPI.World
             chunk = PreGetChunk(chunkCoordinates, BasePath).Result;
             if (chunk != null)
             {
-                // if (BlocksToBeAddedDuringChunkGeneration.ContainsKey(chunkCoordinates.X + "|" + chunkCoordinates.Z))
-                // {
-                //     var aaa = BlocksToBeAddedDuringChunkGeneration[chunkCoordinates.X + "|" + chunkCoordinates.Z];
-                //     if (aaa.Count != 0)
-                //     {
-                //         Log.Info($"{chunkCoordinates} HAS2 {aaa.Count} TO ADD");
-                //         foreach (var a in aaa)
-                //         {
-                //             var c = a.Coordinates;
-                //             int ax = (c.X % 16);
-                //             if (ax < 0) ax += 15;
-                //             int az = (c.Z % 16);
-                //             if (az < 0) az += 15;
-                //             chunk.SetBlock(ax, c.Y, az, a);
-                //             Log.Info($"SETTING2 BLOCK AT {c} || {ax} {az} || {a.Id}");
-                //         }
-                //     }
-                //
-                //     BlocksToBeAddedDuringChunkGeneration[chunkCoordinates.X + "|" + chunkCoordinates.Z].Clear();
-                // }
-
                 _chunkCache[chunkCoordinates] = chunk;
                 return chunk;
             }
@@ -352,31 +332,7 @@ namespace OpenAPI.World
                 // Console.WriteLine("STARTING SMOOTHING");
                 chunk = SmoothChunk(this, chunk, rth).Result;
             }
-
-            // if (BlocksToBeAddedDuringChunkGeneration.ContainsKey(chunkCoordinates.X + "|" + chunkCoordinates.Z))
-            // {
-            //     var aaa = BlocksToBeAddedDuringChunkGeneration[chunkCoordinates.X + "|" + chunkCoordinates.Z];
-            //     if (aaa.Count != 0)
-            //     {
-            //         Log.Info($"{chunkCoordinates} HAS {aaa.Count} TO ADD");
-            //         foreach (var a in aaa)
-            //         {
-            //             var c = a.Coordinates;
-            //             int ax = (c.X % 16);
-            //             if (ax < 0) ax += 16;
-            //             int az = (c.Z % 16);
-            //             if (az < 0) az += 16;
-            //             chunk.SetBlock(ax, c.Y, az, a);
-            //             Log.Info($"SETTING BLOCK AT {c} || {ax} {az} || {a.Id}");
-            //         }
-            //
-            //         BlocksToBeAddedDuringChunkGeneration[chunkCoordinates.X + "|" + chunkCoordinates.Z].Clear();
-            //     }
-            // }
-
-
-            Console.WriteLine("FINISHED & 1st Return of Chunk");
-
+            
             return chunk;
         }
 
