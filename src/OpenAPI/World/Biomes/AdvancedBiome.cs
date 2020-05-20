@@ -150,10 +150,10 @@ namespace OpenAPI.World
             ChunkColumn c,
             float[] rth);
 
-        public void SetHeightMapToChunks(ChunkColumn[] ca, int[,] map)
+        public virtual void SetHeightMapToChunks(ChunkColumn[] ca, int[,] map)
         {
             int l = (int) Math.Sqrt(ca.Length);
-            Console.WriteLine($"{l} =================================================== 5? {ca.Length}");
+            // Console.WriteLine($"{l} =================================================== 5? {ca.Length}");
             for (int x = 0; x < map.GetLength(0); x++)
             for (int z = 0; z < map.GetLength(1); z++)
             {
@@ -162,14 +162,14 @@ namespace OpenAPI.World
                 int cn = cnx + (cnz * l);
                 // if()
                 // if (cn >= 6) cn--;
-                Console.WriteLine($"{x} {z} >>>>>>> {cn}");
+                // Console.WriteLine($"{x} {z} >>>>>>> {cn}");
                 ChunkColumn cc = ca[cn];
 
                 int rx = x % 16;
                 int rz = z % 16;
                 int h = map[x, z];
                 // int rzz = (15 - rz);
-                int rzz = ( rz);
+                int rzz = (rz);
                 // int rxx = ( 15-rx);
                 int rxx = rx;
                 // map[x, z] = cc.GetHeight(rx, rz);
@@ -182,39 +182,70 @@ namespace OpenAPI.World
                 //     $"{x} {z} > GAVE ({cnx} AND {cnz}) CN VAL {cn} ||  {rx} {rz} ({rzz}) >======== {h}");
                 for (int y = 1; y < 255; y++)
                 {
-                    if (y < h - 1)
-                    {
-                        if (cc.GetBlockId(rxx, y, rzz) == 0) cc.SetBlock(rxx, y, rzz, new Stone());
-                    }
-                    // else if (cc.GetBlockId(rx, y, rz) == 0) break;
-                    else if (y == h - 1)
-                    {
-                        // if (x == 0 || z == map.GetLength(0) - 1 || z == 0 || z == map.GetLength(1) - 1)
-                        //     cc.SetBlock(rxx, y, rzz, new EmeraldBlock());
-                        /*else*/
-                        cc.SetBlock(rxx, y, rzz, new Grass());
-                    }
-                    else
-                    {
-                        if (cc.GetBlockId(rxx, y, rzz) == 0 || cc.GetBlockId(rxx, y, rzz) == new Wood().Id) break;
-                        cc.SetBlock(rxx, y, rzz, new Air());
-                    }
-
-                    // if (y < h)
-                    // {
-                    //     if(cc.GetBlockId(rx,y,rz) == 0)cc.SetBlock(rx,y,rz , new CoalBlock());
-                    // }
-                    // else
-                    // {
-                    //     if (cc.GetBlockId(rx, y, rz) == 0) break;
-                    //     cc.SetBlock(rx,y,rz , new Air());
-                    // }
-                    // }
+                    SmoothVerticalColumn(y, h, rxx, rzz, cc);
                 }
 
                 cc.SetHeight(rxx, rzz, (short) h);
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="yheight"></param>
+        /// <param name="maxheight"></param>
+        /// <param name="rxx"></param>
+        /// <param name="rzz"></param>
+        /// <param name="cc"></param>
+        public virtual void SmoothVerticalColumn(int yheight, int maxheight, int rxx, int rzz, ChunkColumn cc)
+        {
+            int bid = cc.GetBlockId(rxx, yheight, rzz);
+            if (bid == new Wood().Id) return;
+            if (bid == new Water().Id || bid == new FlowingWater().Id) return;
+
+
+            if (yheight < maxheight - 1)
+            {
+                if (yheight <= 90)
+                {
+                    cc.SetBlock(rxx, yheight, rzz, new Sand());
+                }
+                else if (bid == 0) cc.SetBlock(rxx, yheight, rzz, new Stone());
+            }
+            // else if (cc.GetBlockId(rx, y, rz) == 0) break;
+            else if (yheight == maxheight - 1)
+            {
+                // if (x == 0 || z == map.GetLength(0) - 1 || z == 0 || z == map.GetLength(1) - 1)
+                //     cc.SetBlock(rxx, y, rzz, new EmeraldBlock());
+                /*else*/
+                if (yheight <= 90)
+                {
+                    cc.SetBlock(rxx, yheight, rzz, new Sand());
+                }
+                else
+                    cc.SetBlock(rxx, yheight, rzz, new Grass());
+            }
+            else if (yheight == maxheight)
+            {
+                if (bid == 0 || bid == new Wood().Id) return;
+                cc.SetBlock(rxx, yheight, rzz, new Air());
+            }
+            else
+            {
+                if (NotAllowedBlocks.Contains(bid))
+                {
+                    cc.SetBlock(rxx, yheight, rzz, new Air());
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<int> NotAllowedBlocks = new List<int>()
+        {
+            new Stone().Id, new Stonebrick().Id, new Sand().Id, new Grass().Id, new Dirt().Id, new Grass().Id,new Tallgrass().Id, new DoublePlant().Id,new RedFlower().Id, new ChorusFlower().Id, new YellowFlower().Id
+        };
 
         public int[,] CreateMapFrom8Chunks(ChunkColumn[] ca)
         {
@@ -376,92 +407,92 @@ namespace OpenAPI.World
             // int[,]  newmap = map;
 
             //SMooth BORDER
-            for (int x = 0; x < map.GetLength(0); x++)
-            {
-                for (int z = 0; z < map.GetLength(1); z++)
-                {
-                    if (x == 0 || x == map.GetLength(0) - 1 || z == 0 || z == map.GetLength(1) - 1)
-                    {
-                        if ((x == 0 || x == map.GetLength(0) - 1) && (z == 0 || z == map.GetLength(1) - 1))
-                        {
-                            continue;
-                        }
-
-                        int lv = -1;
-                        int nv = -1;
-                        if (z == 0)
-                        {
-                            lv = map[x - 1, z];
-                            nv = map[x + 1, z];
-                        }
-                        else if (z == map.GetLength(1) - 1)
-                        {
-                            lv = map[x - 1, z];
-                            nv = map[x + 1, z];
-                        }
-                        else if (x == 0)
-                        {
-                            lv = map[x, z - 1];
-                            nv = map[x, z + 1];
-                        }
-                        else if (x == map.GetLength(0) - 1)
-                        {
-                            lv = map[x, z - 1];
-                            nv = map[x, z + 1];
-                        }
-
-                        int cv = map[x, z];
-                        int a = (lv + nv) / 2;
-                        int dv = (a - cv);
-                        if (dv > 1)
-                        {
-                            if (lv > nv)
-                                a = lv - 1;
-                            else
-                                a = lv + 1;
-                        }
-                        else if (dv < -1)
-                        {
-                            if (lv < nv)
-                                a = lv + 1;
-                            else
-                                a = lv - 1;
-                        }
-
-                        int fv = a;
-                        // Console.WriteLine($"{x} {z} => {cv} ||| LV{lv} NV{nv} | A{a} | DV{dv} | {fv}");
-                        map[x, z] = fv;
-                        // if (x == 0)
-                        // {
-                        //     map[x, z] = (int) Lerp(map[0, 0], map[0, map.GetLength(1) - 1],
-                        //         (float) z / map.GetLength(1));
-                        // }
-                        // else if (x == map.GetLength(0) - 1)
-                        // {
-                        //     map[x, z] = (int) Lerp(map[map.GetLength(0) - 1, 0],
-                        //         map[map.GetLength(0) - 1, map.GetLength(1) - 1],
-                        //         (float) z / map.GetLength(1));
-                        // }
-                        // else if (z == 0)
-                        // {
-                        //     map[x, z] = (int) Lerp(map[0, 0], map[map.GetLength(0) - 1, 0],
-                        //         (float) x / map.GetLength(0));
-                        // }
-                        // else if (z == map.GetLength(0) - 1)
-                        // {
-                        //     map[x, z] = (int) Lerp(map[0,map.GetLength(1) - 1],
-                        //         map[map.GetLength(0) - 1, map.GetLength(1) - 1], 
-                        //         (float) x / map.GetLength(1));
-                        // }
-
-                        // float nhx = Lerp(map[0, z], map[map.GetLength(0) - 1, z], (float) x / (map.GetLength(0) - 1));
-                        // float nhz = Lerp(map[x, 0], map[x, map.GetLength(1) - 1], (float) z / (map.GetLength(1) - 1));
-                        //
-                        // // map[x, z] =
-                        //     int v = map[x, z];
-                    }
-                }
-            }
+            // for (int x = 0; x < map.GetLength(0); x++)
+            // {
+            //     for (int z = 0; z < map.GetLength(1); z++)
+            //     {
+            //         if (x == 0 || x == map.GetLength(0) - 1 || z == 0 || z == map.GetLength(1) - 1)
+            //         {
+            //             if ((x == 0 || x == map.GetLength(0) - 1) && (z == 0 || z == map.GetLength(1) - 1))
+            //             {
+            //                 continue;
+            //             }
+            //
+            //             int lv = -1;
+            //             int nv = -1;
+            //             if (z == 0)
+            //             {
+            //                 lv = map[x - 1, z];
+            //                 nv = map[x + 1, z];
+            //             }
+            //             else if (z == map.GetLength(1) - 1)
+            //             {
+            //                 lv = map[x - 1, z];
+            //                 nv = map[x + 1, z];
+            //             }
+            //             else if (x == 0)
+            //             {
+            //                 lv = map[x, z - 1];
+            //                 nv = map[x, z + 1];
+            //             }
+            //             else if (x == map.GetLength(0) - 1)
+            //             {
+            //                 lv = map[x, z - 1];
+            //                 nv = map[x, z + 1];
+            //             }
+            //
+            //             int cv = map[x, z];
+            //             int a = (lv + nv) / 2;
+            //             int dv = (a - cv);
+            //             if (dv > 1)
+            //             {
+            //                 if (lv > nv)
+            //                     a = lv - 1;
+            //                 else
+            //                     a = lv + 1;
+            //             }
+            //             else if (dv < -1)
+            //             {
+            //                 if (lv < nv)
+            //                     a = lv + 1;
+            //                 else
+            //                     a = lv - 1;
+            //             }
+            //
+            //             int fv = a;
+            //             // Console.WriteLine($"{x} {z} => {cv} ||| LV{lv} NV{nv} | A{a} | DV{dv} | {fv}");
+            //             map[x, z] = fv;
+            //             // if (x == 0)
+            //             // {
+            //             //     map[x, z] = (int) Lerp(map[0, 0], map[0, map.GetLength(1) - 1],
+            //             //         (float) z / map.GetLength(1));
+            //             // }
+            //             // else if (x == map.GetLength(0) - 1)
+            //             // {
+            //             //     map[x, z] = (int) Lerp(map[map.GetLength(0) - 1, 0],
+            //             //         map[map.GetLength(0) - 1, map.GetLength(1) - 1],
+            //             //         (float) z / map.GetLength(1));
+            //             // }
+            //             // else if (z == 0)
+            //             // {
+            //             //     map[x, z] = (int) Lerp(map[0, 0], map[map.GetLength(0) - 1, 0],
+            //             //         (float) x / map.GetLength(0));
+            //             // }
+            //             // else if (z == map.GetLength(0) - 1)
+            //             // {
+            //             //     map[x, z] = (int) Lerp(map[0,map.GetLength(1) - 1],
+            //             //         map[map.GetLength(0) - 1, map.GetLength(1) - 1], 
+            //             //         (float) x / map.GetLength(1));
+            //             // }
+            //
+            //             // float nhx = Lerp(map[0, z], map[map.GetLength(0) - 1, z], (float) x / (map.GetLength(0) - 1));
+            //             // float nhz = Lerp(map[x, 0], map[x, map.GetLength(1) - 1], (float) z / (map.GetLength(1) - 1));
+            //             //
+            //             // // map[x, z] =
+            //             //     int v = map[x, z];
+            //         }
+            //     }
+            // }
 
             for (int x = 0; x < map.GetLength(0); x++)
             {
@@ -655,7 +686,7 @@ namespace OpenAPI.World
 
         public static int max = 0;
 
-        public void SmoothChunk(OpenExperimentalWorldProvider o, ChunkColumn chunk, float[] rth)
+        public virtual void SmoothChunk(OpenExperimentalWorldProvider o, ChunkColumn chunk, float[] rth)
         {
             //Smooth Biome
 
@@ -675,8 +706,8 @@ namespace OpenAPI.World
                 for (int zz = 2; zz >= -2; zz--)
                 for (int xx = -2; xx <= 2; xx++)
                 {
-                    int k = xx +2 +((zz+2)*(int)Math.Sqrt(chunks.Length));
-                    Console.WriteLine($"#{ab} || {xx} {zz} || {k}");
+                    int k = xx + 2 + ((zz + 2) * (int) Math.Sqrt(chunks.Length));
+                    // Console.WriteLine($"#{ab} || {xx} {zz} || {k}");
                     if (xx == 0 && zz == 0) chunks[k] = chunk;
                     else
                         chunks[k] = o.GenerateChunkColumn2(new ChunkCoordinates {X = chunk.X + xx, Z = chunk.Z + zz},
@@ -689,8 +720,8 @@ namespace OpenAPI.World
                 var nh = SmoothMapV3(h);
                 nh = SmoothMapV4(nh);
 
-                printDisplayTable(h, $"C{chunk.X}{chunk.Z}Pre");
-                printDisplayTable(nh, $"C{chunk.X}{chunk.Z}Post");
+                // printDisplayTable(h, $"C{chunk.X}{chunk.Z}Pre");
+                // printDisplayTable(nh, $"C{chunk.X}{chunk.Z}Post");
 
                 SetHeightMapToChunks(chunks, nh);
             }
@@ -794,6 +825,7 @@ namespace OpenAPI.World
                     cnt++;
                 }
             }
+
             for (int x = 1; x < map.GetLength(0) - 2; x++)
             {
                 var zstrip = SmoothStrip(Fillstripz(0, map.GetLength(1) - 1, x, map));
@@ -805,7 +837,7 @@ namespace OpenAPI.World
                 }
             }
 
-            
+
             // for (int x = 1; x < map.GetLength(0) - 2; x++)
             // {
             //     for (int z = 1; z < map.GetLength(1) - 2; z++)
@@ -884,7 +916,7 @@ namespace OpenAPI.World
 
         public static AdvancedBiome GetBiome(int biomeId)
         {
-            return BiomeManager.GetBiome(biomeId);
+            return null;
         }
 
 

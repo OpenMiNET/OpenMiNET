@@ -325,12 +325,16 @@ namespace OpenAPI.World
             var rth = getChunkRTH(chunk);
 
             // Console.WriteLine("STARTING POPULATIOaN");
-            chunk = PopulateChunk(this, chunk, rth).Result;
+            var b = BiomeManager.GetBiome(chunk);
+            chunk = PopulateChunk(this, chunk, rth,b).Result;
 
             if (smooth)
             {
-                // Console.WriteLine("STARTING SMOOTHING");
-                chunk = SmoothChunk(this, chunk, rth).Result;
+                chunk = SmoothChunk(this, chunk, rth,b).Result;
+            }
+            else if(b.BorderChunk)
+            {
+                Console.WriteLine($"{chunkCoordinates} WAS NOT SMOOTH BUT WAS BORDER CHUNK");
             }
             
             return chunk;
@@ -955,18 +959,16 @@ namespace OpenAPI.World
 
         public async Task<ChunkColumn> SmoothChunk(OpenExperimentalWorldProvider openExperimentalWorldProvider,
             ChunkColumn chunk,
-            float[] rth)
+            float[] rth, AdvancedBiome b)
         {
-            var b = BiomeManager.GetBiome(chunk);
             var a = await b.preSmooth(openExperimentalWorldProvider, chunk, rth);
             return a;
         }
 
         public async Task<ChunkColumn> PopulateChunk(OpenExperimentalWorldProvider openExperimentalWorldProvider,
             ChunkColumn chunk,
-            float[] rth)
+            float[] rth, AdvancedBiome b)
         {
-            var b = BiomeManager.GetBiome(chunk);
             // var b = new MainBiome();
             var a = await b.prePopulate(openExperimentalWorldProvider, chunk, rth);
             return a;

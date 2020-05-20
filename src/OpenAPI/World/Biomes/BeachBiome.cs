@@ -1,22 +1,31 @@
 ﻿using System;
 using MiNET.Blocks;
-using MiNET.Utils;
 using MiNET.Worlds;
-using OpenAPI.World.Biomes;
 
-namespace OpenAPI.World
+namespace OpenAPI.World.Biomes
 {
-        public class WaterBiome : AdvancedBiome
+    public class BeachBiome : AdvancedBiome
     {
-        public WaterBiome() : base("Water", new BiomeQualifications(0, 2, 1, 1.75f, 0.25f, 0f
-            , 50))
+        public int waterlevel;
+        public int SandHeight;
+
+
+        public BeachBiome() : base("Beach", new BiomeQualifications(0, 2, 1, 1.75f, 0.5f, 0.25f
+            , 10))
         {
-            BiomeQualifications.baseheight = 30;
+            BiomeQualifications.baseheight = 83; //30
+            waterlevel = 75;
+            SandHeight = waterlevel;
         }
 
-        int waterlevel = 75;
-
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="yheight"></param>
+        /// <param name="maxheight"></param>
+        /// <param name="rxx"></param>
+        /// <param name="rzz"></param>
+        /// <param name="cc"></param>
         public override void SmoothVerticalColumn(int yheight, int maxheight, int rxx, int rzz, ChunkColumn cc)
         {
             var bid = cc.GetBlockId(rxx, yheight, rzz);
@@ -28,7 +37,7 @@ namespace OpenAPI.World
                 if (bid == 0) cc.SetBlock(rxx, yheight, rzz, new Stone());
             }
             // else if (cc.GetBlockId(rx, y, rz) == 0) break;
-            else if (yheight <= maxheight - 1)
+            else if (yheight < maxheight -3)
             {
                 // if (x == 0 || z == map.GetLength(0) - 1 || z == 0 || z == map.GetLength(1) - 1)
                 //     cc.SetBlock(rxx, y, rzz, new EmeraldBlock());
@@ -37,15 +46,15 @@ namespace OpenAPI.World
                 if (r > 3)
                     cc.SetBlock(rxx, yheight, rzz, new Gravel());
                 else
-                    cc.SetBlock(rxx, yheight, rzz, new Sandstone());
+                    cc.SetBlock(rxx, yheight, rzz, new Sand());
+                //350 350 + -
             }
-            else if (yheight == maxheight)
-            {
-                cc.SetBlock(rxx, yheight, rzz, new Sandstone());
-            }
-            else
+            else if(yheight <= maxheight)
             {
                 if (bid == 0 || bid == new Wood().Id) return;
+                cc.SetBlock(rxx, yheight, rzz, new Sandstone());
+            }else
+            {
                 if (NotAllowedBlocks.Contains(bid))
                 {
                     cc.SetBlock(rxx, yheight, rzz, new Air());
@@ -53,34 +62,12 @@ namespace OpenAPI.World
             }
         }
 
-
-        public override void SmoothChunk(OpenExperimentalWorldProvider o, ChunkColumn c, float[] rth)
-        {
-            if (BiomeManager.IsOnBorder(new ChunkCoordinates(c.X,c.Z), LocalID,3))
-            {
-                Console.WriteLine($"THIS OCEAN CHUNK IS A BORER 22222222222222222");
-                new BeachBiome().SmoothChunk(o,c,rth);
-                return;
-            };
-            base.SmoothChunk(o, c, rth);
-        }
-
+        //TODO ADD CLAY
+        
         public override void PopulateChunk(OpenExperimentalWorldProvider openExperimentalWorldProvider,
             ChunkColumn c,
             float[] rth)
         {
-            if (BiomeManager.IsOnBorder(new ChunkCoordinates(c.X,c.Z), LocalID,3))
-            {
-                Console.WriteLine($"THIS OCEAN CHUNK IS A BORER CHUNK");
-                new BeachBiome().PopulateChunk(openExperimentalWorldProvider,c,rth);
-                return;
-            }
-            else if (BiomeManager.IsOnBorder(new ChunkCoordinates(c.X,c.Z), LocalID,5))
-            {
-                Console.WriteLine($"THIS OCEAN CHUNK IS A BORER A BORER CHUNK");
-                BorderChunk = true;
-            }
-            
             // int stopheight =
             //     (int) Math.Floor(BiomeQualifications.baseheight + (rth[2] * BiomeQualifications.heightvariation));
 
@@ -90,10 +77,10 @@ namespace OpenAPI.World
                 // int sh = (int) (BiomeQualifications.baseheight +
                 //                 (int) (GetNoise(c.X * 16 + x, c.Z * 16 + z, rth[2], BiomeQualifications.heightvariation)))+
                 //                 (int) (GetNoise(c.X * 16 + x, c.Z * 16 + z, 0.035f, 5)); //10
-                
-                int sh = (int) (BiomeQualifications.baseheight +
-                                (int) (GetNoise(c.X * 16 + x, c.Z * 16 + z, /*rth[2] / */.035f,
-                                    BiomeQualifications.heightvariation)));
+
+                var sh = BiomeQualifications.baseheight +
+                         (int) GetNoise(c.X * 16 + x, c.Z * 16 + z, /*rth[2] / */.035f,
+                             BiomeQualifications.heightvariation);
                 // Console.WriteLine("WATTTTTTTTTEEEEEEEERRRRRRRRRRR >>>>>>>>>>>>>>> " + sh + " |||| " + rth[2]);
                 for (short y = 0; y < 255; y++)
                 {
@@ -107,11 +94,11 @@ namespace OpenAPI.World
                     {
                         if (y <= sh - 3)
                         {
-                            c.SetBlock(x,y,z,new Stone());
-                        }else if (y >= sh)
+                            c.SetBlock(x, y, z, new Stone());
+                        }
+                        else if (y >= sh)
                         {
-                            c.SetBlock(x,y,z,new Sand());
-                            
+                            c.SetBlock(x, y, z, new Sand());
                         }
                         else
                         {
@@ -120,7 +107,7 @@ namespace OpenAPI.World
                             if (i > 5) c.SetBlock(x, y, z, new Grass());
                             else*/
                             c.SetBlock(x, y, z, new Sand());
-                            c.SetHeight(x,z,y);
+                            c.SetHeight(x, z, y);
                             break;
                         }
                     }
@@ -128,10 +115,11 @@ namespace OpenAPI.World
                     {
                         if (y <= sh - 3)
                         {
-                            c.SetBlock(x,y,z,new Stone());
+                            c.SetBlock(x, y, z, new Stone());
                             continue;
                         }
-                        else if(y <= sh)
+
+                        if (y <= sh)
                         {
                             // var i = 0;
                             /*i = (new Random()).Next(0, 10);
@@ -140,18 +128,18 @@ namespace OpenAPI.World
                             c.SetBlock(x, y, z, new Sand());
                             continue;
                         }
+
                         if (y <= waterlevel)
                         {
                             c.SetBlock(x, y, z, new FlowingWater());
                             continue;
                         }
-                        
-                        c.SetHeight(x, z, (short) waterlevel);//y -1
+
+                        c.SetHeight(x, z, (short) waterlevel); //y -1
                         break;
                     }
                 }
             }
         }
     }
-
 }
