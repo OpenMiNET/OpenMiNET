@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using log4net;
 using MiNET.Blocks;
 using MiNET.Utils;
@@ -24,7 +25,7 @@ namespace OpenAPI.World
         /// <param name="chunk"></param>
         /// <param name="rth"></param>
         /// <returns></returns>
-        public override ChunkColumn GenerateSurfaceItems(
+        public override async Task<ChunkColumn> GenerateSurfaceItems(
             OpenExperimentalWorldProvider o, ChunkColumn chunk, float[] rth)
         {
             // Console.WriteLine($"TRYINGGGG FORRR TEEEEEEEEEEEEEEEEEEEEEEEEEEEE {cx} {cz}|| {x} {z}");

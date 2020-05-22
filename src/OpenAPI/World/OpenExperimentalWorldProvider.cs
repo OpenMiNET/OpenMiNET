@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -240,7 +241,7 @@ namespace OpenAPI.World
 
             //Move into method About 2 \/\/\/
             v.Generated = true;
-            if (v.Generated && !v.SurfaceItemsGenerated) v = PreGenerateSurfaceItems(this, v, null);
+            if (v.Generated && !v.SurfaceItemsGenerated) v = PreGenerateSurfaceItems(this, v, null).Result;
 
             // Console.WriteLine($"Done PreGen! {chunkCoordinates}");
             _chunkCache[chunkCoordinates] = v;
@@ -337,6 +338,9 @@ namespace OpenAPI.World
                 Console.WriteLine($"{chunkCoordinates} WAS NOT SMOOTH BUT WAS BORDER CHUNK");
             }
             
+            
+            // SaveChunk(chunk, BasePath);
+            
             return chunk;
         }
 
@@ -371,7 +375,7 @@ namespace OpenAPI.World
 
         public int SaveChunks()
         {
-            return 0;
+            // return 0;
             var count = 0;
             try
             {
@@ -549,10 +553,11 @@ namespace OpenAPI.World
             var rootTag = (NbtCompound) nbt.RootTag;
             rootTag.Add(levelTag);
 
-            levelTag.Add(new NbtByte("MCPE BID", 1)); // Indicate that the chunks contain PE block ID's.
+            levelTag.Add(new NbtByte("TerrainPopulated", chunk.Generated ? (byte)1 : (byte)0));
 
             levelTag.Add(new NbtInt("xPos", chunk.X));
             levelTag.Add(new NbtInt("zPos", chunk.Z));
+            levelTag.Add(new NbtLong("LastUpdate",0));
             levelTag.Add(new NbtByteArray("Biomes", chunk.biomeId));
 
             var sectionsTag = new NbtList("Sections", NbtTagType.Compound);
@@ -590,7 +595,7 @@ namespace OpenAPI.World
                         SetNibble4(skyLight, anvilIndex, subChunk.GetSkylight(x, y, z));
                     }
                 }
-                sectionTag.Add(new NbtByteArray("BlocSubChunk.cs:154ks", blocks));
+                sectionTag.Add(new NbtByteArray("Blocks", blocks));
                 sectionTag.Add(new NbtByteArray("Data", data));
                 sectionTag.Add(new NbtByteArray("BlockLight", blockLight));
                 sectionTag.Add(new NbtByteArray("SkyLight", skyLight));
@@ -615,6 +620,8 @@ namespace OpenAPI.World
             levelTag.Add(blockEntitiesTag);
 
             levelTag.Add(new NbtList("TileTicks", NbtTagType.Compound));
+            
+            levelTag.Add(new NbtByte("MCPE BID", 1)); // Indicate that the chunks contain PE block ID's.
 
             return nbt;
         }
@@ -875,6 +882,12 @@ namespace OpenAPI.World
             return (byte) ((arr[index >> 1] >> ((index & 1) * 4)) & 0xF);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sectionTag"></param>
+        /// <param name="chunkColumn"></param>
+        /// <param name="convertBid"></param>
         public void ReadSection(NbtTag sectionTag, ChunkColumn chunkColumn, bool convertBid = true)
         {
             int sectionIndex = sectionTag["Y"].ByteValue;
@@ -977,25 +990,29 @@ namespace OpenAPI.World
 // Console.WriteLine($"GENERATORED YO BITCH >> {chunk.X} {chunk.Z}");
         }
 
-        public ChunkColumn PreGenerateSurfaceItems(OpenExperimentalWorldProvider openExperimentalWorldProvider,
+        public async Task<ChunkColumn> PreGenerateSurfaceItems(OpenExperimentalWorldProvider openExperimentalWorldProvider,
             ChunkColumn chunk,
             float[] rth)
         {
+            var s = new Stopwatch();
+            s.Start();
             chunk.SurfaceItemsGenerated = true;
-            var a = GenerateSurfaceItems(openExperimentalWorldProvider, chunk, rth);
+            var a = await GenerateSurfaceItems(openExperimentalWorldProvider, chunk, rth);
+            s.Stop();
+            Console.WriteLine($"CHUNK ADDING SURFACE ITEMS TOOK {s.Elapsed}");
             return a;
             // b.PopulateChunk(chunk, rain, temp);
 
 // Console.WriteLine($"GENERATORED YO BITCH >> {chunk.X} {chunk.Z}");
         }
 
-        public ChunkColumn GenerateSurfaceItems(OpenExperimentalWorldProvider openExperimentalWorldProvider,
+        public async Task<ChunkColumn> GenerateSurfaceItems(OpenExperimentalWorldProvider openExperimentalWorldProvider,
             ChunkColumn chunk,
             float[] rth)
         {
             var b = BiomeManager.GetBiome(chunk);
             // var b = new MainBiome();
-            var a = b.GenerateSurfaceItems(openExperimentalWorldProvider, chunk, rth);
+            var a = await b.GenerateSurfaceItems(openExperimentalWorldProvider, chunk, rth);
             return a;
             // b.PopulateChunk(chunk, rain, temp);
 

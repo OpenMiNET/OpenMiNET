@@ -940,7 +940,7 @@ namespace OpenAPI.World
         /// <param name="chunk"></param>
         /// <param name="rth"></param>
         /// <returns></returns>
-        public virtual ChunkColumn GenerateSurfaceItems(OpenExperimentalWorldProvider openExperimentalWorldProvider,
+        public virtual async Task<ChunkColumn> GenerateSurfaceItems(OpenExperimentalWorldProvider openExperimentalWorldProvider,
             ChunkColumn chunk, float[] rth)
         {
             return chunk;
