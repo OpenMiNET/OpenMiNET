@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Numerics;
 using System.Threading.Tasks;
+using log4net;
 using MiNET.Blocks;
 using MiNET.Net;
 using MiNET.Utils;
@@ -59,6 +60,8 @@ namespace OpenAPI.World
 
     public abstract class AdvancedBiome
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(AdvancedBiome));
+
         private static readonly OpenSimplexNoise OpenNoise = new OpenSimplexNoise("a-seed".GetHashCode());
         public BiomeQualifications BiomeQualifications;
 
@@ -105,7 +108,7 @@ namespace OpenAPI.World
             SmoothChunk(openExperimentalWorldProvider, chunk, rth);
             t.Stop();
 
-            Console.WriteLine($"CHUNK SMOOTHING OF {chunk.X} {chunk.Z} TOOK {t.Elapsed}");
+            if(t.ElapsedMilliseconds > 100)Log.Info($"CHUNK SMOOTHING OF {chunk.X} {chunk.Z} TOOK {t.Elapsed}");
             return chunk;
         }
 
@@ -136,7 +139,8 @@ namespace OpenAPI.World
             // if(minWorker != 20  && !ThreadPool.SetMinThreads(20,20))Console.WriteLine("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
 
             // SmoothChunk(openExperimentalWorldProvider,chunk,rth);
-            Console.WriteLine($"CHUNK POPULATION OF {chunk.X} {chunk.Z} TOOK {t.Elapsed}");
+            
+            if(t.ElapsedMilliseconds > 100)Log.Debug($"Chunk Population of X:{chunk.X} Z:{chunk.Z} took {t.Elapsed}");
             return chunk;
         }
 
@@ -199,8 +203,14 @@ namespace OpenAPI.World
         /// <param name="cc"></param>
         public virtual void SmoothVerticalColumn(int yheight, int maxheight, int rxx, int rzz, ChunkColumn cc)
         {
+            
+            // var subChunk = cc.GetSubChunk(yheight);
+            // var v = subChunk.GetBlockId(rxx, yheight & 0xf, rzz);
+            // Console.WriteLine(subChunk);
+            // Console.WriteLine(v);
+            // Console.WriteLine("++++++++++++++++++++++++++++++++");
             int bid = cc.GetBlockId(rxx, yheight, rzz);
-            if (bid == new Wood().Id) return;
+            if (bid == new Wood().Id || bid == new Log().Id) return;
             if (bid == new Water().Id || bid == new FlowingWater().Id) return;
 
 
@@ -227,7 +237,7 @@ namespace OpenAPI.World
             }
             else if (yheight == maxheight)
             {
-                if (bid == 0 || bid == new Wood().Id) return;
+                if (bid == 0 || bid == new Wood().Id|| bid == new Log().Id) return;
                 cc.SetBlock(rxx, yheight, rzz, new Air());
             }
             else
@@ -710,7 +720,7 @@ namespace OpenAPI.World
                     // Console.WriteLine($"#{ab} || {xx} {zz} || {k}");
                     if (xx == 0 && zz == 0) chunks[k] = chunk;
                     else
-                        chunks[k] = o.GenerateChunkColumn2(new ChunkCoordinates {X = chunk.X + xx, Z = chunk.Z + zz},
+                        chunks[k] = o.OpenPreGenerateChunkColumn(new ChunkCoordinates {X = chunk.X + xx, Z = chunk.Z + zz},
                             false);
                     ab++;
                 }

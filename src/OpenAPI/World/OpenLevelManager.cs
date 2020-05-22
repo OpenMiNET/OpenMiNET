@@ -170,17 +170,9 @@ namespace OpenAPI.World
             Log.Error("====================================");
             Log.Error("====================================");
             IWorldProvider worldProvider;
-            if (debug)
-            {
-                 worldProvider = new OpenExperimentalWorldProvider(123123);
-            }else
-            {
-                 worldProvider = new AnvilWorldProvider(levelDirectory)
-                {
-                    MissingChunkProvider = new TestGenerator2(Dimension.Overworld)
-                    // MissingChunkProvider = new SuperflatGenerator(Dimension.Overworld)
-                };
-            }
+           
+                 worldProvider = new OpenExperimentalWorldProvider(123123,levelDirectory);
+            
 
             var openLevel = new OpenLevel(Api /*, Api.EventDispatcher*/, this, newLevelId, worldProvider, EntityManager,
                 _gameMode, _difficulty, _viewDistance)
@@ -286,12 +278,7 @@ namespace OpenAPI.World
         {
             var missingGenerator = new TestGenerator2(Dimension.Overworld);
             IWorldProvider worldProvider;
-            if (debug)
-            {
-                worldProvider = new OpenExperimentalWorldProvider(123123);
-                
-            }
-            else
+            
                 switch (Config.GetProperty("WorldProvider", "anvil").ToLower().Trim())
                 {
                     case "leveldb":
@@ -299,6 +286,10 @@ namespace OpenAPI.World
                         {
                             MissingChunkProvider = missingGenerator
                         };
+                        break;
+                    case "openanvilyung":
+                        
+                        worldProvider = new OpenExperimentalWorldProvider(123123,Config.GetProperty("PCWorldFolder", "World").Trim());
                         break;
                     case "anvil":
                     default:
@@ -341,8 +332,9 @@ namespace OpenAPI.World
             };
 
             
-            ((OpenExperimentalWorldProvider)worldProvider).Level = lvl;
+            if(Config.GetProperty("WorldProvider", "anvil").ToLower().Trim() == "openanvilyung")((OpenExperimentalWorldProvider)worldProvider).Level = lvl;
             SetDefaultLevel((OpenLevel) lvl);
         }
-    }
+    
+}
 }

@@ -20,7 +20,7 @@ namespace OpenAPI.World
         public override void SmoothVerticalColumn(int yheight, int maxheight, int rxx, int rzz, ChunkColumn cc)
         {
             var bid = cc.GetBlockId(rxx, yheight, rzz);
-            if (bid == new Wood().Id) return;
+            if (bid == new Wood().Id || bid == new Log().Id) return;
             int sand = maxheight - 6;
             if (bid == new Water().Id || bid == new FlowingWater().Id) return;
             if (yheight < sand)
@@ -37,15 +37,15 @@ namespace OpenAPI.World
                 if (r > 3)
                     cc.SetBlock(rxx, yheight, rzz, new Gravel());
                 else
-                    cc.SetBlock(rxx, yheight, rzz, new Sandstone());
+                    cc.SetBlock(rxx, yheight, rzz, new Sand());
             }
             else if (yheight == maxheight)
             {
-                cc.SetBlock(rxx, yheight, rzz, new Sandstone());
+                cc.SetBlock(rxx, yheight, rzz, new Sand());
             }
             else
             {
-                if (bid == 0 || bid == new Wood().Id) return;
+                if (bid == 0 || bid == new Log().Id) return;
                 if (NotAllowedBlocks.Contains(bid))
                 {
                     cc.SetBlock(rxx, yheight, rzz, new Air());
@@ -58,7 +58,7 @@ namespace OpenAPI.World
         {
             if (BiomeManager.IsOnBorder(new ChunkCoordinates(c.X,c.Z), LocalID,3))
             {
-                Console.WriteLine($"THIS OCEAN CHUNK IS A BORER 22222222222222222");
+                // Console.WriteLine($"THIS OCEAN CHUNK IS A BORER 22222222222222222");
                 new BeachBiome().SmoothChunk(o,c,rth);
                 return;
             };
@@ -71,13 +71,13 @@ namespace OpenAPI.World
         {
             if (BiomeManager.IsOnBorder(new ChunkCoordinates(c.X,c.Z), LocalID,3))
             {
-                Console.WriteLine($"THIS OCEAN CHUNK IS A BORER CHUNK");
+                // Console.WriteLine($"THIS OCEAN CHUNK IS A BORER CHUNK");
                 new BeachBiome().PopulateChunk(openExperimentalWorldProvider,c,rth);
                 return;
             }
             else if (BiomeManager.IsOnBorder(new ChunkCoordinates(c.X,c.Z), LocalID,5))
             {
-                Console.WriteLine($"THIS OCEAN CHUNK IS A BORER A BORER CHUNK");
+                // Console.WriteLine($"THIS OCEAN CHUNK IS A BORER A BORER CHUNK");
                 BorderChunk = true;
             }
             

@@ -29,7 +29,7 @@ namespace OpenAPI.World.Biomes
         public override void SmoothVerticalColumn(int yheight, int maxheight, int rxx, int rzz, ChunkColumn cc)
         {
             var bid = cc.GetBlockId(rxx, yheight, rzz);
-            if (bid == new Wood().Id) return;
+            if (bid == new Wood().Id || bid == new Log().Id) return;
             int sand = maxheight - 6;
             if (bid == new Water().Id || bid == new FlowingWater().Id) return;
             if (yheight < sand)
@@ -51,8 +51,8 @@ namespace OpenAPI.World.Biomes
             }
             else if(yheight <= maxheight)
             {
-                if (bid == 0 || bid == new Wood().Id) return;
-                cc.SetBlock(rxx, yheight, rzz, new Sandstone());
+                if (bid == 0 || bid == new Wood().Id ||bid == new Log().Id) return;
+                cc.SetBlock(rxx, yheight, rzz, new Sand());
             }else
             {
                 if (NotAllowedBlocks.Contains(bid))

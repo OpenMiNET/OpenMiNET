@@ -100,7 +100,7 @@ namespace OpenAPI.World.Populator
                         ffy = fy + h;
                         for (int hh = 1; hh < h; hh++)
                         {
-                            c.SetBlock(x, fy + hh, z, new Wood());
+                            c.SetBlock(x, fy + hh, z, new Log());
                             //Bottom Half Leaves
                             if (hh > v /*&& v < (int)Math.Ceiling(w/3f)*/)
                             {

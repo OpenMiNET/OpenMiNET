@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Numerics;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Schema;
@@ -140,10 +141,12 @@ namespace OpenAPI.World
                             if (ax < 0) ax += 16;
                             int az = (ccc.Z % 16);
                             if (az < 0) az += 16;
-                            if(c.GetBlockId(ax,ccc.Y,az) != new Wood().Id)
+                            if (c.GetBlockId(ax, ccc.Y, az) != new Wood().Id ||
+                                c.GetBlockId(ax, ccc.Y, az) != new Log().Id)
                                 c.SetBlock(ax, ccc.Y, az, block);
                             // Log.Info($"=================================SETTING BLOCK AT {c} || {ax} {az} || {block.Id}");
                         }
+
                         // Completed.Add(v.Key);
                         BlocksToBeAddedDuringChunkGeneration[chunkkey].Clear();
                     }
@@ -169,11 +172,11 @@ namespace OpenAPI.World
         private float stoneMountainHeight = 48;
         private int waterLevel = 25;
 
-        public OpenExperimentalWorldProvider(int seed)
+        public OpenExperimentalWorldProvider(int seed, string levelDirectory)
         {
             Seed = seed;
-            BasePath = Config.GetProperty("PCWorldFolder", "World").Trim();
-
+            BasePath = levelDirectory.Trim();
+            Log.Info("This Experimental World Generator Was Created by @Yungtechboy1");
             _tickerHighPrecisionTimer = new HighPrecisionTimer(50 * 10, Run, false, false);
         }
 
@@ -229,21 +232,15 @@ namespace OpenAPI.World
 
         public ChunkColumn GenerateChunkColumn(ChunkCoordinates chunkCoordinates, bool cacheOnly = false)
         {
-            return GenerateChunkColumn2(chunkCoordinates, true, cacheOnly);
+            return OpenPreGenerateChunkColumn(chunkCoordinates, true, cacheOnly);
         }
 
-        public ChunkColumn GenerateChunkColumn2(ChunkCoordinates chunkCoordinates, bool smooth = true,
+
+        public ChunkColumn OpenPreGenerateChunkColumn(ChunkCoordinates chunkCoordinates, bool smooth = true,
             bool cacheOnly = false)
         {
-            var v = NOWGenerateChunkColumn(chunkCoordinates, smooth, cacheOnly);
+            ChunkColumn v = OpenGenerateChunkColumn(chunkCoordinates, smooth, cacheOnly).Result;
             if (v == null) return null;
-            // Console.WriteLine($"CHUNK IS NOT NULL  {chunkCoordinates}");
-
-            //Move into method About 2 \/\/\/
-            v.Generated = true;
-            if (v.Generated && !v.SurfaceItemsGenerated) v = PreGenerateSurfaceItems(this, v, null).Result;
-
-            // Console.WriteLine($"Done PreGen! {chunkCoordinates}");
             _chunkCache[chunkCoordinates] = v;
             return v;
         }
@@ -304,7 +301,7 @@ namespace OpenAPI.World
         public static Dictionary<String, List<Block>> BlocksToBeAddedDuringChunkGeneration =
             new Dictionary<String, List<Block>>();
 
-        public ChunkColumn NOWGenerateChunkColumn(ChunkCoordinates chunkCoordinates, bool smooth = true,
+        public async Task<ChunkColumn> OpenGenerateChunkColumn(ChunkCoordinates chunkCoordinates, bool smooth = true,
             bool cacheOnly = false)
         {
             ChunkColumn cachedChunk;
@@ -327,20 +324,18 @@ namespace OpenAPI.World
 
             // Console.WriteLine("STARTING POPULATIOaN");
             var b = BiomeManager.GetBiome(chunk);
-            chunk = PopulateChunk(this, chunk, rth,b).Result;
+            chunk = PopulateChunk(this, chunk, rth, b).Result;
 
             if (smooth)
             {
-                chunk = SmoothChunk(this, chunk, rth,b).Result;
+                chunk = SmoothChunk(this, chunk, rth, b).Result;
             }
-            else if(b.BorderChunk)
-            {
-                Console.WriteLine($"{chunkCoordinates} WAS NOT SMOOTH BUT WAS BORDER CHUNK");
-            }
-            
-            
-            // SaveChunk(chunk, BasePath);
-            
+
+            // else if(b.BorderChunk)
+            // {
+            //     Console.WriteLine($"{chunkCoordinates} WAS NOT SMOOTH BUT WAS BORDER CHUNK");
+            // }
+            chunk = PreGenerateSurfaceItems(this, chunk, null).Result;
             return chunk;
         }
 
@@ -553,11 +548,11 @@ namespace OpenAPI.World
             var rootTag = (NbtCompound) nbt.RootTag;
             rootTag.Add(levelTag);
 
-            levelTag.Add(new NbtByte("TerrainPopulated", chunk.Generated ? (byte)1 : (byte)0));
+            levelTag.Add(new NbtByte("TerrainPopulated", 1));
 
             levelTag.Add(new NbtInt("xPos", chunk.X));
             levelTag.Add(new NbtInt("zPos", chunk.Z));
-            levelTag.Add(new NbtLong("LastUpdate",0));
+            levelTag.Add(new NbtLong("LastUpdate", 0));
             levelTag.Add(new NbtByteArray("Biomes", chunk.biomeId));
 
             var sectionsTag = new NbtList("Sections", NbtTagType.Compound);
@@ -566,7 +561,12 @@ namespace OpenAPI.World
             for (var i = 0; i < 16; i++)
             {
                 var subChunk = chunk[i];
-                if (subChunk.IsAllAir())
+                if (subChunk == null)
+                {
+                    Log.Debug($"Chunk was null? I value: {i} {chunk.X} {chunk.Z}");
+                    continue;
+                }
+                else if (subChunk.IsAllAir())
                 {
                     if (i == 0) Log.Debug($"All air bottom chunk? {subChunk.GetBlockId(0, 0, 0)}");
                     continue;
@@ -588,7 +588,13 @@ namespace OpenAPI.World
                     {
                         var anvilIndex = y * 16 * 16 + z * 16 + x;
                         var blockId = (byte) subChunk.GetBlockId(x, y, z);
-                        if (blockId < 0) blockId = 0;
+                        if (blockId < 0)
+                        {
+                            Console.WriteLine(
+                                "WHOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO ATTTTTTTTTTTTTTTTTTTTTT " + blockId);
+                            blockId = 0;
+                        }
+
                         blocks[anvilIndex] = blockId;
                         //SetNibble4(data, anvilIndex, section.GetMetadata(x, y, z));
                         SetNibble4(blockLight, anvilIndex, subChunk.GetBlocklight(x, y, z));
@@ -620,7 +626,7 @@ namespace OpenAPI.World
             levelTag.Add(blockEntitiesTag);
 
             levelTag.Add(new NbtList("TileTicks", NbtTagType.Compound));
-            
+
             levelTag.Add(new NbtByte("MCPE BID", 1)); // Indicate that the chunks contain PE block ID's.
 
             return nbt;
@@ -900,7 +906,8 @@ namespace OpenAPI.World
             var skyLight = sectionTag["SkyLight"].ByteArrayValue;
 
             var subChunk = chunkColumn[sectionIndex];
-
+            int fail = 16 * 16 * 16;
+            int fc = 0;
             for (var x = 0; x < 16; x++)
             for (var z = 0; z < 16; z++)
             for (var y = 0; y < 16; y++)
@@ -909,9 +916,10 @@ namespace OpenAPI.World
 
                 var anvilIndex = (y << 8) + (z << 4) + x;
                 var blockId = blocks[anvilIndex] + (Nibble4(adddata, anvilIndex) << 8);
-
+            
                 // Anvil to PE friendly converstion
 
+                int aablockId = blockId;
                 Func<int, byte, byte> dataConverter = (i, b) => b; // Default no-op converter
                 if (convertBid && Convert.ContainsKey(blockId))
                 {
@@ -937,10 +945,28 @@ namespace OpenAPI.World
                 if (yi == 0 && (blockId == 8 || blockId == 9)) blockId = 7; // Bedrock under water
 
                 var metadata = Nibble4(data, anvilIndex);
+                int ablockId = blockId;
+                byte ametadata = metadata;
                 metadata = dataConverter(blockId, metadata);
 
                 var runtimeId = (int) BlockFactory.GetRuntimeId(blockId, metadata);
+
+                if (runtimeId == -1)
+                {
+                    if (blockId == 211)
+                    {
+                        runtimeId = (int) BlockFactory.GetRuntimeId(new Log().Id, metadata);
+                    }
+                    else
+                        runtimeId = (int) BlockFactory.GetRuntimeId(0, 0);
+
+                    // Console.WriteLine($"EEEEEEEEEEEEEEEE22222222223333333333333333222222EEEE {blockId} {metadata}");
+                    // Console.WriteLine($"EEEEEEEEEEEEEEEE22222222223333sss```````````````333333333333222222EEEE {ablockId} {ametadata} ||  {aablockId}");
+                    // fc++;
+                }
+
                 subChunk.SetBlockByRuntimeId(x, y, z, runtimeId);
+
                 if (ReadBlockLight) subChunk.SetBlocklight(x, y, z, Nibble4(blockLight, anvilIndex));
 
                 if (ReadSkyLight)
@@ -990,16 +1016,16 @@ namespace OpenAPI.World
 // Console.WriteLine($"GENERATORED YO BITCH >> {chunk.X} {chunk.Z}");
         }
 
-        public async Task<ChunkColumn> PreGenerateSurfaceItems(OpenExperimentalWorldProvider openExperimentalWorldProvider,
+        public async Task<ChunkColumn> PreGenerateSurfaceItems(
+            OpenExperimentalWorldProvider openExperimentalWorldProvider,
             ChunkColumn chunk,
             float[] rth)
         {
             var s = new Stopwatch();
             s.Start();
-            chunk.SurfaceItemsGenerated = true;
             var a = await GenerateSurfaceItems(openExperimentalWorldProvider, chunk, rth);
             s.Stop();
-            Console.WriteLine($"CHUNK ADDING SURFACE ITEMS TOOK {s.Elapsed}");
+            if (s.ElapsedMilliseconds > 100) Log.Info($"CHUNK ADDING SURFACE ITEMS TOOK {s.Elapsed}");
             return a;
             // b.PopulateChunk(chunk, rain, temp);
 
