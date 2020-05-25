@@ -463,12 +463,12 @@ namespace OpenAPI.Plugins
 	            }
 	            
 	            //Unload all plugin instances
-	            foreach (var type in assemblyPlugins.PluginTypes)
+	            for (int i = 0; i < assemblyPlugins.PluginTypes.Count; i++)
 	            {
+		            var type = assemblyPlugins.PluginTypes[i];
 		            if (Services.TryResolve(type, out var instance) && instance is OpenPlugin plugin)
-		            {
 			            UnloadPlugin(plugin);
-		            }
+
 	            }
 
 				//Remove all this assembly's type instances from list of references
