@@ -461,6 +461,15 @@ namespace OpenAPI.Plugins
 			            UnloadPluginAssembly(referencedAssembly);
 		            }
 	            }
+	            
+	            //Unload all plugin instances
+	            foreach (var type in assemblyPlugins.PluginTypes)
+	            {
+		            if (Services.TryResolve(type, out var instance) && instance is OpenPlugin plugin)
+		            {
+			            UnloadPlugin(plugin);
+		            }
+	            }
 
 				//Remove all this assembly's type instances from list of references
 	            foreach (Type type in pluginAssembly.GetTypes())
@@ -470,15 +479,6 @@ namespace OpenAPI.Plugins
 			            Services.Remove(type);
 		            }
 	            }
-
-				//Unload all plugin instances
-				foreach (var type in assemblyPlugins.PluginTypes)
-                {
-	                if (Services.TryResolve(type, out var instance) && instance is OpenPlugin plugin)
-	                {
-		                UnloadPlugin(plugin);
-	                }
-                }
             }
         }
 
