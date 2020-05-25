@@ -445,6 +445,7 @@ namespace OpenAPI.Plugins
 	    /// <param name="pluginAssembly"></param>
 	    public void UnloadPluginAssembly(Assembly pluginAssembly)
         {
+
            // lock (_pluginLock)
             {
 	            if (!LoadedAssemblies.TryGetValue(pluginAssembly, out LoadedAssembly assemblyPlugins))
@@ -452,7 +453,6 @@ namespace OpenAPI.Plugins
                     Log.Error($"Error unloading all plugins for assembly: No plugins found/loaded.");
                     return;
                 }
-
 	            //Unload all assemblies that referenced this plugin's assembly
 	            foreach (Assembly referencedAssembly in assemblyPlugins.AssemblyReferences)
 	            {
@@ -463,22 +463,22 @@ namespace OpenAPI.Plugins
 	            }
 
 				//Remove all this assembly's type instances from list of references
-	            foreach (Type type in pluginAssembly.GetTypes())
-	            {
-		            if (Services.TryResolve(type, out _))
-		            {
-			            Services.Remove(type);
-		            }
-	            }
+				foreach (var type in assemblyPlugins.PluginTypes)
+				{
+					if (Services.TryResolve(type, out var instance) && instance is OpenPlugin plugin)
+					{
+						UnloadPlugin(plugin);
+					}
+				}
 
 				//Unload all plugin instances
-				foreach (var type in assemblyPlugins.PluginTypes)
-                {
-	                if (Services.TryResolve(type, out var instance) && instance is OpenPlugin plugin)
-	                {
-		                UnloadPlugin(plugin);
-	                }
-                }
+				 foreach (Type type in pluginAssembly.GetTypes())
+                	            {
+                		            if (Services.TryResolve(type, out _))
+                		            {
+                			            Services.Remove(type);
+                		            }
+                	            }
             }
         }
 
@@ -519,6 +519,7 @@ namespace OpenAPI.Plugins
         /// </summary>
         public void UnloadAll()
         {
+
            // lock (_pluginLock)
             {
                 foreach (var pluginAssembly in LoadedAssemblies.ToArray())
