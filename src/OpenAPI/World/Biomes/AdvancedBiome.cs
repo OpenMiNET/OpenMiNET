@@ -536,7 +536,7 @@ namespace OpenAPI.World
                     float lnaxm = lnax / (float) cv;
                     float lnazm = lnaz / (float) cv;
                     // int m =  
-                    int lna = (int) Math.Ceiling((lnax + lnaz + c1 + c2 + c3 + c4) / 6f);
+                    // int lna = (int) Math.Ceiling((lnax + lnaz + c1 + c2 + c3 + c4) / 6f);
                     // if (nvx > lna+1)
                     // {
                     //     lna = lvx + 1;
@@ -702,7 +702,7 @@ namespace OpenAPI.World
 
             if (BorderChunk)
             {
-                max++;
+                // max++;
                 chunk.SetBlock(8, 125, 8, new EmeraldBlock());
                 AdvancedBiome n;
                 var nc = new ChunkColumn();
