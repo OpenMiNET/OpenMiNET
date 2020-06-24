@@ -26,6 +26,11 @@ namespace OpenAPI.World
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(OpenLevel));
 
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public HighPrecisionTimer _tickerHighPrecisionTimer;
 
         private bool _closed;
 
