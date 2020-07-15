@@ -14,6 +14,7 @@ using Newtonsoft.Json.Linq;
 using OpenAPI.Player;
 using OpenAPI.Plugins;
 using OpenAPI.World;
+using Target = MiNET.Plugins.Target;
 using Version = System.Version;
 
 namespace OpenAPI.Commands

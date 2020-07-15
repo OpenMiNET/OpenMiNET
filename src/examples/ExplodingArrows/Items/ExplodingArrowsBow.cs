@@ -7,8 +7,22 @@ namespace ExplodingArrows.Items
 {
     public class ExplodingArrowsBow : ItemBow
     {
-        public override void Release(Level world, Player player, BlockCoordinates blockCoordinates, long timeUsed)
+        private long _useTime = 0;
+
+        public override void UseItem(Level world, Player player, BlockCoordinates blockCoordinates)
         {
+            _useTime = world.TickTime;
+        }
+        
+        public override void Release(Level world, Player player, BlockCoordinates blockCoordinates)
+        {
+            long timeUsed = world.TickTime - _useTime;
+            if (timeUsed < 6) // questionable, but we go with it for now.
+            {
+                player.SendPlayerInventory(); // Need to reset inventory, because we don't know what the client did here
+                return;
+            }
+            
             var inventory = player.Inventory;
             bool haveArrows = player.GameMode == GameMode.Creative;
             haveArrows = haveArrows || this.GetEnchantingLevel(EnchantingType.Infinity) > 0;
