@@ -282,8 +282,7 @@ namespace OpenAPI.Plugins
 						    continue;
 				    
 					    plugin.Enabled(Parent);
-					    enabled++;
-				    
+
 					    string authors = (plugin.Info.Authors == null || plugin.Info.Authors.Length == 0)
 						    ? plugin.Info.Author
 						    : string.Join(", ", plugin.Info.Authors);
@@ -291,11 +290,14 @@ namespace OpenAPI.Plugins
 					    Log.Info($"Enabled '{plugin.Info.Name}' version {plugin.Info.Version} by {authors}");
 
 					    Parent.EventDispatcher.DispatchEvent(new PluginEnabledEvent(type.Assembly, plugin));
+					    
+					    enabled++;
 				    }
 			    }
 			    catch (Exception ex)
 			    {
 				    Log.Error($"Error occured while enabling plugin!", ex);
+				    Services.Remove(type); //Could not enable plugin, so remove it from depency injection.
 			    }
 		    }
 
@@ -461,8 +463,20 @@ namespace OpenAPI.Plugins
 			            UnloadPluginAssembly(referencedAssembly);
 		            }
 	            }
+	            
+	            //Unload all plugin instances
+	            var types = assemblyPlugins.PluginTypes.ToArray();
+	            for (var i = 0; i < types.Length; i++)
+	            {
+		            var type = types[i];
 
-				//Remove all this assembly's type instances from list of references
+		            if (Services.TryResolve(type, out var instance) && instance is OpenPlugin plugin)
+		            {
+			            UnloadPlugin(plugin);
+		            }
+	            }
+
+	            //Remove all this assembly's type instances from list of references
 	            foreach (Type type in pluginAssembly.GetTypes())
 	            {
 		            if (Services.TryResolve(type, out _))
@@ -470,15 +484,6 @@ namespace OpenAPI.Plugins
 			            Services.Remove(type);
 		            }
 	            }
-
-				//Unload all plugin instances
-				foreach (var type in assemblyPlugins.PluginTypes)
-                {
-	                if (Services.TryResolve(type, out var instance) && instance is OpenPlugin plugin)
-	                {
-		                UnloadPlugin(plugin);
-	                }
-                }
             }
         }
 

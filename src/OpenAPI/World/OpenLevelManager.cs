@@ -303,5 +303,10 @@ namespace OpenAPI.World
 			
 			SetDefaultLevel((OpenLevel) lvl);
 		}
+
+		/// <summary>
+		/// 	Returns the levels currently registered with the LevelManager
+		/// </summary>
+		public OpenLevel[] GetLevels => _levels.Values.ToArray();
 	}
 }

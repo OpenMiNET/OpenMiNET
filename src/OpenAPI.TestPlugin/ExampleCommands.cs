@@ -1,4 +1,5 @@
-﻿using MiNET;
+﻿using System;
+using MiNET;
 using MiNET.Plugins.Attributes;
 using MiNET.Sounds;
 using MiNET.Worlds;
@@ -64,6 +65,19 @@ namespace OpenAPI.TestPlugin
         {
             player.SetGamemode(gameMode);
             player.SendMessage($"Gamemode set to: {gameMode}");
+        }
+
+        [Command(Name = "broadcast")]
+        public void Broadcast(OpenPlayer source, OpenApi api, params string[] message)
+        {
+            string msg = String.Join(" ", message);
+
+            foreach (var lvl in api.LevelManager.GetLevels)
+            {
+                lvl.BroadcastMessage(msg, MessageType.Chat, source);
+            }
+            
+            source.SendMessage($"We tried broadcasting: {msg}");
         }
     }
 }
