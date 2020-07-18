@@ -1,4 +1,4 @@
-# OpenAPI
+# OpenMiNET (Previously OpenAPI)
 [![Build status](https://ci.appveyor.com/api/projects/status/rb6xfiogyt6sam30/branch/master?svg=true)](https://ci.appveyor.com/project/kennyvv/openapi/branch/master)
 [![nuget](https://img.shields.io/nuget/v/OpenMiNET.OpenAPI.svg)](https://www.nuget.org/packages/OpenMiNET.OpenAPI/)
 
@@ -7,16 +7,18 @@ A Custom Plugin API for MiNET - Making it easier for multiple plugins to work to
 Please feel free to join  our discord if you feel like contributing or need some help getting started.
 * [Discord](https://discord.gg/J4ZfR87) - Join our Discord server
 
+### I decided to rename OpenAPI to OpenMINET to avoid confusion.
+
 ## Setup & Getting Started
 
-Great to see you are interested in using OpenAPI.  
-The steps required to get a server running using OpenAPI are probably a little different then what you might expect.  
+Great to see you are interested in using OpenMiNET.  
+The steps required to get a server running using OpenMiNET are probably a little different then what you might expect.  
 No worries tho! Just follow the following steps closely and you'll have your server up & running within a few minutes.  
 
 #### Step 1.
 Acquiring the required binaries.
 
-OpenAPI requires a custom MiNETServer instance to work properly, so the default MiNET.Server executables won't work.  
+OpenMiNET requires a custom MiNETServer instance to work properly, so the default MiNET.Server executables won't work.  
 You can either compile OpenAPI.Server yourself or you can download pre-compiled binaries [HERE](https://ci.appveyor.com/project/kennyvv/openapi/branch/master/artifacts)
 
 #### Step 2.
@@ -26,7 +28,7 @@ You'll find a file named "server.conf", if you open this file in a text editor. 
 
 `PluginDirectory=Plugins`
 
-This property tells OpenAPI where to look for your installed plugins.  
+This property tells OpenMiNET where to look for your installed plugins.  
 If you choose not to change the default value, the server will look for a folder called "Plugins" (Without quotes) in the directory containg the server binary. (OpenAPI.Server)  
 
 You can also provide multiple plugin folders by using the `;` character as a delimiter. 
