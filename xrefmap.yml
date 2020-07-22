@@ -3665,6 +3665,22 @@ references:
   isSpec: "True"
   fullName: OpenAPI.Player.OpenPlayer.HandleMcpeText
   nameWithType: OpenPlayer.HandleMcpeText
+- uid: OpenAPI.Player.OpenPlayer.HandleTransactionRecords(List{TransactionRecord})
+  name: HandleTransactionRecords(List<TransactionRecord>)
+  href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_HandleTransactionRecords_List_TransactionRecord__
+  commentId: M:OpenAPI.Player.OpenPlayer.HandleTransactionRecords(List{TransactionRecord})
+  name.vb: HandleTransactionRecords(List(Of TransactionRecord))
+  fullName: OpenAPI.Player.OpenPlayer.HandleTransactionRecords(List<TransactionRecord>)
+  fullName.vb: OpenAPI.Player.OpenPlayer.HandleTransactionRecords(List(Of TransactionRecord))
+  nameWithType: OpenPlayer.HandleTransactionRecords(List<TransactionRecord>)
+  nameWithType.vb: OpenPlayer.HandleTransactionRecords(List(Of TransactionRecord))
+- uid: OpenAPI.Player.OpenPlayer.HandleTransactionRecords*
+  name: HandleTransactionRecords
+  href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_HandleTransactionRecords_
+  commentId: Overload:OpenAPI.Player.OpenPlayer.HandleTransactionRecords
+  isSpec: "True"
+  fullName: OpenAPI.Player.OpenPlayer.HandleTransactionRecords
+  nameWithType: OpenPlayer.HandleTransactionRecords
 - uid: OpenAPI.Player.OpenPlayer.InitializePlayer
   name: InitializePlayer()
   href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_InitializePlayer
