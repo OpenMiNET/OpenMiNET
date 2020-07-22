@@ -416,6 +416,58 @@ namespace OpenAPI.Player
 		    base.HandleItemUseTransaction(transaction);
 	    }
 
+	    /// <inheritdoc />
+	    protected override void HandleTransactionRecords(List<TransactionRecord> records)
+	    {
+		    if (records.Count == 0)
+			    return;
+
+		    foreach (TransactionRecord record in records.ToArray())
+		    {
+			    switch (record)
+			    {
+				    case WorldInteractionTransactionRecord _:
+				    {
+					    records.Remove(record);
+					    
+					    var sourceItem = Inventory.GetItemInHand();
+					    byte count = record.NewItem.Count;
+					    
+					    Item dropItem;
+					    bool clearSlot = false;
+					    if (sourceItem.Count == count)
+					    {
+						    dropItem = sourceItem;
+						    clearSlot = true;
+					    }
+					    else
+					    {
+						    dropItem = (Item) sourceItem.Clone();
+						    dropItem.Count = count;
+						    dropItem.UniqueId = Environment.TickCount;
+					    }
+					    
+					    if (DropItem(dropItem, clearSlot ? new ItemAir() : sourceItem))
+					    {
+						    DropItem(dropItem);
+						    
+						    if (clearSlot)
+						    {
+							    Inventory.ClearInventorySlot((byte) Inventory.InHandSlot);
+						    }
+						    else
+						    {
+							    sourceItem.Count -= count;
+						    }
+					    }
+					    break;
+				    }
+			    }
+		    }
+		    
+		    base.HandleTransactionRecords(records);
+	    }
+
 	    private bool UseItem(Item usedItem)
 	    {
 		    PlayerItemUseEvent useEvent = new PlayerItemUseEvent(this, usedItem);
