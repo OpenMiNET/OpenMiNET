@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
 	  <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	  <Configurations>Debug;Release;AppVeyor</Configurations>
@@ -29,7 +29,7 @@
 	</PropertyGroup>
 	
   <ItemGroup>
-    <PackageReference Include="MiNET" Version="1.0.2118" />
+    <PackageReference Include="MiNET" Version="1.0.2206" />
   </ItemGroup>
 
 </Project>

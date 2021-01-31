@@ -824,8 +824,8 @@ namespace OpenAPI.Player
 	        if (_serverHaveResources)
 	        {
 		        info.mustAccept = _plugin.ResourcePackProvider.MustAccept;
-		        info.resourcepackinfos = new ResourcePackInfos();
-		        info.resourcepackinfos.AddRange(_plugin.ResourcePackProvider.GetResourcePackInfos());
+		        info.behahaviorpackinfos = new ResourcePackInfos();
+		        info.behahaviorpackinfos.AddRange(_plugin.ResourcePackProvider.GetResourcePackInfos());
 	        }
 	        
 	        SendPacket(info);
