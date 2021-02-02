@@ -2,13 +2,15 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using MiNET.Utils;
 using Newtonsoft.Json;
 using OpenAPI.GameEngine.Games.Configuration;
 using OpenAPI.GameEngine.Games.Stages;
 using OpenAPI.GameEngine.Games.Teams;
-using OpenAPI.GameEngine.Models.Games.Maps;
 using OpenAPI.Player;
 using OpenAPI.World;
+using MapInfo = OpenAPI.GameEngine.Models.Games.Maps.MapInfo;
 
 namespace OpenAPI.GameEngine.Games
 {
@@ -49,6 +51,8 @@ namespace OpenAPI.GameEngine.Games
         
         public TeamManager TeamManager { get; private set; }
         protected StageManager StageManager { get; }
+
+        public IEnumerable<OpenPlayer> Players => TeamManager.GetTeams().SelectMany(x => x.Players);
 
         internal void Load()
         {
@@ -100,8 +104,12 @@ namespace OpenAPI.GameEngine.Games
         internal void Tick()
         {
             OnTick();
-            
-            StageManager.Tick();
+
+            if (!StageManager.Tick())
+            {
+                //No stage left to tick, we should end the game.
+                
+            }
         }
 
         protected virtual void OnTick()
@@ -121,7 +129,12 @@ namespace OpenAPI.GameEngine.Games
 
             if (TeamManager.TryAssignTeam(player))
             {
-                player.SpawnLevel(Level, Level.SpawnPoint, false);
+                PlayerLocation spawnPosition;
+
+                if (!TryGetSpawnPosition(out spawnPosition))
+                    spawnPosition = Level.SpawnPoint;
+                
+                player.SpawnLevel(Level, spawnPosition, false);
                 return true;
             }
 
@@ -131,6 +144,21 @@ namespace OpenAPI.GameEngine.Games
         protected virtual bool CanJoin()
         {
             return State == GameState.WaitingForPlayers;
+        }
+
+        internal bool TryGetSpawnPosition(out PlayerLocation spawn)
+        {
+            if (Map?.Stages != null && Map.Stages.TryGetValue(StageManager.CurrentStage.Identifier, out var configuration))
+            {
+                if (configuration.Spawn != null)
+                {
+                    spawn = configuration.Spawn;
+                    return true;
+                }
+            }
+
+            spawn = null;
+            return false;
         }
         
         public void Dispose()

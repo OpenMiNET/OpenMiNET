@@ -20,9 +20,6 @@ namespace OpenAPI.GameEngine
 
             var defaultGame = GameManager.GetDefault();
 
-            if (defaultGame == null)
-                return;
-            
             if (defaultGame != null && defaultGame.TryGetInstance(GameState.WaitingForPlayers, out var instance))
             {
                 e.Player.SetGame(instance);

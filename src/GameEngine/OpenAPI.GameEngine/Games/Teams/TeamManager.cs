@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using OpenAPI.GameEngine.Games.Configuration;
@@ -20,6 +21,14 @@ namespace OpenAPI.GameEngine.Games.Teams
 
             for (int i = 0; i < configuration.Max; i++)
                CreateTeam();
+        }
+
+        public IEnumerable<Team> GetTeams()
+        {
+            foreach (var team in Teams.Values)
+            {
+                yield return team;
+            }
         }
 
         private int _teamCounter = 0;
@@ -105,6 +114,14 @@ namespace OpenAPI.GameEngine.Games.Teams
         public bool CanStart()
         {
             return Teams.Count(x => x.Value.PlayerCount >= Config.MinPlayers) >= Config.Min && Teams.Count >= Config.Min;
+        }
+
+        public void ForEach(Action<Team> team)
+        {
+            foreach (var t in Teams)
+            {
+                team?.Invoke(t.Value);
+            }
         }
     }
 }

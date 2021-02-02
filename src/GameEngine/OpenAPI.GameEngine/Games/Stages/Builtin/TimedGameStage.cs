@@ -1,14 +1,15 @@
 using System;
 using System.Diagnostics;
+using System.Linq;
 using MiNET;
 
 namespace OpenAPI.GameEngine.Games.Stages.Builtin
 {
     public class TimedGameStage : GameStage
     {
-        private TimeSpan RunTime { get; }
-        
-        public TimedGameStage(Game game, TimeSpan runTime) : base(game)
+        private TimeSpan RunTime       { get; }
+        public  TimeSpan TimeRemaining => RunTime - _timer.Elapsed;
+        public TimedGameStage(Game game, TimeSpan runTime, string identifier) : base(game, identifier)
         {
             RunTime = runTime;
         }
@@ -28,9 +29,9 @@ namespace OpenAPI.GameEngine.Games.Stages.Builtin
             }
         }
 
-        internal override bool ShouldFinish()
+        public override bool ShouldFinish()
         {
-            return _timer.Elapsed >= RunTime;
+            return _timer.Elapsed >= RunTime || !Game.Players.Any();
         }
 
         protected override void OnFinish()

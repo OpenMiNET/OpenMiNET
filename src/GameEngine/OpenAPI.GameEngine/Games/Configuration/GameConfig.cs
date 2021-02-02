@@ -1,5 +1,6 @@
 using System.Linq;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using OpenAPI.GameEngine.Games.Teams;
 using OpenAPI.GameEngine.Models.Games.Maps;
 
@@ -13,6 +14,8 @@ namespace OpenAPI.GameEngine.Games.Configuration
         public bool RequiresMap { get; set; } = true;
         
         public TMap[] Maps { get; set; } = new TMap[0];
+        
+        public JObject Properties { get; set; } = new JObject();
     }
 
     public class TeamsConfiguration
@@ -24,5 +27,7 @@ namespace OpenAPI.GameEngine.Games.Configuration
         public int MaxPlayers { get; set; } = 1;
 
         public TeamFillMode FillMode { get; set; } = TeamFillMode.FillMinSpread;
+        
+        public JObject Properties { get; set; } = new JObject();
     }
 }

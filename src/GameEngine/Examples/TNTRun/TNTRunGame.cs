@@ -10,6 +10,7 @@ namespace TNTRun
         {
             StageManager.Add(new LobbyGameStage(this));
             StageManager.Add(new RunningStage(this));
+            StageManager.Add(new EndGameStage(this));
         }
     }
 }

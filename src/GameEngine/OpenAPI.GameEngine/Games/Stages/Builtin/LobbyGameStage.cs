@@ -8,8 +8,7 @@ namespace OpenAPI.GameEngine.Games.Stages.Builtin
     public class LobbyGameStage : GameStage
     {
         private TimeSpan TimeToStart { get; set; } = TimeSpan.FromSeconds(5);
-        
-        public LobbyGameStage(Game game) : base(game)
+        public LobbyGameStage(Game game) : base(game, "PreGame")
         {
             
         }
@@ -52,7 +51,7 @@ namespace OpenAPI.GameEngine.Games.Stages.Builtin
             base.OnTick();
         }
 
-        internal override bool ShouldFinish()
+        public override bool ShouldFinish()
         {
             return Game.State == GameState.Starting && Game.TeamManager.CanStart() &&
                    _startTimer.Elapsed >= TimeToStart;

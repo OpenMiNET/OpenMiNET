@@ -33,22 +33,29 @@ namespace OpenAPI.GameEngine.Games.Stages
                 
                 return true;
             }
-
+            
             return false;
         }
         
-        public void Tick()
+        public bool Tick()
         {
             var stage = Current;
             if (stage == null)
-                return;
+                return false;
             
             stage.Tick();
 
             if (stage.ShouldFinish())
             {
-                Next();
+                if (!Next())
+                {
+                    Game.State = GameState.Finished;
+
+                    return false;
+                }
             }
+
+            return true;
         }
 
         public void Add(GameStage stage)

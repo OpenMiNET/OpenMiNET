@@ -288,7 +288,7 @@ namespace OpenAPI.GameEngine.Games
                 newInstance.Load();
                 
                 //Get openlevel instance.
-               // if (newInstance.Config.RequiresMap)
+                if (newInstance.Config.RequiresMap)
                 {
                     var availableMaps = newInstance.Config.Maps.Where(x => x.Enabled).ToArray();
                     var map = availableMaps[Rnd.NextInt() % availableMaps.Length];

@@ -1,5 +1,9 @@
+using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using MiNET.Utils;
 using OpenAPI.GameEngine.Games.Configuration;
 using OpenAPI.Player;
 
@@ -7,8 +11,9 @@ namespace OpenAPI.GameEngine.Games.Teams
 {
     public class Team
     {
-        public string Name { get; set; }
-        public int PlayerCount => Members.Count;
+        public  string Name { get; set; }
+        public  int PlayerCount => Members.Count;
+        public  int AlivePlayers => Members.Count(x => !x.Value.HealthManager.IsDead);
         
         private int MaxPlayers { get; set; }
         private ConcurrentDictionary<string, OpenPlayer> Members { get; }
@@ -24,6 +29,17 @@ namespace OpenAPI.GameEngine.Games.Teams
         public Team()
         {
             
+        }
+
+        public IEnumerable<OpenPlayer> Players
+        {
+            get
+            {
+                lock (_teamLock)
+                {
+                    return Members.Values.ToArray();
+                }
+            }
         }
 
         public virtual bool TryJoin(OpenPlayer player)
@@ -49,6 +65,24 @@ namespace OpenAPI.GameEngine.Games.Teams
             {
                 player.SetTeam(null);
             }
+        }
+
+        public void ForEachMember(Action<OpenPlayer> action)
+        {
+            foreach (var member in Members.Values)
+            {
+                action?.Invoke(member);
+            }
+        }
+
+        public void TeleportTo(PlayerLocation location)
+        {
+            ForEachMember(
+                p =>
+                {
+                    p.SpawnPosition = location;
+                    p.Teleport(location);
+                });
         }
     }
 }
