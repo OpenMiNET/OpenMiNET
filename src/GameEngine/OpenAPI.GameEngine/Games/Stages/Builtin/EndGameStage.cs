@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using MiNET;
 using MiNET.Utils;
 using MiNET.Worlds;
@@ -11,6 +12,12 @@ namespace OpenAPI.GameEngine.Games.Stages.Builtin
 		public EndGameStage(Game game) : base(game, "EndGame")
 		{
 			
+		}
+
+		/// <inheritdoc />
+		public override bool ShouldFinish()
+		{
+			return base.ShouldFinish() || !Game.Players.Any();
 		}
 
 		/// <inheritdoc />

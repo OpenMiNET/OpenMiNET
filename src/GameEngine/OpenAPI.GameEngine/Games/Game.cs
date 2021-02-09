@@ -108,7 +108,8 @@ namespace OpenAPI.GameEngine.Games
             if (!StageManager.Tick())
             {
                 //No stage left to tick, we should end the game.
-                
+                if (!Players.Any())
+                    State = GameState.Empty;
             }
         }
 
