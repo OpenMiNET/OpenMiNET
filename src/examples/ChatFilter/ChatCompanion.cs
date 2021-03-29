@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using MiNET;
 using MiNET.Utils;
+using MiNET.Utils.IO;
 using OpenAPI.Player;
 
 namespace ChatFilter

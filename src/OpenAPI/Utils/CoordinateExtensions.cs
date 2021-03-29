@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MiNET.Utils;
+using MiNET.Utils.Vectors;
 
 namespace OpenAPI.Utils
 {

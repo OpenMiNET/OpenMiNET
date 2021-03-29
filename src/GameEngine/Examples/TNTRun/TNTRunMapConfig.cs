@@ -1,4 +1,5 @@
 using MiNET.Utils;
+using MiNET.Utils.Vectors;
 using OpenAPI.GameEngine.Games.Configuration;
 using MapInfo = OpenAPI.GameEngine.Models.Games.Maps.MapInfo;
 

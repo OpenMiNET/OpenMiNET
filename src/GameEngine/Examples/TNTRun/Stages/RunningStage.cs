@@ -4,6 +4,7 @@ using MiNET;
 using MiNET.Blocks;
 using MiNET.Entities.World;
 using MiNET.Utils;
+using MiNET.Utils.Vectors;
 using MiNET.Worlds;
 using OpenAPI.Events;
 using OpenAPI.Events.Entity;

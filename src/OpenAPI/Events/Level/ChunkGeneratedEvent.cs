@@ -1,4 +1,5 @@
 using MiNET.Utils;
+using MiNET.Utils.Vectors;
 using MiNET.Worlds;
 using OpenAPI.World;
 

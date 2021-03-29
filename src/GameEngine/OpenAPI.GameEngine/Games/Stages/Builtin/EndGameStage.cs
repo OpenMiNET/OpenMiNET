@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using MiNET;
 using MiNET.Utils;
+using MiNET.Utils.Vectors;
 using MiNET.Worlds;
 
 namespace OpenAPI.GameEngine.Games.Stages.Builtin

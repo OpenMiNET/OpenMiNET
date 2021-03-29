@@ -21,6 +21,7 @@ using MiNET.Items;
 using MiNET.Net;
 using MiNET.Plugins;
 using MiNET.Utils;
+using MiNET.Utils.Vectors;
 using MiNET.Worlds;
 using Newtonsoft.Json;
 using OpenAPI.Entities;

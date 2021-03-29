@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MiNET.Utils;
+using MiNET.Utils.Vectors;
 using OpenAPI.GameEngine.Games.Configuration;
 using OpenAPI.Player;
 

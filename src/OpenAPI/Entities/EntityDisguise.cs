@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MiNET.Entities;
 using MiNET.Utils;
+using MiNET.Utils.Vectors;
 using OpenAPI.Player;
 
 namespace OpenAPI.Entities

@@ -14,6 +14,7 @@ using MiNET.Entities.World;
 using MiNET.Items;
 using MiNET.Net;
 using MiNET.Utils;
+using MiNET.Utils.Nbt;
 using MiNET.Utils.Skins;
 using MiNET.Worlds;
 using OpenAPI.Events;

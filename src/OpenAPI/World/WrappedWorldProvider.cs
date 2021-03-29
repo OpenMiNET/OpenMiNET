@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Numerics;
 using MiNET.Utils;
+using MiNET.Utils.Vectors;
 using MiNET.Worlds;
 using OpenAPI.Events.Level;
 

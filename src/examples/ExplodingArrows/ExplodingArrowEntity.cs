@@ -3,6 +3,7 @@ using MiNET.Blocks;
 using MiNET.Entities;
 using MiNET.Entities.Projectiles;
 using MiNET.Utils;
+using MiNET.Utils.Vectors;
 using MiNET.Worlds;
 
 namespace ExplodingArrows

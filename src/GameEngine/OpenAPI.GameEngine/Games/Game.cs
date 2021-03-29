@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using MiNET.Utils;
+using MiNET.Utils.Vectors;
 using Newtonsoft.Json;
 using OpenAPI.GameEngine.Games.Configuration;
 using OpenAPI.GameEngine.Games.Stages;
