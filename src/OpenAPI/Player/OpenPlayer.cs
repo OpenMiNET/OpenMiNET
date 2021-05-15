@@ -839,7 +839,12 @@ namespace OpenAPI.Player
 	        {
 		        info.mustAccept = _plugin.ResourcePackProvider.MustAccept;
 		        info.resourcepackidversions = new ResourcePackIdVersions();
-		        info.resourcepackidversions.AddRange(_plugin.ResourcePackProvider.GetResourcePackInfos().Select(x => x.PackIdVersion));
+		        info.resourcepackidversions.AddRange(_plugin.ResourcePackProvider.GetResourcePackInfos().Select(x => new PackIdVersion()
+		        {
+			        Id = x.UUID,
+			        Version = x.Version,
+			        SubPackName = x.SubPackName
+		        }));
 	        }
 
 	        SendPacket(info);

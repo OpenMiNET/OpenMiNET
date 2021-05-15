@@ -174,11 +174,8 @@ namespace OpenAPI.Utils.ResourcePacks
                 {
                     Size = (ulong) manifest.Value.Length,
                     HasScripts = false,
-                    PackIdVersion = new PackIdVersion()
-                    {
-                        Id = manifest.Key.Header.Uuid.ToString(),
-                        Version = string.Join('.', manifest.Key.Header.Version)
-                    }
+                    UUID = manifest.Key.Header.Uuid.ToString(),
+                    Version = string.Join('.', manifest.Key.Header.Version)
                 };
             }
         }
