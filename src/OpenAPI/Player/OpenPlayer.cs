@@ -11,6 +11,7 @@ using System.Numerics;
 using System.Reflection;
 using System.Resources;
 using System.Threading;
+using fNbt;
 using log4net;
 using MiNET;
 using MiNET.BlockEntities;
@@ -92,6 +93,64 @@ namespace OpenAPI.Player
 	        // HealthManager.PlayerTakeHit += HealthManagerOnPlayerTakeHit;
         }
 
+        /// <inheritdoc />
+        public override void HandleMcpeBlockEntityData(McpeBlockEntityData message)
+        {
+	        var playerPosition = KnownPosition.ToBlockCoordinates();
+
+	        if (playerPosition.DistanceTo(message.coordinates) > 1000)
+		        return;
+
+	        var nbt = message.namedtag.NbtFile.RootTag;
+
+	        if (nbt is NbtCompound compound)
+	        {
+		        var blockEntity = Level.GetBlockEntity(message.coordinates);
+		        EventDispatcher.DispatchEventAsync(new PlayerSetBlockEntityDataEvent(this, blockEntity, compound)).Then(
+			        (result) =>
+			        {
+				        if (result.IsCancelled)
+					        return;
+
+				        blockEntity.SetCompound(compound);
+				        Level.SetBlockEntity(blockEntity);
+			        });
+	        }
+
+	        //base.HandleMcpeBlockEntityData(message);
+        }
+
+        /// <inheritdoc />
+        public override void HandleMcpeSetPlayerGameType(McpeSetPlayerGameType message)
+        {
+	        EventDispatcher.DispatchEventAsync(
+		        new PlayerGamemodeChangeEvent(
+			        this, GameMode, (GameMode) message.gamemode,
+			        PlayerGamemodeChangeEvent.PlayerGamemodeChangeTrigger.Self)).Then(
+		        response =>
+		        {
+			        if (response.IsCancelled)
+			        {
+				        SetGamemode(response.OldGameMode);
+				        return;
+			        }
+
+			        SetGamemode(response.NewGameMode);
+		        });
+        }
+
+        /// <inheritdoc />
+        public override void HandleMcpeAdventureSettings(McpeAdventureSettings message)
+        {
+	        if (message.userId != EntityId)
+	        {
+		        //We are trying to change another players adventuresettings.
+		        return;
+	        }
+	        
+	        base.HandleMcpeAdventureSettings(message);
+        }
+
         public override void HandleMcpeCommandRequest(McpeCommandRequest message)
         {
 	        var result = _plugin.CommandManager.HandleCommand(this, message.command);
@@ -135,7 +194,7 @@ namespace OpenAPI.Player
 
         }
 
-        protected override void OnTicked(PlayerEventArgs e)
+        protected override async void OnTicked(PlayerEventArgs e)
         {
 	        if (Monitor.TryEnter(_breakSync))
 	        {
@@ -161,12 +220,12 @@ namespace OpenAPI.Player
             if (isSpawned && !_previousIsSpawned)
             {
                 PlayerSpawnedEvent ev = new PlayerSpawnedEvent(this);
-                EventDispatcher.DispatchEventAsync(ev);
+                await EventDispatcher.DispatchEventAsync(ev);
             }
             else if (!isSpawned && _previousIsSpawned)
             {
                 PlayerDespawnedEvent ev = new PlayerDespawnedEvent(this);
-                EventDispatcher.DispatchEventAsync(ev);
+                await EventDispatcher.DispatchEventAsync(ev);
             }
 
             _previousIsSpawned = isSpawned;
@@ -189,17 +248,17 @@ namespace OpenAPI.Player
 			}
 		}
 
-		protected override void OnPlayerJoin(PlayerEventArgs e)
+		protected override async void OnPlayerJoin(PlayerEventArgs e)
         {
 	        if (_hasJoinedServer) return; //Make sure this is only called once when we join the server for the first time.
 	        _hasJoinedServer = true;
 
-			EventDispatcher.DispatchEventAsync(new PlayerJoinEvent(this));
+			await EventDispatcher.DispatchEventAsync(new PlayerJoinEvent(this));
         }
 
-        protected override void OnPlayerLeave(PlayerEventArgs e)
+        protected override async void OnPlayerLeave(PlayerEventArgs e)
         {
-            EventDispatcher.DispatchEventAsync(new PlayerQuitEvent(this));
+	        await EventDispatcher.DispatchEventAsync(new PlayerQuitEvent(this));
         }
 
         private bool PlayerMoveEvent(PlayerLocation from, PlayerLocation to, bool teleport = false)
