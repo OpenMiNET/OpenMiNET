@@ -666,7 +666,31 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenAPI.Events.Player.PlayerEvent.html",
-          "hash": "V2Dj3Saj0+M6yQFiZWxhnA=="
+          "hash": "bUvIrjDdoMndNVpljIP+zw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpenAPI.Events.Player.PlayerGamemodeChangeEvent.PlayerGamemodeChangeTrigger.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenAPI.Events.Player.PlayerGamemodeChangeEvent.PlayerGamemodeChangeTrigger.html",
+          "hash": "fjkkIthKPUtBv1hM8G+gCw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpenAPI.Events.Player.PlayerGamemodeChangeEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenAPI.Events.Player.PlayerGamemodeChangeEvent.html",
+          "hash": "V/9WpY1G3Q6MZ/E3OLX6Hw=="
         }
       },
       "is_incremental": false,
@@ -782,6 +806,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.html",
+          "hash": "EgXicHWDWHL6D3pw0ZN29g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/OpenAPI.Events.Player.PlayerSettingsRequestEvent.yml",
       "output": {
         ".html": {
@@ -810,7 +846,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenAPI.Events.Player.html",
-          "hash": "JUqNghqA+I8PjB43GgHH+w=="
+          "hash": "Td9Ite2d8YdSqlQfHxMUPw=="
         }
       },
       "is_incremental": false,
@@ -1026,7 +1062,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenAPI.Player.OpenPlayer.html",
-          "hash": "AWg+nX8dF4PrqYoBpJC0dw=="
+          "hash": "ZXdvpYQajKplIs6KTY6DUw=="
         }
       },
       "is_incremental": false,
@@ -1458,7 +1494,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "NS3i3gbISHkclntHe2UPJA=="
+          "hash": "If9g+2uszCPDvGCyPbH8NA=="
         }
       },
       "is_incremental": false,
@@ -1545,7 +1581,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 119,
+          "total_file_count": 122,
           "skipped_file_count": 0
         },
         "TocDocumentProcessor": {

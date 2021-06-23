@@ -2058,6 +2058,82 @@ references:
   isSpec: "True"
   fullName: OpenAPI.Events.Player.PlayerEvent.Player
   nameWithType: PlayerEvent.Player
+- uid: OpenAPI.Events.Player.PlayerGamemodeChangeEvent
+  name: PlayerGamemodeChangeEvent
+  href: api/OpenAPI.Events.Player.PlayerGamemodeChangeEvent.html
+  commentId: T:OpenAPI.Events.Player.PlayerGamemodeChangeEvent
+  fullName: OpenAPI.Events.Player.PlayerGamemodeChangeEvent
+  nameWithType: PlayerGamemodeChangeEvent
+- uid: OpenAPI.Events.Player.PlayerGamemodeChangeEvent.#ctor(OpenAPI.Player.OpenPlayer,GameMode,GameMode,OpenAPI.Events.Player.PlayerGamemodeChangeEvent.PlayerGamemodeChangeTrigger)
+  name: PlayerGamemodeChangeEvent(OpenPlayer, GameMode, GameMode, PlayerGamemodeChangeEvent.PlayerGamemodeChangeTrigger)
+  href: api/OpenAPI.Events.Player.PlayerGamemodeChangeEvent.html#OpenAPI_Events_Player_PlayerGamemodeChangeEvent__ctor_OpenAPI_Player_OpenPlayer_GameMode_GameMode_OpenAPI_Events_Player_PlayerGamemodeChangeEvent_PlayerGamemodeChangeTrigger_
+  commentId: M:OpenAPI.Events.Player.PlayerGamemodeChangeEvent.#ctor(OpenAPI.Player.OpenPlayer,GameMode,GameMode,OpenAPI.Events.Player.PlayerGamemodeChangeEvent.PlayerGamemodeChangeTrigger)
+  fullName: OpenAPI.Events.Player.PlayerGamemodeChangeEvent.PlayerGamemodeChangeEvent(OpenAPI.Player.OpenPlayer, GameMode, GameMode, OpenAPI.Events.Player.PlayerGamemodeChangeEvent.PlayerGamemodeChangeTrigger)
+  nameWithType: PlayerGamemodeChangeEvent.PlayerGamemodeChangeEvent(OpenPlayer, GameMode, GameMode, PlayerGamemodeChangeEvent.PlayerGamemodeChangeTrigger)
+- uid: OpenAPI.Events.Player.PlayerGamemodeChangeEvent.#ctor*
+  name: PlayerGamemodeChangeEvent
+  href: api/OpenAPI.Events.Player.PlayerGamemodeChangeEvent.html#OpenAPI_Events_Player_PlayerGamemodeChangeEvent__ctor_
+  commentId: Overload:OpenAPI.Events.Player.PlayerGamemodeChangeEvent.#ctor
+  isSpec: "True"
+  fullName: OpenAPI.Events.Player.PlayerGamemodeChangeEvent.PlayerGamemodeChangeEvent
+  nameWithType: PlayerGamemodeChangeEvent.PlayerGamemodeChangeEvent
+- uid: OpenAPI.Events.Player.PlayerGamemodeChangeEvent.NewGameMode
+  name: NewGameMode
+  href: api/OpenAPI.Events.Player.PlayerGamemodeChangeEvent.html#OpenAPI_Events_Player_PlayerGamemodeChangeEvent_NewGameMode
+  commentId: P:OpenAPI.Events.Player.PlayerGamemodeChangeEvent.NewGameMode
+  fullName: OpenAPI.Events.Player.PlayerGamemodeChangeEvent.NewGameMode
+  nameWithType: PlayerGamemodeChangeEvent.NewGameMode
+- uid: OpenAPI.Events.Player.PlayerGamemodeChangeEvent.NewGameMode*
+  name: NewGameMode
+  href: api/OpenAPI.Events.Player.PlayerGamemodeChangeEvent.html#OpenAPI_Events_Player_PlayerGamemodeChangeEvent_NewGameMode_
+  commentId: Overload:OpenAPI.Events.Player.PlayerGamemodeChangeEvent.NewGameMode
+  isSpec: "True"
+  fullName: OpenAPI.Events.Player.PlayerGamemodeChangeEvent.NewGameMode
+  nameWithType: PlayerGamemodeChangeEvent.NewGameMode
+- uid: OpenAPI.Events.Player.PlayerGamemodeChangeEvent.OldGameMode
+  name: OldGameMode
+  href: api/OpenAPI.Events.Player.PlayerGamemodeChangeEvent.html#OpenAPI_Events_Player_PlayerGamemodeChangeEvent_OldGameMode
+  commentId: P:OpenAPI.Events.Player.PlayerGamemodeChangeEvent.OldGameMode
+  fullName: OpenAPI.Events.Player.PlayerGamemodeChangeEvent.OldGameMode
+  nameWithType: PlayerGamemodeChangeEvent.OldGameMode
+- uid: OpenAPI.Events.Player.PlayerGamemodeChangeEvent.OldGameMode*
+  name: OldGameMode
+  href: api/OpenAPI.Events.Player.PlayerGamemodeChangeEvent.html#OpenAPI_Events_Player_PlayerGamemodeChangeEvent_OldGameMode_
+  commentId: Overload:OpenAPI.Events.Player.PlayerGamemodeChangeEvent.OldGameMode
+  isSpec: "True"
+  fullName: OpenAPI.Events.Player.PlayerGamemodeChangeEvent.OldGameMode
+  nameWithType: PlayerGamemodeChangeEvent.OldGameMode
+- uid: OpenAPI.Events.Player.PlayerGamemodeChangeEvent.PlayerGamemodeChangeTrigger
+  name: PlayerGamemodeChangeEvent.PlayerGamemodeChangeTrigger
+  href: api/OpenAPI.Events.Player.PlayerGamemodeChangeEvent.PlayerGamemodeChangeTrigger.html
+  commentId: T:OpenAPI.Events.Player.PlayerGamemodeChangeEvent.PlayerGamemodeChangeTrigger
+  fullName: OpenAPI.Events.Player.PlayerGamemodeChangeEvent.PlayerGamemodeChangeTrigger
+  nameWithType: PlayerGamemodeChangeEvent.PlayerGamemodeChangeTrigger
+- uid: OpenAPI.Events.Player.PlayerGamemodeChangeEvent.PlayerGamemodeChangeTrigger.Other
+  name: Other
+  href: api/OpenAPI.Events.Player.PlayerGamemodeChangeEvent.PlayerGamemodeChangeTrigger.html#OpenAPI_Events_Player_PlayerGamemodeChangeEvent_PlayerGamemodeChangeTrigger_Other
+  commentId: F:OpenAPI.Events.Player.PlayerGamemodeChangeEvent.PlayerGamemodeChangeTrigger.Other
+  fullName: OpenAPI.Events.Player.PlayerGamemodeChangeEvent.PlayerGamemodeChangeTrigger.Other
+  nameWithType: PlayerGamemodeChangeEvent.PlayerGamemodeChangeTrigger.Other
+- uid: OpenAPI.Events.Player.PlayerGamemodeChangeEvent.PlayerGamemodeChangeTrigger.Self
+  name: Self
+  href: api/OpenAPI.Events.Player.PlayerGamemodeChangeEvent.PlayerGamemodeChangeTrigger.html#OpenAPI_Events_Player_PlayerGamemodeChangeEvent_PlayerGamemodeChangeTrigger_Self
+  commentId: F:OpenAPI.Events.Player.PlayerGamemodeChangeEvent.PlayerGamemodeChangeTrigger.Self
+  fullName: OpenAPI.Events.Player.PlayerGamemodeChangeEvent.PlayerGamemodeChangeTrigger.Self
+  nameWithType: PlayerGamemodeChangeEvent.PlayerGamemodeChangeTrigger.Self
+- uid: OpenAPI.Events.Player.PlayerGamemodeChangeEvent.Trigger
+  name: Trigger
+  href: api/OpenAPI.Events.Player.PlayerGamemodeChangeEvent.html#OpenAPI_Events_Player_PlayerGamemodeChangeEvent_Trigger
+  commentId: P:OpenAPI.Events.Player.PlayerGamemodeChangeEvent.Trigger
+  fullName: OpenAPI.Events.Player.PlayerGamemodeChangeEvent.Trigger
+  nameWithType: PlayerGamemodeChangeEvent.Trigger
+- uid: OpenAPI.Events.Player.PlayerGamemodeChangeEvent.Trigger*
+  name: Trigger
+  href: api/OpenAPI.Events.Player.PlayerGamemodeChangeEvent.html#OpenAPI_Events_Player_PlayerGamemodeChangeEvent_Trigger_
+  commentId: Overload:OpenAPI.Events.Player.PlayerGamemodeChangeEvent.Trigger
+  isSpec: "True"
+  fullName: OpenAPI.Events.Player.PlayerGamemodeChangeEvent.Trigger
+  nameWithType: PlayerGamemodeChangeEvent.Trigger
 - uid: OpenAPI.Events.Player.PlayerInputEvent
   name: PlayerInputEvent
   href: api/OpenAPI.Events.Player.PlayerInputEvent.html
@@ -2434,6 +2510,51 @@ references:
   isSpec: "True"
   fullName: OpenAPI.Events.Player.PlayerQuitEvent.PlayerQuitEvent
   nameWithType: PlayerQuitEvent.PlayerQuitEvent
+- uid: OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent
+  name: PlayerSetBlockEntityDataEvent
+  href: api/OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.html
+  commentId: T:OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent
+  fullName: OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent
+  nameWithType: PlayerSetBlockEntityDataEvent
+- uid: OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.#ctor(OpenAPI.Player.OpenPlayer,BlockEntity,NbtCompound)
+  name: PlayerSetBlockEntityDataEvent(OpenPlayer, BlockEntity, NbtCompound)
+  href: api/OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.html#OpenAPI_Events_Player_PlayerSetBlockEntityDataEvent__ctor_OpenAPI_Player_OpenPlayer_BlockEntity_NbtCompound_
+  commentId: M:OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.#ctor(OpenAPI.Player.OpenPlayer,BlockEntity,NbtCompound)
+  fullName: OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.PlayerSetBlockEntityDataEvent(OpenAPI.Player.OpenPlayer, BlockEntity, NbtCompound)
+  nameWithType: PlayerSetBlockEntityDataEvent.PlayerSetBlockEntityDataEvent(OpenPlayer, BlockEntity, NbtCompound)
+- uid: OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.#ctor*
+  name: PlayerSetBlockEntityDataEvent
+  href: api/OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.html#OpenAPI_Events_Player_PlayerSetBlockEntityDataEvent__ctor_
+  commentId: Overload:OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.#ctor
+  isSpec: "True"
+  fullName: OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.PlayerSetBlockEntityDataEvent
+  nameWithType: PlayerSetBlockEntityDataEvent.PlayerSetBlockEntityDataEvent
+- uid: OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.BlockEntity
+  name: BlockEntity
+  href: api/OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.html#OpenAPI_Events_Player_PlayerSetBlockEntityDataEvent_BlockEntity
+  commentId: P:OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.BlockEntity
+  fullName: OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.BlockEntity
+  nameWithType: PlayerSetBlockEntityDataEvent.BlockEntity
+- uid: OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.BlockEntity*
+  name: BlockEntity
+  href: api/OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.html#OpenAPI_Events_Player_PlayerSetBlockEntityDataEvent_BlockEntity_
+  commentId: Overload:OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.BlockEntity
+  isSpec: "True"
+  fullName: OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.BlockEntity
+  nameWithType: PlayerSetBlockEntityDataEvent.BlockEntity
+- uid: OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.Compound
+  name: Compound
+  href: api/OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.html#OpenAPI_Events_Player_PlayerSetBlockEntityDataEvent_Compound
+  commentId: P:OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.Compound
+  fullName: OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.Compound
+  nameWithType: PlayerSetBlockEntityDataEvent.Compound
+- uid: OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.Compound*
+  name: Compound
+  href: api/OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.html#OpenAPI_Events_Player_PlayerSetBlockEntityDataEvent_Compound_
+  commentId: Overload:OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.Compound
+  isSpec: "True"
+  fullName: OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.Compound
+  nameWithType: PlayerSetBlockEntityDataEvent.Compound
 - uid: OpenAPI.Events.Player.PlayerSettingsRequestEvent
   name: PlayerSettingsRequestEvent
   href: api/OpenAPI.Events.Player.PlayerSettingsRequestEvent.html
@@ -3574,6 +3695,32 @@ references:
   isSpec: "True"
   fullName: OpenAPI.Player.OpenPlayer.HandleItemUseTransaction
   nameWithType: OpenPlayer.HandleItemUseTransaction
+- uid: OpenAPI.Player.OpenPlayer.HandleMcpeAdventureSettings(McpeAdventureSettings)
+  name: HandleMcpeAdventureSettings(McpeAdventureSettings)
+  href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_HandleMcpeAdventureSettings_McpeAdventureSettings_
+  commentId: M:OpenAPI.Player.OpenPlayer.HandleMcpeAdventureSettings(McpeAdventureSettings)
+  fullName: OpenAPI.Player.OpenPlayer.HandleMcpeAdventureSettings(McpeAdventureSettings)
+  nameWithType: OpenPlayer.HandleMcpeAdventureSettings(McpeAdventureSettings)
+- uid: OpenAPI.Player.OpenPlayer.HandleMcpeAdventureSettings*
+  name: HandleMcpeAdventureSettings
+  href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_HandleMcpeAdventureSettings_
+  commentId: Overload:OpenAPI.Player.OpenPlayer.HandleMcpeAdventureSettings
+  isSpec: "True"
+  fullName: OpenAPI.Player.OpenPlayer.HandleMcpeAdventureSettings
+  nameWithType: OpenPlayer.HandleMcpeAdventureSettings
+- uid: OpenAPI.Player.OpenPlayer.HandleMcpeBlockEntityData(McpeBlockEntityData)
+  name: HandleMcpeBlockEntityData(McpeBlockEntityData)
+  href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_HandleMcpeBlockEntityData_McpeBlockEntityData_
+  commentId: M:OpenAPI.Player.OpenPlayer.HandleMcpeBlockEntityData(McpeBlockEntityData)
+  fullName: OpenAPI.Player.OpenPlayer.HandleMcpeBlockEntityData(McpeBlockEntityData)
+  nameWithType: OpenPlayer.HandleMcpeBlockEntityData(McpeBlockEntityData)
+- uid: OpenAPI.Player.OpenPlayer.HandleMcpeBlockEntityData*
+  name: HandleMcpeBlockEntityData
+  href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_HandleMcpeBlockEntityData_
+  commentId: Overload:OpenAPI.Player.OpenPlayer.HandleMcpeBlockEntityData
+  isSpec: "True"
+  fullName: OpenAPI.Player.OpenPlayer.HandleMcpeBlockEntityData
+  nameWithType: OpenPlayer.HandleMcpeBlockEntityData
 - uid: OpenAPI.Player.OpenPlayer.HandleMcpeCommandRequest(McpeCommandRequest)
   name: HandleMcpeCommandRequest(McpeCommandRequest)
   href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_HandleMcpeCommandRequest_McpeCommandRequest_
@@ -3652,6 +3799,19 @@ references:
   isSpec: "True"
   fullName: OpenAPI.Player.OpenPlayer.HandleMcpeResourcePackClientResponse
   nameWithType: OpenPlayer.HandleMcpeResourcePackClientResponse
+- uid: OpenAPI.Player.OpenPlayer.HandleMcpeSetPlayerGameType(McpeSetPlayerGameType)
+  name: HandleMcpeSetPlayerGameType(McpeSetPlayerGameType)
+  href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_HandleMcpeSetPlayerGameType_McpeSetPlayerGameType_
+  commentId: M:OpenAPI.Player.OpenPlayer.HandleMcpeSetPlayerGameType(McpeSetPlayerGameType)
+  fullName: OpenAPI.Player.OpenPlayer.HandleMcpeSetPlayerGameType(McpeSetPlayerGameType)
+  nameWithType: OpenPlayer.HandleMcpeSetPlayerGameType(McpeSetPlayerGameType)
+- uid: OpenAPI.Player.OpenPlayer.HandleMcpeSetPlayerGameType*
+  name: HandleMcpeSetPlayerGameType
+  href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_HandleMcpeSetPlayerGameType_
+  commentId: Overload:OpenAPI.Player.OpenPlayer.HandleMcpeSetPlayerGameType
+  isSpec: "True"
+  fullName: OpenAPI.Player.OpenPlayer.HandleMcpeSetPlayerGameType
+  nameWithType: OpenPlayer.HandleMcpeSetPlayerGameType
 - uid: OpenAPI.Player.OpenPlayer.HandleMcpeText(McpeText)
   name: HandleMcpeText(McpeText)
   href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_HandleMcpeText_McpeText_

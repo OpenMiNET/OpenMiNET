@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class PlayerEvent
+    <title>Class PlayerSetBlockEntityDataEvent
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class PlayerEvent
+    <meta name="title" content="Class PlayerSetBlockEntityDataEvent
    ">
     <meta name="generator" content="docfx 2.56.7.0">
     
@@ -78,35 +78,20 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="OpenAPI.Events.Player.PlayerEvent">
+            <article class="content wrap" id="_content" data-uid="OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent">
   
   
-  <h1 id="OpenAPI_Events_Player_PlayerEvent" data-uid="OpenAPI.Events.Player.PlayerEvent" class="text-break">Class PlayerEvent
+  <h1 id="OpenAPI_Events_Player_PlayerSetBlockEntityDataEvent" data-uid="OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent" class="text-break">Class PlayerSetBlockEntityDataEvent
   </h1>
-  <div class="markdown level0 summary"><p>The base class for any <a class="xref" href="OpenAPI.Player.OpenPlayer.html">OpenPlayer</a> event</p>
+  <div class="markdown level0 summary"><p>Dispatched when an <a class="xref" href="OpenAPI.Player.OpenPlayer.html">OpenPlayer</a> tries to modify a blockentity's nbt data</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
     <div class="level1"><a class="xref" href="OpenAPI.Events.Event.html">Event</a></div>
-    <div class="level2"><span class="xref">PlayerEvent</span></div>
-      <div class="level3"><a class="xref" href="OpenAPI.Events.Player.FoodLevelChangeEvent.html">FoodLevelChangeEvent</a></div>
-      <div class="level3"><a class="xref" href="OpenAPI.Events.Player.PlayerChatEvent.html">PlayerChatEvent</a></div>
-      <div class="level3"><a class="xref" href="OpenAPI.Events.Player.PlayerCreatedEvent.html">PlayerCreatedEvent</a></div>
-      <div class="level3"><a class="xref" href="OpenAPI.Events.Player.PlayerDespawnedEvent.html">PlayerDespawnedEvent</a></div>
-      <div class="level3"><a class="xref" href="OpenAPI.Events.Player.PlayerGamemodeChangeEvent.html">PlayerGamemodeChangeEvent</a></div>
-      <div class="level3"><a class="xref" href="OpenAPI.Events.Player.PlayerInputEvent.html">PlayerInputEvent</a></div>
-      <div class="level3"><a class="xref" href="OpenAPI.Events.Player.PlayerInteractEvent.html">PlayerInteractEvent</a></div>
-      <div class="level3"><a class="xref" href="OpenAPI.Events.Player.PlayerItemDropEvent.html">PlayerItemDropEvent</a></div>
-      <div class="level3"><a class="xref" href="OpenAPI.Events.Player.PlayerItemUseEvent.html">PlayerItemUseEvent</a></div>
-      <div class="level3"><a class="xref" href="OpenAPI.Events.Player.PlayerJoinEvent.html">PlayerJoinEvent</a></div>
-      <div class="level3"><a class="xref" href="OpenAPI.Events.Player.PlayerLoginCompleteEvent.html">PlayerLoginCompleteEvent</a></div>
-      <div class="level3"><a class="xref" href="OpenAPI.Events.Player.PlayerMoveEvent.html">PlayerMoveEvent</a></div>
-      <div class="level3"><a class="xref" href="OpenAPI.Events.Player.PlayerQuitEvent.html">PlayerQuitEvent</a></div>
-      <div class="level3"><a class="xref" href="OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.html">PlayerSetBlockEntityDataEvent</a></div>
-      <div class="level3"><a class="xref" href="OpenAPI.Events.Player.PlayerSettingsRequestEvent.html">PlayerSettingsRequestEvent</a></div>
-      <div class="level3"><a class="xref" href="OpenAPI.Events.Player.PlayerSpawnedEvent.html">PlayerSpawnedEvent</a></div>
+    <div class="level2"><a class="xref" href="OpenAPI.Events.Player.PlayerEvent.html">PlayerEvent</a></div>
+    <div class="level3"><span class="xref">PlayerSetBlockEntityDataEvent</span></div>
   </div>
   <div classs="implements">
     <h5>Implements</h5>
@@ -114,6 +99,9 @@
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="OpenAPI.Events.Player.PlayerEvent.html#OpenAPI_Events_Player_PlayerEvent_Player">PlayerEvent.Player</a>
+    </div>
     <div>
       <a class="xref" href="OpenAPI.Events.Event.html#OpenAPI_Events_Event_IsCancelled">Event.IsCancelled</a>
     </div>
@@ -126,26 +114,26 @@
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="OpenAPI.Events.Player.html">OpenAPI.Events.Player</a></h6>
   <h6><strong>Assembly</strong>: OpenAPI.dll</h6>
-  <h5 id="OpenAPI_Events_Player_PlayerEvent_syntax">Syntax</h5>
+  <h5 id="OpenAPI_Events_Player_PlayerSetBlockEntityDataEvent_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class PlayerEvent : Event, ICancellable</code></pre>
+    <pre><code class="lang-csharp hljs">public class PlayerSetBlockEntityDataEvent : PlayerEvent, ICancellable</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_Player_PlayerEvent__ctor_OpenAPI_Player_OpenPlayer_.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Player.PlayerEvent.%23ctor(OpenAPI.Player.OpenPlayer)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_Player_PlayerSetBlockEntityDataEvent__ctor_OpenAPI_Player_OpenPlayer_BlockEntity_NbtCompound_.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.%23ctor(OpenAPI.Player.OpenPlayer%2CBlockEntity%2CNbtCompound)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Events/Player/PlayerEvent.cs/#L16">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Events/Player/PlayerSetBlockEntityDataEvent.cs/#L16">View Source</a>
   </span>
-  <a id="OpenAPI_Events_Player_PlayerEvent__ctor_" data-uid="OpenAPI.Events.Player.PlayerEvent.#ctor*"></a>
-  <h4 id="OpenAPI_Events_Player_PlayerEvent__ctor_OpenAPI_Player_OpenPlayer_" data-uid="OpenAPI.Events.Player.PlayerEvent.#ctor(OpenAPI.Player.OpenPlayer)">PlayerEvent(OpenPlayer)</h4>
+  <a id="OpenAPI_Events_Player_PlayerSetBlockEntityDataEvent__ctor_" data-uid="OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.#ctor*"></a>
+  <h4 id="OpenAPI_Events_Player_PlayerSetBlockEntityDataEvent__ctor_OpenAPI_Player_OpenPlayer_BlockEntity_NbtCompound_" data-uid="OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.#ctor(OpenAPI.Player.OpenPlayer,BlockEntity,NbtCompound)">PlayerSetBlockEntityDataEvent(OpenPlayer, BlockEntity, NbtCompound)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public PlayerEvent(OpenPlayer player)</code></pre>
+    <pre><code class="lang-csharp hljs">public PlayerSetBlockEntityDataEvent(OpenPlayer player, BlockEntity blockEntity, NbtCompound compound)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -162,25 +150,34 @@
         <td><span class="parametername">player</span></td>
         <td></td>
       </tr>
+      <tr>
+        <td><span class="xref">BlockEntity</span></td>
+        <td><span class="parametername">blockEntity</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">NbtCompound</span></td>
+        <td><span class="parametername">compound</span></td>
+        <td></td>
+      </tr>
     </tbody>
   </table>
   <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_Player_PlayerEvent_Player.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Player.PlayerEvent.Player%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_Player_PlayerSetBlockEntityDataEvent_BlockEntity.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.BlockEntity%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Events/Player/PlayerEvent.cs/#L13">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Events/Player/PlayerSetBlockEntityDataEvent.cs/#L12">View Source</a>
   </span>
-  <a id="OpenAPI_Events_Player_PlayerEvent_Player_" data-uid="OpenAPI.Events.Player.PlayerEvent.Player*"></a>
-  <h4 id="OpenAPI_Events_Player_PlayerEvent_Player" data-uid="OpenAPI.Events.Player.PlayerEvent.Player">Player</h4>
-  <div class="markdown level1 summary"><p>The player that the event occured for.</p>
-</div>
+  <a id="OpenAPI_Events_Player_PlayerSetBlockEntityDataEvent_BlockEntity_" data-uid="OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.BlockEntity*"></a>
+  <h4 id="OpenAPI_Events_Player_PlayerSetBlockEntityDataEvent_BlockEntity" data-uid="OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.BlockEntity">BlockEntity</h4>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public OpenPlayer Player { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public BlockEntity BlockEntity { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -192,7 +189,37 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="OpenAPI.Player.OpenPlayer.html">OpenPlayer</a></td>
+        <td><span class="xref">BlockEntity</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_Player_PlayerSetBlockEntityDataEvent_Compound.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.Compound%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Events/Player/PlayerSetBlockEntityDataEvent.cs/#L13">View Source</a>
+  </span>
+  <a id="OpenAPI_Events_Player_PlayerSetBlockEntityDataEvent_Compound_" data-uid="OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.Compound*"></a>
+  <h4 id="OpenAPI_Events_Player_PlayerSetBlockEntityDataEvent_Compound" data-uid="OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent.Compound">Compound</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NbtCompound Compound { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">NbtCompound</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -209,10 +236,10 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_Player_PlayerEvent.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Player.PlayerEvent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_Player_PlayerSetBlockEntityDataEvent.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Player.PlayerSetBlockEntityDataEvent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Events/Player/PlayerEvent.cs/#L8" class="contribution-link">View Source</a>
+                    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Events/Player/PlayerSetBlockEntityDataEvent.cs/#L10" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
