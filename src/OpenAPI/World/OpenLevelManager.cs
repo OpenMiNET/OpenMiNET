@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using log4net;
 using MiNET;
 using MiNET.Utils;
+using MiNET.Utils.Vectors;
 using MiNET.Worlds;
 using OpenAPI.Entities;
 using OpenAPI.Events;
@@ -92,19 +93,11 @@ namespace OpenAPI.World
 				newLevelid = GetLevelId(levelId);
 			}
 
-			/*var worldProvider = new WrappedAnvilWorldProvider(Api)
-			{
-				MissingChunkProvider = new FlatlandWorldProvider(),
-				ReadSkyLight = _readSkyLight,
-				ReadBlockLight = _readBlockLight
-			};*/ var worldProvider = new AnvilWorldProvider();
-
-			var openLevel = new OpenLevel(Api/*, Api.EventDispatcher*/, this, newLevelid, worldProvider, EntityManager, _gameMode, _difficulty, _viewDistance)
+			var worldProvider = new AnvilWorldProvider();
+			var openLevel = new OpenLevel(Api, this, newLevelid, worldProvider, EntityManager, _gameMode, _difficulty, _viewDistance)
 			{
 				EnableBlockTicking = _enableBlockTicking,
-				EnableChunkTicking = _enableChunkTicking,
-				
-			//	IsWorldTimeStarted = _isWorldTimeStarted
+				EnableChunkTicking = _enableChunkTicking
 			};
 
 			LoadLevel(openLevel);
@@ -114,21 +107,19 @@ namespace OpenAPI.World
 
 		public OpenLevel GetLevel(string basepath, string levelId, ChunkColumn[] chunks)
 		{
-			
 			var newLevelId = GetLevelId(levelId);
 
-			/*var worldProvider = new WrappedAnvilWorldProvider(Api, basepath, false, chunks)
-			{
-				MissingChunkProvider = new FlatlandWorldProvider(),
-				ReadSkyLight = _readSkyLight,
-				ReadBlockLight = _readBlockLight
-			};*/
 			var worldProvider = new AnvilWorldProvider(basepath);
-			var openLevel = new OpenLevel(Api/*, Api.EventDispatcher*/, this, newLevelId, worldProvider, EntityManager, _gameMode, _difficulty, _viewDistance)
+
+			foreach (var chunk in chunks)
+			{
+				worldProvider._chunkCache.TryAdd(new ChunkCoordinates(chunk.X, chunk.Z), chunk);
+			}
+			
+			var openLevel = new OpenLevel(Api, this, newLevelId, worldProvider, EntityManager, _gameMode, _difficulty, _viewDistance)
 			{
 				EnableBlockTicking = _enableBlockTicking,
-				EnableChunkTicking = _enableChunkTicking,
-				//IsWorldTimeStarted = _isWorldTimeStarted
+				EnableChunkTicking = _enableChunkTicking
 			};
 
 			LoadLevel(openLevel);
@@ -144,19 +135,13 @@ namespace OpenAPI.World
 		public OpenLevel LoadLevel(string levelDirectory, string levelId)
 		{
 			var newLevelId = GetLevelId(levelId);
-
-			/*	var worldProvider = new WrappedAnvilWorldProvider(Api, levelDirectory)
-				{
-					MissingChunkProvider = new FlatlandWorldProvider(),
-					ReadSkyLight = !Config.GetProperty("CalculateLights", false),
-					ReadBlockLight = !Config.GetProperty("CalculateLights", false),
-				};*/
+			
 			var worldProvider = new AnvilWorldProvider(levelDirectory)
 			{
 				MissingChunkProvider = new SuperflatGenerator(Dimension.Overworld)
 			};
 
-			var openLevel = new OpenLevel(Api/*, Api.EventDispatcher*/, this, newLevelId, worldProvider, EntityManager, _gameMode, _difficulty, _viewDistance)
+			var openLevel = new OpenLevel(Api, this, newLevelId, worldProvider, EntityManager, _gameMode, _difficulty, _viewDistance)
 			{
 				EnableBlockTicking = _enableBlockTicking,
 				EnableChunkTicking = _enableChunkTicking,
