@@ -290,18 +290,18 @@ namespace OpenAPI.World
 		{
 			if (type == MessageType.Chat || type == MessageType.Raw)
 			{
-				foreach (var line in text.Split(new[] { "\n", Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
+				McpeText message = McpeText.CreateObject();
+				message.type = 0;
+				message.source = ""; //sender == null ? "" : (sender.DisplayName ?? sender.Username);
+				message.message = text;
+				RelayBroadcast(sendList, message);
+				/*foreach (var line in text.Split(new[] { "\n", Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
 				{
-					string sen = sender == null ? "" : (sender.DisplayName ?? sender.Username) + ": ";
-					McpeText message = McpeText.CreateObject();
-					message.type = 0;
-					message.source = ""; //sender == null ? "" : (sender.DisplayName ?? sender.Username);
-					message.message =$"{sen}{line}";
+					//string sen = sender == null ? "" : (sender.DisplayName ?? sender.Username) + ": ";
+					
 					//message.parameters = new string[0];
 					//  message.islocalized = false;
-
-					RelayBroadcast(sendList, message);
-				}
+				}*/
 				return;
 			}
 			else

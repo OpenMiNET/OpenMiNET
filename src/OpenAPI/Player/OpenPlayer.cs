@@ -357,7 +357,12 @@ namespace OpenAPI.Player
 		        if (result.IsCancelled)
 			        return;
 		        
-		        Level.BroadcastMessage(chatEvent.Message, sender: this);
+				if(!string.IsNullOrEmpty(chatEvent.Format) && chatEvent.FormatParameters.Any())
+                {
+					chatEvent.Message = string.Format(chatEvent.Format, chatEvent.FormatParameters);
+                }
+
+		        Level.BroadcastMessage(chatEvent.Message, sender: this, sendList: chatEvent.Recipients);
 	        });
         }
 
