@@ -29,6 +29,11 @@
     "title": "Class CommandPermissionChecker<TType>",
     "keywords": "Class CommandPermissionChecker<TType> Inheritance System.Object CommandPermissionChecker CommandPermissionChecker<TType> DefaultPermissionChecker Namespace : OpenAPI.Commands Assembly : OpenAPI.dll Syntax public class CommandPermissionChecker<TType> : CommandPermissionChecker where TType : CommandPermissionAttribute Type Parameters Name Description TType Methods | Improve this Doc View Source HasPermission(TType, OpenPlayer) Declaration public virtual bool HasPermission(TType attr, OpenPlayer player) Parameters Type Name Description TType attr OpenPlayer player Returns Type Description System.Boolean | Improve this Doc View Source HasPermission(CommandPermissionAttribute, OpenPlayer) Declaration public override bool HasPermission(CommandPermissionAttribute attr, OpenPlayer player) Parameters Type Name Description CommandPermissionAttribute attr OpenPlayer player Returns Type Description System.Boolean Overrides CommandPermissionChecker.HasPermission(CommandPermissionAttribute, OpenPlayer)"
   },
+  "api/OpenAPI.Commands.CustomEnum.html": {
+    "href": "api/OpenAPI.Commands.CustomEnum.html",
+    "title": "Class CustomEnum",
+    "keywords": "Class CustomEnum Inheritance System.Object CustomEnum Namespace : OpenAPI.Commands Assembly : OpenAPI.dll Syntax public abstract class CustomEnum : object Properties | Improve this Doc View Source EnumType Declaration public string EnumType { get; set; } Property Value Type Description System.String | Improve this Doc View Source Value Declaration public string Value { get; protected set; } Property Value Type Description System.String Methods | Improve this Doc View Source GetValues() Declaration public abstract string[] GetValues() Returns Type Description System.String [] | Improve this Doc View Source SetValue(String) Set's the value of the parameter, should return false if not a valid option. Declaration public abstract bool SetValue(string value) Parameters Type Name Description System.String value Returns Type Description System.Boolean"
+  },
   "api/OpenAPI.Commands.DefaultPermissionChecker.html": {
     "href": "api/OpenAPI.Commands.DefaultPermissionChecker.html",
     "title": "Class DefaultPermissionChecker",
@@ -37,7 +42,7 @@
   "api/OpenAPI.Commands.html": {
     "href": "api/OpenAPI.Commands.html",
     "title": "Namespace OpenAPI.Commands",
-    "keywords": "Namespace OpenAPI.Commands Classes CommandData CommandManager CommandPermissionAttribute CommandPermissionChecker CommandPermissionChecker<TType> DefaultPermissionChecker StringPermissionAttribute"
+    "keywords": "Namespace OpenAPI.Commands Classes CommandData CommandManager CommandPermissionAttribute CommandPermissionChecker CommandPermissionChecker<TType> CustomEnum DefaultPermissionChecker StringPermissionAttribute"
   },
   "api/OpenAPI.Commands.StringPermissionAttribute.html": {
     "href": "api/OpenAPI.Commands.StringPermissionAttribute.html",
