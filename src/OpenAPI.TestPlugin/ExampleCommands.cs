@@ -11,6 +11,12 @@ namespace OpenAPI.TestPlugin
 {
     public class ExampleCommands
     {
+        [Command(Description = "An example command showing custom stringenums.")]
+        public void TestEnum(OpenPlayer player, CustomDynamicEnum test)
+        {
+            player.SendMessage($"You entered: {test.Value}");
+        }
+        
 	    [Command(Description = "An example command to show how things work around OpenAPI")]
 	    public void ExampleCommand(OpenPlayer player)
 	    {

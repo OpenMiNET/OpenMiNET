@@ -256,30 +256,41 @@ namespace OpenAPI.Commands
 								param.EnumValues = new string[] { };
 								param.EnumType = "Item";
 							}
-							if (parameter.ParameterType == typeof(BlockTypeEnum))
+							else if (parameter.ParameterType == typeof(BlockTypeEnum))
 							{
 								param.EnumValues = new string[] { };
 								param.EnumType = "Block";
 							}
-							if (parameter.ParameterType == typeof(EntityTypeEnum))
+							else if (parameter.ParameterType == typeof(EntityTypeEnum))
 							{
 								param.EnumValues = new string[] { };
 								param.EnumType = "EntityType";
 							}
-							if (parameter.ParameterType == typeof(CommandNameEnum))
+							else if (parameter.ParameterType == typeof(CommandNameEnum))
 							{
 								param.EnumValues = new string[] { };
 								param.EnumType = "CommandName";
 							}
-							if (parameter.ParameterType == typeof(EnchantEnum))
+							else if (parameter.ParameterType == typeof(EnchantEnum))
 							{
 								param.EnumValues = new string[] {"enchant_test"};
 								param.EnumType = "Enchant";
 							}
-							if (parameter.ParameterType == typeof(EffectEnum))
+							else if (parameter.ParameterType == typeof(EffectEnum))
 							{
 								param.EnumValues = new string[] {"effect_test"};
 								param.EnumType = "Effect";
+							}
+							else if (typeof(CustomEnum).IsAssignableFrom(parameter.ParameterType))
+							{
+								CustomEnum c = parameter.ParameterType.GetConstructor(Type.EmptyTypes).Invoke(null) as CustomEnum;
+
+								if (c != null)
+								{
+									param.EnumValues = c.GetValues();
+									param.EnumType = c.EnumType;
+									//param.EnumType = c.
+								}
 							}
 						}
 					}
@@ -370,6 +381,8 @@ namespace OpenAPI.Commands
 			else if (parameter.ParameterType.IsEnum)
 				value = "stringenum";
 			else if (parameter.ParameterType.BaseType == typeof(EnumBase))
+				value = "stringenum";
+			else if (typeof(CustomEnum).IsAssignableFrom(parameter.ParameterType))
 				value = "stringenum";
 			else if (typeof(IParameterSerializer).IsAssignableFrom(parameter.ParameterType))
 				// Custom serialization
@@ -575,6 +588,20 @@ namespace OpenAPI.Commands
 						objectArgs[k] = defaultValue;
 
 						continue;
+					}
+					
+					if (typeof(CustomEnum).IsAssignableFrom(parameter.ParameterType))
+					{
+						var ctor = parameter.ParameterType.GetConstructor(Type.EmptyTypes);
+						CustomEnum c = ctor.Invoke(null) as CustomEnum;
+						if (!c.SetValue(args[i++]))
+						{
+							return false;
+						}
+						
+						objectArgs[k] = c;
+						continue;
+						//param.EnumType = c.
 					}
 
 					if (parameter.ParameterType.BaseType == typeof(EnumBase))
