@@ -103,8 +103,10 @@ namespace OpenAPI
                          listener.Client.IOControl((int) SIO_UDP_CONNRESET, new byte[] {Convert.ToByte(false)}, null);
                      }*/
                    
-                   openInfo = new OpenServerInfo(listener.ConnectionInfo, OpenApi,
+                   openInfo = new OpenServerInfo(listener, OpenApi,
                        listener.ConnectionInfo.RakSessions, OpenApi.LevelManager);
+                    
+
                    ConnectionInfo = openInfo;
                    openInfo.Init();
 

@@ -21,10 +21,12 @@ namespace OpenAPI
 		private OpenApi Api { get; }
 		private int Interval { get; } = 1000;
 		private Stopwatch _stopwatch = Stopwatch.StartNew();
-		private ConnectionInfo ConnectionInfo { get; }
-		public OpenServerInfo(ConnectionInfo info, OpenApi api, ConcurrentDictionary<IPEndPoint, RakSession> playerSessions, LevelManager levelManager) : base(playerSessions)
+		private RakConnection Connection { get; }
+		public OpenServerInfo(RakConnection connection, OpenApi api, ConcurrentDictionary<IPEndPoint, RakSession> playerSessions, LevelManager levelManager) : base(playerSessions)
 		{
-			ConnectionInfo = info;
+			Connection = connection;
+			connection?.ConnectionInfo?.ThroughPut?.Change(Timeout.Infinite, Timeout.Infinite);
+			
 			Api = api;
 
 			Interval = Config.GetProperty("InfoInterval", 1000);
@@ -37,6 +39,7 @@ namespace OpenAPI
 
 		private void OnThroughPut(object state)
 		{
+			var connectionInfo = Connection.ConnectionInfo;
 			NumberOfPlayers = RakSessions.Count;
 			
 			int availableWorkerThreads;
@@ -48,27 +51,28 @@ namespace OpenAPI
 			ThreadPool.GetMaxThreads(out maxWorkerThreads, out maxPortThreads);
 
 			
-			Interlocked.Exchange(ref NumberOfDeniedConnectionRequestsPerSecond, 0);
+			//long numberOfDeniedConnectionsPerSecond = Interlocked.Exchange(ref ConnectionInfo.NumberOfDeniedConnectionRequestsPerSecond, 0);
 
-			long packetSizeOut = Interlocked.Exchange(ref TotalPacketSizeOutPerSecond, 0);
-			long packetSizeIn = Interlocked.Exchange(ref TotalPacketSizeInPerSecond, 0);
+			
+			long packetSizeOut = Interlocked.Exchange(ref connectionInfo.TotalPacketSizeOutPerSecond, 0);
+			long packetSizeIn = Interlocked.Exchange(ref connectionInfo.TotalPacketSizeInPerSecond, 0);
 
 			double mbpsPerSecondOut = packetSizeOut * 8 / 1_000_000D;
 			double mbpsPerSecondIn = packetSizeIn * 8 / 1_000_000D;
 
-			long numberOfPacketsOutPerSecond = Interlocked.Exchange(ref NumberOfPacketsOutPerSecond, 0);
-			long numberOfPacketsInPerSecond = Interlocked.Exchange(ref NumberOfPacketsInPerSecond, 0);
+			long numberOfPacketsOutPerSecond = Interlocked.Exchange(ref connectionInfo.NumberOfPacketsOutPerSecond, 0);
+			long numberOfPacketsInPerSecond = Interlocked.Exchange(ref connectionInfo.NumberOfPacketsInPerSecond, 0);
 
 			AvgSizePerPacketIn = AvgSizePerPacketIn == 0 ? packetSizeIn * 100 : (long) ((AvgSizePerPacketIn * 99) + (packetSizeIn == 0 ? 0 : numberOfPacketsInPerSecond / ((double) packetSizeIn)));
 			AvgSizePerPacketOut = AvgSizePerPacketOut == 0 ? packetSizeOut * 100 : (long) ((AvgSizePerPacketOut * 99) + (packetSizeOut == 0 ? 0 : numberOfPacketsOutPerSecond / ((double) packetSizeOut)));
 			AvgSizePerPacketIn /= 100; // running avg of 100 prev values
 			AvgSizePerPacketOut /= 100; // running avg of 100 prev values
 			
-			long numberOfAckIn = Interlocked.Exchange(ref NumberOfAckReceive, 0);
-			long numberOfAckOut = Interlocked.Exchange(ref NumberOfAckSent, 0);
-			long numberOfNakIn = Interlocked.Exchange(ref NumberOfNakReceive, 0);
-			long numberOfResend = Interlocked.Exchange(ref NumberOfResends, 0);
-			long numberOfFailed = Interlocked.Exchange(ref NumberOfFails, 0);
+			long numberOfAckIn = Interlocked.Exchange(ref connectionInfo.NumberOfAckReceive, 0);
+			long numberOfAckOut = Interlocked.Exchange(ref connectionInfo.NumberOfAckSent, 0);
+			long numberOfNakIn = Interlocked.Exchange(ref connectionInfo.NumberOfNakReceive, 0);
+			long numberOfResend = Interlocked.Exchange(ref connectionInfo.NumberOfResends, 0);
+			long numberOfFailed = Interlocked.Exchange(ref connectionInfo.NumberOfFails, 0);
 
 			var eventsDispatched = Interlocked.Exchange(ref EventsDispatchedPerSecond, 0);
 			//var levels = Interlocked.Read(ref Levels);
@@ -110,7 +114,7 @@ namespace OpenAPI
 				_stopwatch.Restart();
 			}
 
-			var deniedConns = Interlocked.Exchange(ref NumberOfDeniedConnectionRequestsPerSecond, 0);
+			var deniedConns = Interlocked.Exchange(ref connectionInfo.NumberOfDeniedConnectionRequestsPerSecond, 0);
 			
 			OnMetricsReport?.Invoke(this, new MetricsEvent()
 			{
@@ -130,7 +134,6 @@ namespace OpenAPI
 				WorkerThreads = maxWorkerThreads - availableWorkerThreads,
 				AvgSizePerPacketIn = AvgSizePerPacketIn,
 				AvgSizePerPacketOut = AvgSizePerPacketOut
-				
 			});
 		}
 

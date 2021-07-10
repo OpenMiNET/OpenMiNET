@@ -33,8 +33,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MiNET" Version="1.0.2267" />
-    <PackageReference Include="Mono.Cecil" Version="0.11.2" />
+    <PackageReference Include="MiNET" Version="1.0.2270" />
+    <PackageReference Include="Mono.Cecil" Version="0.11.4" />
   </ItemGroup>
 
   <ItemGroup>
