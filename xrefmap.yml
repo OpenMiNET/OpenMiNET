@@ -3103,15 +3103,15 @@ references:
   commentId: T:OpenAPI.OpenServerInfo
   fullName: OpenAPI.OpenServerInfo
   nameWithType: OpenServerInfo
-- uid: OpenAPI.OpenServerInfo.#ctor(ConnectionInfo,OpenAPI.OpenApi,ConcurrentDictionary{IPEndPoint,RakSession},LevelManager)
-  name: OpenServerInfo(ConnectionInfo, OpenApi, ConcurrentDictionary<IPEndPoint, RakSession>, LevelManager)
-  href: api/OpenAPI.OpenServerInfo.html#OpenAPI_OpenServerInfo__ctor_ConnectionInfo_OpenAPI_OpenApi_ConcurrentDictionary_IPEndPoint_RakSession__LevelManager_
-  commentId: M:OpenAPI.OpenServerInfo.#ctor(ConnectionInfo,OpenAPI.OpenApi,ConcurrentDictionary{IPEndPoint,RakSession},LevelManager)
-  name.vb: OpenServerInfo(ConnectionInfo, OpenApi, ConcurrentDictionary(Of IPEndPoint, RakSession), LevelManager)
-  fullName: OpenAPI.OpenServerInfo.OpenServerInfo(ConnectionInfo, OpenAPI.OpenApi, ConcurrentDictionary<IPEndPoint, RakSession>, LevelManager)
-  fullName.vb: OpenAPI.OpenServerInfo.OpenServerInfo(ConnectionInfo, OpenAPI.OpenApi, ConcurrentDictionary(Of IPEndPoint, RakSession), LevelManager)
-  nameWithType: OpenServerInfo.OpenServerInfo(ConnectionInfo, OpenApi, ConcurrentDictionary<IPEndPoint, RakSession>, LevelManager)
-  nameWithType.vb: OpenServerInfo.OpenServerInfo(ConnectionInfo, OpenApi, ConcurrentDictionary(Of IPEndPoint, RakSession), LevelManager)
+- uid: OpenAPI.OpenServerInfo.#ctor(RakConnection,OpenAPI.OpenApi,ConcurrentDictionary{IPEndPoint,RakSession},LevelManager)
+  name: OpenServerInfo(RakConnection, OpenApi, ConcurrentDictionary<IPEndPoint, RakSession>, LevelManager)
+  href: api/OpenAPI.OpenServerInfo.html#OpenAPI_OpenServerInfo__ctor_RakConnection_OpenAPI_OpenApi_ConcurrentDictionary_IPEndPoint_RakSession__LevelManager_
+  commentId: M:OpenAPI.OpenServerInfo.#ctor(RakConnection,OpenAPI.OpenApi,ConcurrentDictionary{IPEndPoint,RakSession},LevelManager)
+  name.vb: OpenServerInfo(RakConnection, OpenApi, ConcurrentDictionary(Of IPEndPoint, RakSession), LevelManager)
+  fullName: OpenAPI.OpenServerInfo.OpenServerInfo(RakConnection, OpenAPI.OpenApi, ConcurrentDictionary<IPEndPoint, RakSession>, LevelManager)
+  fullName.vb: OpenAPI.OpenServerInfo.OpenServerInfo(RakConnection, OpenAPI.OpenApi, ConcurrentDictionary(Of IPEndPoint, RakSession), LevelManager)
+  nameWithType: OpenServerInfo.OpenServerInfo(RakConnection, OpenApi, ConcurrentDictionary<IPEndPoint, RakSession>, LevelManager)
+  nameWithType.vb: OpenServerInfo.OpenServerInfo(RakConnection, OpenApi, ConcurrentDictionary(Of IPEndPoint, RakSession), LevelManager)
 - uid: OpenAPI.OpenServerInfo.#ctor*
   name: OpenServerInfo
   href: api/OpenAPI.OpenServerInfo.html#OpenAPI_OpenServerInfo__ctor_
