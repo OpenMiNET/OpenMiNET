@@ -64,9 +64,9 @@ namespace OpenAPI.World
 		private bool _closed;
 	/*	public override void AddEntity(Entity entity)
 		{
-		    if (Entities == null) return;
+			if (Entities == null) return;
 
-            lock (Entities)
+			lock (Entities)
 			{
 				EntityManager.AddEntity(entity);
 
@@ -90,7 +90,7 @@ namespace OpenAPI.World
 
 		public override void RemoveEntity(Entity entity)
 		{
-            if (Entities == null) return;
+			if (Entities == null) return;
 
 			lock (Entities)
 			{
@@ -292,16 +292,9 @@ namespace OpenAPI.World
 			{
 				McpeText message = McpeText.CreateObject();
 				message.type = 0;
-				message.source = ""; //sender == null ? "" : (sender.DisplayName ?? sender.Username);
+				message.source = "";
 				message.message = text;
 				RelayBroadcast(sendList, message);
-				/*foreach (var line in text.Split(new[] { "\n", Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
-				{
-					//string sen = sender == null ? "" : (sender.DisplayName ?? sender.Username) + ": ";
-					
-					//message.parameters = new string[0];
-					//  message.islocalized = false;
-				}*/
 				return;
 			}
 			else
@@ -310,9 +303,6 @@ namespace OpenAPI.World
 				message.type = (byte)type;
 				message.source = sender == null ? "" : sender.Username;
 				message.message = text;
-				//   message.parameters = new string[0];
-				//   message.islocalized = false;
-
 				RelayBroadcast(sendList, message);
 			}
 		}
