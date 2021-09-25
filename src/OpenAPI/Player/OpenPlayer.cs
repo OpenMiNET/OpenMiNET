@@ -142,7 +142,7 @@ namespace OpenAPI.Player
         /// <inheritdoc />
         public override void HandleMcpeAdventureSettings(McpeAdventureSettings message)
         {
-	        if (message.userId != EntityId)
+	        if (message.entityUniqueId != EntityId)
 	        {
 		        //We are trying to change another players adventuresettings.
 		        return;
