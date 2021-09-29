@@ -29,7 +29,7 @@
 	</PropertyGroup>
 	
   <ItemGroup>
-    <PackageReference Include="MiNET" Version="1.0.2281" />
+    <PackageReference Include="MiNET" Version="1.0.2282" />
   </ItemGroup>
 
 </Project>
