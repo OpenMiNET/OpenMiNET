@@ -1025,24 +1025,44 @@ namespace OpenAPI.Player
 
         public override void SpawnToPlayers(MiNET.Player[] players)
         {
-            if (!IsDisguised)
-            {
-                base.SpawnToPlayers(players);
-                return;
-            }
-
-            Disguise.SpawnToPlayers(players);
+	        SpawnToPlayers(false, players.Cast<OpenPlayer>().ToArray());
         }
 
         public override void DespawnFromPlayers(MiNET.Player[] players)
         {
-            if (!IsDisguised)
-            {
-                base.DespawnFromPlayers(players);
-                return;
-            }
+			DespawnFromPlayers(false, players.Cast<OpenPlayer>().ToArray());
+        }
 
-            Disguise.DespawnFromPlayers(players);
+        /// <summary>
+        ///		Despawns the player from other players
+        /// </summary>
+        /// <param name="forced">If true, force despawns even if disguised</param>
+        /// <param name="players">The players to despawn from</param>
+        public void DespawnFromPlayers(bool forced = true, params OpenPlayer[] players)
+        {
+	        if (!IsDisguised && !forced)
+	        {
+		        base.DespawnFromPlayers(players);
+		        return;
+	        }
+
+	        Disguise.DespawnFromPlayers(players);
+        }
+        
+        /// <summary>
+        ///		Spawns the player from other players
+        /// </summary>
+        /// <param name="forced">If true, force spawns even if disguised</param>
+        /// <param name="players">The players to spawn for</param>
+        public void SpawnToPlayers(bool forced = true, params OpenPlayer[] players)
+        {
+	        if (!IsDisguised && !forced)
+	        {
+		        base.SpawnToPlayers(players);
+		        return;
+	        }
+
+	        Disguise.SpawnToPlayers(players);
         }
 
         public void SendLocalizedTitle(string text, TitleType type = TitleType.Title, int fadeIn = 6, int fadeOut = 6,

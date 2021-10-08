@@ -11,12 +11,31 @@ using OpenAPI.Player;
 
 namespace OpenAPI.Entities
 {
+    /// <summary>
+    ///     Holds a disguised entity
+    /// </summary>
     public class EntityDisguise
     {
+        /// <summary>
+        ///     The disguised entity
+        /// </summary>
         public Entity Parent { get; }
+        
+        /// <summary>
+        ///     The entity to disguise as
+        /// </summary>
         public Entity Disguise { get; }
+        
+        /// <summary>
+        ///     Should disguise be visible to <see cref="Parent"/>
+        /// </summary>
         public bool SpawnToSelf { get; set; } = false;
+        
+        /// <summary>
+        ///     The offset from the <see cref="Parent"/> entity.
+        /// </summary>
         public Vector3 PositionOffset { get; set; } = Vector3.Zero;
+
         public EntityDisguise(Entity parent, Entity disguise)
         {
             Parent = parent;
