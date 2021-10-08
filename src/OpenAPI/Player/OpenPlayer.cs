@@ -47,15 +47,37 @@ namespace OpenAPI.Player
 		private readonly ConcurrentDictionary<Type, IOpenPlayerAttribute> _attributes =
 			new ConcurrentDictionary<Type, IOpenPlayerAttribute>();
 
+		/// <summary>
+		///		The <see cref="EventDispatcher"/> that can be used to listen to any events for this player.
+		/// </summary>
 		public EventDispatcher EventDispatcher => Level.EventDispatcher ?? _plugin.EventDispatcher;
 
         private OpenApi _plugin;
+        
+        /// <summary>
+        ///		Returns true if player is authenticated with an online-mode account
+        /// </summary>
 		public bool IsXbox => !string.IsNullOrWhiteSpace(CertificateData.ExtraData.Xuid);
+        
+        /// <summary>
+        ///		The player's culture info, can be used for localization purposes
+        /// </summary>
         public CultureInfo Culture { get; private set; } = CultureInfo.CurrentCulture;
+        
+        /// <summary>
+        ///		The <see cref="PermissionManager"/> for this player
+        /// </summary>
         public PermissionManager Permissions { get; }
 
         internal CommandSet Commands { get; set; } = null;
-        public OpenPlayer(MiNetServer server, IPEndPoint endPoint, OpenApi api) : base(server, endPoint)
+        
+        /// <summary>
+        ///		Creates a new <see cref="OpenPlayer"/> instance.
+        /// </summary>
+        /// <param name="server">The server instance the player connected through</param>
+        /// <param name="endPoint">The player's remote endpoint</param>
+        /// <param name="api">An instance of the API</param>
+        public OpenPlayer(OpenServer server, IPEndPoint endPoint, OpenApi api) : base(server, endPoint)
         {
             EnableCommands = true;
             _plugin = api;
@@ -69,8 +91,14 @@ namespace OpenAPI.Player
 	        //if (Config.GetProperty("useResourcePack"))
         }
 
+        /// <summary>
+        ///		The <see cref="OpenLevel"/> instance the player is currently in.
+        /// </summary>
         public new OpenLevel Level => (OpenLevel)base.Level;
 
+        /// <summary>
+        ///		Initializes the player
+        /// </summary>
         public override void InitializePlayer()
         {
 	        PlayerLoginCompleteEvent e = new PlayerLoginCompleteEvent(this, DateTime.UtcNow);
@@ -151,6 +179,10 @@ namespace OpenAPI.Player
 	        base.HandleMcpeAdventureSettings(message);
         }
 
+        /// <summary>
+        ///		Handles any incoming commands.
+        /// </summary>
+        /// <param name="message"></param>
         public override void HandleMcpeCommandRequest(McpeCommandRequest message)
         {
 	        var result = _plugin.CommandManager.HandleCommand(this, message.command);
@@ -161,6 +193,9 @@ namespace OpenAPI.Player
 	        }
         }
 
+        /// <summary>
+        ///		Sends the players available command set
+        /// </summary>
         protected override void SendAvailableCommands()
         {
 	        McpeAvailableCommands commands = McpeAvailableCommands.CreateObject();
@@ -169,11 +204,9 @@ namespace OpenAPI.Player
 	        SendPacket(commands);
         }
 
-        protected override void SendSetCommandsEnabled()
-        {
-	        base.SendSetCommandsEnabled();
-        }
-
+        /// <summary>
+        ///		Reloads & sends the players available commands.
+        /// </summary>
         public void RefreshCommands()
         {
             Commands = _plugin.CommandManager.GenerateCommandSet(this);
@@ -322,6 +355,10 @@ namespace OpenAPI.Player
             return base.AcceptPlayerMove(message, isOnGround, isFlyingHorizontally);
         }
 
+        /// <summary>
+        ///		Teleports the player to specified position
+        /// </summary>
+        /// <param name="newPosition">The position to teleport the player to</param>
         public override void Teleport(PlayerLocation newPosition)
         {
 	        EventDispatcher.DispatchEventAsync(new PlayerMoveEvent(this, KnownPosition, newPosition, true))
@@ -335,6 +372,12 @@ namespace OpenAPI.Player
 			        });
         }
 
+        /// <summary>
+        ///		Transfers the player to a different server
+        ///		Note, only supports IPv4 addresses
+        /// </summary>
+        /// <param name="endpoint">The endpoint to transfer to</param>
+        /// <exception cref="NotSupportedException">Thrown when the endpoint isn't an IPv4 Address</exception>
 		public void TransferToServer(IPEndPoint endpoint)
 		{
 			if (endpoint.AddressFamily == AddressFamily.InterNetworkV6)
@@ -346,6 +389,10 @@ namespace OpenAPI.Player
 			SendPacket(transfer);
 		}
 
+        /// <summary>
+        ///		Handles incoming chat messages
+        /// </summary>
+        /// <param name="message"></param>
         public override void HandleMcpeText(McpeText message)
         {
             string text = message.message;
@@ -570,6 +617,10 @@ namespace OpenAPI.Player
 		private BlockCoordinates BreakingBlockCoordinates { get; set; }
 		private BlockFace BreakingFace { get; set; } = BlockFace.None;
 
+		/// <summary>
+		///		Handles player actions like Start & Stop break
+		/// </summary>
+		/// <param name="message"></param>
 	    public override void HandleMcpePlayerAction(McpePlayerAction message)
 	    {
 		    var action = (PlayerAction)message.actionId;
@@ -764,7 +815,14 @@ namespace OpenAPI.Player
 	        {PlayerInput.Space, PlayerInputState.Up},
 	    };
 
+	    /// <summary>
+	    ///		Wheter to capture player keyboard input, if true <see cref="HandleMcpePlayerAction"/> will try to capture every keystroke.
+	    /// </summary>
         public bool CapturePlayerInputMode = false;
+        /// <summary>
+        ///		Handles player input, so we can determine what buttons are pressed by the client.
+        /// </summary>
+        /// <param name="message"></param>
         public override void HandleMcpePlayerInput(McpePlayerInput message)
 	    {
 	       // SendMessage($"MX: {message.motionX} MZ: {message.motionZ} Flag1: {message.flag1} Flag2: {message.flag2}");
@@ -814,7 +872,11 @@ namespace OpenAPI.Player
             }
             base.HandleMcpeRiderJump(message);
         }*/
-
+		
+		/// <summary>
+		///		Handles entity & world interactions.
+		/// </summary>
+		/// <param name="message"></param>
         public override void HandleMcpeInteract(McpeInteract message)
         {
             if (CapturePlayerInputMode && message.actionId == 3)

@@ -496,16 +496,18 @@ namespace OpenAPI.Plugins
                 string authors = (plugin.Info.Authors == null || plugin.Info.Authors.Length == 0)
 	                ? plugin.Info.Author
 	                : string.Join(", ", plugin.Info.Authors);
-                
+
                 Log.Info($"Disabled '{plugin.Info.Name}' version {plugin.Info.Version} by {authors}");
                 
                 Assembly assembly = plugin.GetType().Assembly;
+
+                Parent?.EventDispatcher?.DispatchEvent(new PluginDisabledEvent(assembly, plugin));
 
 	            if (LoadedAssemblies.TryGetValue(assembly, out LoadedAssembly assemblyPlugins))
 	            {
 		            Services.Remove(plugin.GetType());
 		            assemblyPlugins.PluginTypes.Remove(plugin.GetType());
-					Parent.CommandManager.UnloadCommands(plugin);
+					Parent?.CommandManager.UnloadCommands(plugin);
 					
 		            if (!assemblyPlugins.PluginTypes.Any())
 		            {

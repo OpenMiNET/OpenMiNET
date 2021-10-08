@@ -5,9 +5,30 @@ namespace OpenAPI.Events.Server
     /// </summary>
     public class ServerReadyEvent : Event
     {
-        public ServerReadyEvent()
+        /// <summary>
+        ///     The server instance that started up
+        /// </summary>
+        public OpenServer Server { get; }
+
+        public ServerReadyEvent(OpenServer server)
         {
-            
+            Server = server;
+        }
+    }
+    
+    /// <summary>
+    ///     Gets dispatched when the server is shutting down
+    /// </summary>
+    public class ServerClosingEvent : Event
+    {
+        /// <summary>
+        ///     The server instance that is shutting down
+        /// </summary>
+        public OpenServer Server { get; }
+
+        public ServerClosingEvent(OpenServer server)
+        {
+            Server = server;
         }
     }
 }

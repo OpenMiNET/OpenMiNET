@@ -48,9 +48,24 @@ namespace OpenAPI.Events.Player
 
         public enum PlayerInteractType
         {
+            /// <summary>
+            ///     Player left clicked a block
+            /// </summary>
             LeftClickBlock,
+            
+            /// <summary>
+            ///     Player right clicked a block
+            /// </summary>
             RightClickBlock,
+            
+            /// <summary>
+            ///     Player left clicked in air
+            /// </summary>
             LeftClickAir,
+            
+            /// <summary>
+            ///     Player right clicked in air
+            /// </summary>
             RightClickAir,
             
             /// <summary>

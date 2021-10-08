@@ -25,6 +25,9 @@ namespace OpenAPI
 	{
 		private static readonly ILog Log = LogManager.GetLogger(typeof(OpenApi));
 		
+		/// <summary>
+		///		The <see cref="OpenItemFactory"/> instance used globally
+		/// </summary>
 		public OpenItemFactory ItemFactory { get; }
 		
 		/// <summary>
@@ -52,13 +55,26 @@ namespace OpenAPI
 		/// 	If you want to receive all server wide events <see cref="Event"/> this is the instance to do so.
 		/// </summary>
 		public EventDispatcher EventDispatcher { get; }
-		public CommandManager CommandManager { get; private set; }
+		
+		/// <summary>
+		///		The root <see cref="CommandManager"/>
+		///		Responsible for managing & executing all player commands
+		/// </summary>
+		public CommandManager CommandManager { get; }
+		
+		/// <summary>
+		///		The serverinfo, contains information like the playercount & MOTD.
+		/// </summary>
 		public OpenServerInfo ServerInfo { get; internal set; }
 		
 		/// <summary>
 		/// 	The server instance handling all networking etc
 		/// </summary>
-	    public OpenServer OpenServer { get; set; }
+	    public OpenServer OpenServer { get; private set; }
+		
+		/// <summary>
+		///		Manages the resourcepacks sent to players
+		/// </summary>
 	    public ResourcePackProvider ResourcePackProvider { get; }
 
         public OpenApi()
@@ -92,17 +108,8 @@ namespace OpenAPI
 		        Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
 	        pluginDirectoryPaths = Conf.GetProperty("PluginDirectory", pluginDirectoryPaths);
 
-	        //foreach (string dirPath in pluginDirectoryPaths.Split(new char[] {';'}, StringSplitOptions.RemoveEmptyEntries))
-	        // {
-	        /* string directory = dirPath;
-	         if (!Path.IsPathRooted(directory))
-	         {
-		         directory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), dirPath);
-	         }*/
-
 	        PluginManager.DiscoverPlugins(pluginDirectoryPaths.Split(new char[] {';'},
 		        StringSplitOptions.RemoveEmptyEntries));
-	        // }
 
 	        PluginManager.EnablePlugins();
 
@@ -116,10 +123,12 @@ namespace OpenAPI
         }
 
         internal void OnDisable()
-		{
-			PluginManager.UnloadAll();
+        {
+	        PluginManager.UnloadAll();
 
 			ServerInfo.OnDisable();
+			
+			LevelManager.Close();
 		}
 	}
 }

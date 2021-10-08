@@ -187,7 +187,7 @@ namespace OpenAPI.World
 					if (ev.IsCancelled)
 						return false;
 					
-					ev.OnComplete();
+					ev.OnComplete(this);
 
 					return true;
 					//BreakBlock(e.Block, BlockFace.None, player);
@@ -244,7 +244,7 @@ namespace OpenAPI.World
 				}
 			}
 
-			e.OnComplete();
+			e.OnComplete(this);
 				
 			return true;
 		}

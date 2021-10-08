@@ -199,13 +199,22 @@ namespace OpenAPI.World
 			OpenLevel l;
 			if (_levels.TryRemove(openLevel.LevelId, out l))
 			{
-				Levels.Remove(openLevel);
-
+				try
+				{
+					Levels.Remove(openLevel);
+					
+					openLevel.Close();
+					Log.InfoFormat("Level destroyed: {0}", openLevel.LevelId);
+				}
+				catch (Exception ex)
+				{
+					Log.Warn($"Error while closing level: {l.LevelId}", ex);
+				}
+				finally
+				{
 					LevelClosedEvent levelClosed = new LevelClosedEvent(openLevel);
 					openLevel.EventDispatcher.DispatchEvent(levelClosed);
-				//OnLevelDestroyed?.Invoke(openLevel);
-				openLevel.Close();
-				Log.InfoFormat("Level destroyed: {0}", openLevel.LevelId);
+				}
 			}
 		}
 
@@ -289,6 +298,18 @@ namespace OpenAPI.World
 			SetDefaultLevel((OpenLevel) lvl);
 		}
 
+		/// <summary>
+		///		Closes the Level's
+		/// </summary>
+		public void Close()
+		{
+			foreach (var level in GetLevels)
+			{
+				UnloadLevel(level);
+			}
+		}
+		
+		
 		/// <summary>
 		/// 	Returns the levels currently registered with the LevelManager
 		/// </summary>

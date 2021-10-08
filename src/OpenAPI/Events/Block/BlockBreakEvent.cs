@@ -8,7 +8,7 @@ namespace OpenAPI.Events.Block
 	/// <summary>
 	///		Gets dispatched when a <see cref="MiNET.Entities.Entity"/> breaks a block.
 	/// </summary>
-	public class BlockBreakEvent : BlockExpEvent
+	public class BlockBreakEvent : BlockExpEvent, INotifyExecution
 	{
 		/// <summary>
 		/// 	The <see cref="MiNET.Entities.Entity"/> that broke the block.
@@ -31,6 +31,15 @@ namespace OpenAPI.Events.Block
 		{
 			Source = player;
 			Drops = drops;
+		}
+
+		/// <inheritdoc />
+		public EventHandler<EventTaskCompleted> OnEventExecution { get; set; }
+
+		/// <inheritdoc />
+		public void OnComplete(object source)
+		{
+			OnEventExecution?.Invoke(this, new EventTaskCompleted(this, source));
 		}
 	}
 }

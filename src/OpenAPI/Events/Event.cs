@@ -6,8 +6,11 @@ namespace OpenAPI.Events
 	/// <summary>
 	/// 	The base class all OpenApi Events implement
 	/// </summary>
-	public abstract class Event : ICancellable
+	public abstract class Event
 	{
+		/// <summary>
+		///		True if the current event was cancelled.
+		/// </summary>
 		public bool IsCancelled { get; set; }
 
 		public Event()
@@ -15,34 +18,33 @@ namespace OpenAPI.Events
 			IsCancelled = false;
 		}
 
+		/// <summary>
+		///		Set's the Cancelled flag.
+		/// </summary>
+		/// <param name="isCanceled"></param>
+		[Obsolete("Should set IsCancelled directly.")]
 		public void SetCancelled(bool isCanceled)
 		{
 			IsCancelled = isCanceled;
 		}
 
-        public Task Executed { get; } = Task.CompletedTask;
-
-	    /*private Task _firstCompleteTask = null;
-	    private Task _lastCompleteTask = null;
-        public void ContinueWith(Task action)
+	    public class EventTaskCompleted : EventArgs
 	    {
-	        if (_firstCompleteTask == null)
-	        {
-	            _firstCompleteTask = action;
-	        }
-
-	        if (_lastCompleteTask != null)
-	        {
-	            _lastCompleteTask.ContinueWith(task => action);
-	        }
-
-	        _lastCompleteTask = action;
-	    }*/
-
-	    internal void OnComplete()
-	    {
-            if (!Executed.IsCompleted)
-	            Executed.Start();
-        }
+		    /// <summary>
+		    ///		The event that finished execution
+		    /// </summary>
+		    public Event CompletedEvent { get; }
+		    
+		    /// <summary>
+		    ///		The object that executed it.
+		    /// </summary>
+		    public object Source { get; }
+		    
+		    internal EventTaskCompleted(Event completedEvent, object source)
+		    {
+			    CompletedEvent = completedEvent;
+			    Source = source;
+		    }
+	    }
     }
 }

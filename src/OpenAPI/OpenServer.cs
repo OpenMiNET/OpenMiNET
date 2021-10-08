@@ -27,14 +27,19 @@ namespace OpenAPI
         private static readonly ILog Log = LogManager.GetLogger(typeof(OpenServer));
 
         private OpenApi OpenApi { get; set; }
-        private Thread ProcessingThread { get; set; }
-
         public static DedicatedThreadPool FastThreadPool => ReflectionHelper.GetPrivateStaticPropertyValue<DedicatedThreadPool>(typeof(MiNetServer), "FastThreadPool");
+
+        public EventHandler OnServerShutdown;
+        private RakConnection _rakListener;
         public OpenServer()
         {
             OpenApi = new OpenApi();
         }
 
+        /// <summary>
+        ///     Starts the server
+        /// </summary>
+        /// <returns></returns>
         public new bool StartServer()
         {
             var type = typeof(MiNetServer);
@@ -81,28 +86,6 @@ namespace OpenAPI
                     RakConnection listener = new RakConnection(Endpoint, GreyListManager, MotdProvider);
                     listener.CustomMessageHandlerFactory = session => new BedrockMessageHandler(session, ServerManager, PluginManager);
 
-                    /* listener.DontFragment = false;
-                     listener.EnableBroadcast = true;
-                     
-                     if (!System.Runtime.InteropServices.RuntimeInformation
-                         .IsOSPlatform(OSPlatform.Windows))
-                     {
-                         listener.Client.ReceiveBufferSize = 1024 * 1024 * 3;
-                         listener.Client.SendBufferSize = 4096;
-                     }
-                     else
-                     {
-                         listener.Client.ReceiveBufferSize = int.MaxValue;
-                         listener.Client.SendBufferSize = int.MaxValue;
-                         listener.DontFragment = false;
-                         listener.EnableBroadcast = false;
- 
-                         uint IOC_IN = 0x80000000;
-                         uint IOC_VENDOR = 0x18000000;
-                         uint SIO_UDP_CONNRESET = IOC_IN | IOC_VENDOR | 12;
-                         listener.Client.IOControl((int) SIO_UDP_CONNRESET, new byte[] {Convert.ToByte(false)}, null);
-                     }*/
-                   
                    openInfo = new OpenServerInfo(listener, OpenApi,
                        listener.ConnectionInfo.RakSessions, OpenApi.LevelManager);
                     
@@ -119,35 +102,14 @@ namespace OpenAPI
 
                     ReflectionHelper.SetPrivateFieldValue(type, this, "_listener", listener);
                     listener.Start();
-                    /*var processData = type.GetMethod("ProcessDatagrams",
-                        BindingFlags.NonPublic | BindingFlags.Instance);
-                    
-                   
-                    ProcessingThread = new Thread((l) =>
-                    {
-                        processData?.Invoke(this, new object[] {(UdpClient) l});
-                    }) {IsBackground = true};
-                    
-                    ProcessingThread.Start(listener);*/
+
+                    _rakListener = listener;
                 }
 
                 openInfo?.OnEnable();
-
-                /* ReflectionHelper.SetPrivateFieldValue(type, this, "_tickerHighPrecisionTimer",
-                     new HighPrecisionTimer(10, async (o) => {
-                         ReflectionHelper.InvokePrivateMethod(type, this, "SendTick", new object[] {null});
-                        /* var sessions =
-                             ReflectionHelper
-                                 .GetPrivateFieldValue<ConcurrentDictionary<IPEndPoint, PlayerNetworkSession>>(
-                                     type, this, "_playerSessions");
- 
-                         var tasks = sessions.Values.Select(session => session.SendTickAsync());
-                         await Task.WhenAll(tasks);*
-                     }, true, true));*/
-
                 Log.Info("Server open for business on port " + Endpoint?.Port + " ...");
 
-                OpenApi.EventDispatcher.DispatchEvent(new ServerReadyEvent());
+                OpenApi.EventDispatcher.DispatchEvent(new ServerReadyEvent(this));
                 
                 return true;
             }
@@ -160,15 +122,41 @@ namespace OpenAPI
             return false;
         }
 
+        /// <summary>
+        ///     Stops the server gracefully
+        /// </summary>
+        /// <returns></returns>
         public new bool StopServer()
         {
-            base.StopServer();
-		    {
-				OpenApi?.OnDisable();
-			    return true;
-		    }
+            OpenApi.EventDispatcher.DispatchEvent(new ServerClosingEvent(this));
+            
+            Log.Info($"Stopping server...");
+            _rakListener.Stop();
+            var task = Task.Run(
+                () =>
+                {
+                    try
+                    {
+                        OpenApi?.OnDisable();
+                    }
+                    finally
+                    {
+                        _rakListener?.Stop();
+                        OnServerShutdown?.Invoke(this, EventArgs.Empty);
+                    }
+                });
 
-		    return false;
-	    }
+            if (!task.Wait(Config.GetProperty("ForcedShutdownDelay", 10) * 1000))
+            {
+                Log.Warn($"Server took too long to shutdown, force exiting...");
+                Environment.Exit(1);
+
+                return false;
+            }
+
+            Log.Info($"Server shutdown gracefully... Exiting...");
+            Environment.Exit(0);
+            return true;
+        }
     }
 }
