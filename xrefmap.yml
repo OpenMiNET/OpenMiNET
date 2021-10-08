@@ -3848,6 +3848,15 @@ references:
   fullName.vb: OpenAPI.Player.OpenPlayer.DespawnFromPlayers(MiNET.Player())
   nameWithType: OpenPlayer.DespawnFromPlayers(MiNET.Player[])
   nameWithType.vb: OpenPlayer.DespawnFromPlayers(MiNET.Player())
+- uid: OpenAPI.Player.OpenPlayer.DespawnFromPlayers(System.Boolean,OpenAPI.Player.OpenPlayer[])
+  name: DespawnFromPlayers(Boolean, OpenPlayer[])
+  href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_DespawnFromPlayers_System_Boolean_OpenAPI_Player_OpenPlayer___
+  commentId: M:OpenAPI.Player.OpenPlayer.DespawnFromPlayers(System.Boolean,OpenAPI.Player.OpenPlayer[])
+  name.vb: DespawnFromPlayers(Boolean, OpenPlayer())
+  fullName: OpenAPI.Player.OpenPlayer.DespawnFromPlayers(System.Boolean, OpenAPI.Player.OpenPlayer[])
+  fullName.vb: OpenAPI.Player.OpenPlayer.DespawnFromPlayers(System.Boolean, OpenAPI.Player.OpenPlayer())
+  nameWithType: OpenPlayer.DespawnFromPlayers(Boolean, OpenPlayer[])
+  nameWithType.vb: OpenPlayer.DespawnFromPlayers(Boolean, OpenPlayer())
 - uid: OpenAPI.Player.OpenPlayer.DespawnFromPlayers*
   name: DespawnFromPlayers
   href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_DespawnFromPlayers_
@@ -4346,6 +4355,15 @@ references:
   fullName.vb: OpenAPI.Player.OpenPlayer.SpawnToPlayers(MiNET.Player())
   nameWithType: OpenPlayer.SpawnToPlayers(MiNET.Player[])
   nameWithType.vb: OpenPlayer.SpawnToPlayers(MiNET.Player())
+- uid: OpenAPI.Player.OpenPlayer.SpawnToPlayers(System.Boolean,OpenAPI.Player.OpenPlayer[])
+  name: SpawnToPlayers(Boolean, OpenPlayer[])
+  href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_SpawnToPlayers_System_Boolean_OpenAPI_Player_OpenPlayer___
+  commentId: M:OpenAPI.Player.OpenPlayer.SpawnToPlayers(System.Boolean,OpenAPI.Player.OpenPlayer[])
+  name.vb: SpawnToPlayers(Boolean, OpenPlayer())
+  fullName: OpenAPI.Player.OpenPlayer.SpawnToPlayers(System.Boolean, OpenAPI.Player.OpenPlayer[])
+  fullName.vb: OpenAPI.Player.OpenPlayer.SpawnToPlayers(System.Boolean, OpenAPI.Player.OpenPlayer())
+  nameWithType: OpenPlayer.SpawnToPlayers(Boolean, OpenPlayer[])
+  nameWithType.vb: OpenPlayer.SpawnToPlayers(Boolean, OpenPlayer())
 - uid: OpenAPI.Player.OpenPlayer.SpawnToPlayers*
   name: SpawnToPlayers
   href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_SpawnToPlayers_
