@@ -97,7 +97,7 @@
   </div>
   <div classs="implements">
     <h5>Implements</h5>
-    <div><a class="xref" href="OpenAPI.Events.ICancellable.html">ICancellable</a></div>
+    <div><a class="xref" href="OpenAPI.Events.INotifyExecution.html">INotifyExecution</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -113,15 +113,12 @@
     <div>
       <a class="xref" href="OpenAPI.Events.Event.html#OpenAPI_Events_Event_SetCancelled_System_Boolean_">Event.SetCancelled(Boolean)</a>
     </div>
-    <div>
-      <a class="xref" href="OpenAPI.Events.Event.html#OpenAPI_Events_Event_Executed">Event.Executed</a>
-    </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="OpenAPI.Events.Block.html">OpenAPI.Events.Block</a></h6>
   <h6><strong>Assembly</strong>: OpenAPI.dll</h6>
   <h5 id="OpenAPI_Events_Block_BlockBreakEvent_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class BlockBreakEvent : BlockExpEvent, ICancellable</code></pre>
+    <pre><code class="lang-csharp hljs">public class BlockBreakEvent : BlockExpEvent, INotifyExecution</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
@@ -205,6 +202,36 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_Block_BlockBreakEvent_OnEventExecution.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Block.BlockBreakEvent.OnEventExecution%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Events/Block/BlockBreakEvent.cs/#L37">View Source</a>
+  </span>
+  <a id="OpenAPI_Events_Block_BlockBreakEvent_OnEventExecution_" data-uid="OpenAPI.Events.Block.BlockBreakEvent.OnEventExecution*"></a>
+  <h4 id="OpenAPI_Events_Block_BlockBreakEvent_OnEventExecution" data-uid="OpenAPI.Events.Block.BlockBreakEvent.OnEventExecution">OnEventExecution</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public EventHandler&lt;Event.EventTaskCompleted&gt; OnEventExecution { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">EventHandler</span>&lt;<a class="xref" href="OpenAPI.Events.Event.EventTaskCompleted.html">Event.EventTaskCompleted</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_Block_BlockBreakEvent_Source.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Block.BlockBreakEvent.Source%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
@@ -235,9 +262,43 @@ This can be a player, a mob or null.</p>
       </tr>
     </tbody>
   </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_Block_BlockBreakEvent_OnComplete_System_Object_.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Block.BlockBreakEvent.OnComplete(System.Object)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Events/Block/BlockBreakEvent.cs/#L40">View Source</a>
+  </span>
+  <a id="OpenAPI_Events_Block_BlockBreakEvent_OnComplete_" data-uid="OpenAPI.Events.Block.BlockBreakEvent.OnComplete*"></a>
+  <h4 id="OpenAPI_Events_Block_BlockBreakEvent_OnComplete_System_Object_" data-uid="OpenAPI.Events.Block.BlockBreakEvent.OnComplete(System.Object)">OnComplete(Object)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void OnComplete(object source)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">source</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   <h3 id="implements">Implements</h3>
   <div>
-      <a class="xref" href="OpenAPI.Events.ICancellable.html">ICancellable</a>
+      <a class="xref" href="OpenAPI.Events.INotifyExecution.html">INotifyExecution</a>
   </div>
 </article>
           </div>

@@ -914,6 +914,32 @@ references:
   isSpec: "True"
   fullName: OpenAPI.Events.Block.BlockBreakEvent.Drops
   nameWithType: BlockBreakEvent.Drops
+- uid: OpenAPI.Events.Block.BlockBreakEvent.OnComplete(System.Object)
+  name: OnComplete(Object)
+  href: api/OpenAPI.Events.Block.BlockBreakEvent.html#OpenAPI_Events_Block_BlockBreakEvent_OnComplete_System_Object_
+  commentId: M:OpenAPI.Events.Block.BlockBreakEvent.OnComplete(System.Object)
+  fullName: OpenAPI.Events.Block.BlockBreakEvent.OnComplete(System.Object)
+  nameWithType: BlockBreakEvent.OnComplete(Object)
+- uid: OpenAPI.Events.Block.BlockBreakEvent.OnComplete*
+  name: OnComplete
+  href: api/OpenAPI.Events.Block.BlockBreakEvent.html#OpenAPI_Events_Block_BlockBreakEvent_OnComplete_
+  commentId: Overload:OpenAPI.Events.Block.BlockBreakEvent.OnComplete
+  isSpec: "True"
+  fullName: OpenAPI.Events.Block.BlockBreakEvent.OnComplete
+  nameWithType: BlockBreakEvent.OnComplete
+- uid: OpenAPI.Events.Block.BlockBreakEvent.OnEventExecution
+  name: OnEventExecution
+  href: api/OpenAPI.Events.Block.BlockBreakEvent.html#OpenAPI_Events_Block_BlockBreakEvent_OnEventExecution
+  commentId: P:OpenAPI.Events.Block.BlockBreakEvent.OnEventExecution
+  fullName: OpenAPI.Events.Block.BlockBreakEvent.OnEventExecution
+  nameWithType: BlockBreakEvent.OnEventExecution
+- uid: OpenAPI.Events.Block.BlockBreakEvent.OnEventExecution*
+  name: OnEventExecution
+  href: api/OpenAPI.Events.Block.BlockBreakEvent.html#OpenAPI_Events_Block_BlockBreakEvent_OnEventExecution_
+  commentId: Overload:OpenAPI.Events.Block.BlockBreakEvent.OnEventExecution
+  isSpec: "True"
+  fullName: OpenAPI.Events.Block.BlockBreakEvent.OnEventExecution
+  nameWithType: BlockBreakEvent.OnEventExecution
 - uid: OpenAPI.Events.Block.BlockBreakEvent.Source
   name: Source
   href: api/OpenAPI.Events.Block.BlockBreakEvent.html#OpenAPI_Events_Block_BlockBreakEvent_Source
@@ -1304,19 +1330,38 @@ references:
   isSpec: "True"
   fullName: OpenAPI.Events.Event.Event
   nameWithType: Event.Event
-- uid: OpenAPI.Events.Event.Executed
-  name: Executed
-  href: api/OpenAPI.Events.Event.html#OpenAPI_Events_Event_Executed
-  commentId: P:OpenAPI.Events.Event.Executed
-  fullName: OpenAPI.Events.Event.Executed
-  nameWithType: Event.Executed
-- uid: OpenAPI.Events.Event.Executed*
-  name: Executed
-  href: api/OpenAPI.Events.Event.html#OpenAPI_Events_Event_Executed_
-  commentId: Overload:OpenAPI.Events.Event.Executed
+- uid: OpenAPI.Events.Event.EventTaskCompleted
+  name: Event.EventTaskCompleted
+  href: api/OpenAPI.Events.Event.EventTaskCompleted.html
+  commentId: T:OpenAPI.Events.Event.EventTaskCompleted
+  fullName: OpenAPI.Events.Event.EventTaskCompleted
+  nameWithType: Event.EventTaskCompleted
+- uid: OpenAPI.Events.Event.EventTaskCompleted.CompletedEvent
+  name: CompletedEvent
+  href: api/OpenAPI.Events.Event.EventTaskCompleted.html#OpenAPI_Events_Event_EventTaskCompleted_CompletedEvent
+  commentId: P:OpenAPI.Events.Event.EventTaskCompleted.CompletedEvent
+  fullName: OpenAPI.Events.Event.EventTaskCompleted.CompletedEvent
+  nameWithType: Event.EventTaskCompleted.CompletedEvent
+- uid: OpenAPI.Events.Event.EventTaskCompleted.CompletedEvent*
+  name: CompletedEvent
+  href: api/OpenAPI.Events.Event.EventTaskCompleted.html#OpenAPI_Events_Event_EventTaskCompleted_CompletedEvent_
+  commentId: Overload:OpenAPI.Events.Event.EventTaskCompleted.CompletedEvent
   isSpec: "True"
-  fullName: OpenAPI.Events.Event.Executed
-  nameWithType: Event.Executed
+  fullName: OpenAPI.Events.Event.EventTaskCompleted.CompletedEvent
+  nameWithType: Event.EventTaskCompleted.CompletedEvent
+- uid: OpenAPI.Events.Event.EventTaskCompleted.Source
+  name: Source
+  href: api/OpenAPI.Events.Event.EventTaskCompleted.html#OpenAPI_Events_Event_EventTaskCompleted_Source
+  commentId: P:OpenAPI.Events.Event.EventTaskCompleted.Source
+  fullName: OpenAPI.Events.Event.EventTaskCompleted.Source
+  nameWithType: Event.EventTaskCompleted.Source
+- uid: OpenAPI.Events.Event.EventTaskCompleted.Source*
+  name: Source
+  href: api/OpenAPI.Events.Event.EventTaskCompleted.html#OpenAPI_Events_Event_EventTaskCompleted_Source_
+  commentId: Overload:OpenAPI.Events.Event.EventTaskCompleted.Source
+  isSpec: "True"
+  fullName: OpenAPI.Events.Event.EventTaskCompleted.Source
+  nameWithType: Event.EventTaskCompleted.Source
 - uid: OpenAPI.Events.Event.IsCancelled
   name: IsCancelled
   href: api/OpenAPI.Events.Event.html#OpenAPI_Events_Event_IsCancelled
@@ -1574,44 +1619,93 @@ references:
   commentId: F:OpenAPI.Events.EventPriority.Normal
   fullName: OpenAPI.Events.EventPriority.Normal
   nameWithType: EventPriority.Normal
-- uid: OpenAPI.Events.ICancellable
-  name: ICancellable
-  href: api/OpenAPI.Events.ICancellable.html
-  commentId: T:OpenAPI.Events.ICancellable
-  fullName: OpenAPI.Events.ICancellable
-  nameWithType: ICancellable
-- uid: OpenAPI.Events.ICancellable.IsCancelled
-  name: IsCancelled
-  href: api/OpenAPI.Events.ICancellable.html#OpenAPI_Events_ICancellable_IsCancelled
-  commentId: P:OpenAPI.Events.ICancellable.IsCancelled
-  fullName: OpenAPI.Events.ICancellable.IsCancelled
-  nameWithType: ICancellable.IsCancelled
-- uid: OpenAPI.Events.ICancellable.IsCancelled*
-  name: IsCancelled
-  href: api/OpenAPI.Events.ICancellable.html#OpenAPI_Events_ICancellable_IsCancelled_
-  commentId: Overload:OpenAPI.Events.ICancellable.IsCancelled
+- uid: OpenAPI.Events.ExecuteableEventBase
+  name: ExecuteableEventBase
+  href: api/OpenAPI.Events.ExecuteableEventBase.html
+  commentId: T:OpenAPI.Events.ExecuteableEventBase
+  fullName: OpenAPI.Events.ExecuteableEventBase
+  nameWithType: ExecuteableEventBase
+- uid: OpenAPI.Events.ExecuteableEventBase.#ctor
+  name: ExecuteableEventBase()
+  href: api/OpenAPI.Events.ExecuteableEventBase.html#OpenAPI_Events_ExecuteableEventBase__ctor
+  commentId: M:OpenAPI.Events.ExecuteableEventBase.#ctor
+  fullName: OpenAPI.Events.ExecuteableEventBase.ExecuteableEventBase()
+  nameWithType: ExecuteableEventBase.ExecuteableEventBase()
+- uid: OpenAPI.Events.ExecuteableEventBase.#ctor*
+  name: ExecuteableEventBase
+  href: api/OpenAPI.Events.ExecuteableEventBase.html#OpenAPI_Events_ExecuteableEventBase__ctor_
+  commentId: Overload:OpenAPI.Events.ExecuteableEventBase.#ctor
   isSpec: "True"
-  fullName: OpenAPI.Events.ICancellable.IsCancelled
-  nameWithType: ICancellable.IsCancelled
-- uid: OpenAPI.Events.ICancellable.SetCancelled(System.Boolean)
-  name: SetCancelled(Boolean)
-  href: api/OpenAPI.Events.ICancellable.html#OpenAPI_Events_ICancellable_SetCancelled_System_Boolean_
-  commentId: M:OpenAPI.Events.ICancellable.SetCancelled(System.Boolean)
-  fullName: OpenAPI.Events.ICancellable.SetCancelled(System.Boolean)
-  nameWithType: ICancellable.SetCancelled(Boolean)
-- uid: OpenAPI.Events.ICancellable.SetCancelled*
-  name: SetCancelled
-  href: api/OpenAPI.Events.ICancellable.html#OpenAPI_Events_ICancellable_SetCancelled_
-  commentId: Overload:OpenAPI.Events.ICancellable.SetCancelled
+  fullName: OpenAPI.Events.ExecuteableEventBase.ExecuteableEventBase
+  nameWithType: ExecuteableEventBase.ExecuteableEventBase
+- uid: OpenAPI.Events.ExecuteableEventBase.OnEventExecution
+  name: OnEventExecution
+  href: api/OpenAPI.Events.ExecuteableEventBase.html#OpenAPI_Events_ExecuteableEventBase_OnEventExecution
+  commentId: P:OpenAPI.Events.ExecuteableEventBase.OnEventExecution
+  fullName: OpenAPI.Events.ExecuteableEventBase.OnEventExecution
+  nameWithType: ExecuteableEventBase.OnEventExecution
+- uid: OpenAPI.Events.ExecuteableEventBase.OnEventExecution*
+  name: OnEventExecution
+  href: api/OpenAPI.Events.ExecuteableEventBase.html#OpenAPI_Events_ExecuteableEventBase_OnEventExecution_
+  commentId: Overload:OpenAPI.Events.ExecuteableEventBase.OnEventExecution
   isSpec: "True"
-  fullName: OpenAPI.Events.ICancellable.SetCancelled
-  nameWithType: ICancellable.SetCancelled
+  fullName: OpenAPI.Events.ExecuteableEventBase.OnEventExecution
+  nameWithType: ExecuteableEventBase.OnEventExecution
+- uid: OpenAPI.Events.ExecuteableEventBase.OpenAPI#Events#INotifyExecution#OnComplete(System.Object)
+  name: INotifyExecution.OnComplete(Object)
+  href: api/OpenAPI.Events.ExecuteableEventBase.html#OpenAPI_Events_ExecuteableEventBase_OpenAPI_Events_INotifyExecution_OnComplete_System_Object_
+  commentId: M:OpenAPI.Events.ExecuteableEventBase.OpenAPI#Events#INotifyExecution#OnComplete(System.Object)
+  name.vb: OpenAPI.Events.INotifyExecution.OnComplete(Object)
+  fullName: OpenAPI.Events.ExecuteableEventBase.OpenAPI.Events.INotifyExecution.OnComplete(System.Object)
+  nameWithType: ExecuteableEventBase.INotifyExecution.OnComplete(Object)
+  nameWithType.vb: ExecuteableEventBase.OpenAPI.Events.INotifyExecution.OnComplete(Object)
+- uid: OpenAPI.Events.ExecuteableEventBase.OpenAPI#Events#INotifyExecution#OnComplete*
+  name: INotifyExecution.OnComplete
+  href: api/OpenAPI.Events.ExecuteableEventBase.html#OpenAPI_Events_ExecuteableEventBase_OpenAPI_Events_INotifyExecution_OnComplete_
+  commentId: Overload:OpenAPI.Events.ExecuteableEventBase.OpenAPI#Events#INotifyExecution#OnComplete
+  isSpec: "True"
+  name.vb: OpenAPI.Events.INotifyExecution.OnComplete
+  fullName: OpenAPI.Events.ExecuteableEventBase.OpenAPI.Events.INotifyExecution.OnComplete
+  nameWithType: ExecuteableEventBase.INotifyExecution.OnComplete
+  nameWithType.vb: ExecuteableEventBase.OpenAPI.Events.INotifyExecution.OnComplete
 - uid: OpenAPI.Events.IEventHandler
   name: IEventHandler
   href: api/OpenAPI.Events.IEventHandler.html
   commentId: T:OpenAPI.Events.IEventHandler
   fullName: OpenAPI.Events.IEventHandler
   nameWithType: IEventHandler
+- uid: OpenAPI.Events.INotifyExecution
+  name: INotifyExecution
+  href: api/OpenAPI.Events.INotifyExecution.html
+  commentId: T:OpenAPI.Events.INotifyExecution
+  fullName: OpenAPI.Events.INotifyExecution
+  nameWithType: INotifyExecution
+- uid: OpenAPI.Events.INotifyExecution.OnComplete(System.Object)
+  name: OnComplete(Object)
+  href: api/OpenAPI.Events.INotifyExecution.html#OpenAPI_Events_INotifyExecution_OnComplete_System_Object_
+  commentId: M:OpenAPI.Events.INotifyExecution.OnComplete(System.Object)
+  fullName: OpenAPI.Events.INotifyExecution.OnComplete(System.Object)
+  nameWithType: INotifyExecution.OnComplete(Object)
+- uid: OpenAPI.Events.INotifyExecution.OnComplete*
+  name: OnComplete
+  href: api/OpenAPI.Events.INotifyExecution.html#OpenAPI_Events_INotifyExecution_OnComplete_
+  commentId: Overload:OpenAPI.Events.INotifyExecution.OnComplete
+  isSpec: "True"
+  fullName: OpenAPI.Events.INotifyExecution.OnComplete
+  nameWithType: INotifyExecution.OnComplete
+- uid: OpenAPI.Events.INotifyExecution.OnEventExecution
+  name: OnEventExecution
+  href: api/OpenAPI.Events.INotifyExecution.html#OpenAPI_Events_INotifyExecution_OnEventExecution
+  commentId: P:OpenAPI.Events.INotifyExecution.OnEventExecution
+  fullName: OpenAPI.Events.INotifyExecution.OnEventExecution
+  nameWithType: INotifyExecution.OnEventExecution
+- uid: OpenAPI.Events.INotifyExecution.OnEventExecution*
+  name: OnEventExecution
+  href: api/OpenAPI.Events.INotifyExecution.html#OpenAPI_Events_INotifyExecution_OnEventExecution_
+  commentId: Overload:OpenAPI.Events.INotifyExecution.OnEventExecution
+  isSpec: "True"
+  fullName: OpenAPI.Events.INotifyExecution.OnEventExecution
+  nameWithType: INotifyExecution.OnEventExecution
 - uid: OpenAPI.Events.Level
   name: OpenAPI.Events.Level
   href: api/OpenAPI.Events.Level.html
@@ -2657,6 +2751,25 @@ references:
   commentId: N:OpenAPI.Events.Plugins
   fullName: OpenAPI.Events.Plugins
   nameWithType: OpenAPI.Events.Plugins
+- uid: OpenAPI.Events.Plugins.PluginDisabledEvent
+  name: PluginDisabledEvent
+  href: api/OpenAPI.Events.Plugins.PluginDisabledEvent.html
+  commentId: T:OpenAPI.Events.Plugins.PluginDisabledEvent
+  fullName: OpenAPI.Events.Plugins.PluginDisabledEvent
+  nameWithType: PluginDisabledEvent
+- uid: OpenAPI.Events.Plugins.PluginDisabledEvent.#ctor(Assembly,OpenAPI.Plugins.OpenPlugin)
+  name: PluginDisabledEvent(Assembly, OpenPlugin)
+  href: api/OpenAPI.Events.Plugins.PluginDisabledEvent.html#OpenAPI_Events_Plugins_PluginDisabledEvent__ctor_Assembly_OpenAPI_Plugins_OpenPlugin_
+  commentId: M:OpenAPI.Events.Plugins.PluginDisabledEvent.#ctor(Assembly,OpenAPI.Plugins.OpenPlugin)
+  fullName: OpenAPI.Events.Plugins.PluginDisabledEvent.PluginDisabledEvent(Assembly, OpenAPI.Plugins.OpenPlugin)
+  nameWithType: PluginDisabledEvent.PluginDisabledEvent(Assembly, OpenPlugin)
+- uid: OpenAPI.Events.Plugins.PluginDisabledEvent.#ctor*
+  name: PluginDisabledEvent
+  href: api/OpenAPI.Events.Plugins.PluginDisabledEvent.html#OpenAPI_Events_Plugins_PluginDisabledEvent__ctor_
+  commentId: Overload:OpenAPI.Events.Plugins.PluginDisabledEvent.#ctor
+  isSpec: "True"
+  fullName: OpenAPI.Events.Plugins.PluginDisabledEvent.PluginDisabledEvent
+  nameWithType: PluginDisabledEvent.PluginDisabledEvent
 - uid: OpenAPI.Events.Plugins.PluginEnabledEvent
   name: PluginEnabledEvent
   href: api/OpenAPI.Events.Plugins.PluginEnabledEvent.html
@@ -2676,50 +2789,101 @@ references:
   isSpec: "True"
   fullName: OpenAPI.Events.Plugins.PluginEnabledEvent.PluginEnabledEvent
   nameWithType: PluginEnabledEvent.PluginEnabledEvent
-- uid: OpenAPI.Events.Plugins.PluginEnabledEvent.PluginAssembly
-  name: PluginAssembly
-  href: api/OpenAPI.Events.Plugins.PluginEnabledEvent.html#OpenAPI_Events_Plugins_PluginEnabledEvent_PluginAssembly
-  commentId: P:OpenAPI.Events.Plugins.PluginEnabledEvent.PluginAssembly
-  fullName: OpenAPI.Events.Plugins.PluginEnabledEvent.PluginAssembly
-  nameWithType: PluginEnabledEvent.PluginAssembly
-- uid: OpenAPI.Events.Plugins.PluginEnabledEvent.PluginAssembly*
-  name: PluginAssembly
-  href: api/OpenAPI.Events.Plugins.PluginEnabledEvent.html#OpenAPI_Events_Plugins_PluginEnabledEvent_PluginAssembly_
-  commentId: Overload:OpenAPI.Events.Plugins.PluginEnabledEvent.PluginAssembly
+- uid: OpenAPI.Events.Plugins.PluginEventBase
+  name: PluginEventBase
+  href: api/OpenAPI.Events.Plugins.PluginEventBase.html
+  commentId: T:OpenAPI.Events.Plugins.PluginEventBase
+  fullName: OpenAPI.Events.Plugins.PluginEventBase
+  nameWithType: PluginEventBase
+- uid: OpenAPI.Events.Plugins.PluginEventBase.#ctor(Assembly,OpenAPI.Plugins.OpenPlugin)
+  name: PluginEventBase(Assembly, OpenPlugin)
+  href: api/OpenAPI.Events.Plugins.PluginEventBase.html#OpenAPI_Events_Plugins_PluginEventBase__ctor_Assembly_OpenAPI_Plugins_OpenPlugin_
+  commentId: M:OpenAPI.Events.Plugins.PluginEventBase.#ctor(Assembly,OpenAPI.Plugins.OpenPlugin)
+  fullName: OpenAPI.Events.Plugins.PluginEventBase.PluginEventBase(Assembly, OpenAPI.Plugins.OpenPlugin)
+  nameWithType: PluginEventBase.PluginEventBase(Assembly, OpenPlugin)
+- uid: OpenAPI.Events.Plugins.PluginEventBase.#ctor*
+  name: PluginEventBase
+  href: api/OpenAPI.Events.Plugins.PluginEventBase.html#OpenAPI_Events_Plugins_PluginEventBase__ctor_
+  commentId: Overload:OpenAPI.Events.Plugins.PluginEventBase.#ctor
   isSpec: "True"
-  fullName: OpenAPI.Events.Plugins.PluginEnabledEvent.PluginAssembly
-  nameWithType: PluginEnabledEvent.PluginAssembly
-- uid: OpenAPI.Events.Plugins.PluginEnabledEvent.PluginInstance
-  name: PluginInstance
-  href: api/OpenAPI.Events.Plugins.PluginEnabledEvent.html#OpenAPI_Events_Plugins_PluginEnabledEvent_PluginInstance
-  commentId: P:OpenAPI.Events.Plugins.PluginEnabledEvent.PluginInstance
-  fullName: OpenAPI.Events.Plugins.PluginEnabledEvent.PluginInstance
-  nameWithType: PluginEnabledEvent.PluginInstance
-- uid: OpenAPI.Events.Plugins.PluginEnabledEvent.PluginInstance*
-  name: PluginInstance
-  href: api/OpenAPI.Events.Plugins.PluginEnabledEvent.html#OpenAPI_Events_Plugins_PluginEnabledEvent_PluginInstance_
-  commentId: Overload:OpenAPI.Events.Plugins.PluginEnabledEvent.PluginInstance
+  fullName: OpenAPI.Events.Plugins.PluginEventBase.PluginEventBase
+  nameWithType: PluginEventBase.PluginEventBase
+- uid: OpenAPI.Events.Plugins.PluginEventBase.PluginAssembly
+  name: PluginAssembly
+  href: api/OpenAPI.Events.Plugins.PluginEventBase.html#OpenAPI_Events_Plugins_PluginEventBase_PluginAssembly
+  commentId: P:OpenAPI.Events.Plugins.PluginEventBase.PluginAssembly
+  fullName: OpenAPI.Events.Plugins.PluginEventBase.PluginAssembly
+  nameWithType: PluginEventBase.PluginAssembly
+- uid: OpenAPI.Events.Plugins.PluginEventBase.PluginAssembly*
+  name: PluginAssembly
+  href: api/OpenAPI.Events.Plugins.PluginEventBase.html#OpenAPI_Events_Plugins_PluginEventBase_PluginAssembly_
+  commentId: Overload:OpenAPI.Events.Plugins.PluginEventBase.PluginAssembly
   isSpec: "True"
-  fullName: OpenAPI.Events.Plugins.PluginEnabledEvent.PluginInstance
-  nameWithType: PluginEnabledEvent.PluginInstance
+  fullName: OpenAPI.Events.Plugins.PluginEventBase.PluginAssembly
+  nameWithType: PluginEventBase.PluginAssembly
+- uid: OpenAPI.Events.Plugins.PluginEventBase.PluginInstance
+  name: PluginInstance
+  href: api/OpenAPI.Events.Plugins.PluginEventBase.html#OpenAPI_Events_Plugins_PluginEventBase_PluginInstance
+  commentId: P:OpenAPI.Events.Plugins.PluginEventBase.PluginInstance
+  fullName: OpenAPI.Events.Plugins.PluginEventBase.PluginInstance
+  nameWithType: PluginEventBase.PluginInstance
+- uid: OpenAPI.Events.Plugins.PluginEventBase.PluginInstance*
+  name: PluginInstance
+  href: api/OpenAPI.Events.Plugins.PluginEventBase.html#OpenAPI_Events_Plugins_PluginEventBase_PluginInstance_
+  commentId: Overload:OpenAPI.Events.Plugins.PluginEventBase.PluginInstance
+  isSpec: "True"
+  fullName: OpenAPI.Events.Plugins.PluginEventBase.PluginInstance
+  nameWithType: PluginEventBase.PluginInstance
 - uid: OpenAPI.Events.Server
   name: OpenAPI.Events.Server
   href: api/OpenAPI.Events.Server.html
   commentId: N:OpenAPI.Events.Server
   fullName: OpenAPI.Events.Server
   nameWithType: OpenAPI.Events.Server
+- uid: OpenAPI.Events.Server.ServerClosingEvent
+  name: ServerClosingEvent
+  href: api/OpenAPI.Events.Server.ServerClosingEvent.html
+  commentId: T:OpenAPI.Events.Server.ServerClosingEvent
+  fullName: OpenAPI.Events.Server.ServerClosingEvent
+  nameWithType: ServerClosingEvent
+- uid: OpenAPI.Events.Server.ServerClosingEvent.#ctor(OpenAPI.OpenServer)
+  name: ServerClosingEvent(OpenServer)
+  href: api/OpenAPI.Events.Server.ServerClosingEvent.html#OpenAPI_Events_Server_ServerClosingEvent__ctor_OpenAPI_OpenServer_
+  commentId: M:OpenAPI.Events.Server.ServerClosingEvent.#ctor(OpenAPI.OpenServer)
+  fullName: OpenAPI.Events.Server.ServerClosingEvent.ServerClosingEvent(OpenAPI.OpenServer)
+  nameWithType: ServerClosingEvent.ServerClosingEvent(OpenServer)
+- uid: OpenAPI.Events.Server.ServerClosingEvent.#ctor*
+  name: ServerClosingEvent
+  href: api/OpenAPI.Events.Server.ServerClosingEvent.html#OpenAPI_Events_Server_ServerClosingEvent__ctor_
+  commentId: Overload:OpenAPI.Events.Server.ServerClosingEvent.#ctor
+  isSpec: "True"
+  fullName: OpenAPI.Events.Server.ServerClosingEvent.ServerClosingEvent
+  nameWithType: ServerClosingEvent.ServerClosingEvent
+- uid: OpenAPI.Events.Server.ServerClosingEvent.Server
+  name: Server
+  href: api/OpenAPI.Events.Server.ServerClosingEvent.html#OpenAPI_Events_Server_ServerClosingEvent_Server
+  commentId: P:OpenAPI.Events.Server.ServerClosingEvent.Server
+  fullName: OpenAPI.Events.Server.ServerClosingEvent.Server
+  nameWithType: ServerClosingEvent.Server
+- uid: OpenAPI.Events.Server.ServerClosingEvent.Server*
+  name: Server
+  href: api/OpenAPI.Events.Server.ServerClosingEvent.html#OpenAPI_Events_Server_ServerClosingEvent_Server_
+  commentId: Overload:OpenAPI.Events.Server.ServerClosingEvent.Server
+  isSpec: "True"
+  fullName: OpenAPI.Events.Server.ServerClosingEvent.Server
+  nameWithType: ServerClosingEvent.Server
 - uid: OpenAPI.Events.Server.ServerReadyEvent
   name: ServerReadyEvent
   href: api/OpenAPI.Events.Server.ServerReadyEvent.html
   commentId: T:OpenAPI.Events.Server.ServerReadyEvent
   fullName: OpenAPI.Events.Server.ServerReadyEvent
   nameWithType: ServerReadyEvent
-- uid: OpenAPI.Events.Server.ServerReadyEvent.#ctor
-  name: ServerReadyEvent()
-  href: api/OpenAPI.Events.Server.ServerReadyEvent.html#OpenAPI_Events_Server_ServerReadyEvent__ctor
-  commentId: M:OpenAPI.Events.Server.ServerReadyEvent.#ctor
-  fullName: OpenAPI.Events.Server.ServerReadyEvent.ServerReadyEvent()
-  nameWithType: ServerReadyEvent.ServerReadyEvent()
+- uid: OpenAPI.Events.Server.ServerReadyEvent.#ctor(OpenAPI.OpenServer)
+  name: ServerReadyEvent(OpenServer)
+  href: api/OpenAPI.Events.Server.ServerReadyEvent.html#OpenAPI_Events_Server_ServerReadyEvent__ctor_OpenAPI_OpenServer_
+  commentId: M:OpenAPI.Events.Server.ServerReadyEvent.#ctor(OpenAPI.OpenServer)
+  fullName: OpenAPI.Events.Server.ServerReadyEvent.ServerReadyEvent(OpenAPI.OpenServer)
+  nameWithType: ServerReadyEvent.ServerReadyEvent(OpenServer)
 - uid: OpenAPI.Events.Server.ServerReadyEvent.#ctor*
   name: ServerReadyEvent
   href: api/OpenAPI.Events.Server.ServerReadyEvent.html#OpenAPI_Events_Server_ServerReadyEvent__ctor_
@@ -2727,6 +2891,19 @@ references:
   isSpec: "True"
   fullName: OpenAPI.Events.Server.ServerReadyEvent.ServerReadyEvent
   nameWithType: ServerReadyEvent.ServerReadyEvent
+- uid: OpenAPI.Events.Server.ServerReadyEvent.Server
+  name: Server
+  href: api/OpenAPI.Events.Server.ServerReadyEvent.html#OpenAPI_Events_Server_ServerReadyEvent_Server
+  commentId: P:OpenAPI.Events.Server.ServerReadyEvent.Server
+  fullName: OpenAPI.Events.Server.ServerReadyEvent.Server
+  nameWithType: ServerReadyEvent.Server
+- uid: OpenAPI.Events.Server.ServerReadyEvent.Server*
+  name: Server
+  href: api/OpenAPI.Events.Server.ServerReadyEvent.html#OpenAPI_Events_Server_ServerReadyEvent_Server_
+  commentId: Overload:OpenAPI.Events.Server.ServerReadyEvent.Server
+  isSpec: "True"
+  fullName: OpenAPI.Events.Server.ServerReadyEvent.Server
+  nameWithType: ServerReadyEvent.Server
 - uid: OpenAPI.Items
   name: OpenAPI.Items
   href: api/OpenAPI.Items.html
@@ -3071,6 +3248,12 @@ references:
   isSpec: "True"
   fullName: OpenAPI.OpenServer.FastThreadPool
   nameWithType: OpenServer.FastThreadPool
+- uid: OpenAPI.OpenServer.OnServerShutdown
+  name: OnServerShutdown
+  href: api/OpenAPI.OpenServer.html#OpenAPI_OpenServer_OnServerShutdown
+  commentId: F:OpenAPI.OpenServer.OnServerShutdown
+  fullName: OpenAPI.OpenServer.OnServerShutdown
+  nameWithType: OpenServer.OnServerShutdown
 - uid: OpenAPI.OpenServer.StartServer
   name: StartServer()
   href: api/OpenAPI.OpenServer.html#OpenAPI_OpenServer_StartServer
@@ -3611,12 +3794,12 @@ references:
   commentId: T:OpenAPI.Player.OpenPlayer
   fullName: OpenAPI.Player.OpenPlayer
   nameWithType: OpenPlayer
-- uid: OpenAPI.Player.OpenPlayer.#ctor(MiNetServer,IPEndPoint,OpenAPI.OpenApi)
-  name: OpenPlayer(MiNetServer, IPEndPoint, OpenApi)
-  href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer__ctor_MiNetServer_IPEndPoint_OpenAPI_OpenApi_
-  commentId: M:OpenAPI.Player.OpenPlayer.#ctor(MiNetServer,IPEndPoint,OpenAPI.OpenApi)
-  fullName: OpenAPI.Player.OpenPlayer.OpenPlayer(MiNetServer, IPEndPoint, OpenAPI.OpenApi)
-  nameWithType: OpenPlayer.OpenPlayer(MiNetServer, IPEndPoint, OpenApi)
+- uid: OpenAPI.Player.OpenPlayer.#ctor(OpenAPI.OpenServer,IPEndPoint,OpenAPI.OpenApi)
+  name: OpenPlayer(OpenServer, IPEndPoint, OpenApi)
+  href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer__ctor_OpenAPI_OpenServer_IPEndPoint_OpenAPI_OpenApi_
+  commentId: M:OpenAPI.Player.OpenPlayer.#ctor(OpenAPI.OpenServer,IPEndPoint,OpenAPI.OpenApi)
+  fullName: OpenAPI.Player.OpenPlayer.OpenPlayer(OpenAPI.OpenServer, IPEndPoint, OpenAPI.OpenApi)
+  nameWithType: OpenPlayer.OpenPlayer(OpenServer, IPEndPoint, OpenApi)
 - uid: OpenAPI.Player.OpenPlayer.#ctor*
   name: OpenPlayer
   href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer__ctor_
@@ -4125,19 +4308,6 @@ references:
   isSpec: "True"
   fullName: OpenAPI.Player.OpenPlayer.SendResourcePackStack
   nameWithType: OpenPlayer.SendResourcePackStack
-- uid: OpenAPI.Player.OpenPlayer.SendSetCommandsEnabled
-  name: SendSetCommandsEnabled()
-  href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_SendSetCommandsEnabled
-  commentId: M:OpenAPI.Player.OpenPlayer.SendSetCommandsEnabled
-  fullName: OpenAPI.Player.OpenPlayer.SendSetCommandsEnabled()
-  nameWithType: OpenPlayer.SendSetCommandsEnabled()
-- uid: OpenAPI.Player.OpenPlayer.SendSetCommandsEnabled*
-  name: SendSetCommandsEnabled
-  href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_SendSetCommandsEnabled_
-  commentId: Overload:OpenAPI.Player.OpenPlayer.SendSetCommandsEnabled
-  isSpec: "True"
-  fullName: OpenAPI.Player.OpenPlayer.SendSetCommandsEnabled
-  nameWithType: OpenPlayer.SendSetCommandsEnabled
 - uid: OpenAPI.Player.OpenPlayer.SetAttribute*
   name: SetAttribute
   href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_SetAttribute_
@@ -4325,18 +4495,6 @@ references:
   isSpec: "True"
   fullName: OpenAPI.Player.OpenPlayerManager.GetPlayers
   nameWithType: OpenPlayerManager.GetPlayers
-- uid: OpenAPI.Player.OpenPlayerManager.OnPlayerCreated
-  name: OnPlayerCreated
-  href: api/OpenAPI.Player.OpenPlayerManager.html#OpenAPI_Player_OpenPlayerManager_OnPlayerCreated
-  commentId: F:OpenAPI.Player.OpenPlayerManager.OnPlayerCreated
-  fullName: OpenAPI.Player.OpenPlayerManager.OnPlayerCreated
-  nameWithType: OpenPlayerManager.OnPlayerCreated
-- uid: OpenAPI.Player.OpenPlayerManager.OnPlayerJoin
-  name: OnPlayerJoin
-  href: api/OpenAPI.Player.OpenPlayerManager.html#OpenAPI_Player_OpenPlayerManager_OnPlayerJoin
-  commentId: F:OpenAPI.Player.OpenPlayerManager.OnPlayerJoin
-  fullName: OpenAPI.Player.OpenPlayerManager.OnPlayerJoin
-  nameWithType: OpenPlayerManager.OnPlayerJoin
 - uid: OpenAPI.Player.OpenPlayerManager.RemovePlayer(OpenAPI.Events.Player.PlayerQuitEvent)
   name: RemovePlayer(PlayerQuitEvent)
   href: api/OpenAPI.Player.OpenPlayerManager.html#OpenAPI_Player_OpenPlayerManager_RemovePlayer_OpenAPI_Events_Player_PlayerQuitEvent_
@@ -4350,15 +4508,15 @@ references:
   isSpec: "True"
   fullName: OpenAPI.Player.OpenPlayerManager.RemovePlayer
   nameWithType: OpenPlayerManager.RemovePlayer
-- uid: OpenAPI.Player.OpenPlayerManager.TryGetPlayer(System.String,OpenAPI.Player.OpenPlayer@)
-  name: TryGetPlayer(String, out OpenPlayer)
-  href: api/OpenAPI.Player.OpenPlayerManager.html#OpenAPI_Player_OpenPlayerManager_TryGetPlayer_System_String_OpenAPI_Player_OpenPlayer__
-  commentId: M:OpenAPI.Player.OpenPlayerManager.TryGetPlayer(System.String,OpenAPI.Player.OpenPlayer@)
-  name.vb: TryGetPlayer(String, ByRef OpenPlayer)
-  fullName: OpenAPI.Player.OpenPlayerManager.TryGetPlayer(System.String, out OpenAPI.Player.OpenPlayer)
-  fullName.vb: OpenAPI.Player.OpenPlayerManager.TryGetPlayer(System.String, ByRef OpenAPI.Player.OpenPlayer)
-  nameWithType: OpenPlayerManager.TryGetPlayer(String, out OpenPlayer)
-  nameWithType.vb: OpenPlayerManager.TryGetPlayer(String, ByRef OpenPlayer)
+- uid: OpenAPI.Player.OpenPlayerManager.TryGetPlayer(System.String,OpenAPI.Player.OpenPlayer@,StringComparison)
+  name: TryGetPlayer(String, out OpenPlayer, StringComparison)
+  href: api/OpenAPI.Player.OpenPlayerManager.html#OpenAPI_Player_OpenPlayerManager_TryGetPlayer_System_String_OpenAPI_Player_OpenPlayer__StringComparison_
+  commentId: M:OpenAPI.Player.OpenPlayerManager.TryGetPlayer(System.String,OpenAPI.Player.OpenPlayer@,StringComparison)
+  name.vb: TryGetPlayer(String, ByRef OpenPlayer, StringComparison)
+  fullName: OpenAPI.Player.OpenPlayerManager.TryGetPlayer(System.String, out OpenAPI.Player.OpenPlayer, StringComparison)
+  fullName.vb: OpenAPI.Player.OpenPlayerManager.TryGetPlayer(System.String, ByRef OpenAPI.Player.OpenPlayer, StringComparison)
+  nameWithType: OpenPlayerManager.TryGetPlayer(String, out OpenPlayer, StringComparison)
+  nameWithType.vb: OpenPlayerManager.TryGetPlayer(String, ByRef OpenPlayer, StringComparison)
 - uid: OpenAPI.Player.OpenPlayerManager.TryGetPlayer*
   name: TryGetPlayer
   href: api/OpenAPI.Player.OpenPlayerManager.html#OpenAPI_Player_OpenPlayerManager_TryGetPlayer_
@@ -4366,15 +4524,15 @@ references:
   isSpec: "True"
   fullName: OpenAPI.Player.OpenPlayerManager.TryGetPlayer
   nameWithType: OpenPlayerManager.TryGetPlayer
-- uid: OpenAPI.Player.OpenPlayerManager.TryGetPlayers(System.String,OpenAPI.Player.OpenPlayer[]@)
-  name: TryGetPlayers(String, out OpenPlayer[])
-  href: api/OpenAPI.Player.OpenPlayerManager.html#OpenAPI_Player_OpenPlayerManager_TryGetPlayers_System_String_OpenAPI_Player_OpenPlayer____
-  commentId: M:OpenAPI.Player.OpenPlayerManager.TryGetPlayers(System.String,OpenAPI.Player.OpenPlayer[]@)
-  name.vb: TryGetPlayers(String, ByRef OpenPlayer())
-  fullName: OpenAPI.Player.OpenPlayerManager.TryGetPlayers(System.String, out OpenAPI.Player.OpenPlayer[])
-  fullName.vb: OpenAPI.Player.OpenPlayerManager.TryGetPlayers(System.String, ByRef OpenAPI.Player.OpenPlayer())
-  nameWithType: OpenPlayerManager.TryGetPlayers(String, out OpenPlayer[])
-  nameWithType.vb: OpenPlayerManager.TryGetPlayers(String, ByRef OpenPlayer())
+- uid: OpenAPI.Player.OpenPlayerManager.TryGetPlayers(System.String,OpenAPI.Player.OpenPlayer[]@,StringComparison)
+  name: TryGetPlayers(String, out OpenPlayer[], StringComparison)
+  href: api/OpenAPI.Player.OpenPlayerManager.html#OpenAPI_Player_OpenPlayerManager_TryGetPlayers_System_String_OpenAPI_Player_OpenPlayer____StringComparison_
+  commentId: M:OpenAPI.Player.OpenPlayerManager.TryGetPlayers(System.String,OpenAPI.Player.OpenPlayer[]@,StringComparison)
+  name.vb: TryGetPlayers(String, ByRef OpenPlayer(), StringComparison)
+  fullName: OpenAPI.Player.OpenPlayerManager.TryGetPlayers(System.String, out OpenAPI.Player.OpenPlayer[], StringComparison)
+  fullName.vb: OpenAPI.Player.OpenPlayerManager.TryGetPlayers(System.String, ByRef OpenAPI.Player.OpenPlayer(), StringComparison)
+  nameWithType: OpenPlayerManager.TryGetPlayers(String, out OpenPlayer[], StringComparison)
+  nameWithType.vb: OpenPlayerManager.TryGetPlayers(String, ByRef OpenPlayer(), StringComparison)
 - uid: OpenAPI.Player.OpenPlayerManager.TryGetPlayers*
   name: TryGetPlayers
   href: api/OpenAPI.Player.OpenPlayerManager.html#OpenAPI_Player_OpenPlayerManager_TryGetPlayers_
@@ -6112,6 +6270,31 @@ references:
   fullName.vb: OpenAPI.Utils.TaskExtensions.Then(Of TResult)(Task(Of TResult), Action(Of TResult))
   nameWithType: TaskExtensions.Then<TResult>(Task<TResult>, Action<TResult>)
   nameWithType.vb: TaskExtensions.Then(Of TResult)(Task(Of TResult), Action(Of TResult))
+- uid: OpenAPI.Utils.TaskExtensions.Then``1(Task{``0},Action{``0},CancellationToken)
+  name: Then<TResult>(Task<TResult>, Action<TResult>, CancellationToken)
+  href: api/OpenAPI.Utils.TaskExtensions.html#OpenAPI_Utils_TaskExtensions_Then__1_Task___0__Action___0__CancellationToken_
+  commentId: M:OpenAPI.Utils.TaskExtensions.Then``1(Task{``0},Action{``0},CancellationToken)
+  name.vb: Then(Of TResult)(Task(Of TResult), Action(Of TResult), CancellationToken)
+  fullName: OpenAPI.Utils.TaskExtensions.Then<TResult>(Task<TResult>, Action<TResult>, CancellationToken)
+  fullName.vb: OpenAPI.Utils.TaskExtensions.Then(Of TResult)(Task(Of TResult), Action(Of TResult), CancellationToken)
+  nameWithType: TaskExtensions.Then<TResult>(Task<TResult>, Action<TResult>, CancellationToken)
+  nameWithType.vb: TaskExtensions.Then(Of TResult)(Task(Of TResult), Action(Of TResult), CancellationToken)
+- uid: OpenAPI.Utils.TaskExtensions.ThenAsync*
+  name: ThenAsync
+  href: api/OpenAPI.Utils.TaskExtensions.html#OpenAPI_Utils_TaskExtensions_ThenAsync_
+  commentId: Overload:OpenAPI.Utils.TaskExtensions.ThenAsync
+  isSpec: "True"
+  fullName: OpenAPI.Utils.TaskExtensions.ThenAsync
+  nameWithType: TaskExtensions.ThenAsync
+- uid: OpenAPI.Utils.TaskExtensions.ThenAsync``1(Task{``0},Action{``0})
+  name: ThenAsync<TResult>(Task<TResult>, Action<TResult>)
+  href: api/OpenAPI.Utils.TaskExtensions.html#OpenAPI_Utils_TaskExtensions_ThenAsync__1_Task___0__Action___0__
+  commentId: M:OpenAPI.Utils.TaskExtensions.ThenAsync``1(Task{``0},Action{``0})
+  name.vb: ThenAsync(Of TResult)(Task(Of TResult), Action(Of TResult))
+  fullName: OpenAPI.Utils.TaskExtensions.ThenAsync<TResult>(Task<TResult>, Action<TResult>)
+  fullName.vb: OpenAPI.Utils.TaskExtensions.ThenAsync(Of TResult)(Task(Of TResult), Action(Of TResult))
+  nameWithType: TaskExtensions.ThenAsync<TResult>(Task<TResult>, Action<TResult>)
+  nameWithType.vb: TaskExtensions.ThenAsync(Of TResult)(Task(Of TResult), Action(Of TResult))
 - uid: OpenAPI.Utils.ThreadSafeList`1
   name: ThreadSafeList<T>
   href: api/OpenAPI.Utils.ThreadSafeList-1.html
@@ -6605,6 +6788,19 @@ references:
   isSpec: "True"
   fullName: OpenAPI.World.OpenLevelManager.OpenLevelManager
   nameWithType: OpenLevelManager.OpenLevelManager
+- uid: OpenAPI.World.OpenLevelManager.Close
+  name: Close()
+  href: api/OpenAPI.World.OpenLevelManager.html#OpenAPI_World_OpenLevelManager_Close
+  commentId: M:OpenAPI.World.OpenLevelManager.Close
+  fullName: OpenAPI.World.OpenLevelManager.Close()
+  nameWithType: OpenLevelManager.Close()
+- uid: OpenAPI.World.OpenLevelManager.Close*
+  name: Close
+  href: api/OpenAPI.World.OpenLevelManager.html#OpenAPI_World_OpenLevelManager_Close_
+  commentId: Overload:OpenAPI.World.OpenLevelManager.Close
+  isSpec: "True"
+  fullName: OpenAPI.World.OpenLevelManager.Close
+  nameWithType: OpenLevelManager.Close
 - uid: OpenAPI.World.OpenLevelManager.GetDefaultLevel
   name: GetDefaultLevel()
   href: api/OpenAPI.World.OpenLevelManager.html#OpenAPI_World_OpenLevelManager_GetDefaultLevel

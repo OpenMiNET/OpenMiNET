@@ -98,7 +98,7 @@
   </div>
   <div classs="implements">
     <h5>Implements</h5>
-    <div><a class="xref" href="OpenAPI.Events.ICancellable.html">ICancellable</a></div>
+    <div><a class="xref" href="OpenAPI.Events.INotifyExecution.html">INotifyExecution</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -107,6 +107,12 @@
     </div>
     <div>
       <a class="xref" href="OpenAPI.Events.Block.BlockBreakEvent.html#OpenAPI_Events_Block_BlockBreakEvent_Drops">BlockBreakEvent.Drops</a>
+    </div>
+    <div>
+      <a class="xref" href="OpenAPI.Events.Block.BlockBreakEvent.html#OpenAPI_Events_Block_BlockBreakEvent_OnEventExecution">BlockBreakEvent.OnEventExecution</a>
+    </div>
+    <div>
+      <a class="xref" href="OpenAPI.Events.Block.BlockBreakEvent.html#OpenAPI_Events_Block_BlockBreakEvent_OnComplete_System_Object_">BlockBreakEvent.OnComplete(Object)</a>
     </div>
     <div>
       <a class="xref" href="OpenAPI.Events.Block.BlockExpEvent.html#OpenAPI_Events_Block_BlockExpEvent_Experience">BlockExpEvent.Experience</a>
@@ -120,15 +126,12 @@
     <div>
       <a class="xref" href="OpenAPI.Events.Event.html#OpenAPI_Events_Event_SetCancelled_System_Boolean_">Event.SetCancelled(Boolean)</a>
     </div>
-    <div>
-      <a class="xref" href="OpenAPI.Events.Event.html#OpenAPI_Events_Event_Executed">Event.Executed</a>
-    </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="OpenAPI.Events.Block.html">OpenAPI.Events.Block</a></h6>
   <h6><strong>Assembly</strong>: OpenAPI.dll</h6>
   <h5 id="OpenAPI_Events_Block_BlockAbortBreakEvent_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class BlockAbortBreakEvent : BlockStartBreakEvent, ICancellable</code></pre>
+    <pre><code class="lang-csharp hljs">public class BlockAbortBreakEvent : BlockStartBreakEvent, INotifyExecution</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
@@ -173,7 +176,7 @@
   </table>
   <h3 id="implements">Implements</h3>
   <div>
-      <a class="xref" href="OpenAPI.Events.ICancellable.html">ICancellable</a>
+      <a class="xref" href="OpenAPI.Events.INotifyExecution.html">INotifyExecution</a>
   </div>
 </article>
           </div>

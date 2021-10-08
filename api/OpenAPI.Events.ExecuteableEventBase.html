@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Interface ICancellable
+    <title>Class ExecuteableEventBase
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Interface ICancellable
+    <meta name="title" content="Class ExecuteableEventBase
    ">
     <meta name="generator" content="docfx 2.56.7.0">
     
@@ -78,35 +78,72 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="OpenAPI.Events.ICancellable">
+            <article class="content wrap" id="_content" data-uid="OpenAPI.Events.ExecuteableEventBase">
   
   
-  <h1 id="OpenAPI_Events_ICancellable" data-uid="OpenAPI.Events.ICancellable" class="text-break">Interface ICancellable
+  <h1 id="OpenAPI_Events_ExecuteableEventBase" data-uid="OpenAPI.Events.ExecuteableEventBase" class="text-break">Class ExecuteableEventBase
   </h1>
   <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><a class="xref" href="OpenAPI.Events.Event.html">Event</a></div>
+    <div class="level2"><span class="xref">ExecuteableEventBase</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="OpenAPI.Events.INotifyExecution.html">INotifyExecution</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="OpenAPI.Events.Event.html#OpenAPI_Events_Event_IsCancelled">Event.IsCancelled</a>
+    </div>
+    <div>
+      <a class="xref" href="OpenAPI.Events.Event.html#OpenAPI_Events_Event_SetCancelled_System_Boolean_">Event.SetCancelled(Boolean)</a>
+    </div>
+  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="OpenAPI.Events.html">OpenAPI.Events</a></h6>
   <h6><strong>Assembly</strong>: OpenAPI.dll</h6>
-  <h5 id="OpenAPI_Events_ICancellable_syntax">Syntax</h5>
+  <h5 id="OpenAPI_Events_ExecuteableEventBase_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface ICancellable</code></pre>
+    <pre><code class="lang-csharp hljs">public abstract class ExecuteableEventBase : Event, INotifyExecution</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_ExecuteableEventBase__ctor.md&amp;value=---%0Auid%3A%20OpenAPI.Events.ExecuteableEventBase.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Events/INotifyExecution.cs/#L18">View Source</a>
+  </span>
+  <a id="OpenAPI_Events_ExecuteableEventBase__ctor_" data-uid="OpenAPI.Events.ExecuteableEventBase.#ctor*"></a>
+  <h4 id="OpenAPI_Events_ExecuteableEventBase__ctor" data-uid="OpenAPI.Events.ExecuteableEventBase.#ctor">ExecuteableEventBase()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected ExecuteableEventBase()</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_ICancellable_IsCancelled.md&amp;value=---%0Auid%3A%20OpenAPI.Events.ICancellable.IsCancelled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_ExecuteableEventBase_OnEventExecution.md&amp;value=---%0Auid%3A%20OpenAPI.Events.ExecuteableEventBase.OnEventExecution%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Events/Cancellable.cs/#L5">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Events/INotifyExecution.cs/#L16">View Source</a>
   </span>
-  <a id="OpenAPI_Events_ICancellable_IsCancelled_" data-uid="OpenAPI.Events.ICancellable.IsCancelled*"></a>
-  <h4 id="OpenAPI_Events_ICancellable_IsCancelled" data-uid="OpenAPI.Events.ICancellable.IsCancelled">IsCancelled</h4>
-  <div class="markdown level1 summary"></div>
+  <a id="OpenAPI_Events_ExecuteableEventBase_OnEventExecution_" data-uid="OpenAPI.Events.ExecuteableEventBase.OnEventExecution*"></a>
+  <h4 id="OpenAPI_Events_ExecuteableEventBase_OnEventExecution" data-uid="OpenAPI.Events.ExecuteableEventBase.OnEventExecution">OnEventExecution</h4>
+  <div class="markdown level1 summary"><p>Invoked when an event has executed it's task.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">bool IsCancelled { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public EventHandler&lt;Event.EventTaskCompleted&gt; OnEventExecution { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -118,27 +155,27 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="xref">EventHandler</span>&lt;<a class="xref" href="OpenAPI.Events.Event.EventTaskCompleted.html">Event.EventTaskCompleted</a>&gt;</td>
         <td></td>
       </tr>
     </tbody>
   </table>
-  <h3 id="methods">Methods
+  <h3 id="eii">Explicit Interface Implementations
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_ICancellable_SetCancelled_System_Boolean_.md&amp;value=---%0Auid%3A%20OpenAPI.Events.ICancellable.SetCancelled(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_ExecuteableEventBase_OpenAPI_Events_INotifyExecution_OnComplete_System_Object_.md&amp;value=---%0Auid%3A%20OpenAPI.Events.ExecuteableEventBase.OpenAPI%23Events%23INotifyExecution%23OnComplete(System.Object)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Events/Cancellable.cs/#L6">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Events/INotifyExecution.cs/#L23">View Source</a>
   </span>
-  <a id="OpenAPI_Events_ICancellable_SetCancelled_" data-uid="OpenAPI.Events.ICancellable.SetCancelled*"></a>
-  <h4 id="OpenAPI_Events_ICancellable_SetCancelled_System_Boolean_" data-uid="OpenAPI.Events.ICancellable.SetCancelled(System.Boolean)">SetCancelled(Boolean)</h4>
+  <a id="OpenAPI_Events_ExecuteableEventBase_OpenAPI_Events_INotifyExecution_OnComplete_" data-uid="OpenAPI.Events.ExecuteableEventBase.OpenAPI#Events#INotifyExecution#OnComplete*"></a>
+  <h4 id="OpenAPI_Events_ExecuteableEventBase_OpenAPI_Events_INotifyExecution_OnComplete_System_Object_" data-uid="OpenAPI.Events.ExecuteableEventBase.OpenAPI#Events#INotifyExecution#OnComplete(System.Object)">INotifyExecution.OnComplete(Object)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void SetCancelled(bool value)</code></pre>
+    <pre><code class="lang-csharp hljs">void INotifyExecution.OnComplete(object source)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -151,12 +188,16 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Boolean</span></td>
-        <td><span class="parametername">value</span></td>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">source</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="OpenAPI.Events.INotifyExecution.html">INotifyExecution</a>
+  </div>
 </article>
           </div>
           
@@ -165,10 +206,10 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_ICancellable.md&amp;value=---%0Auid%3A%20OpenAPI.Events.ICancellable%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_ExecuteableEventBase.md&amp;value=---%0Auid%3A%20OpenAPI.Events.ExecuteableEventBase%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Events/Cancellable.cs/#L3" class="contribution-link">View Source</a>
+                    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Events/INotifyExecution.cs/#L11" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

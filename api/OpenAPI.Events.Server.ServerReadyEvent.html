@@ -92,10 +92,6 @@
     <div class="level1"><a class="xref" href="OpenAPI.Events.Event.html">Event</a></div>
     <div class="level2"><span class="xref">ServerReadyEvent</span></div>
   </div>
-  <div classs="implements">
-    <h5>Implements</h5>
-    <div><a class="xref" href="OpenAPI.Events.ICancellable.html">ICancellable</a></div>
-  </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
@@ -104,37 +100,80 @@
     <div>
       <a class="xref" href="OpenAPI.Events.Event.html#OpenAPI_Events_Event_SetCancelled_System_Boolean_">Event.SetCancelled(Boolean)</a>
     </div>
-    <div>
-      <a class="xref" href="OpenAPI.Events.Event.html#OpenAPI_Events_Event_Executed">Event.Executed</a>
-    </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="OpenAPI.Events.Server.html">OpenAPI.Events.Server</a></h6>
   <h6><strong>Assembly</strong>: OpenAPI.dll</h6>
   <h5 id="OpenAPI_Events_Server_ServerReadyEvent_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class ServerReadyEvent : Event, ICancellable</code></pre>
+    <pre><code class="lang-csharp hljs">public class ServerReadyEvent : Event</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_Server_ServerReadyEvent__ctor.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Server.ServerReadyEvent.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_Server_ServerReadyEvent__ctor_OpenAPI_OpenServer_.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Server.ServerReadyEvent.%23ctor(OpenAPI.OpenServer)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Events/Server/ServerReadyEvent.cs/#L8">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Events/Server/ServerReadyEvent.cs/#L13">View Source</a>
   </span>
   <a id="OpenAPI_Events_Server_ServerReadyEvent__ctor_" data-uid="OpenAPI.Events.Server.ServerReadyEvent.#ctor*"></a>
-  <h4 id="OpenAPI_Events_Server_ServerReadyEvent__ctor" data-uid="OpenAPI.Events.Server.ServerReadyEvent.#ctor">ServerReadyEvent()</h4>
+  <h4 id="OpenAPI_Events_Server_ServerReadyEvent__ctor_OpenAPI_OpenServer_" data-uid="OpenAPI.Events.Server.ServerReadyEvent.#ctor(OpenAPI.OpenServer)">ServerReadyEvent(OpenServer)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ServerReadyEvent()</code></pre>
+    <pre><code class="lang-csharp hljs">public ServerReadyEvent(OpenServer server)</code></pre>
   </div>
-  <h3 id="implements">Implements</h3>
-  <div>
-      <a class="xref" href="OpenAPI.Events.ICancellable.html">ICancellable</a>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="OpenAPI.OpenServer.html">OpenServer</a></td>
+        <td><span class="parametername">server</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_Server_ServerReadyEvent_Server.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Server.ServerReadyEvent.Server%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Events/Server/ServerReadyEvent.cs/#L11">View Source</a>
+  </span>
+  <a id="OpenAPI_Events_Server_ServerReadyEvent_Server_" data-uid="OpenAPI.Events.Server.ServerReadyEvent.Server*"></a>
+  <h4 id="OpenAPI_Events_Server_ServerReadyEvent_Server" data-uid="OpenAPI.Events.Server.ServerReadyEvent.Server">Server</h4>
+  <div class="markdown level1 summary"><p>The server instance that started up</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public OpenServer Server { get; }</code></pre>
   </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="OpenAPI.OpenServer.html">OpenServer</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
 </article>
           </div>
           

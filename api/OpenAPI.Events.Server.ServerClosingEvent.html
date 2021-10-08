@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class BlockStartBreakEvent
+    <title>Class ServerClosingEvent
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class BlockStartBreakEvent
+    <meta name="title" content="Class ServerClosingEvent
    ">
     <meta name="generator" content="docfx 2.56.7.0">
     
@@ -78,48 +78,22 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="OpenAPI.Events.Block.BlockStartBreakEvent">
+            <article class="content wrap" id="_content" data-uid="OpenAPI.Events.Server.ServerClosingEvent">
   
   
-  <h1 id="OpenAPI_Events_Block_BlockStartBreakEvent" data-uid="OpenAPI.Events.Block.BlockStartBreakEvent" class="text-break">Class BlockStartBreakEvent
+  <h1 id="OpenAPI_Events_Server_ServerClosingEvent" data-uid="OpenAPI.Events.Server.ServerClosingEvent" class="text-break">Class ServerClosingEvent
   </h1>
-  <div class="markdown level0 summary"><p>Gets dispatched when a <a class="xref" href="OpenAPI.Player.OpenPlayer.html">OpenPlayer</a> start breaking a block</p>
+  <div class="markdown level0 summary"><p>Gets dispatched when the server is shutting down</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
     <div class="level1"><a class="xref" href="OpenAPI.Events.Event.html">Event</a></div>
-    <div class="level2"><a class="xref" href="OpenAPI.Events.Block.BlockEvent.html">BlockEvent</a></div>
-    <div class="level3"><a class="xref" href="OpenAPI.Events.Block.BlockExpEvent.html">BlockExpEvent</a></div>
-    <div class="level4"><a class="xref" href="OpenAPI.Events.Block.BlockBreakEvent.html">BlockBreakEvent</a></div>
-    <div class="level5"><span class="xref">BlockStartBreakEvent</span></div>
-      <div class="level6"><a class="xref" href="OpenAPI.Events.Block.BlockAbortBreakEvent.html">BlockAbortBreakEvent</a></div>
-  </div>
-  <div classs="implements">
-    <h5>Implements</h5>
-    <div><a class="xref" href="OpenAPI.Events.INotifyExecution.html">INotifyExecution</a></div>
+    <div class="level2"><span class="xref">ServerClosingEvent</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
-    <div>
-      <a class="xref" href="OpenAPI.Events.Block.BlockBreakEvent.html#OpenAPI_Events_Block_BlockBreakEvent_Source">BlockBreakEvent.Source</a>
-    </div>
-    <div>
-      <a class="xref" href="OpenAPI.Events.Block.BlockBreakEvent.html#OpenAPI_Events_Block_BlockBreakEvent_Drops">BlockBreakEvent.Drops</a>
-    </div>
-    <div>
-      <a class="xref" href="OpenAPI.Events.Block.BlockBreakEvent.html#OpenAPI_Events_Block_BlockBreakEvent_OnEventExecution">BlockBreakEvent.OnEventExecution</a>
-    </div>
-    <div>
-      <a class="xref" href="OpenAPI.Events.Block.BlockBreakEvent.html#OpenAPI_Events_Block_BlockBreakEvent_OnComplete_System_Object_">BlockBreakEvent.OnComplete(Object)</a>
-    </div>
-    <div>
-      <a class="xref" href="OpenAPI.Events.Block.BlockExpEvent.html#OpenAPI_Events_Block_BlockExpEvent_Experience">BlockExpEvent.Experience</a>
-    </div>
-    <div>
-      <a class="xref" href="OpenAPI.Events.Block.BlockEvent.html#OpenAPI_Events_Block_BlockEvent_Block">BlockEvent.Block</a>
-    </div>
     <div>
       <a class="xref" href="OpenAPI.Events.Event.html#OpenAPI_Events_Event_IsCancelled">Event.IsCancelled</a>
     </div>
@@ -127,28 +101,28 @@
       <a class="xref" href="OpenAPI.Events.Event.html#OpenAPI_Events_Event_SetCancelled_System_Boolean_">Event.SetCancelled(Boolean)</a>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="OpenAPI.Events.Block.html">OpenAPI.Events.Block</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="OpenAPI.Events.Server.html">OpenAPI.Events.Server</a></h6>
   <h6><strong>Assembly</strong>: OpenAPI.dll</h6>
-  <h5 id="OpenAPI_Events_Block_BlockStartBreakEvent_syntax">Syntax</h5>
+  <h5 id="OpenAPI_Events_Server_ServerClosingEvent_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class BlockStartBreakEvent : BlockBreakEvent, INotifyExecution</code></pre>
+    <pre><code class="lang-csharp hljs">public class ServerClosingEvent : Event</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_Block_BlockStartBreakEvent__ctor_MiNET_Entities_Entity_MiNET_Blocks_Block_.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Block.BlockStartBreakEvent.%23ctor(MiNET.Entities.Entity%2CMiNET.Blocks.Block)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_Server_ServerClosingEvent__ctor_OpenAPI_OpenServer_.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Server.ServerClosingEvent.%23ctor(OpenAPI.OpenServer)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Events/Block/BlockStartBreakEvent.cs/#L15">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Events/Server/ServerReadyEvent.cs/#L29">View Source</a>
   </span>
-  <a id="OpenAPI_Events_Block_BlockStartBreakEvent__ctor_" data-uid="OpenAPI.Events.Block.BlockStartBreakEvent.#ctor*"></a>
-  <h4 id="OpenAPI_Events_Block_BlockStartBreakEvent__ctor_MiNET_Entities_Entity_MiNET_Blocks_Block_" data-uid="OpenAPI.Events.Block.BlockStartBreakEvent.#ctor(MiNET.Entities.Entity,MiNET.Blocks.Block)">BlockStartBreakEvent(MiNET.Entities.Entity, MiNET.Blocks.Block)</h4>
+  <a id="OpenAPI_Events_Server_ServerClosingEvent__ctor_" data-uid="OpenAPI.Events.Server.ServerClosingEvent.#ctor*"></a>
+  <h4 id="OpenAPI_Events_Server_ServerClosingEvent__ctor_OpenAPI_OpenServer_" data-uid="OpenAPI.Events.Server.ServerClosingEvent.#ctor(OpenAPI.OpenServer)">ServerClosingEvent(OpenServer)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public BlockStartBreakEvent(MiNET.Entities.Entity player, MiNET.Blocks.Block block)</code></pre>
+    <pre><code class="lang-csharp hljs">public ServerClosingEvent(OpenServer server)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -161,23 +135,45 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MiNET.Entities.Entity</span></td>
-        <td><span class="parametername">player</span></td>
-        <td><p>The player that started breaking the block.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">MiNET.Blocks.Block</span></td>
-        <td><span class="parametername">block</span></td>
-        <td><p>The block that is to be destroyed</p>
-</td>
+        <td><a class="xref" href="OpenAPI.OpenServer.html">OpenServer</a></td>
+        <td><span class="parametername">server</span></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
-  <h3 id="implements">Implements</h3>
-  <div>
-      <a class="xref" href="OpenAPI.Events.INotifyExecution.html">INotifyExecution</a>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_Server_ServerClosingEvent_Server.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Server.ServerClosingEvent.Server%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Events/Server/ServerReadyEvent.cs/#L27">View Source</a>
+  </span>
+  <a id="OpenAPI_Events_Server_ServerClosingEvent_Server_" data-uid="OpenAPI.Events.Server.ServerClosingEvent.Server*"></a>
+  <h4 id="OpenAPI_Events_Server_ServerClosingEvent_Server" data-uid="OpenAPI.Events.Server.ServerClosingEvent.Server">Server</h4>
+  <div class="markdown level1 summary"><p>The server instance that is shutting down</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public OpenServer Server { get; }</code></pre>
   </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="OpenAPI.OpenServer.html">OpenServer</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
 </article>
           </div>
           
@@ -186,10 +182,10 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_Block_BlockStartBreakEvent.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Block.BlockStartBreakEvent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_Server_ServerClosingEvent.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Server.ServerClosingEvent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Events/Block/BlockStartBreakEvent.cs/#L8" class="contribution-link">View Source</a>
+                    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Events/Server/ServerReadyEvent.cs/#L22" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

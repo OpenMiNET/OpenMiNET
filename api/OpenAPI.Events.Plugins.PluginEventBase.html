@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class ChunkGeneratedEvent
+    <title>Class PluginEventBase
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class ChunkGeneratedEvent
+    <meta name="title" content="Class PluginEventBase
    ">
     <meta name="generator" content="docfx 2.56.7.0">
     
@@ -78,30 +78,24 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="OpenAPI.Events.Level.ChunkGeneratedEvent">
+            <article class="content wrap" id="_content" data-uid="OpenAPI.Events.Plugins.PluginEventBase">
   
   
-  <h1 id="OpenAPI_Events_Level_ChunkGeneratedEvent" data-uid="OpenAPI.Events.Level.ChunkGeneratedEvent" class="text-break">Class ChunkGeneratedEvent
+  <h1 id="OpenAPI_Events_Plugins_PluginEventBase" data-uid="OpenAPI.Events.Plugins.PluginEventBase" class="text-break">Class PluginEventBase
   </h1>
-  <div class="markdown level0 summary"><p>Dispatched when a new chunk was generated</p>
+  <div class="markdown level0 summary"><p>The base class for any plugin events</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
     <div class="level1"><a class="xref" href="OpenAPI.Events.Event.html">Event</a></div>
-    <div class="level2"><a class="xref" href="OpenAPI.Events.Level.LevelEvent.html">LevelEvent</a></div>
-    <div class="level3"><a class="xref" href="OpenAPI.Events.Level.ChunkEvent.html">ChunkEvent</a></div>
-    <div class="level4"><span class="xref">ChunkGeneratedEvent</span></div>
+    <div class="level2"><span class="xref">PluginEventBase</span></div>
+      <div class="level3"><a class="xref" href="OpenAPI.Events.Plugins.PluginDisabledEvent.html">PluginDisabledEvent</a></div>
+      <div class="level3"><a class="xref" href="OpenAPI.Events.Plugins.PluginEnabledEvent.html">PluginEnabledEvent</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
-    <div>
-      <a class="xref" href="OpenAPI.Events.Level.ChunkEvent.html#OpenAPI_Events_Level_ChunkEvent_Chunk">ChunkEvent.Chunk</a>
-    </div>
-    <div>
-      <a class="xref" href="OpenAPI.Events.Level.LevelEvent.html#OpenAPI_Events_Level_LevelEvent_Level">LevelEvent.Level</a>
-    </div>
     <div>
       <a class="xref" href="OpenAPI.Events.Event.html#OpenAPI_Events_Event_IsCancelled">Event.IsCancelled</a>
     </div>
@@ -109,28 +103,28 @@
       <a class="xref" href="OpenAPI.Events.Event.html#OpenAPI_Events_Event_SetCancelled_System_Boolean_">Event.SetCancelled(Boolean)</a>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="OpenAPI.Events.Level.html">OpenAPI.Events.Level</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="OpenAPI.Events.Plugins.html">OpenAPI.Events.Plugins</a></h6>
   <h6><strong>Assembly</strong>: OpenAPI.dll</h6>
-  <h5 id="OpenAPI_Events_Level_ChunkGeneratedEvent_syntax">Syntax</h5>
+  <h5 id="OpenAPI_Events_Plugins_PluginEventBase_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class ChunkGeneratedEvent : ChunkEvent</code></pre>
+    <pre><code class="lang-csharp hljs">public class PluginEventBase : Event</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_Level_ChunkGeneratedEvent__ctor_ChunkCoordinates_ChunkColumn_OpenAPI_World_OpenLevel_.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Level.ChunkGeneratedEvent.%23ctor(ChunkCoordinates%2CChunkColumn%2COpenAPI.World.OpenLevel)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_Plugins_PluginEventBase__ctor_Assembly_OpenAPI_Plugins_OpenPlugin_.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Plugins.PluginEventBase.%23ctor(Assembly%2COpenAPI.Plugins.OpenPlugin)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Events/Level/ChunkGeneratedEvent.cs/#L24">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Events/Plugins/PluginEventBase.cs/#L26">View Source</a>
   </span>
-  <a id="OpenAPI_Events_Level_ChunkGeneratedEvent__ctor_" data-uid="OpenAPI.Events.Level.ChunkGeneratedEvent.#ctor*"></a>
-  <h4 id="OpenAPI_Events_Level_ChunkGeneratedEvent__ctor_ChunkCoordinates_ChunkColumn_OpenAPI_World_OpenLevel_" data-uid="OpenAPI.Events.Level.ChunkGeneratedEvent.#ctor(ChunkCoordinates,ChunkColumn,OpenAPI.World.OpenLevel)">ChunkGeneratedEvent(ChunkCoordinates, ChunkColumn, OpenLevel)</h4>
+  <a id="OpenAPI_Events_Plugins_PluginEventBase__ctor_" data-uid="OpenAPI.Events.Plugins.PluginEventBase.#ctor*"></a>
+  <h4 id="OpenAPI_Events_Plugins_PluginEventBase__ctor_Assembly_OpenAPI_Plugins_OpenPlugin_" data-uid="OpenAPI.Events.Plugins.PluginEventBase.#ctor(Assembly,OpenAPI.Plugins.OpenPlugin)">PluginEventBase(Assembly, OpenPlugin)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ChunkGeneratedEvent(ChunkCoordinates coordinates, ChunkColumn chunk, OpenLevel level)</code></pre>
+    <pre><code class="lang-csharp hljs">protected PluginEventBase(Assembly pluginAssembly, OpenPlugin pluginInstance)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -143,22 +137,14 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">ChunkCoordinates</span></td>
-        <td><span class="parametername">coordinates</span></td>
-        <td><p>The coordinates of the new chunk</p>
-</td>
+        <td><span class="xref">Assembly</span></td>
+        <td><span class="parametername">pluginAssembly</span></td>
+        <td></td>
       </tr>
       <tr>
-        <td><span class="xref">ChunkColumn</span></td>
-        <td><span class="parametername">chunk</span></td>
-        <td><p>An instance of the affected chunk</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="OpenAPI.World.OpenLevel.html">OpenLevel</a></td>
-        <td><span class="parametername">level</span></td>
-        <td><p>The level the chunk was generated in</p>
-</td>
+        <td><a class="xref" href="OpenAPI.Plugins.OpenPlugin.html">OpenPlugin</a></td>
+        <td><span class="parametername">pluginInstance</span></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -166,19 +152,19 @@
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_Level_ChunkGeneratedEvent_Coordinates.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Level.ChunkGeneratedEvent.Coordinates%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_Plugins_PluginEventBase_PluginAssembly.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Plugins.PluginEventBase.PluginAssembly%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Events/Level/ChunkGeneratedEvent.cs/#L16">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Events/Plugins/PluginEventBase.cs/#L14">View Source</a>
   </span>
-  <a id="OpenAPI_Events_Level_ChunkGeneratedEvent_Coordinates_" data-uid="OpenAPI.Events.Level.ChunkGeneratedEvent.Coordinates*"></a>
-  <h4 id="OpenAPI_Events_Level_ChunkGeneratedEvent_Coordinates" data-uid="OpenAPI.Events.Level.ChunkGeneratedEvent.Coordinates">Coordinates</h4>
-  <div class="markdown level1 summary"><p>The coordinates of the chunk that got generated</p>
+  <a id="OpenAPI_Events_Plugins_PluginEventBase_PluginAssembly_" data-uid="OpenAPI.Events.Plugins.PluginEventBase.PluginAssembly*"></a>
+  <h4 id="OpenAPI_Events_Plugins_PluginEventBase_PluginAssembly" data-uid="OpenAPI.Events.Plugins.PluginEventBase.PluginAssembly">PluginAssembly</h4>
+  <div class="markdown level1 summary"><p>The assembly the plugin was loaded from</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ChunkCoordinates Coordinates { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public Assembly PluginAssembly { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -190,7 +176,38 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">ChunkCoordinates</span></td>
+        <td><span class="xref">Assembly</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_Plugins_PluginEventBase_PluginInstance.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Plugins.PluginEventBase.PluginInstance%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Events/Plugins/PluginEventBase.cs/#L19">View Source</a>
+  </span>
+  <a id="OpenAPI_Events_Plugins_PluginEventBase_PluginInstance_" data-uid="OpenAPI.Events.Plugins.PluginEventBase.PluginInstance*"></a>
+  <h4 id="OpenAPI_Events_Plugins_PluginEventBase_PluginInstance" data-uid="OpenAPI.Events.Plugins.PluginEventBase.PluginInstance">PluginInstance</h4>
+  <div class="markdown level1 summary"><p>The plugin instance</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public OpenPlugin PluginInstance { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="OpenAPI.Plugins.OpenPlugin.html">OpenPlugin</a></td>
         <td></td>
       </tr>
     </tbody>
@@ -203,10 +220,10 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_Level_ChunkGeneratedEvent.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Level.ChunkGeneratedEvent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Events_Plugins_PluginEventBase.md&amp;value=---%0Auid%3A%20OpenAPI.Events.Plugins.PluginEventBase%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Events/Level/ChunkGeneratedEvent.cs/#L11" class="contribution-link">View Source</a>
+                    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Events/Plugins/PluginEventBase.cs/#L9" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

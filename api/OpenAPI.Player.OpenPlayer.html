@@ -106,18 +106,19 @@
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer__ctor_MiNetServer_IPEndPoint_OpenAPI_OpenApi_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.%23ctor(MiNetServer%2CIPEndPoint%2COpenAPI.OpenApi)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer__ctor_OpenAPI_OpenServer_IPEndPoint_OpenAPI_OpenApi_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.%23ctor(OpenAPI.OpenServer%2CIPEndPoint%2COpenAPI.OpenApi)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L58">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L80">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer__ctor_" data-uid="OpenAPI.Player.OpenPlayer.#ctor*"></a>
-  <h4 id="OpenAPI_Player_OpenPlayer__ctor_MiNetServer_IPEndPoint_OpenAPI_OpenApi_" data-uid="OpenAPI.Player.OpenPlayer.#ctor(MiNetServer,IPEndPoint,OpenAPI.OpenApi)">OpenPlayer(MiNetServer, IPEndPoint, OpenApi)</h4>
-  <div class="markdown level1 summary"></div>
+  <h4 id="OpenAPI_Player_OpenPlayer__ctor_OpenAPI_OpenServer_IPEndPoint_OpenAPI_OpenApi_" data-uid="OpenAPI.Player.OpenPlayer.#ctor(OpenAPI.OpenServer,IPEndPoint,OpenAPI.OpenApi)">OpenPlayer(OpenServer, IPEndPoint, OpenApi)</h4>
+  <div class="markdown level1 summary"><p>Creates a new <a class="xref" href="OpenAPI.Player.OpenPlayer.html">OpenPlayer</a> instance.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public OpenPlayer(MiNetServer server, IPEndPoint endPoint, OpenApi api)</code></pre>
+    <pre><code class="lang-csharp hljs">public OpenPlayer(OpenServer server, IPEndPoint endPoint, OpenApi api)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -130,19 +131,22 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">MiNetServer</span></td>
+        <td><a class="xref" href="OpenAPI.OpenServer.html">OpenServer</a></td>
         <td><span class="parametername">server</span></td>
-        <td></td>
+        <td><p>The server instance the player connected through</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">IPEndPoint</span></td>
         <td><span class="parametername">endPoint</span></td>
-        <td></td>
+        <td><p>The player's remote endpoint</p>
+</td>
       </tr>
       <tr>
         <td><a class="xref" href="OpenAPI.OpenApi.html">OpenApi</a></td>
         <td><span class="parametername">api</span></td>
-        <td></td>
+        <td><p>An instance of the API</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -153,10 +157,11 @@
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_CapturePlayerInputMode.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.CapturePlayerInputMode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L767">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L821">View Source</a>
   </span>
   <h4 id="OpenAPI_Player_OpenPlayer_CapturePlayerInputMode" data-uid="OpenAPI.Player.OpenPlayer.CapturePlayerInputMode">CapturePlayerInputMode</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Wheter to capture player keyboard input, if true <a class="xref" href="OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_HandleMcpePlayerAction_McpePlayerAction_">HandleMcpePlayerAction(McpePlayerAction)</a> will try to capture every keystroke.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -184,11 +189,12 @@
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_Culture.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.Culture%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L54">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L65">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_Culture_" data-uid="OpenAPI.Player.OpenPlayer.Culture*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_Culture" data-uid="OpenAPI.Player.OpenPlayer.Culture">Culture</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>The player's culture info, can be used for localization purposes</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -214,7 +220,7 @@
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_Disguise.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.Disguise%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L930">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L992">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_Disguise_" data-uid="OpenAPI.Player.OpenPlayer.Disguise*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_Disguise" data-uid="OpenAPI.Player.OpenPlayer.Disguise">Disguise</h4>
@@ -246,11 +252,12 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_EventDispatcher.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.EventDispatcher%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L50">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L53">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_EventDispatcher_" data-uid="OpenAPI.Player.OpenPlayer.EventDispatcher*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_EventDispatcher" data-uid="OpenAPI.Player.OpenPlayer.EventDispatcher">EventDispatcher</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>The <a class="xref" href="OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_EventDispatcher">EventDispatcher</a> that can be used to listen to any events for this player.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -276,7 +283,7 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_IsDisguised.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.IsDisguised%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L962">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L1024">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_IsDisguised_" data-uid="OpenAPI.Player.OpenPlayer.IsDisguised*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_IsDisguised" data-uid="OpenAPI.Player.OpenPlayer.IsDisguised">IsDisguised</h4>
@@ -307,11 +314,12 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_IsXbox.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.IsXbox%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L53">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L60">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_IsXbox_" data-uid="OpenAPI.Player.OpenPlayer.IsXbox*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_IsXbox" data-uid="OpenAPI.Player.OpenPlayer.IsXbox">IsXbox</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Returns true if player is authenticated with an online-mode account</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -337,11 +345,12 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_Level.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.Level%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L72">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L97">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_Level_" data-uid="OpenAPI.Player.OpenPlayer.Level*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_Level" data-uid="OpenAPI.Player.OpenPlayer.Level">Level</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>The <a class="xref" href="OpenAPI.World.OpenLevel.html">OpenLevel</a> instance the player is currently in.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -367,11 +376,12 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_Permissions.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.Permissions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L55">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L70">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_Permissions_" data-uid="OpenAPI.Player.OpenPlayer.Permissions*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_Permissions" data-uid="OpenAPI.Player.OpenPlayer.Permissions">Permissions</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>The <a class="xref" href="OpenAPI.Permission.PermissionManager.html">PermissionManager</a> for this player</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -399,7 +409,7 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_AcceptPlayerMove_McpeMovePlayer_System_Boolean_System_Boolean_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.AcceptPlayerMove(McpeMovePlayer%2CSystem.Boolean%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L313">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L346">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_AcceptPlayerMove_" data-uid="OpenAPI.Player.OpenPlayer.AcceptPlayerMove*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_AcceptPlayerMove_McpeMovePlayer_System_Boolean_System_Boolean_" data-uid="OpenAPI.Player.OpenPlayer.AcceptPlayerMove(McpeMovePlayer,System.Boolean,System.Boolean)">AcceptPlayerMove(McpeMovePlayer, Boolean, Boolean)</h4>
@@ -456,7 +466,7 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_DespawnFromPlayers_MiNET_Player___.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.DespawnFromPlayers(MiNET.Player%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L975">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L1037">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_DespawnFromPlayers_" data-uid="OpenAPI.Player.OpenPlayer.DespawnFromPlayers*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_DespawnFromPlayers_MiNET_Player___" data-uid="OpenAPI.Player.OpenPlayer.DespawnFromPlayers(MiNET.Player[])">DespawnFromPlayers(MiNET.Player[])</h4>
@@ -488,7 +498,7 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_GetAttribute__1.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.GetAttribute%60%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L1015">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L1077">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_GetAttribute_" data-uid="OpenAPI.Player.OpenPlayer.GetAttribute*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_GetAttribute__1" data-uid="OpenAPI.Player.OpenPlayer.GetAttribute``1">GetAttribute&lt;TAttribute&gt;()</h4>
@@ -537,7 +547,7 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_HandleItemReleaseTransaction_ItemReleaseTransaction_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.HandleItemReleaseTransaction(ItemReleaseTransaction)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L386">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L433">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_HandleItemReleaseTransaction_" data-uid="OpenAPI.Player.OpenPlayer.HandleItemReleaseTransaction*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_HandleItemReleaseTransaction_ItemReleaseTransaction_" data-uid="OpenAPI.Player.OpenPlayer.HandleItemReleaseTransaction(ItemReleaseTransaction)">HandleItemReleaseTransaction(ItemReleaseTransaction)</h4>
@@ -569,7 +579,7 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_HandleItemUseOnEntityTransaction_ItemUseOnEntityTransaction_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.HandleItemUseOnEntityTransaction(ItemUseOnEntityTransaction)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L364">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L411">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_HandleItemUseOnEntityTransaction_" data-uid="OpenAPI.Player.OpenPlayer.HandleItemUseOnEntityTransaction*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_HandleItemUseOnEntityTransaction_ItemUseOnEntityTransaction_" data-uid="OpenAPI.Player.OpenPlayer.HandleItemUseOnEntityTransaction(ItemUseOnEntityTransaction)">HandleItemUseOnEntityTransaction(ItemUseOnEntityTransaction)</h4>
@@ -601,7 +611,7 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_HandleItemUseTransaction_ItemUseTransaction_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.HandleItemUseTransaction(ItemUseTransaction)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L418">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L465">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_HandleItemUseTransaction_" data-uid="OpenAPI.Player.OpenPlayer.HandleItemUseTransaction*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_HandleItemUseTransaction_ItemUseTransaction_" data-uid="OpenAPI.Player.OpenPlayer.HandleItemUseTransaction(ItemUseTransaction)">HandleItemUseTransaction(ItemUseTransaction)</h4>
@@ -633,7 +643,7 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_HandleMcpeAdventureSettings_McpeAdventureSettings_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.HandleMcpeAdventureSettings(McpeAdventureSettings)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L143">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L171">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_HandleMcpeAdventureSettings_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpeAdventureSettings*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_HandleMcpeAdventureSettings_McpeAdventureSettings_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpeAdventureSettings(McpeAdventureSettings)">HandleMcpeAdventureSettings(McpeAdventureSettings)</h4>
@@ -665,7 +675,7 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_HandleMcpeBlockEntityData_McpeBlockEntityData_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.HandleMcpeBlockEntityData(McpeBlockEntityData)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L97">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L125">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_HandleMcpeBlockEntityData_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpeBlockEntityData*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_HandleMcpeBlockEntityData_McpeBlockEntityData_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpeBlockEntityData(McpeBlockEntityData)">HandleMcpeBlockEntityData(McpeBlockEntityData)</h4>
@@ -697,11 +707,12 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_HandleMcpeCommandRequest_McpeCommandRequest_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.HandleMcpeCommandRequest(McpeCommandRequest)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L154">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L186">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_HandleMcpeCommandRequest_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpeCommandRequest*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_HandleMcpeCommandRequest_McpeCommandRequest_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpeCommandRequest(McpeCommandRequest)">HandleMcpeCommandRequest(McpeCommandRequest)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Handles any incoming commands.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -729,7 +740,7 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_HandleMcpeInteract_McpeInteract_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.HandleMcpeInteract(McpeInteract)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L818">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L880">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_HandleMcpeInteract_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpeInteract*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_HandleMcpeInteract_McpeInteract_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpeInteract(McpeInteract)">HandleMcpeInteract(McpeInteract)</h4>
@@ -761,7 +772,7 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_HandleMcpePlayerAction_McpePlayerAction_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.HandleMcpePlayerAction(McpePlayerAction)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L573">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L624">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_HandleMcpePlayerAction_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpePlayerAction*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_HandleMcpePlayerAction_McpePlayerAction_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpePlayerAction(McpePlayerAction)">HandleMcpePlayerAction(McpePlayerAction)</h4>
@@ -793,11 +804,12 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_HandleMcpePlayerInput_McpePlayerInput_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.HandleMcpePlayerInput(McpePlayerInput)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L768">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L826">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_HandleMcpePlayerInput_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpePlayerInput*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_HandleMcpePlayerInput_McpePlayerInput_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpePlayerInput(McpePlayerInput)">HandleMcpePlayerInput(McpePlayerInput)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Handles player input, so we can determine what buttons are pressed by the client.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -825,7 +837,7 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_HandleMcpeResourcePackChunkRequest_McpeResourcePackChunkRequest_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.HandleMcpeResourcePackChunkRequest(McpeResourcePackChunkRequest)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L833">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L895">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_HandleMcpeResourcePackChunkRequest_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpeResourcePackChunkRequest*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_HandleMcpeResourcePackChunkRequest_McpeResourcePackChunkRequest_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpeResourcePackChunkRequest(McpeResourcePackChunkRequest)">HandleMcpeResourcePackChunkRequest(McpeResourcePackChunkRequest)</h4>
@@ -857,7 +869,7 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_HandleMcpeResourcePackClientResponse_McpeResourcePackClientResponse_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.HandleMcpeResourcePackClientResponse(McpeResourcePackClientResponse)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L846">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L908">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_HandleMcpeResourcePackClientResponse_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpeResourcePackClientResponse*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_HandleMcpeResourcePackClientResponse_McpeResourcePackClientResponse_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpeResourcePackClientResponse(McpeResourcePackClientResponse)">HandleMcpeResourcePackClientResponse(McpeResourcePackClientResponse)</h4>
@@ -889,7 +901,7 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_HandleMcpeSetPlayerGameType_McpeSetPlayerGameType_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.HandleMcpeSetPlayerGameType(McpeSetPlayerGameType)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L124">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L152">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_HandleMcpeSetPlayerGameType_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpeSetPlayerGameType*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_HandleMcpeSetPlayerGameType_McpeSetPlayerGameType_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpeSetPlayerGameType(McpeSetPlayerGameType)">HandleMcpeSetPlayerGameType(McpeSetPlayerGameType)</h4>
@@ -921,11 +933,12 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_HandleMcpeText_McpeText_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.HandleMcpeText(McpeText)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L349">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L396">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_HandleMcpeText_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpeText*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_HandleMcpeText_McpeText_" data-uid="OpenAPI.Player.OpenPlayer.HandleMcpeText(McpeText)">HandleMcpeText(McpeText)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Handles incoming chat messages</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -953,7 +966,7 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_HandleTransactionRecords_List_TransactionRecord__.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.HandleTransactionRecords(List%7BTransactionRecord%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L480">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L527">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_HandleTransactionRecords_" data-uid="OpenAPI.Player.OpenPlayer.HandleTransactionRecords*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_HandleTransactionRecords_List_TransactionRecord__" data-uid="OpenAPI.Player.OpenPlayer.HandleTransactionRecords(List{TransactionRecord})">HandleTransactionRecords(List&lt;TransactionRecord&gt;)</h4>
@@ -985,11 +998,12 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_InitializePlayer.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.InitializePlayer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L74">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L102">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_InitializePlayer_" data-uid="OpenAPI.Player.OpenPlayer.InitializePlayer*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_InitializePlayer" data-uid="OpenAPI.Player.OpenPlayer.InitializePlayer">InitializePlayer()</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Initializes the player</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -1000,7 +1014,7 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_OnPlayerJoin_PlayerEventArgs_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.OnPlayerJoin(PlayerEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L251">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L284">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_OnPlayerJoin_" data-uid="OpenAPI.Player.OpenPlayer.OnPlayerJoin*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_OnPlayerJoin_PlayerEventArgs_" data-uid="OpenAPI.Player.OpenPlayer.OnPlayerJoin(PlayerEventArgs)">OnPlayerJoin(PlayerEventArgs)</h4>
@@ -1032,7 +1046,7 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_OnPlayerJoining_PlayerEventArgs_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.OnPlayerJoining(PlayerEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L238">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L271">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_OnPlayerJoining_" data-uid="OpenAPI.Player.OpenPlayer.OnPlayerJoining*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_OnPlayerJoining_PlayerEventArgs_" data-uid="OpenAPI.Player.OpenPlayer.OnPlayerJoining(PlayerEventArgs)">OnPlayerJoining(PlayerEventArgs)</h4>
@@ -1064,7 +1078,7 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_OnPlayerLeave_PlayerEventArgs_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.OnPlayerLeave(PlayerEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L259">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L292">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_OnPlayerLeave_" data-uid="OpenAPI.Player.OpenPlayer.OnPlayerLeave*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_OnPlayerLeave_PlayerEventArgs_" data-uid="OpenAPI.Player.OpenPlayer.OnPlayerLeave(PlayerEventArgs)">OnPlayerLeave(PlayerEventArgs)</h4>
@@ -1096,7 +1110,7 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_OnTicked_PlayerEventArgs_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.OnTicked(PlayerEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L197">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L230">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_OnTicked_" data-uid="OpenAPI.Player.OpenPlayer.OnTicked*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_OnTicked_PlayerEventArgs_" data-uid="OpenAPI.Player.OpenPlayer.OnTicked(PlayerEventArgs)">OnTicked(PlayerEventArgs)</h4>
@@ -1128,7 +1142,7 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_OnTicking_PlayerEventArgs_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.OnTicking(PlayerEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L192">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L225">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_OnTicking_" data-uid="OpenAPI.Player.OpenPlayer.OnTicking*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_OnTicking_PlayerEventArgs_" data-uid="OpenAPI.Player.OpenPlayer.OnTicking(PlayerEventArgs)">OnTicking(PlayerEventArgs)</h4>
@@ -1160,7 +1174,7 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_RefreshCommands.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.RefreshCommands%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L177">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L210">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_RefreshCommands_" data-uid="OpenAPI.Player.OpenPlayer.RefreshCommands*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_RefreshCommands" data-uid="OpenAPI.Player.OpenPlayer.RefreshCommands">RefreshCommands()</h4>
@@ -1175,11 +1189,12 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_SendAvailableCommands.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.SendAvailableCommands%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L164">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L199">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_SendAvailableCommands_" data-uid="OpenAPI.Player.OpenPlayer.SendAvailableCommands*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_SendAvailableCommands" data-uid="OpenAPI.Player.OpenPlayer.SendAvailableCommands">SendAvailableCommands()</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Sends the players available command set</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -1190,7 +1205,7 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_SendLocalizedMessage_System_String_MessageType_MiNET_Player_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.SendLocalizedMessage(System.String%2CMessageType%2CMiNET.Player)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L998">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L1060">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_SendLocalizedMessage_" data-uid="OpenAPI.Player.OpenPlayer.SendLocalizedMessage*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_SendLocalizedMessage_System_String_MessageType_MiNET_Player_" data-uid="OpenAPI.Player.OpenPlayer.SendLocalizedMessage(System.String,MessageType,MiNET.Player)">SendLocalizedMessage(String, MessageType, MiNET.Player)</h4>
@@ -1232,7 +1247,7 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_SendLocalizedMessage_System_String_System_Object___MessageType_MiNET_Player_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.SendLocalizedMessage(System.String%2CSystem.Object%5B%5D%2CMessageType%2CMiNET.Player)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L1003">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L1065">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_SendLocalizedMessage_" data-uid="OpenAPI.Player.OpenPlayer.SendLocalizedMessage*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_SendLocalizedMessage_System_String_System_Object___MessageType_MiNET_Player_" data-uid="OpenAPI.Player.OpenPlayer.SendLocalizedMessage(System.String,System.Object[],MessageType,MiNET.Player)">SendLocalizedMessage(String, Object[], MessageType, MiNET.Player)</h4>
@@ -1279,7 +1294,7 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_SendLocalizedTitle_System_String_System_Object___TitleType_System_Int32_System_Int32_System_Int32_MiNET_Player_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.SendLocalizedTitle(System.String%2CSystem.Object%5B%5D%2CTitleType%2CSystem.Int32%2CSystem.Int32%2CSystem.Int32%2CMiNET.Player)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L992">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L1054">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_SendLocalizedTitle_" data-uid="OpenAPI.Player.OpenPlayer.SendLocalizedTitle*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_SendLocalizedTitle_System_String_System_Object___TitleType_System_Int32_System_Int32_System_Int32_MiNET_Player_" data-uid="OpenAPI.Player.OpenPlayer.SendLocalizedTitle(System.String,System.Object[],TitleType,System.Int32,System.Int32,System.Int32,MiNET.Player)">SendLocalizedTitle(String, Object[], TitleType, Int32, Int32, Int32, MiNET.Player)</h4>
@@ -1341,7 +1356,7 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_SendLocalizedTitle_System_String_TitleType_System_Int32_System_Int32_System_Int32_MiNET_Player_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.SendLocalizedTitle(System.String%2CTitleType%2CSystem.Int32%2CSystem.Int32%2CSystem.Int32%2CMiNET.Player)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L986">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L1048">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_SendLocalizedTitle_" data-uid="OpenAPI.Player.OpenPlayer.SendLocalizedTitle*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_SendLocalizedTitle_System_String_TitleType_System_Int32_System_Int32_System_Int32_MiNET_Player_" data-uid="OpenAPI.Player.OpenPlayer.SendLocalizedTitle(System.String,TitleType,System.Int32,System.Int32,System.Int32,MiNET.Player)">SendLocalizedTitle(String, TitleType, Int32, Int32, Int32, MiNET.Player)</h4>
@@ -1398,7 +1413,7 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_SendResourcePacksInfo.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.SendResourcePacksInfo%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L881">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L943">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_SendResourcePacksInfo_" data-uid="OpenAPI.Player.OpenPlayer.SendResourcePacksInfo*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_SendResourcePacksInfo" data-uid="OpenAPI.Player.OpenPlayer.SendResourcePacksInfo">SendResourcePacksInfo()</h4>
@@ -1413,7 +1428,7 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_SendResourcePackStack.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.SendResourcePackStack%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L894">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L956">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_SendResourcePackStack_" data-uid="OpenAPI.Player.OpenPlayer.SendResourcePackStack*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_SendResourcePackStack" data-uid="OpenAPI.Player.OpenPlayer.SendResourcePackStack">SendResourcePackStack()</h4>
@@ -1425,25 +1440,10 @@ Can be undone by setting the value to null.</p>
   </div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_SendSetCommandsEnabled.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.SendSetCommandsEnabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L172">View Source</a>
-  </span>
-  <a id="OpenAPI_Player_OpenPlayer_SendSetCommandsEnabled_" data-uid="OpenAPI.Player.OpenPlayer.SendSetCommandsEnabled*"></a>
-  <h4 id="OpenAPI_Player_OpenPlayer_SendSetCommandsEnabled" data-uid="OpenAPI.Player.OpenPlayer.SendSetCommandsEnabled">SendSetCommandsEnabled()</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected override void SendSetCommandsEnabled()</code></pre>
-  </div>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_SetAttribute__1___0_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.SetAttribute%60%601(%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L1031">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L1093">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_SetAttribute_" data-uid="OpenAPI.Player.OpenPlayer.SetAttribute*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_SetAttribute__1___0_" data-uid="OpenAPI.Player.OpenPlayer.SetAttribute``1(``0)">SetAttribute&lt;TAttribute&gt;(TAttribute)</h4>
@@ -1494,7 +1494,7 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_SetGamemode_GameMode_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.SetGamemode(GameMode)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L918">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L980">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_SetGamemode_" data-uid="OpenAPI.Player.OpenPlayer.SetGamemode*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_SetGamemode_GameMode_" data-uid="OpenAPI.Player.OpenPlayer.SetGamemode(GameMode)">SetGamemode(GameMode)</h4>
@@ -1528,7 +1528,7 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_SpawnToPlayers_MiNET_Player___.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.SpawnToPlayers(MiNET.Player%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L964">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L1026">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_SpawnToPlayers_" data-uid="OpenAPI.Player.OpenPlayer.SpawnToPlayers*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_SpawnToPlayers_MiNET_Player___" data-uid="OpenAPI.Player.OpenPlayer.SpawnToPlayers(MiNET.Player[])">SpawnToPlayers(MiNET.Player[])</h4>
@@ -1560,11 +1560,12 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_Teleport_PlayerLocation_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.Teleport(PlayerLocation)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L325">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L362">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_Teleport_" data-uid="OpenAPI.Player.OpenPlayer.Teleport*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_Teleport_PlayerLocation_" data-uid="OpenAPI.Player.OpenPlayer.Teleport(PlayerLocation)">Teleport(PlayerLocation)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Teleports the player to specified position</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -1583,7 +1584,8 @@ Can be undone by setting the value to null.</p>
       <tr>
         <td><span class="xref">PlayerLocation</span></td>
         <td><span class="parametername">newPosition</span></td>
-        <td></td>
+        <td><p>The position to teleport the player to</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -1592,11 +1594,13 @@ Can be undone by setting the value to null.</p>
     <a href="https://github.com/OpenMiNET/OpenMiNET/new/master/apiSpec/new?filename=OpenAPI_Player_OpenPlayer_TransferToServer_IPEndPoint_.md&amp;value=---%0Auid%3A%20OpenAPI.Player.OpenPlayer.TransferToServer(IPEndPoint)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L338">View Source</a>
+    <a href="https://github.com/OpenMiNET/OpenMiNET/blob/master/src/OpenAPI/Player/OpenPlayer.cs/#L381">View Source</a>
   </span>
   <a id="OpenAPI_Player_OpenPlayer_TransferToServer_" data-uid="OpenAPI.Player.OpenPlayer.TransferToServer*"></a>
   <h4 id="OpenAPI_Player_OpenPlayer_TransferToServer_IPEndPoint_" data-uid="OpenAPI.Player.OpenPlayer.TransferToServer(IPEndPoint)">TransferToServer(IPEndPoint)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Transfers the player to a different server
+Note, only supports IPv4 addresses</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -1615,7 +1619,8 @@ Can be undone by setting the value to null.</p>
       <tr>
         <td><span class="xref">IPEndPoint</span></td>
         <td><span class="parametername">endpoint</span></td>
-        <td></td>
+        <td><p>The endpoint to transfer to</p>
+</td>
       </tr>
     </tbody>
   </table>
