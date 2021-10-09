@@ -96,17 +96,22 @@ namespace OpenAPI.Player
 			{
 				return null;
 			}
-			var player = new OpenPlayer(openServer, endPoint, _plugin);
-			player.ClientUuid = playerInfo.ClientUuid;
-			player.MaxViewDistance = Config.GetProperty("MaxViewDistance", 22);
-			player.MoveRenderDistance = Config.GetProperty("MoveRenderDistance", 1);
 
-		/*	if (!Players.TryAdd(playerInfo.ClientUuid, player))
+			var player = new OpenPlayer(openServer, endPoint, _plugin)
+			{
+				ClientUuid = playerInfo.ClientUuid,
+				MaxViewDistance = Config.GetProperty("MaxViewDistance", 22),
+				MoveRenderDistance = Config.GetProperty("MoveRenderDistance", 1),
+				PlayerInfo = playerInfo
+			};
+
+			/*	if (!Players.TryAdd(playerInfo.ClientUuid, player))
 			{
 				Log.Warn("Failed to add player to playermanager!");
 			}*/
 			//OnPlayerCreated?.Invoke(this, new PlayerCreatedEvent(player));
 			_plugin.EventDispatcher.DispatchEvent(new PlayerCreatedEvent(player));
+
 			return player;
 		}
 	}
