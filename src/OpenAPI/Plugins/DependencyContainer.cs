@@ -11,11 +11,11 @@ namespace OpenAPI.Plugins
     /// </summary>
     public class DependencyContainer
     {
-        private ConcurrentDictionary<Type, ServiceItem> Services { get; set; }
+        private ConcurrentDictionary<Type, IServiceItem> Services { get; set; }
 
         public DependencyContainer()
         {
-            Services = new ConcurrentDictionary<Type, ServiceItem>();
+            Services = new ConcurrentDictionary<Type, IServiceItem>();
         }
 
         /// <summary>
@@ -116,10 +116,24 @@ namespace OpenAPI.Plugins
         /// <exception cref="DuplicateTypeException">Thrown when a service of the same type has already been registered</exception>
         public void Register<TType>(DependencyLifetime lifetime = DependencyLifetime.Singleton)
         {
-            throw new NotImplementedException("Please use RegisterSingleton instead.");
+            IServiceItem item;
+
+            switch (lifetime)
+            {
+                case DependencyLifetime.Singleton:
+                    item = new SingletonServiceItem(this, typeof(TType));
+                    break;
+
+                case DependencyLifetime.Transient:
+                    item = new TransientServiceItem(this, typeof(TType));
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(lifetime), lifetime, null);
+            }
             
             var type = typeof(TType);
-            if (!Services.TryAdd(type, new ServiceItem(this, type, lifetime)))
+            if (!Services.TryAdd(type, item))
             {
                 throw new DuplicateTypeException();
             }
@@ -134,7 +148,7 @@ namespace OpenAPI.Plugins
         public void RegisterSingleton<TType>(TType value)
         {
             var type = typeof(TType);
-            if (!Services.TryAdd(type, new ServiceItem(this, type, value)))
+            if (!Services.TryAdd(type, new SingletonServiceItem(this, type, value)))
             {
                 throw new DuplicateTypeException();
             }
@@ -147,7 +161,7 @@ namespace OpenAPI.Plugins
         /// <param name="value"></param>
         public void RegisterSingleton(Type type, object value)
         {
-            if (!Services.TryAdd(type, new ServiceItem(this, type, value)))
+            if (!Services.TryAdd(type, new SingletonServiceItem(this, type, value)))
             {
                 throw new DuplicateTypeException();
             }
@@ -208,51 +222,78 @@ namespace OpenAPI.Plugins
             return (TType) CreateInstanceOf(typeof(TType));
         }
 
-        private class ServiceItem : IDisposable
+        private interface IServiceItem : IDisposable
         {
-            private DependencyContainer Parent { get; }
-            
-            public Type Type { get; }
-            public DependencyLifetime Lifetime { get; }
+            object GetInstance();
+        }
 
-            private object _value = null;
-            public ServiceItem(DependencyContainer parent, Type type, DependencyLifetime lifetime)
+        private abstract class ServiceItemBase : IServiceItem
+        {
+            protected DependencyContainer Parent { get; }
+            protected Type Type { get; }
+
+            public ServiceItemBase(DependencyContainer parent, Type type)
             {
                 Parent = parent;
                 Type = type;
-                Lifetime = lifetime;
             }
 
-            public ServiceItem(DependencyContainer parent, Type type, object value)
+            protected object Construct()
             {
-                Parent = parent;
-                Type = type;
-                Lifetime = DependencyLifetime.Singleton;
+                return Parent.CreateInstanceOf(Type);
+            }
+            
+            /// <inheritdoc />
+            public abstract object GetInstance();
+
+
+            /// <inheritdoc />
+            public abstract void Dispose();
+        }
+
+        private class SingletonServiceItem : ServiceItemBase
+        {
+            private object _value = null;
+            public SingletonServiceItem(DependencyContainer parent, Type type, object value) : this(parent, type)
+            {
                 _value = value;
             }
 
-            public void Initiate()
+            public SingletonServiceItem(DependencyContainer parent, Type type) : base(parent, type)
             {
                 
             }
-
-            public object GetInstance()
+            
+            /// <inheritdoc />
+            public override object GetInstance()
             {
-                if (Lifetime == DependencyLifetime.Singleton)
+                if (_value == null)
                 {
-                    return _value;
+                    _value = Construct();
                 }
-
+                return _value;
+            }
+            
+            /// <inheritdoc />
+            public override void Dispose()
+            {
+                
+            }
+        }
+        
+        private class TransientServiceItem : ServiceItemBase
+        {
+            public TransientServiceItem(DependencyContainer parent, Type type) : base(parent, type)
+            {
+            }
+            
+            public override object GetInstance()
+            {
                 return Construct();
             }
 
-            private object Construct()
-            {
-                throw new NotImplementedException();
-            }
-
             /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
-            public void Dispose()
+            public override void Dispose()
             {
             }
         }
