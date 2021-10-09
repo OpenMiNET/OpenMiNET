@@ -1182,7 +1182,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenAPI.Plugins.DependencyContainer.html",
-          "hash": "LpfoQ5xkCQSGhB8IsLmhiw=="
+          "hash": "DIBsrXDb1CHCirPVp6v2LA=="
         }
       },
       "is_incremental": false,
@@ -1194,7 +1194,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenAPI.Plugins.DependencyLifetime.html",
-          "hash": "LNBmRfdugDMcSEqQE/W+sA=="
+          "hash": "xkcqyjzWM7Osqvw/M+5nbQ=="
         }
       },
       "is_incremental": false,
