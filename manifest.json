@@ -1130,11 +1130,59 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/OpenAPI.Player.Inventory.DropItemAction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenAPI.Player.Inventory.DropItemAction.html",
+          "hash": "aJycWruChkupWKF+MNN0FA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpenAPI.Player.Inventory.InventoryAction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenAPI.Player.Inventory.InventoryAction.html",
+          "hash": "mLTe47aU/DLsoireEl0sIA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpenAPI.Player.Inventory.SlotChangeAction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenAPI.Player.Inventory.SlotChangeAction.html",
+          "hash": "fGgNYWKqPmUIcjBU8rdl4Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpenAPI.Player.Inventory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenAPI.Player.Inventory.html",
+          "hash": "w05jlwpjTelTD/5ldWYTOQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/OpenAPI.Player.OpenPlayer.yml",
       "output": {
         ".html": {
           "relative_path": "api/OpenAPI.Player.OpenPlayer.html",
-          "hash": "SlPJcc1tfEuF9CLGAyVdiQ=="
+          "hash": "KVF+FPt5fF+Do718RPR35w=="
         }
       },
       "is_incremental": false,
@@ -1566,7 +1614,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "ij8Yjpqa7SkHh66+tRE7Bg=="
+          "hash": "S5UAG7q1zgCc7TK6D2B+QA=="
         }
       },
       "is_incremental": false,
@@ -1653,7 +1701,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 128,
+          "total_file_count": 132,
           "skipped_file_count": 0
         },
         "TocDocumentProcessor": {

@@ -3782,6 +3782,315 @@ references:
   commentId: N:OpenAPI.Player
   fullName: OpenAPI.Player
   nameWithType: OpenAPI.Player
+- uid: OpenAPI.Player.Inventory
+  name: OpenAPI.Player.Inventory
+  href: api/OpenAPI.Player.Inventory.html
+  commentId: N:OpenAPI.Player.Inventory
+  fullName: OpenAPI.Player.Inventory
+  nameWithType: OpenAPI.Player.Inventory
+- uid: OpenAPI.Player.Inventory.DropItemAction
+  name: DropItemAction
+  href: api/OpenAPI.Player.Inventory.DropItemAction.html
+  commentId: T:OpenAPI.Player.Inventory.DropItemAction
+  fullName: OpenAPI.Player.Inventory.DropItemAction
+  nameWithType: DropItemAction
+- uid: OpenAPI.Player.Inventory.DropItemAction.#ctor(Item)
+  name: DropItemAction(Item)
+  href: api/OpenAPI.Player.Inventory.DropItemAction.html#OpenAPI_Player_Inventory_DropItemAction__ctor_Item_
+  commentId: M:OpenAPI.Player.Inventory.DropItemAction.#ctor(Item)
+  fullName: OpenAPI.Player.Inventory.DropItemAction.DropItemAction(Item)
+  nameWithType: DropItemAction.DropItemAction(Item)
+- uid: OpenAPI.Player.Inventory.DropItemAction.#ctor*
+  name: DropItemAction
+  href: api/OpenAPI.Player.Inventory.DropItemAction.html#OpenAPI_Player_Inventory_DropItemAction__ctor_
+  commentId: Overload:OpenAPI.Player.Inventory.DropItemAction.#ctor
+  isSpec: "True"
+  fullName: OpenAPI.Player.Inventory.DropItemAction.DropItemAction
+  nameWithType: DropItemAction.DropItemAction
+- uid: OpenAPI.Player.Inventory.DropItemAction.Execute(OpenAPI.Player.OpenPlayer)
+  name: Execute(OpenPlayer)
+  href: api/OpenAPI.Player.Inventory.DropItemAction.html#OpenAPI_Player_Inventory_DropItemAction_Execute_OpenAPI_Player_OpenPlayer_
+  commentId: M:OpenAPI.Player.Inventory.DropItemAction.Execute(OpenAPI.Player.OpenPlayer)
+  fullName: OpenAPI.Player.Inventory.DropItemAction.Execute(OpenAPI.Player.OpenPlayer)
+  nameWithType: DropItemAction.Execute(OpenPlayer)
+- uid: OpenAPI.Player.Inventory.DropItemAction.Execute*
+  name: Execute
+  href: api/OpenAPI.Player.Inventory.DropItemAction.html#OpenAPI_Player_Inventory_DropItemAction_Execute_
+  commentId: Overload:OpenAPI.Player.Inventory.DropItemAction.Execute
+  isSpec: "True"
+  fullName: OpenAPI.Player.Inventory.DropItemAction.Execute
+  nameWithType: DropItemAction.Execute
+- uid: OpenAPI.Player.Inventory.DropItemAction.ExecutionFailed(OpenAPI.Player.OpenPlayer)
+  name: ExecutionFailed(OpenPlayer)
+  href: api/OpenAPI.Player.Inventory.DropItemAction.html#OpenAPI_Player_Inventory_DropItemAction_ExecutionFailed_OpenAPI_Player_OpenPlayer_
+  commentId: M:OpenAPI.Player.Inventory.DropItemAction.ExecutionFailed(OpenAPI.Player.OpenPlayer)
+  fullName: OpenAPI.Player.Inventory.DropItemAction.ExecutionFailed(OpenAPI.Player.OpenPlayer)
+  nameWithType: DropItemAction.ExecutionFailed(OpenPlayer)
+- uid: OpenAPI.Player.Inventory.DropItemAction.ExecutionFailed*
+  name: ExecutionFailed
+  href: api/OpenAPI.Player.Inventory.DropItemAction.html#OpenAPI_Player_Inventory_DropItemAction_ExecutionFailed_
+  commentId: Overload:OpenAPI.Player.Inventory.DropItemAction.ExecutionFailed
+  isSpec: "True"
+  fullName: OpenAPI.Player.Inventory.DropItemAction.ExecutionFailed
+  nameWithType: DropItemAction.ExecutionFailed
+- uid: OpenAPI.Player.Inventory.DropItemAction.ExecutionSucceeded(OpenAPI.Player.OpenPlayer)
+  name: ExecutionSucceeded(OpenPlayer)
+  href: api/OpenAPI.Player.Inventory.DropItemAction.html#OpenAPI_Player_Inventory_DropItemAction_ExecutionSucceeded_OpenAPI_Player_OpenPlayer_
+  commentId: M:OpenAPI.Player.Inventory.DropItemAction.ExecutionSucceeded(OpenAPI.Player.OpenPlayer)
+  fullName: OpenAPI.Player.Inventory.DropItemAction.ExecutionSucceeded(OpenAPI.Player.OpenPlayer)
+  nameWithType: DropItemAction.ExecutionSucceeded(OpenPlayer)
+- uid: OpenAPI.Player.Inventory.DropItemAction.ExecutionSucceeded*
+  name: ExecutionSucceeded
+  href: api/OpenAPI.Player.Inventory.DropItemAction.html#OpenAPI_Player_Inventory_DropItemAction_ExecutionSucceeded_
+  commentId: Overload:OpenAPI.Player.Inventory.DropItemAction.ExecutionSucceeded
+  isSpec: "True"
+  fullName: OpenAPI.Player.Inventory.DropItemAction.ExecutionSucceeded
+  nameWithType: DropItemAction.ExecutionSucceeded
+- uid: OpenAPI.Player.Inventory.DropItemAction.IsValid(OpenAPI.Player.OpenPlayer)
+  name: IsValid(OpenPlayer)
+  href: api/OpenAPI.Player.Inventory.DropItemAction.html#OpenAPI_Player_Inventory_DropItemAction_IsValid_OpenAPI_Player_OpenPlayer_
+  commentId: M:OpenAPI.Player.Inventory.DropItemAction.IsValid(OpenAPI.Player.OpenPlayer)
+  fullName: OpenAPI.Player.Inventory.DropItemAction.IsValid(OpenAPI.Player.OpenPlayer)
+  nameWithType: DropItemAction.IsValid(OpenPlayer)
+- uid: OpenAPI.Player.Inventory.DropItemAction.IsValid*
+  name: IsValid
+  href: api/OpenAPI.Player.Inventory.DropItemAction.html#OpenAPI_Player_Inventory_DropItemAction_IsValid_
+  commentId: Overload:OpenAPI.Player.Inventory.DropItemAction.IsValid
+  isSpec: "True"
+  fullName: OpenAPI.Player.Inventory.DropItemAction.IsValid
+  nameWithType: DropItemAction.IsValid
+- uid: OpenAPI.Player.Inventory.DropItemAction.PreExecute(OpenAPI.Player.OpenPlayer)
+  name: PreExecute(OpenPlayer)
+  href: api/OpenAPI.Player.Inventory.DropItemAction.html#OpenAPI_Player_Inventory_DropItemAction_PreExecute_OpenAPI_Player_OpenPlayer_
+  commentId: M:OpenAPI.Player.Inventory.DropItemAction.PreExecute(OpenAPI.Player.OpenPlayer)
+  fullName: OpenAPI.Player.Inventory.DropItemAction.PreExecute(OpenAPI.Player.OpenPlayer)
+  nameWithType: DropItemAction.PreExecute(OpenPlayer)
+- uid: OpenAPI.Player.Inventory.DropItemAction.PreExecute*
+  name: PreExecute
+  href: api/OpenAPI.Player.Inventory.DropItemAction.html#OpenAPI_Player_Inventory_DropItemAction_PreExecute_
+  commentId: Overload:OpenAPI.Player.Inventory.DropItemAction.PreExecute
+  isSpec: "True"
+  fullName: OpenAPI.Player.Inventory.DropItemAction.PreExecute
+  nameWithType: DropItemAction.PreExecute
+- uid: OpenAPI.Player.Inventory.InventoryAction
+  name: InventoryAction
+  href: api/OpenAPI.Player.Inventory.InventoryAction.html
+  commentId: T:OpenAPI.Player.Inventory.InventoryAction
+  fullName: OpenAPI.Player.Inventory.InventoryAction
+  nameWithType: InventoryAction
+- uid: OpenAPI.Player.Inventory.InventoryAction.#ctor(Item,Item)
+  name: InventoryAction(Item, Item)
+  href: api/OpenAPI.Player.Inventory.InventoryAction.html#OpenAPI_Player_Inventory_InventoryAction__ctor_Item_Item_
+  commentId: M:OpenAPI.Player.Inventory.InventoryAction.#ctor(Item,Item)
+  fullName: OpenAPI.Player.Inventory.InventoryAction.InventoryAction(Item, Item)
+  nameWithType: InventoryAction.InventoryAction(Item, Item)
+- uid: OpenAPI.Player.Inventory.InventoryAction.#ctor*
+  name: InventoryAction
+  href: api/OpenAPI.Player.Inventory.InventoryAction.html#OpenAPI_Player_Inventory_InventoryAction__ctor_
+  commentId: Overload:OpenAPI.Player.Inventory.InventoryAction.#ctor
+  isSpec: "True"
+  fullName: OpenAPI.Player.Inventory.InventoryAction.InventoryAction
+  nameWithType: InventoryAction.InventoryAction
+- uid: OpenAPI.Player.Inventory.InventoryAction.Execute(OpenAPI.Player.OpenPlayer)
+  name: Execute(OpenPlayer)
+  href: api/OpenAPI.Player.Inventory.InventoryAction.html#OpenAPI_Player_Inventory_InventoryAction_Execute_OpenAPI_Player_OpenPlayer_
+  commentId: M:OpenAPI.Player.Inventory.InventoryAction.Execute(OpenAPI.Player.OpenPlayer)
+  fullName: OpenAPI.Player.Inventory.InventoryAction.Execute(OpenAPI.Player.OpenPlayer)
+  nameWithType: InventoryAction.Execute(OpenPlayer)
+- uid: OpenAPI.Player.Inventory.InventoryAction.Execute*
+  name: Execute
+  href: api/OpenAPI.Player.Inventory.InventoryAction.html#OpenAPI_Player_Inventory_InventoryAction_Execute_
+  commentId: Overload:OpenAPI.Player.Inventory.InventoryAction.Execute
+  isSpec: "True"
+  fullName: OpenAPI.Player.Inventory.InventoryAction.Execute
+  nameWithType: InventoryAction.Execute
+- uid: OpenAPI.Player.Inventory.InventoryAction.ExecutionFailed(OpenAPI.Player.OpenPlayer)
+  name: ExecutionFailed(OpenPlayer)
+  href: api/OpenAPI.Player.Inventory.InventoryAction.html#OpenAPI_Player_Inventory_InventoryAction_ExecutionFailed_OpenAPI_Player_OpenPlayer_
+  commentId: M:OpenAPI.Player.Inventory.InventoryAction.ExecutionFailed(OpenAPI.Player.OpenPlayer)
+  fullName: OpenAPI.Player.Inventory.InventoryAction.ExecutionFailed(OpenAPI.Player.OpenPlayer)
+  nameWithType: InventoryAction.ExecutionFailed(OpenPlayer)
+- uid: OpenAPI.Player.Inventory.InventoryAction.ExecutionFailed*
+  name: ExecutionFailed
+  href: api/OpenAPI.Player.Inventory.InventoryAction.html#OpenAPI_Player_Inventory_InventoryAction_ExecutionFailed_
+  commentId: Overload:OpenAPI.Player.Inventory.InventoryAction.ExecutionFailed
+  isSpec: "True"
+  fullName: OpenAPI.Player.Inventory.InventoryAction.ExecutionFailed
+  nameWithType: InventoryAction.ExecutionFailed
+- uid: OpenAPI.Player.Inventory.InventoryAction.ExecutionSucceeded(OpenAPI.Player.OpenPlayer)
+  name: ExecutionSucceeded(OpenPlayer)
+  href: api/OpenAPI.Player.Inventory.InventoryAction.html#OpenAPI_Player_Inventory_InventoryAction_ExecutionSucceeded_OpenAPI_Player_OpenPlayer_
+  commentId: M:OpenAPI.Player.Inventory.InventoryAction.ExecutionSucceeded(OpenAPI.Player.OpenPlayer)
+  fullName: OpenAPI.Player.Inventory.InventoryAction.ExecutionSucceeded(OpenAPI.Player.OpenPlayer)
+  nameWithType: InventoryAction.ExecutionSucceeded(OpenPlayer)
+- uid: OpenAPI.Player.Inventory.InventoryAction.ExecutionSucceeded*
+  name: ExecutionSucceeded
+  href: api/OpenAPI.Player.Inventory.InventoryAction.html#OpenAPI_Player_Inventory_InventoryAction_ExecutionSucceeded_
+  commentId: Overload:OpenAPI.Player.Inventory.InventoryAction.ExecutionSucceeded
+  isSpec: "True"
+  fullName: OpenAPI.Player.Inventory.InventoryAction.ExecutionSucceeded
+  nameWithType: InventoryAction.ExecutionSucceeded
+- uid: OpenAPI.Player.Inventory.InventoryAction.IsValid(OpenAPI.Player.OpenPlayer)
+  name: IsValid(OpenPlayer)
+  href: api/OpenAPI.Player.Inventory.InventoryAction.html#OpenAPI_Player_Inventory_InventoryAction_IsValid_OpenAPI_Player_OpenPlayer_
+  commentId: M:OpenAPI.Player.Inventory.InventoryAction.IsValid(OpenAPI.Player.OpenPlayer)
+  fullName: OpenAPI.Player.Inventory.InventoryAction.IsValid(OpenAPI.Player.OpenPlayer)
+  nameWithType: InventoryAction.IsValid(OpenPlayer)
+- uid: OpenAPI.Player.Inventory.InventoryAction.IsValid*
+  name: IsValid
+  href: api/OpenAPI.Player.Inventory.InventoryAction.html#OpenAPI_Player_Inventory_InventoryAction_IsValid_
+  commentId: Overload:OpenAPI.Player.Inventory.InventoryAction.IsValid
+  isSpec: "True"
+  fullName: OpenAPI.Player.Inventory.InventoryAction.IsValid
+  nameWithType: InventoryAction.IsValid
+- uid: OpenAPI.Player.Inventory.InventoryAction.OnAddToTransaction
+  name: OnAddToTransaction()
+  href: api/OpenAPI.Player.Inventory.InventoryAction.html#OpenAPI_Player_Inventory_InventoryAction_OnAddToTransaction
+  commentId: M:OpenAPI.Player.Inventory.InventoryAction.OnAddToTransaction
+  fullName: OpenAPI.Player.Inventory.InventoryAction.OnAddToTransaction()
+  nameWithType: InventoryAction.OnAddToTransaction()
+- uid: OpenAPI.Player.Inventory.InventoryAction.OnAddToTransaction*
+  name: OnAddToTransaction
+  href: api/OpenAPI.Player.Inventory.InventoryAction.html#OpenAPI_Player_Inventory_InventoryAction_OnAddToTransaction_
+  commentId: Overload:OpenAPI.Player.Inventory.InventoryAction.OnAddToTransaction
+  isSpec: "True"
+  fullName: OpenAPI.Player.Inventory.InventoryAction.OnAddToTransaction
+  nameWithType: InventoryAction.OnAddToTransaction
+- uid: OpenAPI.Player.Inventory.InventoryAction.PreExecute(OpenAPI.Player.OpenPlayer)
+  name: PreExecute(OpenPlayer)
+  href: api/OpenAPI.Player.Inventory.InventoryAction.html#OpenAPI_Player_Inventory_InventoryAction_PreExecute_OpenAPI_Player_OpenPlayer_
+  commentId: M:OpenAPI.Player.Inventory.InventoryAction.PreExecute(OpenAPI.Player.OpenPlayer)
+  fullName: OpenAPI.Player.Inventory.InventoryAction.PreExecute(OpenAPI.Player.OpenPlayer)
+  nameWithType: InventoryAction.PreExecute(OpenPlayer)
+- uid: OpenAPI.Player.Inventory.InventoryAction.PreExecute*
+  name: PreExecute
+  href: api/OpenAPI.Player.Inventory.InventoryAction.html#OpenAPI_Player_Inventory_InventoryAction_PreExecute_
+  commentId: Overload:OpenAPI.Player.Inventory.InventoryAction.PreExecute
+  isSpec: "True"
+  fullName: OpenAPI.Player.Inventory.InventoryAction.PreExecute
+  nameWithType: InventoryAction.PreExecute
+- uid: OpenAPI.Player.Inventory.InventoryAction.SourceItem
+  name: SourceItem
+  href: api/OpenAPI.Player.Inventory.InventoryAction.html#OpenAPI_Player_Inventory_InventoryAction_SourceItem
+  commentId: P:OpenAPI.Player.Inventory.InventoryAction.SourceItem
+  fullName: OpenAPI.Player.Inventory.InventoryAction.SourceItem
+  nameWithType: InventoryAction.SourceItem
+- uid: OpenAPI.Player.Inventory.InventoryAction.SourceItem*
+  name: SourceItem
+  href: api/OpenAPI.Player.Inventory.InventoryAction.html#OpenAPI_Player_Inventory_InventoryAction_SourceItem_
+  commentId: Overload:OpenAPI.Player.Inventory.InventoryAction.SourceItem
+  isSpec: "True"
+  fullName: OpenAPI.Player.Inventory.InventoryAction.SourceItem
+  nameWithType: InventoryAction.SourceItem
+- uid: OpenAPI.Player.Inventory.InventoryAction.TargetItem
+  name: TargetItem
+  href: api/OpenAPI.Player.Inventory.InventoryAction.html#OpenAPI_Player_Inventory_InventoryAction_TargetItem
+  commentId: P:OpenAPI.Player.Inventory.InventoryAction.TargetItem
+  fullName: OpenAPI.Player.Inventory.InventoryAction.TargetItem
+  nameWithType: InventoryAction.TargetItem
+- uid: OpenAPI.Player.Inventory.InventoryAction.TargetItem*
+  name: TargetItem
+  href: api/OpenAPI.Player.Inventory.InventoryAction.html#OpenAPI_Player_Inventory_InventoryAction_TargetItem_
+  commentId: Overload:OpenAPI.Player.Inventory.InventoryAction.TargetItem
+  isSpec: "True"
+  fullName: OpenAPI.Player.Inventory.InventoryAction.TargetItem
+  nameWithType: InventoryAction.TargetItem
+- uid: OpenAPI.Player.Inventory.SlotChangeAction
+  name: SlotChangeAction
+  href: api/OpenAPI.Player.Inventory.SlotChangeAction.html
+  commentId: T:OpenAPI.Player.Inventory.SlotChangeAction
+  fullName: OpenAPI.Player.Inventory.SlotChangeAction
+  nameWithType: SlotChangeAction
+- uid: OpenAPI.Player.Inventory.SlotChangeAction.#ctor(OpenAPI.Player.OpenPlayer,System.Int32,System.Int32,Item,Item)
+  name: SlotChangeAction(OpenPlayer, Int32, Int32, Item, Item)
+  href: api/OpenAPI.Player.Inventory.SlotChangeAction.html#OpenAPI_Player_Inventory_SlotChangeAction__ctor_OpenAPI_Player_OpenPlayer_System_Int32_System_Int32_Item_Item_
+  commentId: M:OpenAPI.Player.Inventory.SlotChangeAction.#ctor(OpenAPI.Player.OpenPlayer,System.Int32,System.Int32,Item,Item)
+  fullName: OpenAPI.Player.Inventory.SlotChangeAction.SlotChangeAction(OpenAPI.Player.OpenPlayer, System.Int32, System.Int32, Item, Item)
+  nameWithType: SlotChangeAction.SlotChangeAction(OpenPlayer, Int32, Int32, Item, Item)
+- uid: OpenAPI.Player.Inventory.SlotChangeAction.#ctor*
+  name: SlotChangeAction
+  href: api/OpenAPI.Player.Inventory.SlotChangeAction.html#OpenAPI_Player_Inventory_SlotChangeAction__ctor_
+  commentId: Overload:OpenAPI.Player.Inventory.SlotChangeAction.#ctor
+  isSpec: "True"
+  fullName: OpenAPI.Player.Inventory.SlotChangeAction.SlotChangeAction
+  nameWithType: SlotChangeAction.SlotChangeAction
+- uid: OpenAPI.Player.Inventory.SlotChangeAction.EqualsExactly(Item,Item)
+  name: EqualsExactly(Item, Item)
+  href: api/OpenAPI.Player.Inventory.SlotChangeAction.html#OpenAPI_Player_Inventory_SlotChangeAction_EqualsExactly_Item_Item_
+  commentId: M:OpenAPI.Player.Inventory.SlotChangeAction.EqualsExactly(Item,Item)
+  fullName: OpenAPI.Player.Inventory.SlotChangeAction.EqualsExactly(Item, Item)
+  nameWithType: SlotChangeAction.EqualsExactly(Item, Item)
+- uid: OpenAPI.Player.Inventory.SlotChangeAction.EqualsExactly*
+  name: EqualsExactly
+  href: api/OpenAPI.Player.Inventory.SlotChangeAction.html#OpenAPI_Player_Inventory_SlotChangeAction_EqualsExactly_
+  commentId: Overload:OpenAPI.Player.Inventory.SlotChangeAction.EqualsExactly
+  isSpec: "True"
+  fullName: OpenAPI.Player.Inventory.SlotChangeAction.EqualsExactly
+  nameWithType: SlotChangeAction.EqualsExactly
+- uid: OpenAPI.Player.Inventory.SlotChangeAction.Execute(OpenAPI.Player.OpenPlayer)
+  name: Execute(OpenPlayer)
+  href: api/OpenAPI.Player.Inventory.SlotChangeAction.html#OpenAPI_Player_Inventory_SlotChangeAction_Execute_OpenAPI_Player_OpenPlayer_
+  commentId: M:OpenAPI.Player.Inventory.SlotChangeAction.Execute(OpenAPI.Player.OpenPlayer)
+  fullName: OpenAPI.Player.Inventory.SlotChangeAction.Execute(OpenAPI.Player.OpenPlayer)
+  nameWithType: SlotChangeAction.Execute(OpenPlayer)
+- uid: OpenAPI.Player.Inventory.SlotChangeAction.Execute*
+  name: Execute
+  href: api/OpenAPI.Player.Inventory.SlotChangeAction.html#OpenAPI_Player_Inventory_SlotChangeAction_Execute_
+  commentId: Overload:OpenAPI.Player.Inventory.SlotChangeAction.Execute
+  isSpec: "True"
+  fullName: OpenAPI.Player.Inventory.SlotChangeAction.Execute
+  nameWithType: SlotChangeAction.Execute
+- uid: OpenAPI.Player.Inventory.SlotChangeAction.ExecutionFailed(OpenAPI.Player.OpenPlayer)
+  name: ExecutionFailed(OpenPlayer)
+  href: api/OpenAPI.Player.Inventory.SlotChangeAction.html#OpenAPI_Player_Inventory_SlotChangeAction_ExecutionFailed_OpenAPI_Player_OpenPlayer_
+  commentId: M:OpenAPI.Player.Inventory.SlotChangeAction.ExecutionFailed(OpenAPI.Player.OpenPlayer)
+  fullName: OpenAPI.Player.Inventory.SlotChangeAction.ExecutionFailed(OpenAPI.Player.OpenPlayer)
+  nameWithType: SlotChangeAction.ExecutionFailed(OpenPlayer)
+- uid: OpenAPI.Player.Inventory.SlotChangeAction.ExecutionFailed*
+  name: ExecutionFailed
+  href: api/OpenAPI.Player.Inventory.SlotChangeAction.html#OpenAPI_Player_Inventory_SlotChangeAction_ExecutionFailed_
+  commentId: Overload:OpenAPI.Player.Inventory.SlotChangeAction.ExecutionFailed
+  isSpec: "True"
+  fullName: OpenAPI.Player.Inventory.SlotChangeAction.ExecutionFailed
+  nameWithType: SlotChangeAction.ExecutionFailed
+- uid: OpenAPI.Player.Inventory.SlotChangeAction.ExecutionSucceeded(OpenAPI.Player.OpenPlayer)
+  name: ExecutionSucceeded(OpenPlayer)
+  href: api/OpenAPI.Player.Inventory.SlotChangeAction.html#OpenAPI_Player_Inventory_SlotChangeAction_ExecutionSucceeded_OpenAPI_Player_OpenPlayer_
+  commentId: M:OpenAPI.Player.Inventory.SlotChangeAction.ExecutionSucceeded(OpenAPI.Player.OpenPlayer)
+  fullName: OpenAPI.Player.Inventory.SlotChangeAction.ExecutionSucceeded(OpenAPI.Player.OpenPlayer)
+  nameWithType: SlotChangeAction.ExecutionSucceeded(OpenPlayer)
+- uid: OpenAPI.Player.Inventory.SlotChangeAction.ExecutionSucceeded*
+  name: ExecutionSucceeded
+  href: api/OpenAPI.Player.Inventory.SlotChangeAction.html#OpenAPI_Player_Inventory_SlotChangeAction_ExecutionSucceeded_
+  commentId: Overload:OpenAPI.Player.Inventory.SlotChangeAction.ExecutionSucceeded
+  isSpec: "True"
+  fullName: OpenAPI.Player.Inventory.SlotChangeAction.ExecutionSucceeded
+  nameWithType: SlotChangeAction.ExecutionSucceeded
+- uid: OpenAPI.Player.Inventory.SlotChangeAction.InventoryId
+  name: InventoryId
+  href: api/OpenAPI.Player.Inventory.SlotChangeAction.html#OpenAPI_Player_Inventory_SlotChangeAction_InventoryId
+  commentId: F:OpenAPI.Player.Inventory.SlotChangeAction.InventoryId
+  fullName: OpenAPI.Player.Inventory.SlotChangeAction.InventoryId
+  nameWithType: SlotChangeAction.InventoryId
+- uid: OpenAPI.Player.Inventory.SlotChangeAction.InventorySlot
+  name: InventorySlot
+  href: api/OpenAPI.Player.Inventory.SlotChangeAction.html#OpenAPI_Player_Inventory_SlotChangeAction_InventorySlot
+  commentId: F:OpenAPI.Player.Inventory.SlotChangeAction.InventorySlot
+  fullName: OpenAPI.Player.Inventory.SlotChangeAction.InventorySlot
+  nameWithType: SlotChangeAction.InventorySlot
+- uid: OpenAPI.Player.Inventory.SlotChangeAction.IsValid(OpenAPI.Player.OpenPlayer)
+  name: IsValid(OpenPlayer)
+  href: api/OpenAPI.Player.Inventory.SlotChangeAction.html#OpenAPI_Player_Inventory_SlotChangeAction_IsValid_OpenAPI_Player_OpenPlayer_
+  commentId: M:OpenAPI.Player.Inventory.SlotChangeAction.IsValid(OpenAPI.Player.OpenPlayer)
+  fullName: OpenAPI.Player.Inventory.SlotChangeAction.IsValid(OpenAPI.Player.OpenPlayer)
+  nameWithType: SlotChangeAction.IsValid(OpenPlayer)
+- uid: OpenAPI.Player.Inventory.SlotChangeAction.IsValid*
+  name: IsValid
+  href: api/OpenAPI.Player.Inventory.SlotChangeAction.html#OpenAPI_Player_Inventory_SlotChangeAction_IsValid_
+  commentId: Overload:OpenAPI.Player.Inventory.SlotChangeAction.IsValid
+  isSpec: "True"
+  fullName: OpenAPI.Player.Inventory.SlotChangeAction.IsValid
+  nameWithType: SlotChangeAction.IsValid
 - uid: OpenAPI.Player.IOpenPlayerAttribute
   name: IOpenPlayerAttribute
   href: api/OpenAPI.Player.IOpenPlayerAttribute.html
@@ -3906,6 +4215,19 @@ references:
   fullName.vb: OpenAPI.Player.OpenPlayer.GetAttribute(Of TAttribute)()
   nameWithType: OpenPlayer.GetAttribute<TAttribute>()
   nameWithType.vb: OpenPlayer.GetAttribute(Of TAttribute)()
+- uid: OpenAPI.Player.OpenPlayer.GetInvItem(System.Int32,System.Int32)
+  name: GetInvItem(Int32, Int32)
+  href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_GetInvItem_System_Int32_System_Int32_
+  commentId: M:OpenAPI.Player.OpenPlayer.GetInvItem(System.Int32,System.Int32)
+  fullName: OpenAPI.Player.OpenPlayer.GetInvItem(System.Int32, System.Int32)
+  nameWithType: OpenPlayer.GetInvItem(Int32, Int32)
+- uid: OpenAPI.Player.OpenPlayer.GetInvItem*
+  name: GetInvItem
+  href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_GetInvItem_
+  commentId: Overload:OpenAPI.Player.OpenPlayer.GetInvItem
+  isSpec: "True"
+  fullName: OpenAPI.Player.OpenPlayer.GetInvItem
+  nameWithType: OpenPlayer.GetInvItem
 - uid: OpenAPI.Player.OpenPlayer.HandleItemReleaseTransaction(ItemReleaseTransaction)
   name: HandleItemReleaseTransaction(ItemReleaseTransaction)
   href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_HandleItemReleaseTransaction_ItemReleaseTransaction_
@@ -3997,6 +4319,19 @@ references:
   isSpec: "True"
   fullName: OpenAPI.Player.OpenPlayer.HandleMcpeInteract
   nameWithType: OpenPlayer.HandleMcpeInteract
+- uid: OpenAPI.Player.OpenPlayer.HandleMcpeInventoryTransaction(McpeInventoryTransaction)
+  name: HandleMcpeInventoryTransaction(McpeInventoryTransaction)
+  href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_HandleMcpeInventoryTransaction_McpeInventoryTransaction_
+  commentId: M:OpenAPI.Player.OpenPlayer.HandleMcpeInventoryTransaction(McpeInventoryTransaction)
+  fullName: OpenAPI.Player.OpenPlayer.HandleMcpeInventoryTransaction(McpeInventoryTransaction)
+  nameWithType: OpenPlayer.HandleMcpeInventoryTransaction(McpeInventoryTransaction)
+- uid: OpenAPI.Player.OpenPlayer.HandleMcpeInventoryTransaction*
+  name: HandleMcpeInventoryTransaction
+  href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_HandleMcpeInventoryTransaction_
+  commentId: Overload:OpenAPI.Player.OpenPlayer.HandleMcpeInventoryTransaction
+  isSpec: "True"
+  fullName: OpenAPI.Player.OpenPlayer.HandleMcpeInventoryTransaction
+  nameWithType: OpenPlayer.HandleMcpeInventoryTransaction
 - uid: OpenAPI.Player.OpenPlayer.HandleMcpePlayerAction(McpePlayerAction)
   name: HandleMcpePlayerAction(McpePlayerAction)
   href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_HandleMcpePlayerAction_McpePlayerAction_
@@ -4075,6 +4410,19 @@ references:
   isSpec: "True"
   fullName: OpenAPI.Player.OpenPlayer.HandleMcpeText
   nameWithType: OpenPlayer.HandleMcpeText
+- uid: OpenAPI.Player.OpenPlayer.HandleNormalTransaction(NormalTransaction)
+  name: HandleNormalTransaction(NormalTransaction)
+  href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_HandleNormalTransaction_NormalTransaction_
+  commentId: M:OpenAPI.Player.OpenPlayer.HandleNormalTransaction(NormalTransaction)
+  fullName: OpenAPI.Player.OpenPlayer.HandleNormalTransaction(NormalTransaction)
+  nameWithType: OpenPlayer.HandleNormalTransaction(NormalTransaction)
+- uid: OpenAPI.Player.OpenPlayer.HandleNormalTransaction*
+  name: HandleNormalTransaction
+  href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_HandleNormalTransaction_
+  commentId: Overload:OpenAPI.Player.OpenPlayer.HandleNormalTransaction
+  isSpec: "True"
+  fullName: OpenAPI.Player.OpenPlayer.HandleNormalTransaction
+  nameWithType: OpenPlayer.HandleNormalTransaction
 - uid: OpenAPI.Player.OpenPlayer.HandleTransactionRecords(List{TransactionRecord})
   name: HandleTransactionRecords(List<TransactionRecord>)
   href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_HandleTransactionRecords_List_TransactionRecord__
@@ -4346,6 +4694,19 @@ references:
   isSpec: "True"
   fullName: OpenAPI.Player.OpenPlayer.SetGamemode
   nameWithType: OpenPlayer.SetGamemode
+- uid: OpenAPI.Player.OpenPlayer.SetInvItem(System.Int32,System.Int32,Item)
+  name: SetInvItem(Int32, Int32, Item)
+  href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_SetInvItem_System_Int32_System_Int32_Item_
+  commentId: M:OpenAPI.Player.OpenPlayer.SetInvItem(System.Int32,System.Int32,Item)
+  fullName: OpenAPI.Player.OpenPlayer.SetInvItem(System.Int32, System.Int32, Item)
+  nameWithType: OpenPlayer.SetInvItem(Int32, Int32, Item)
+- uid: OpenAPI.Player.OpenPlayer.SetInvItem*
+  name: SetInvItem
+  href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_SetInvItem_
+  commentId: Overload:OpenAPI.Player.OpenPlayer.SetInvItem
+  isSpec: "True"
+  fullName: OpenAPI.Player.OpenPlayer.SetInvItem
+  nameWithType: OpenPlayer.SetInvItem
 - uid: OpenAPI.Player.OpenPlayer.SpawnToPlayers(MiNET.Player[])
   name: SpawnToPlayers(MiNET.Player[])
   href: api/OpenAPI.Player.OpenPlayer.html#OpenAPI_Player_OpenPlayer_SpawnToPlayers_MiNET_Player___
