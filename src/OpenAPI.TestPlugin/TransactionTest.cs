@@ -1,4 +1,6 @@
 using log4net;
+using MiNET.Blocks;
+using MiNET.Items;
 using OpenAPI.Events;
 using OpenAPI.Events.Entity;
 using OpenAPI.Events.Player;
@@ -21,6 +23,20 @@ namespace OpenAPI.TestPlugin
 		public override void Disabled(OpenApi api)
 		{
 			
+		}
+
+		[EventHandler]
+		public void OnPlayerSpawn(PlayerSpawnedEvent e)
+		{
+			e.Player.Inventory.SetInventorySlot(0, new ItemDiamond()
+			{
+				Count = 64
+			}, true);
+			
+			e.Player.Inventory.SetInventorySlot(3, new ItemBlock(new GoldBlock())
+			{
+				Count = 48
+			}, true);
 		}
 
 		[EventHandler]

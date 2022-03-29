@@ -32,6 +32,7 @@ using OpenAPI.Events.Entity;
 using OpenAPI.Events.Player;
 using OpenAPI.Locale;
 using OpenAPI.Permission;
+using OpenAPI.Player.Inventory;
 using OpenAPI.Utils;
 using OpenAPI.World;
 
@@ -408,6 +409,124 @@ namespace OpenAPI.Player
 	        });
         }
 
+        /// <inheritdoc />
+        public override void HandleMcpeInventoryTransaction(McpeInventoryTransaction message)
+        {
+	        base.HandleMcpeInventoryTransaction(message);
+        }
+        
+      
+
+        public Item GetInvItem(int inventoryId, int slot)
+        {
+	        if (inventoryId == 0)
+		        return Inventory.Slots[slot];
+	        
+	        return GetContainerItem(inventoryId, slot);
+        }
+
+        public void SetInvItem(int inventoryId, int slot, Item item)
+        {
+	        var newItem = ItemFactory.GetItem(item.Id, item.Metadata, item.Count);
+	        newItem.ExtraData = item.ExtraData;
+	        SetContainerItem(inventoryId, slot, newItem);
+        }
+
+        private void InventoryMisMatch()
+        {
+	        SendPlayerInventory();
+        }
+
+        /// <inheritdoc />
+        protected override void HandleNormalTransaction(NormalTransaction normal)
+        {
+	        List<InventoryAction> actions = new List<InventoryAction>();
+
+	        foreach (var transaction in normal.TransactionRecords)
+	        {
+		        var newItem = transaction.NewItem;
+		        var oldItem = transaction.OldItem;
+
+		        if (SlotChangeAction.EqualsExactly(newItem, oldItem))
+		        {
+			        continue;
+		        }
+
+		        switch (transaction)
+		        {
+			        case WorldInteractionTransactionRecord wit:
+			        {
+				        if (wit.Slot != 0)
+				        {
+					        Log.Warn($"Got non item-drop in WorldInteractionTransactionRecord!");
+					        InventoryMisMatch();
+
+					        break;
+				        }
+
+				        actions.Add(new DropItemAction(newItem));
+
+				        bool didMatch = false;
+
+				        foreach (var record in normal.RequestRecords)
+				        {
+					        foreach (var slot in record.Slots)
+					        {
+						        var item = GetContainerItem(record.ContainerId, slot);
+
+						        if (item.Id == wit.NewItem.Id && item.Metadata == wit.NewItem.Metadata
+						                                      && item.Count >= wit.NewItem.Count)
+						        {
+							        item.Count -= newItem.Count;
+
+							        if (DropItem(newItem, item))
+							        {
+								        DropItem(wit.NewItem);
+								        didMatch = true;
+
+								        break;
+							        }
+							        else
+							        {
+								        item.Count += wit.NewItem.Count;
+							        }
+						        }
+					        }
+
+					        if (didMatch)
+						        break;
+				        }
+
+				        if (normal.RequestRecords.Count > 0 && !didMatch)
+				        {
+					        Log.Warn($"WorldInteractionTransactionRecord: No matching item found.");
+					        InventoryMisMatch();
+
+					        return;
+				        }
+
+				        // Log.Info($"WorldInteractionTransactionRecord: (Flags={wit.Flags} Slot={wit.Slot} NewItem={wit.NewItem} OldItem={wit.OldItem} StackId={wit.StackNetworkId})");
+			        } break;
+			        
+			        case ContainerTransactionRecord ctr:
+			        {
+				        var item = GetInvItem(ctr.InventoryId, ctr.Slot);
+				        if (item.Count != newItem.Count)
+				        {
+					        Log.Warn($"ContainerTransactionRecord invalid! Expected: {item.Count} Got: {newItem.Count}");
+					        InventoryMisMatch();
+
+					        return;
+				        }
+
+				        actions.Add(new SlotChangeAction(this, ctr.InventoryId, ctr.Slot, oldItem, newItem));
+				        //Log.Info($"ContainerTransactionRecord (InventoryId={ctr.InventoryId} Slot={ctr.Slot} StackId={ctr.StackNetworkId}) (NewItem={ctr.NewItem}) (OldItem={ctr.OldItem})");
+			        } break;
+		        }
+	        }
+        }
+
+
         protected override void HandleItemUseOnEntityTransaction(ItemUseOnEntityTransaction transaction)
         {
 	        if (!Level.TryGetEntity<Entity>(transaction.EntityId, out var entity) || !entity.IsSpawned || entity.HealthManager.IsDead || entity.HealthManager.IsInvulnerable)
@@ -431,7 +550,9 @@ namespace OpenAPI.Player
         }
         
         protected override void HandleItemReleaseTransaction(ItemReleaseTransaction transaction)
-	    {
+        {
+	        Log.Warn($"Got old ItemReleaseTransaction...");
+	        return;
 		    Item itemInHand = Inventory.GetItemInHand();
 			switch ((McpeInventoryTransaction.ItemReleaseAction) transaction.ActionType)
 		    {
@@ -519,60 +640,12 @@ namespace OpenAPI.Player
 				    return;
 			    }
 		    }
-
-		    base.HandleItemUseTransaction(transaction);
 	    }
 
 	    /// <inheritdoc />
 	    protected override void HandleTransactionRecords(List<TransactionRecord> records)
 	    {
-		    if (records.Count == 0)
-			    return;
-
-		    foreach (TransactionRecord record in records.ToArray())
-		    {
-			    switch (record)
-			    {
-				    case WorldInteractionTransactionRecord _:
-				    {
-					    records.Remove(record);
-					    
-					    var sourceItem = Inventory.GetItemInHand();
-					    byte count = record.NewItem.Count;
-					    
-					    Item dropItem;
-					    bool clearSlot = false;
-					    if (sourceItem.Count == count)
-					    {
-						    dropItem = sourceItem;
-						    clearSlot = true;
-					    }
-					    else
-					    {
-						    dropItem = (Item) sourceItem.Clone();
-						    dropItem.Count = count;
-						    dropItem.UniqueId = Environment.TickCount;
-					    }
-					    
-					    if (DropItem(dropItem, clearSlot ? new ItemAir() : sourceItem))
-					    {
-						    DropItem(dropItem);
-						    
-						    if (clearSlot)
-						    {
-							    Inventory.ClearInventorySlot((byte) Inventory.InHandSlot);
-						    }
-						    else
-						    {
-							    sourceItem.Count -= count;
-						    }
-					    }
-					    break;
-				    }
-			    }
-		    }
-		    
-		    base.HandleTransactionRecords(records);
+		
 	    }
 
 	    private bool UseItem(Item usedItem)
@@ -587,7 +660,7 @@ namespace OpenAPI.Player
 		    return true;
 	    }
 
-	    private bool DropItem(Item droppedItem, Item newInventoryItem)
+	    internal bool DropItem(Item droppedItem, Item newInventoryItem)
 		{
 			PlayerItemDropEvent dropEvent = new PlayerItemDropEvent(this, this.KnownPosition, droppedItem, newInventoryItem);
 			EventDispatcher.DispatchEvent(dropEvent);
