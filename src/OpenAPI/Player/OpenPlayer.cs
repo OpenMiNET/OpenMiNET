@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -440,8 +442,18 @@ namespace OpenAPI.Player
         /// <inheritdoc />
         protected override void HandleNormalTransaction(NormalTransaction normal)
         {
-	        List<InventoryAction> actions = new List<InventoryAction>();
-
+	        ObservableCollection<InventoryAction> actions = new ObservableCollection<InventoryAction>();
+	        actions.CollectionChanged += (sender, args) =>
+	        {
+		        if (args.Action == NotifyCollectionChangedAction.Add)
+		        {
+			        foreach (InventoryAction add in args.NewItems)
+			        {
+				        add.OnAddToTransaction();
+			        }
+		        }
+	        };
+	        
 	        foreach (var transaction in normal.TransactionRecords)
 	        {
 		        var newItem = transaction.NewItem;
@@ -522,6 +534,29 @@ namespace OpenAPI.Player
 				        actions.Add(new SlotChangeAction(this, ctr.InventoryId, ctr.Slot, oldItem, newItem));
 				        //Log.Info($"ContainerTransactionRecord (InventoryId={ctr.InventoryId} Slot={ctr.Slot} StackId={ctr.StackNetworkId}) (NewItem={ctr.NewItem}) (OldItem={ctr.OldItem})");
 			        } break;
+		        }
+	        }
+
+	        foreach (var action in actions)
+	        {
+		        if (!action.IsValid(this))
+		        {
+			        break;
+		        }
+	        }
+
+	        foreach (var action in actions)
+	        {
+		        if (action.PreExecute(this))
+		        {
+			        if (action.Execute(this))
+			        {
+				        action.ExecutionSucceeded(this);
+			        }
+			        else
+			        {
+				        action.ExecutionFailed(this);
+			        }
 		        }
 	        }
         }
