@@ -402,13 +402,18 @@ namespace OpenAPI.Player
 
             if (string.IsNullOrEmpty(text)) return;
             PlayerChatEvent chatEvent = new PlayerChatEvent(this, text);
-	        EventDispatcher.DispatchEventAsync(chatEvent).Then(result =>
-	        {
-		        if (result.IsCancelled)
-			        return;
-		        
-		        Level.BroadcastMessage(chatEvent.Message, sender: this);
-	        });
+            EventDispatcher.DispatchEventAsync(chatEvent).Then(result =>
+            {
+                if (result.IsCancelled)
+                    return;
+
+                if (!string.IsNullOrEmpty(chatEvent.Format) && chatEvent.FormatParameters.Any())
+                {
+                    chatEvent.Message = string.Format(chatEvent.Format, chatEvent.FormatParameters);
+                }
+
+                Level.BroadcastMessage(chatEvent.Message, sender: this, sendList: chatEvent.Recipients);
+            });
         }
 
         /// <inheritdoc />
