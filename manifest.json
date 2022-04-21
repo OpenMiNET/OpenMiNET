@@ -1130,11 +1130,35 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/OpenAPI.Player.Inventory.CreateItemAction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenAPI.Player.Inventory.CreateItemAction.html",
+          "hash": "H+b8IYn2SKE0Lp4w0Db0vw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OpenAPI.Player.Inventory.DestroyItemAction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OpenAPI.Player.Inventory.DestroyItemAction.html",
+          "hash": "xaZ/oKz8kFHImKbJcSREMw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/OpenAPI.Player.Inventory.DropItemAction.yml",
       "output": {
         ".html": {
           "relative_path": "api/OpenAPI.Player.Inventory.DropItemAction.html",
-          "hash": "aJycWruChkupWKF+MNN0FA=="
+          "hash": "+eKLRb87DS/NpHyVa0/FnA=="
         }
       },
       "is_incremental": false,
@@ -1146,7 +1170,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenAPI.Player.Inventory.InventoryAction.html",
-          "hash": "mLTe47aU/DLsoireEl0sIA=="
+          "hash": "J6nzJp/2Wr6RY1fIQIRmpg=="
         }
       },
       "is_incremental": false,
@@ -1158,7 +1182,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenAPI.Player.Inventory.SlotChangeAction.html",
-          "hash": "fGgNYWKqPmUIcjBU8rdl4Q=="
+          "hash": "Osmq/XGmUthuwNSxJg7EaA=="
         }
       },
       "is_incremental": false,
@@ -1170,7 +1194,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenAPI.Player.Inventory.html",
-          "hash": "w05jlwpjTelTD/5ldWYTOQ=="
+          "hash": "Zcl1x5r+m99VshZe9q2H1Q=="
         }
       },
       "is_incremental": false,
@@ -1182,7 +1206,7 @@
       "output": {
         ".html": {
           "relative_path": "api/OpenAPI.Player.OpenPlayer.html",
-          "hash": "oOxkB1JFZnMKT7s30RjpwA=="
+          "hash": "MPekAHOz7WAa69P0Z6NhKw=="
         }
       },
       "is_incremental": false,
@@ -1614,7 +1638,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "S5UAG7q1zgCc7TK6D2B+QA=="
+          "hash": "mSMavAUFe3DSQYHKwRk0DA=="
         }
       },
       "is_incremental": false,
@@ -1701,7 +1725,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 132,
+          "total_file_count": 134,
           "skipped_file_count": 0
         },
         "TocDocumentProcessor": {
