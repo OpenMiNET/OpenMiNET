@@ -843,7 +843,14 @@ namespace OpenAPI.Player
 						IsBreakingBlock = false;
 						BlockBreakTimer.Reset();
 
-						EventDispatcher.DispatchEventAsync(new BlockAbortBreakEvent(this, block));
+						EventDispatcher.DispatchEventAsync(new BlockAbortBreakEvent(this, block)).Then(result =>
+						{
+							if (!result.IsCancelled)
+							{
+								SendBlockBreakEnd(block.Coordinates);
+								return;
+							}
+						});
 					}
 					
 					return;
