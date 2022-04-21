@@ -1,3 +1,4 @@
+using log4net;
 using MiNET.Items;
 using OpenAPI.Events;
 using OpenAPI.Events.Player;
@@ -6,6 +7,7 @@ namespace OpenAPI.Player.Inventory
 {
 	public class DropItemAction : InventoryAction
 	{
+		private static readonly ILog Log = LogManager.GetLogger(typeof(DropItemAction));
 		/// <inheritdoc />
 		public DropItemAction(Item targetItem) : base(new ItemAir(), targetItem)
 		{
@@ -42,13 +44,20 @@ namespace OpenAPI.Player.Inventory
 		/// <inheritdoc />
 		public override void ExecutionSucceeded(OpenPlayer source)
 		{
-			
+			//Log.Info($"Dropped item");
 		}
 
 		/// <inheritdoc />
 		public override void ExecutionFailed(OpenPlayer source)
 		{
-			
+			//Log.Warn($"Failed to drop item!");
+		}
+		
+		/// <inheritdoc />
+		public override string ToString()
+		{
+			return
+				$"{{Action=DropItem SourceItem={SourceItem} TargetItem={TargetItem}}}";
 		}
 	}
 }

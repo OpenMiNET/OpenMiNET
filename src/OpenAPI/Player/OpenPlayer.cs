@@ -431,6 +431,12 @@ namespace OpenAPI.Player
         {
 	        var newItem = ItemFactory.GetItem(item.Id, item.Metadata, item.Count);
 	        newItem.ExtraData = item.ExtraData;
+
+	        if (inventoryId == 0) //Player Inventory
+	        {
+		        Inventory.Slots[slot] = newItem;
+		        return;
+	        }
 	        SetContainerItem(inventoryId, slot, newItem);
         }
 
@@ -438,7 +444,7 @@ namespace OpenAPI.Player
         {
 	        SendPlayerInventory();
         }
-
+        
         /// <inheritdoc />
         protected override void HandleNormalTransaction(NormalTransaction normal)
         {
@@ -522,14 +528,16 @@ namespace OpenAPI.Player
 			        
 			        case ContainerTransactionRecord ctr:
 			        {
-				        var item = GetInvItem(ctr.InventoryId, ctr.Slot);
+				        //  var item = GetInvItem(ctr.InventoryId, ctr.Slot);
+				        /*
 				        if (item.Count != newItem.Count)
 				        {
-					        Log.Warn($"ContainerTransactionRecord invalid! Expected: {item.Count} Got: {newItem.Count}");
+					        Log.Warn($"ContainerTransactionRecord invalid! Expected: {item.Count} Got: {newItem.Count} (OldItem={oldItem})");
 					        InventoryMisMatch();
 
 					        return;
 				        }
+				        */
 
 				        actions.Add(new SlotChangeAction(this, ctr.InventoryId, ctr.Slot, oldItem, newItem));
 				        //Log.Info($"ContainerTransactionRecord (InventoryId={ctr.InventoryId} Slot={ctr.Slot} StackId={ctr.StackNetworkId}) (NewItem={ctr.NewItem}) (OldItem={ctr.OldItem})");
@@ -541,6 +549,7 @@ namespace OpenAPI.Player
 	        {
 		        if (!action.IsValid(this))
 		        {
+			        Log.Info($"Invalid action: {action}");
 			        break;
 		        }
 	        }

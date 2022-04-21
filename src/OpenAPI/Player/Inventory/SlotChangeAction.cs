@@ -48,5 +48,12 @@ namespace OpenAPI.Player.Inventory
 			return a.Equals(b) && a.Count == b.Count;
 			return a.Id == b.Id && a.Metadata == b.Metadata && a.ExtraData == b.ExtraData && a.Count == b.Count;
 		}
+
+		/// <inheritdoc />
+		public override string ToString()
+		{
+			return
+				$"{{Action=SlotChange InventoryId={InventoryId} InventorySlot={InventorySlot} SourceItem={SourceItem} TargetItem={TargetItem}}}";
+		}
 	}
 }
