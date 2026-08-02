@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using log4net;
 using MiNET;
 using MiNET.Net;
@@ -113,6 +114,26 @@ namespace OpenAPI.Player
 			_plugin.EventDispatcher.DispatchEvent(new PlayerCreatedEvent(player));
 
 			return player;
+		}
+
+		/// <summary>
+		///		Removes every PlayerAttribute belonging to <paramref name="assembly"/> from every
+		///		connected player.
+		/// </summary>
+		/// <remarks>
+		///		Players outlive plugin reloads, so this leak is spread across every player who
+		///		ever joined rather than sitting in one place.
+		/// </remarks>
+		internal int PurgeAssembly(Assembly assembly)
+		{
+			int removed = 0;
+
+			foreach (var player in Players.Values.ToArray())
+			{
+				removed += player.PurgeAssembly(assembly);
+			}
+
+			return removed;
 		}
 	}
 }

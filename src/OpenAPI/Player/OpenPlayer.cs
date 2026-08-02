@@ -1239,6 +1239,47 @@ namespace OpenAPI.Player
             _attributes.AddOrUpdate(typeof(TAttribute), attribute, (type, playerAttribute) => attribute);
         }
 
+        /// <summary>
+        /// 	Removes a PlayerAttribute from this player entirely.
+        /// </summary>
+        /// <remarks>
+        /// 	Prefer this over <c>SetAttribute&lt;TAttribute&gt;(null)</c>. Setting null clears the
+        /// 	value but keeps <c>typeof(TAttribute)</c> as a dictionary key, and the key alone is
+        /// 	enough to keep the declaring assembly loaded — so a plugin that "cleaned up" that
+        /// 	way could still never be unloaded.
+        /// </remarks>
+        /// <typeparam name="TAttribute">The type of the attribute to remove.</typeparam>
+        /// <returns>Whether the attribute was set on this player.</returns>
+        public bool RemoveAttribute<TAttribute>() where TAttribute : class, IOpenPlayerAttribute
+        {
+	        return _attributes.TryRemove(typeof(TAttribute), out _);
+        }
+
+        /// <summary>
+        /// 	Removes every attribute belonging to <paramref name="assembly"/> from this player.
+        /// </summary>
+        /// <remarks>
+        /// 	Players outlive plugin reloads, so an attribute left behind here pins the plugin
+        /// 	assembly for as long as the player object survives. Both the key type and the
+        /// 	stored value are checked.
+        /// </remarks>
+        internal int PurgeAssembly(Assembly assembly)
+        {
+	        int removed = 0;
+
+	        foreach (var attribute in _attributes.ToArray())
+	        {
+		        bool belongsToAssembly =
+			        attribute.Key.Assembly == assembly
+			        || attribute.Value?.GetType().Assembly == assembly;
+
+		        if (belongsToAssembly && _attributes.TryRemove(attribute.Key, out _))
+			        removed++;
+	        }
+
+	        return removed;
+        }
+
 		#endregion
     }
 }

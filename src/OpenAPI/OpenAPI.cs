@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using log4net;
@@ -77,6 +78,59 @@ namespace OpenAPI
 		/// </summary>
 	    public ResourcePackProvider ResourcePackProvider { get; }
 
+		/// <summary>
+		///		Everything that can hold a reference into a plugin assembly and must release it
+		///		on unload — every <see cref="EventDispatcher"/> and every
+		///		<see cref="Utils.TickScheduler"/>, which means one per level as well as the root.
+		/// </summary>
+		/// <remarks>
+		///		Weak, because levels own these: a strong list would keep every level that has
+		///		ever existed alive.
+		///
+		///		They self-register rather than being walked from the
+		///		<see cref="World.OpenLevelManager"/>, so a level that was constructed but never
+		///		registered is still reachable for teardown.
+		///
+		///		Initialised inline: the root dispatcher is constructed in this type's constructor
+		///		and registers itself, so this must already exist by then.
+		/// </remarks>
+		private readonly List<WeakReference<IAssemblyPurgeable>> _purgeables =
+			new List<WeakReference<IAssemblyPurgeable>>();
+
+		/// <summary>
+		///		Registers an object that must release its plugin references on unload.
+		/// </summary>
+		public void RegisterPurgeable(IAssemblyPurgeable purgeable)
+		{
+			if (purgeable == null) return;
+
+			lock (_purgeables)
+			{
+				_purgeables.RemoveAll(x => !x.TryGetTarget(out _));
+				_purgeables.Add(new WeakReference<IAssemblyPurgeable>(purgeable));
+			}
+		}
+
+		/// <summary>
+		///		Returns everything still alive, pruning what has been collected.
+		/// </summary>
+		internal IAssemblyPurgeable[] GetPurgeables()
+		{
+			lock (_purgeables)
+			{
+				_purgeables.RemoveAll(x => !x.TryGetTarget(out _));
+
+				var result = new List<IAssemblyPurgeable>(_purgeables.Count);
+				foreach (var reference in _purgeables)
+				{
+					if (reference.TryGetTarget(out var purgeable))
+						result.Add(purgeable);
+				}
+
+				return result.ToArray();
+			}
+		}
+
         public OpenApi()
         {
 	        JsonConvert.DefaultSettings = () =>
@@ -104,8 +158,7 @@ namespace OpenAPI
 
 	        Log.InfoFormat("Enabling OpenAPI...");
 
-	        string pluginDirectoryPaths =
-		        Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
+	        string pluginDirectoryPaths = AppContext.BaseDirectory;
 	        pluginDirectoryPaths = Conf.GetProperty("PluginDirectory", pluginDirectoryPaths);
 
 	        PluginManager.DiscoverPlugins(pluginDirectoryPaths.Split(new char[] {';'},

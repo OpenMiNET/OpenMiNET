@@ -67,6 +67,24 @@ namespace OpenAPI.Commands
             HasExternalPermissionChecker = true;
         }
 
+        /// <summary>
+        ///     Removes the permission checker registered for <paramref name="type"/>.
+        /// </summary>
+        /// <param name="type">The <see cref="CommandPermissionAttribute"/> type to unregister.</param>
+        /// <returns>Whether a checker was registered for that type.</returns>
+        public bool UnregisterPermissionChecker(Type type)
+        {
+            return _permissionCheckers.TryRemove(type, out _);
+        }
+
+        /// <summary>
+        ///     Removes the permission checker registered for <typeparamref name="TType"/>.
+        /// </summary>
+        public bool UnregisterPermissionChecker<TType>() where TType : CommandPermissionAttribute
+        {
+            return UnregisterPermissionChecker(typeof(TType));
+        }
+
 	    public void LoadCommands(object instance)
 	    {
 			//PluginManager.LoadCommands(instance);
@@ -118,10 +136,29 @@ namespace OpenAPI.Commands
 
 	    internal void UnloadCommands(OpenPlugin plugin)
 	    {
+		    PurgeAssembly(plugin.GetType().Assembly);
+	    }
+
+	    /// <summary>
+	    ///		Drops every command registered by <paramref name="assembly"/>.
+	    ///		Removing the entry releases the key <see cref="MethodInfo"/> as well as the
+	    ///		instance and attributes held by the <see cref="CommandData"/>, all of which
+	    ///		would otherwise pin the plugin assembly.
+	    /// </summary>
+	    internal void PurgeAssembly(Assembly assembly)
+	    {
 		    foreach (var command in _pluginCommands.Where(x =>
-			    x.Value.Instance.GetType().Assembly == plugin.GetType().Assembly).ToArray())
+			    x.Value.Instance.GetType().Assembly == assembly).ToArray())
 		    {
 			    _pluginCommands.Remove(command.Key);
+		    }
+
+		    // Both sides pin the assembly: the key is often a plugin-declared
+		    // CommandPermissionAttribute, and the value is a plugin-declared checker.
+		    foreach (var checker in _permissionCheckers.Where(x =>
+			    x.Key.Assembly == assembly || x.Value.GetType().Assembly == assembly).ToArray())
+		    {
+			    _permissionCheckers.TryRemove(checker.Key, out _);
 		    }
 	    }
 

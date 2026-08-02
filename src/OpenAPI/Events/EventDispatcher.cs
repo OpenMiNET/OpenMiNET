@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using log4net;
+using OpenAPI.Plugins;
 using OpenAPI.Utils;
 
 namespace OpenAPI.Events
@@ -13,17 +14,9 @@ namespace OpenAPI.Events
 	/// <summary>
 	/// 	The <see cref="EventDispatcher"/> is responsible for dispatching and invoking all the registered <see cref="IEventHandler"/> methods
 	/// </summary>
-	public class EventDispatcher
+	public class EventDispatcher : IAssemblyPurgeable
 	{
 		private static readonly ILog Log = LogManager.GetLogger(typeof(EventDispatcher));
-
-		private static readonly ThreadSafeList<Type> EventTypes = new ThreadSafeList<Type>(AppDomain.CurrentDomain.GetAssemblies()
-			.SelectMany(GetEventTypes)
-			.Select(p =>
-			{
-				Log.Info($"Registered event type \"{p.Name}\"");
-				return p;
-			}).ToArray());
 
 		/// <summary>
 		/// 	Registers a new <see cref="Event"/> type with the current EventDispatcher
@@ -46,18 +39,19 @@ namespace OpenAPI.Events
 		/// <returns>Whether the event was succesfully registered.</returns>
 		public bool RegisterEventType(Type type)
 		{
-			if (RegisteredEvents.ContainsKey(type) || !EventTypes.TryAdd(type))
+			if (!RegisteredEvents.TryAdd(type, new EventDispatcherValues()))
 			{
 				return false;
 			}
-			else
-			{
-				RegisteredEvents.Add(type, new EventDispatcherValues());
-				Log.Info($"Registered event type \"{type.Name}\"");
 
-				return true;
-			}
+			Log.Info($"Registered event type \"{type.Name}\"");
+			return true;
 		}
+
+		/// <summary>
+		/// 	The <see cref="Event"/> types currently known to this dispatcher.
+		/// </summary>
+		internal Type[] KnownEventTypes => RegisteredEvents.Keys.ToArray();
 		
 		/// <summary>
 		/// 	Loads all types implementing the <see cref="Event"/> class
@@ -70,23 +64,36 @@ namespace OpenAPI.Events
 		}
 
 		/// <summary>
-		/// 	Unloads all <see cref="Event"/>'s that were registered by specified assembly
+		/// 	Releases every reference this dispatcher holds into <paramref name="assembly"/>:
+		/// 	the <see cref="Event"/> types it declares, and every handler registered by an
+		/// 	object belonging to it.
 		/// </summary>
-		/// <param name="assembly">The assembly containing the types to be unloaded.</param>
-		public void Unload(Assembly assembly)
+		/// <remarks>
+		/// 	Each registered handler pins the assembly twice over — once through the handler
+		/// 	instance and once through the <see cref="MethodInfo"/> — so both are matched.
+		///
+		/// 	This must not rely on plugins calling <see cref="UnregisterEvents"/> in
+		/// 	<see cref="Plugins.OpenPlugin.Disabled"/>; several do not.
+		/// </remarks>
+		/// <param name="assembly">The assembly to release.</param>
+		public int PurgeAssembly(Assembly assembly)
 		{
-			int count = 0;
-			foreach (var eventType in (from eventType in EventTypes
-				where eventType.Assembly == assembly
-				select eventType))
-			{
-				if (EventTypes.Remove(eventType))
-					count++;
+			int handlers = 0;
+			int types = 0;
 
-				RegisteredEvents.Remove(eventType);
+			foreach (var registered in RegisteredEvents.ToArray())
+			{
+				handlers += registered.Value.RemoveAssembly(assembly);
+
+				// The key Type itself pins the assembly, so the whole entry has to go.
+				if (registered.Key.Assembly == assembly && RegisteredEvents.TryRemove(registered.Key, out _))
+					types++;
 			}
-			
-			Log.Info($"Unloaded {count} event types from assembly {assembly.ToString()}");
+
+			if (handlers > 0 || types > 0)
+				Log.Info($"Purged {handlers} event handlers and {types} event types from assembly {assembly.GetName().Name}");
+
+			return handlers + types;
 		}
 		
 		private static IEnumerable<Type> GetEventTypes(Assembly assembly)
@@ -102,20 +109,35 @@ namespace OpenAPI.Events
 			});
 		}
 
-		private Dictionary<Type, EventDispatcherValues> RegisteredEvents { get; }
+		/// <remarks>
+		/// 	Concurrent rather than a plain <see cref="Dictionary{TKey,TValue}"/> because
+		/// 	registration and assembly purges happen on a live server while events are being
+		/// 	dispatched from the tick loop.
+		/// </remarks>
+		private ConcurrentDictionary<Type, EventDispatcherValues> RegisteredEvents { get; }
 		protected OpenApi Api { get; }
 		private EventDispatcher[] ExtraDispatchers { get; }
+
 		public EventDispatcher(OpenApi openApi, params EventDispatcher[] dispatchers)
 		{
 			Api = openApi;
 			ExtraDispatchers = dispatchers.Where(x => x != this).ToArray();
 
-			RegisteredEvents = new Dictionary<Type, EventDispatcherValues>();
-			foreach (var eventType in EventTypes)
+			RegisteredEvents = new ConcurrentDictionary<Type, EventDispatcherValues>();
+
+			// A chained dispatcher (one per level) inherits what its parent already knows;
+			// only the root has to scan. Previously this came from a static list shared by
+			// every dispatcher, which meant a plugin's event types could never be released.
+			IEnumerable<Type> seed = ExtraDispatchers.Length > 0
+				? ExtraDispatchers.SelectMany(x => x.KnownEventTypes).Distinct()
+				: AppDomain.CurrentDomain.GetAssemblies().SelectMany(GetEventTypes);
+
+			foreach (var eventType in seed)
 			{
-				RegisteredEvents.Add(eventType, new EventDispatcherValues());
+				RegisteredEvents.TryAdd(eventType, new EventDispatcherValues());
 			}
-			//Log.Info($"Registered {RegisteredEvents.Count} event types!");
+
+			Api?.RegisterPurgeable(this);
 		}
 
 		/// <summary>
@@ -138,15 +160,10 @@ namespace OpenAPI.Events
 
 				var paramType = parameters[0].ParameterType;
 
-			    EventDispatcherValues e = null;
-                if (!RegisteredEvents.TryGetValue(paramType, out e))
-			    {
-			        if (EventTypes.TryAdd(paramType))
-			        {
-			            e = new EventDispatcherValues();
-                        RegisteredEvents.Add(paramType, e);
-			        }
-			    }
+				// GetOrAdd rather than the previous ContainsKey/TryAdd pair: when the type was
+				// already known globally but absent from this dispatcher, that left 'e' null
+				// and threw a NullReferenceException on the next line.
+				EventDispatcherValues e = RegisteredEvents.GetOrAdd(paramType, _ => new EventDispatcherValues());
 
 				if (!e.RegisterEventHandler(attribute, obj, method))
 				{
@@ -250,65 +267,91 @@ namespace OpenAPI.Events
 
 		private class EventDispatcherValues
 		{
-		//	private ConcurrentDictionary<IEventHandler, MethodInfo> EventHandlers { get; }
-            private Dictionary<EventPriority, List<Item>> Items { get; }
-			//private SortedSet<Item> Items { get; set; }
+			/// <summary>
+			/// 	Ascending, so handlers run lowest priority first and Monitor last.
+			/// 	Held explicitly because <see cref="ConcurrentDictionary{TKey,TValue}"/>
+			/// 	does not guarantee enumeration order.
+			/// </summary>
+			private static readonly EventPriority[] Priorities =
+				Enum.GetValues(typeof(EventPriority)).Cast<EventPriority>().OrderBy(x => (int) x).ToArray();
+
+			/// <remarks>
+			/// 	Values are immutable snapshots, replaced wholesale on register/remove. A
+			/// 	dispatch in flight keeps iterating the array it started with, so unloading a
+			/// 	plugin cannot mutate a list out from under the tick loop.
+			/// </remarks>
+			private ConcurrentDictionary<EventPriority, Item[]> Items { get; }
+
 			public EventDispatcherValues()
 			{
-                Items = new Dictionary<EventPriority, List<Item>>();
-			    foreach (var prio in Enum.GetValues(typeof(EventPriority)))
-			    {
-                    Items.Add((EventPriority) prio, new System.Collections.Generic.List<Item>());
-			    }
-				//Items = new SortedSet<Item>();
-			//	EventHandlers = new ConcurrentDictionary<IEventHandler, MethodInfo>();
+				Items = new ConcurrentDictionary<EventPriority, Item[]>();
+				foreach (var priority in Priorities)
+				{
+					Items.TryAdd(priority, Array.Empty<Item>());
+				}
 			}
 
 			public bool RegisterEventHandler(EventHandlerAttribute attribute, IEventHandler parent, MethodInfo method)
 			{
-			    Items[attribute.Priority].Add(new Item(attribute, parent, method));
-			    return true;
-				//return Items.Add(new Item(attribute, parent, method));
-				/*if (!EventHandlers.TryAdd(parent, method))
-				{
-					return true;
-				}
-				return false;*/
+				var item = new Item(attribute, parent, method);
+
+				Items.AddOrUpdate(
+					attribute.Priority,
+					_ => new[] { item },
+					(_, existing) =>
+					{
+						var updated = new Item[existing.Length + 1];
+						Array.Copy(existing, updated, existing.Length);
+						updated[existing.Length] = item;
+						return updated;
+					});
+
+				return true;
 			}
 
 			public void Clear(IEventHandler parent)
 			{
-			    foreach (var priorityList in Items.ToArray())
-			    {
-			        try
-			        {
-			            var copy = priorityList.Value.ToArray();
-			            foreach (var item in copy)
-			            {
-			                try
-			                {
-			                    if (item.Parent == parent)
-			                    {
-			                        if (priorityList.Value.Count > 0)
-			                        {
-			                            priorityList.Value.Remove(item);
-			                        }
-			                    }
-			                }
-			                catch (Exception x)
-			                {
+				RemoveWhere(item => ReferenceEquals(item.Parent, parent));
+			}
 
-			                }
-			            }
-			        }
-			        catch (Exception ex)
-			        {
+			/// <summary>
+			/// 	Drops every handler belonging to <paramref name="assembly"/> and reports how
+			/// 	many were removed.
+			/// </summary>
+			public int RemoveAssembly(Assembly assembly)
+			{
+				// Both the handler instance and the MethodInfo reference the plugin assembly,
+				// and they are not always the same one: a plugin can register a handler whose
+				// method is declared on a host base class, or vice versa. Either pins it.
+				return RemoveWhere(item =>
+					item.Parent?.GetType().Assembly == assembly
+					|| item.Method?.DeclaringType?.Assembly == assembly);
+			}
 
-			        }
-			    }
-				//Items.RemoveWhere(x => x.Parent == parent);
-				//MethodInfo method;
-				//EventHandlers.TryRemove(parent, out method);
+			private int RemoveWhere(Func<Item, bool> predicate)
+			{
+				int removed = 0;
+
+				foreach (var priority in Priorities)
+				{
+					// Compare-and-swap rather than AddOrUpdate: its update factory may run more
+					// than once under contention, which would double-count the removals.
+					while (Items.TryGetValue(priority, out var existing))
+					{
+						var kept = existing.Where(x => !predicate(x)).ToArray();
+
+						if (kept.Length == existing.Length)
+							break;
+
+						if (Items.TryUpdate(priority, kept, existing))
+						{
+							removed += existing.Length - kept.Length;
+							break;
+						}
+					}
+				}
+
+				return removed;
 			}
 
 			/*public void Dispatch(Event e)
@@ -336,13 +379,18 @@ namespace OpenAPI.Events
 					e
 				};
 
-				foreach (var priority in Items)
+				foreach (var priority in Priorities)
 				{
-					Task[] tasks = new Task[priority.Value.Count];
-					for (var index = 0; index < priority.Value.Count; index++)
+					// Snapshot: a concurrent register or plugin unload swaps the array, it does
+					// not mutate the one we are iterating.
+					if (!Items.TryGetValue(priority, out var handlers))
+						continue;
+
+					Task[] tasks = new Task[handlers.Length];
+					for (var index = 0; index < handlers.Length; index++)
 					{
-						var p = priority.Value[index];
-						
+						var p = handlers[index];
+
 						var method = p.Method;
 						if (method.ReturnType == typeof(void))
 						{

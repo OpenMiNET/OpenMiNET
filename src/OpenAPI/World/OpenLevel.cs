@@ -51,7 +51,7 @@ namespace OpenAPI.World
 		{
 			OpenAPI = openApi;
 			CancelationToken = new CancellationTokenSource();
-			TickScheduler = new TickScheduler();
+			TickScheduler = new TickScheduler(openApi);
 
 			EventDispatcher = new EventDispatcher(openApi, OpenAPI.EventDispatcher);
 

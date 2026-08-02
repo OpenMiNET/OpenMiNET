@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <IsPackable>false</IsPackable>
+        <!-- Deliberately NOT written into build/ — this assembly must never be picked
+             up as a real plugin. It is loaded by path into a collectible ALC by the
+             leak tests only. -->
+        <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\OpenAPI\OpenAPI.csproj">
+            <!-- The host assembly must resolve from the DEFAULT load context at runtime,
+                 not be copied next to this plugin, or type identity would split. -->
+            <Private>false</Private>
+        </ProjectReference>
+    </ItemGroup>
+
+</Project>

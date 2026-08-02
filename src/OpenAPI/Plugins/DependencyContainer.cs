@@ -107,6 +107,26 @@ namespace OpenAPI.Plugins
         {
             Remove(typeof(TType));
         }
+
+        /// <summary>
+        ///     Removes every service belonging to <paramref name="assembly"/>, whether it is
+        ///     registered under a key declared in that assembly or holds an instance from it.
+        /// </summary>
+        /// <remarks>
+        ///     Matching on the value as well as the key matters: <see cref="RegisterSingleton(Type, object)"/>
+        ///     is public, so a plugin can register one of its own instances under a host-declared
+        ///     key. Keying alone would leave that instance behind and pin the plugin assembly.
+        /// </remarks>
+        public void PurgeAssembly(Assembly assembly)
+        {
+            foreach (var service in Services.ToArray())
+            {
+                if (service.Key.Assembly == assembly || service.Value.BelongsTo(assembly))
+                {
+                    Remove(service.Key);
+                }
+            }
+        }
         
         /// <summary>
         ///     Registers a new service
@@ -225,6 +245,13 @@ namespace OpenAPI.Plugins
         private interface IServiceItem : IDisposable
         {
             object GetInstance();
+
+            /// <summary>
+            ///     Whether this service holds a type or instance from <paramref name="assembly"/>.
+            ///     Must never construct anything — an unconstructed lazy service holds no
+            ///     instance to leak.
+            /// </summary>
+            bool BelongsTo(Assembly assembly);
         }
 
         private abstract class ServiceItemBase : IServiceItem
@@ -249,6 +276,12 @@ namespace OpenAPI.Plugins
 
             /// <inheritdoc />
             public abstract void Dispose();
+
+            /// <inheritdoc />
+            public virtual bool BelongsTo(Assembly assembly)
+            {
+                return Type.Assembly == assembly;
+            }
         }
 
         private class SingletonServiceItem : ServiceItemBase
@@ -277,10 +310,19 @@ namespace OpenAPI.Plugins
             /// <inheritdoc />
             public override void Dispose()
             {
-                
+                _value = null;
+            }
+
+            /// <inheritdoc />
+            public override bool BelongsTo(Assembly assembly)
+            {
+                // Deliberately reads the backing field rather than GetInstance(): a singleton
+                // that was never resolved holds nothing, and constructing it here would create
+                // the very reference we are trying to release.
+                return base.BelongsTo(assembly) || _value?.GetType().Assembly == assembly;
             }
         }
-        
+
         private class TransientServiceItem : ServiceItemBase
         {
             public TransientServiceItem(DependencyContainer parent, Type type) : base(parent, type)

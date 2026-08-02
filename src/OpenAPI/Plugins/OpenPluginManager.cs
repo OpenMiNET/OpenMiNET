@@ -242,10 +242,59 @@ namespace OpenAPI.Plugins
 
 	        Log.Info($"Registered {pluginInstances} plugin instances");
 
+	        BuildDependencyGraph(constructorDatas, out var dependencies, out var dependents);
+
 	        foreach (var grouped in assemblies)
 	        {
 		        LoadedAssemblies.Add(grouped.Key,
-		            new LoadedAssembly(grouped.Key, grouped.Value.Select(x => x.GetType()), new Assembly[0], grouped.Key.Location));
+		            new LoadedAssembly(
+			            grouped.Key,
+			            grouped.Value.Select(x => x.GetType()),
+			            dependencies.TryGetValue(grouped.Key, out var dependsOn) ? dependsOn : Enumerable.Empty<Assembly>(),
+			            dependents.TryGetValue(grouped.Key, out var dependedOnBy) ? dependedOnBy : Enumerable.Empty<Assembly>(),
+			            grouped.Key.Location));
+	        }
+        }
+
+        /// <summary>
+        /// 	Derives the inter-plugin assembly graph, in both directions, from the constructor
+        /// 	parameters that ask for another plugin instance.
+        /// </summary>
+        /// <remarks>
+        /// 	This information was previously computed here and then discarded — every
+        /// 	<see cref="LoadedAssembly"/> was built with an empty reference list, which left the
+        /// 	unload cascade unable to find any dependents and made
+        /// 	<see cref="LoadedPlugin.Dependencies"/> permanently empty.
+        /// </remarks>
+        private static void BuildDependencyGraph(
+	        IEnumerable<PluginConstructorData> constructorDatas,
+	        out Dictionary<Assembly, HashSet<Assembly>> dependencies,
+	        out Dictionary<Assembly, HashSet<Assembly>> dependents)
+        {
+	        dependencies = new Dictionary<Assembly, HashSet<Assembly>>();
+	        dependents = new Dictionary<Assembly, HashSet<Assembly>>();
+
+	        foreach (var constructor in constructorDatas)
+	        {
+		        Assembly dependent = constructor.Type.Assembly;
+
+		        foreach (var parameter in constructor.Dependencies.Where(x => x.IsPluginInstance))
+		        {
+			        Assembly dependency = parameter.Type.Assembly;
+
+			        // Plugins in the same assembly referencing each other is not an edge; it
+			        // would make the assembly its own dependent and the cascade would recurse.
+			        if (dependency == dependent)
+				        continue;
+
+			        if (!dependencies.TryGetValue(dependent, out var dependsOn))
+				        dependencies[dependent] = dependsOn = new HashSet<Assembly>();
+			        dependsOn.Add(dependency);
+
+			        if (!dependents.TryGetValue(dependency, out var dependedOnBy))
+				        dependents[dependency] = dependedOnBy = new HashSet<Assembly>();
+			        dependedOnBy.Add(dependent);
+		        }
 	        }
         }
 
@@ -447,44 +496,78 @@ namespace OpenAPI.Plugins
 	    /// <param name="pluginAssembly"></param>
 	    public void UnloadPluginAssembly(Assembly pluginAssembly)
         {
-           // lock (_pluginLock)
-            {
-	            if (!LoadedAssemblies.TryGetValue(pluginAssembly, out LoadedAssembly assemblyPlugins))
-                {
-                    Log.Error($"Error unloading all plugins for assembly: No plugins found/loaded.");
-                    return;
-                }
+	        if (!LoadedAssemblies.TryGetValue(pluginAssembly, out LoadedAssembly assemblyPlugins))
+	        {
+		        Log.Error($"Error unloading all plugins for assembly: No plugins found/loaded.");
+		        return;
+	        }
 
-	            //Unload all assemblies that referenced this plugin's assembly
-	            foreach (Assembly referencedAssembly in assemblyPlugins.AssemblyReferences)
-	            {
-		            if (LoadedAssemblies.ContainsKey(referencedAssembly))
-		            {
-			            UnloadPluginAssembly(referencedAssembly);
-		            }
-	            }
-	            
-	            //Unload all plugin instances
-	            var types = assemblyPlugins.PluginTypes.ToArray();
-	            for (var i = 0; i < types.Length; i++)
-	            {
-		            var type = types[i];
+	        // Dependents first. They hold this assembly's types and instances, so it cannot be
+	        // released while any of them is still loaded — the reload unit is a plugin plus its
+	        // transitive dependents. Snapshotted because the recursion mutates LoadedAssemblies.
+	        foreach (Assembly dependent in assemblyPlugins.Dependents.ToArray())
+	        {
+		        if (LoadedAssemblies.ContainsKey(dependent))
+		        {
+			        UnloadPluginAssembly(dependent);
+		        }
+	        }
 
-		            if (Services.TryResolve(type, out var instance) && instance is OpenPlugin plugin)
-		            {
-			            UnloadPlugin(plugin);
-		            }
-	            }
+	        // Give each plugin a chance to release state the host cannot see (files, sockets,
+	        // its own caches). Best-effort only — correctness is PurgeAssembly's job below.
+	        foreach (var type in assemblyPlugins.PluginTypes.ToArray())
+	        {
+		        if (Services.TryResolve(type, out var instance) && instance is OpenPlugin plugin)
+		        {
+			        UnloadPlugin(plugin);
+		        }
+	        }
 
-	            //Remove all this assembly's type instances from list of references
-	            foreach (Type type in pluginAssembly.GetTypes())
-	            {
-		            if (Services.TryResolve(type, out _))
-		            {
-			            Services.Remove(type);
-		            }
-	            }
-            }
+	        // Host-side teardown. Does not depend on plugin cooperation, and covers every
+	        // registry rather than just the dependency container as this method used to.
+	        PurgeAssembly(pluginAssembly);
+        }
+
+        /// <summary>
+        /// 	Releases every host-side reference to types and instances belonging to
+        /// 	<paramref name="assembly"/>, so that a collectible load context holding it
+        /// 	can actually unload.
+        /// </summary>
+        /// <remarks>
+        /// 	This is the single teardown entry point. Anything in the host that can hold a
+        /// 	plugin instance, <see cref="Type"/>, <see cref="MethodInfo"/> or delegate must be
+        /// 	purged from here — a single surviving reference silently prevents the assembly
+        /// 	from ever being collected, with no exception and no log line.
+        ///
+        /// 	Teardown must not depend on plugins calling unregister methods in
+        /// 	<see cref="OpenPlugin.Disabled"/>; several do not.
+        /// </remarks>
+        /// <param name="assembly">The plugin assembly to release.</param>
+        public void PurgeAssembly(Assembly assembly)
+        {
+	        if (assembly == null) throw new ArgumentNullException(nameof(assembly));
+
+	        // Every self-registered holder: the root dispatcher and tick scheduler, plus one of
+	        // each per level. Driven from the registry rather than by walking the level manager
+	        // so a level that was never registered is still reached.
+	        var purgeables = Parent?.GetPurgeables();
+	        if (purgeables != null)
+	        {
+		        foreach (var purgeable in purgeables)
+		        {
+			        purgeable.PurgeAssembly(assembly);
+		        }
+	        }
+
+	        // Players outlive reloads too, and carry plugin-declared attribute types.
+	        Parent?.PlayerManager?.PurgeAssembly(assembly);
+
+	        Parent?.CommandManager?.PurgeAssembly(assembly);
+	        Parent?.ItemFactory?.PurgeAssembly(assembly);
+	        Services.PurgeAssembly(assembly);
+
+	        LoadedAssemblies.Remove(assembly);
+	        AssemblyManager.Remove(assembly);
         }
 
         private void UnloadPlugin(OpenPlugin plugin)
@@ -565,7 +648,9 @@ namespace OpenAPI.Plugins
 	    {
 			List<string> references = new List<string>();
 
-		    foreach (var asm in assembly.AssemblyReferences)
+		    // Forward direction: the plugins this one binds to. Not Dependents, which is what
+		    // the unload cascade follows.
+		    foreach (var asm in assembly.Dependencies)
 		    {
 			    if (LoadedAssemblies.TryGetValue(asm, out LoadedAssembly reference))
 			    {

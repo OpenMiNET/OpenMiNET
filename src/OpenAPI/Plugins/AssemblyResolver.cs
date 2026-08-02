@@ -15,11 +15,35 @@ namespace OpenAPI.Plugins
 	    private static readonly ILog Log = LogManager.GetLogger(typeof(AssemblyResolver));
 	    
 	    private AssemblyManager AssemblyManager { get; }
+	    private string HostAssemblyName { get; }
+
         public AssemblyResolver(AssemblyManager assemblyManager)
         {
 	        AssemblyManager = assemblyManager;
-	        
+	        HostAssemblyName = typeof(AssemblyResolver).Assembly.GetName().Name;
+
 	        AppDomain.CurrentDomain.AssemblyResolve += PluginManagerOnAssemblyResolve;
+        }
+
+        /// <summary>
+        /// 	Whether the assembly at <paramref name="path"/> is itself a plugin, i.e. references
+        /// 	the host.
+        /// </summary>
+        private bool ReferencesHost(string path)
+        {
+	        try
+	        {
+		        using (var module = ModuleDefinition.ReadModule(path))
+		        {
+			        return module.AssemblyReferences.Any(
+				        x => x.Name.Equals(HostAssemblyName, StringComparison.InvariantCultureIgnoreCase));
+		        }
+	        }
+	        catch (Exception ex)
+	        {
+		        Log.Debug($"Could not inspect \"{path}\" for host references.", ex);
+		        return false;
+	        }
         }
         
         private Assembly PluginManagerOnAssemblyResolve(object sender, ResolveEventArgs args)
@@ -103,6 +127,14 @@ namespace OpenAPI.Plugins
 
 	        foreach (var resolved in resolvedPaths)
 	        {
+		        // Only sibling plugins are loaded eagerly, so that cross-plugin constructor
+		        // injection sees a single shared type identity regardless of load order.
+		        // Ordinary dependencies are left to the plugin's own load context, which keeps
+		        // them private to that plugin — two plugins can then ship different versions of
+		        // the same library instead of the first one loaded winning for everybody.
+		        if (!ReferencesHost(resolved.Value))
+			        continue;
+
 		        if (AssemblyManager.TryLoadAssemblyFromFile(resolved.Key.Name, resolved.Value, out Assembly loaded))
 		        {
 			        resolvedAssemblies.TryAdd(resolved.Key, loaded);

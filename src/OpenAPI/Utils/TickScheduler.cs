@@ -3,23 +3,36 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using log4net;
 using MiNET.Utils;
+using OpenAPI.Plugins;
 
 namespace OpenAPI.Utils
 {
-	public class TickScheduler
+	public class TickScheduler : IAssemblyPurgeable
 	{
 		private static readonly ILog Log = LogManager.GetLogger(typeof(TickScheduler));
 		
 		private ConcurrentDictionary<ScheduledTick, ulong> _scheduledTicks = new ConcurrentDictionary<ScheduledTick, ulong>();
 		private Timer Hpt { get; }
 
-		public TickScheduler()
+		public TickScheduler() : this(null)
+		{
+		}
+
+		/// <param name="openApi">
+		///		When supplied, the scheduler registers itself so plugin teardown can reach it.
+		///		Levels outlive plugin reloads, so anything scheduled here would otherwise keep
+		///		the scheduling plugin's assembly alive.
+		/// </param>
+		public TickScheduler(OpenApi openApi)
 		{
 			Hpt = new Timer(Action, new object(), 50, 50);
+
+			openApi?.RegisterPurgeable(this);
 		}
 
 		private object _tickLock = new object();
@@ -96,27 +109,76 @@ namespace OpenAPI.Utils
 			}
 			else
 			{
-				cancellationToken.Register(() =>
-				{
-					ulong scheduledTickTime;
-					_scheduledTicks.TryRemove(scheduledTick, out scheduledTickTime);
-				});
+				// Keep the registration so it can be disposed. The callback closure captures
+				// scheduledTick, which holds the caller's delegate, so an undisposed
+				// registration leaves the callers's assembly reachable from the token even
+				// after the tick has been removed from _scheduledTicks.
+				scheduledTick.Registration = cancellationToken.Register(() => Remove(scheduledTick));
 			}
-			
+
 			//return executionTime;
+		}
+
+		private bool Remove(ScheduledTick scheduledTick)
+		{
+			if (!_scheduledTicks.TryRemove(scheduledTick, out _))
+				return false;
+
+			scheduledTick.Registration.Dispose();
+			return true;
+		}
+
+		/// <summary>
+		///		Removes every scheduled tick whose callback belongs to <paramref name="assembly"/>.
+		/// </summary>
+		/// <remarks>
+		///		A scheduler belongs to a level, and levels outlive plugin reloads, so anything a
+		///		plugin scheduled here would otherwise keep its assembly alive. A repeating tick
+		///		registered with <see cref="CancellationToken.None"/> has no other removal path
+		///		at all.
+		/// </remarks>
+		public int PurgeAssembly(Assembly assembly)
+		{
+			int removed = 0;
+
+			foreach (var scheduled in _scheduledTicks.ToArray())
+			{
+				var action = scheduled.Key.Action;
+
+				bool belongsToAssembly =
+					action?.Target?.GetType().Assembly == assembly
+					|| action?.Method?.DeclaringType?.Assembly == assembly;
+
+				if (belongsToAssembly && Remove(scheduled.Key))
+					removed++;
+			}
+
+			return removed;
 		}
 
 		public void Close()
 		{
 			Hpt.Dispose();
+
+			foreach (var scheduled in _scheduledTicks.ToArray())
+			{
+				Remove(scheduled.Key);
+			}
 		}
 
-		private struct ScheduledTick
+		/// <remarks>
+		///		A class rather than a struct so the dictionary keys on identity and the
+		///		<see cref="CancellationTokenRegistration"/> can be written back after
+		///		registration without copying.
+		/// </remarks>
+		private sealed class ScheduledTick
 		{
 			public ulong TickInFuture { get; }
 			public Action Action { get; }
 			public CancellationToken CancellationToken { get; }
 			public bool Repeat { get; }
+			public CancellationTokenRegistration Registration { get; set; }
+
 			public ScheduledTick(Action action, CancellationToken cancellationToken, bool repeat, ulong ticksInFuture)
 			{
 				Action = action;
