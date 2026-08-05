@@ -271,3 +271,6 @@ src/**/[Oo]bj/**/*
 src/**/[Bb]in/**/*
 src/**/[Dd]ebug/**/*
 src/**/[Rr]elease/**/*
+
+# Personal server config
+server.kenny.conf
