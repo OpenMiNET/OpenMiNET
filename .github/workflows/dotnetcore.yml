@@ -73,6 +73,11 @@ jobs:
       # PackageVersion is a global property, so it also sets the version of the
       # OpenMiNET.OpenAPI.Locale dependency that OpenMiNET.OpenAPI declares. Both are packed
       # at the same version, which keeps that dependency satisfiable.
+      #
+      # GeneratePackageOnBuild=false is required, not tidying: both projects set it true in
+      # their csproj, and with it set "dotnet pack" does not build. Nothing is then copied to
+      # the projects' OutputPath (build/release) and pack fails with NU5026, the assembly not
+      # found on disk. It only looks like it works where a previous build already left one there.
       - name: Pack
         run: |
           for project in src/OpenAPI/OpenAPI.csproj src/OpenAPI.Locale/OpenAPI.Locale.csproj; do
@@ -81,6 +86,7 @@ jobs:
               --output nuget \
               -p:PackageVersion=${{ steps.version.outputs.version }} \
               -p:UseMiNETSubmodule=false \
+              -p:GeneratePackageOnBuild=false \
               -p:ContinuousIntegrationBuild=true \
               -p:IncludeSymbols=true \
               -p:SymbolPackageFormat=snupkg
