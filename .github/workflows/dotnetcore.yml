@@ -1,31 +1,126 @@
-name: .NET Core
+name: .NET
 
-on: 
+on:
   push:
-    branches-ignore: 
+    branches-ignore:
       - gh-pages
 
 jobs:
   build:
+    name: Build & Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1
+      - uses: actions/checkout@v4
+        with:
+          # MiNET is a submodule and OpenAPI compiles against it, so a shallow checkout
+          # without it fails to restore.
+          submodules: recursive
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 10.0.x
-      - name: Build with dotnet
+
+      # Release, not Debug: OpenAPI.Admin's DebugEnsureNodeEnv target hard-fails without
+      # Node.js installed, and it is gated on the Debug configuration.
+      - name: Build
+        run: dotnet build --configuration Release
+
+      - name: Test
+        run: dotnet test src/OpenAPI.Tests/OpenAPI.Tests.csproj --configuration Release --no-build
+
+  publish:
+    name: Publish to NuGet
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/master'
+    permissions:
+      # write, not read: the build number is stored as a git ref by the counter action,
+      # and naming permissions at all replaces the defaults rather than adding to them.
+      contents: write
+      # Lets the job ask GitHub for an OIDC token, which nuget.org trades for a
+      # short-lived key. Without it the token request fails quietly.
+      id-token: write
+    env:
+      # 1.0.117 is the last version AppVeyor published, and the build counter below starts
+      # at 1, so it is offset past what is already on nuget.org. Without this the first
+      # runs would produce versions that already exist and --skip-duplicate would silently
+      # publish nothing.
+      VERSION_BASE: 117
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Generate build number
+        id: buildnumber
+        uses: einaregilsson/build-number@v3
+        with:
+          token: ${{ secrets.github_token }}
+
+      - name: Compute package version
+        id: version
+        run: echo "version=1.0.$(( VERSION_BASE + ${{ steps.buildnumber.outputs.build_number }} ))" >> "$GITHUB_OUTPUT"
+
+      # UseMiNETSubmodule=false swaps the submodule ProjectReference for a PackageReference,
+      # so the packages depend on MiNET from nuget.org rather than on the submodule's
+      # placeholder 0.0.0 version. See src/Directory.Build.props. This is also why the
+      # checkout above does not need submodules.
+      #
+      # PackageVersion is a global property, so it also sets the version of the
+      # OpenMiNET.OpenAPI.Locale dependency that OpenMiNET.OpenAPI declares. Both are packed
+      # at the same version, which keeps that dependency satisfiable.
+      - name: Pack
         run: |
-          dotnet build --configuration Release
+          for project in src/OpenAPI/OpenAPI.csproj src/OpenAPI.Locale/OpenAPI.Locale.csproj; do
+            dotnet pack "$project" \
+              --configuration Release \
+              --output nuget \
+              -p:PackageVersion=${{ steps.version.outputs.version }} \
+              -p:UseMiNETSubmodule=false \
+              -p:ContinuousIntegrationBuild=true \
+              -p:IncludeSymbols=true \
+              -p:SymbolPackageFormat=snupkg
+          done
+
+      # Trusted publishing: nuget.org checks the token's repository, workflow file and owner
+      # against the trust policy on the account and issues a key that expires shortly after.
+      # There is no stored API key to leak or to expire unnoticed.
+      - name: NuGet login
+        id: login
+        uses: NuGet/login@v1
+        with:
+          user: OpenMiNET
+
+      # Pushing the .nupkg also uploads the matching .snupkg sitting beside it.
+      - name: Push
+        run: |
+          dotnet nuget push "nuget/*.nupkg" \
+            --source https://api.nuget.org/v3/index.json \
+            --api-key ${{ steps.login.outputs.NUGET_API_KEY }} \
+            --skip-duplicate
+
+  docs:
+    name: Documentation
+    runs-on: ubuntu-latest
+    needs: build
+    # master only: publishing from every branch would have each one overwrite the docs site.
+    if: github.ref == 'refs/heads/master'
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
       - name: Build Documentation
         uses: nikeee/docfx-action@master
         with:
           args: docs/docfx.json
-  #    - name: Publish Documentation on GitHub Pages
-  #      uses: maxheld83/ghpages@master
-  #      env:
-  #        BUILD_DIR: _site
-  #        GH_PAT: ${{ secrets.GH_PAT }}
+
       - name: Publish Documentation on GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
