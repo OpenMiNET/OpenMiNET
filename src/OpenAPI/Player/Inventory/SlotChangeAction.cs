@@ -45,8 +45,8 @@ namespace OpenAPI.Player.Inventory
 
 		public static bool EqualsExactly(Item a, Item b)
 		{
+			// Item.Equals already compares name, metadata and NBT.
 			return a.Equals(b) && a.Count == b.Count;
-			return a.Id == b.Id && a.Metadata == b.Metadata && a.ExtraData == b.ExtraData && a.Count == b.Count;
 		}
 
 		/// <inheritdoc />

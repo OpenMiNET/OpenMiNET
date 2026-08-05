@@ -157,7 +157,10 @@ namespace OpenAPI.World
 			//if (GameMode == GameMode.Creative) return;
 
 			if (drop == null) return;
-			if (drop.Id == 0) return;
+			// Was "drop.Id == 0", meaning air. Identity is the registry name now; RuntimeId is only
+			// filled in for block items and off the wire, so testing it for 0 would throw away
+			// every ordinary item drop.
+			if (drop.IsAir) return;
 			if (drop.Count == 0) return;
 
 			//PlayerItemDropEvent dropEvent = new PlayerItemDropEvent();
@@ -204,8 +207,11 @@ namespace OpenAPI.World
 			if (!canBreak || !AllowBreak || player?.GameMode == GameMode.Spectator)
 			{
 				if (player != null)
+				{
+					Log.Debug($"Reverting block break. canBreak={canBreak} allowBreak={AllowBreak} gamemode={player.GameMode}");
 					RevertBlockAction(player, block, blockEntity);
-				
+				}
+
 				return false;
 			}
 			
@@ -226,8 +232,11 @@ namespace OpenAPI.World
 			if (e.IsCancelled)
 			{
 				if (player != null)
+				{
+					Log.Debug($"Reverting block break, cancelled by a handler. gamemode={player.GameMode}");
 					RevertBlockAction(player, block, blockEntity);
-						
+				}
+
 				return false;
 			}
 
@@ -252,7 +261,11 @@ namespace OpenAPI.World
 		private static void RevertBlockAction(OpenPlayer player, Block block, BlockEntity blockEntity)
 		{
 			var message = McpeUpdateBlock.CreateObject();
-			message.blockRuntimeId = (uint) block.GetRuntimeId();
+			// BlockFactory owns both directions of the runtime id <-> network id conversion and is
+			// the only thing allowed to know whether the session runs with hashed ids. A raw runtime
+			// id here is read by the client as a palette index: wrong in hash mode, and GetRuntimeId
+			// returns -1 for a block with no state mapping, which casts to 0xFFFFFFFF.
+			message.blockRuntimeId = BlockFactory.GetNetworkId(block);
 			message.coordinates = block.Coordinates;
 			message.blockPriority = 0xb;
 			player.SendPacket(message);

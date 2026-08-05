@@ -128,7 +128,7 @@ namespace OpenAPI.Tests.LeakPlugin
 				case "itemfactory":
 				{
 					var factory = new LeakItemFactory();
-					api.ItemFactory.TryRegisterItem(31000, 0, factory.Create);
+					api.ItemFactory.TryRegisterItem("openapi:leak_test_item", 0, factory.Create);
 					return factory;
 				}
 

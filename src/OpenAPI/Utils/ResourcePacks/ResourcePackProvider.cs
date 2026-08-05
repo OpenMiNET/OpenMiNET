@@ -166,11 +166,11 @@ namespace OpenAPI.Utils.ResourcePacks
             }
         }
 
-        public IEnumerable<ResourcePackInfo> GetResourcePackInfos()
+        public IEnumerable<TexturePackInfo> GetResourcePackInfos()
         {
             foreach (var manifest in Manifests)
             {
-                yield return new ResourcePackInfo()
+                yield return new TexturePackInfo()
                 {
                     Size = (ulong) manifest.Value.Length,
                     HasScripts = false,

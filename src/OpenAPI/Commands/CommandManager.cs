@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using log4net;
 using MiNET.Blocks;
+using MiNET.Net;
 using MiNET.Plugins;
 using MiNET.Plugins.Attributes;
 using Newtonsoft.Json.Linq;
@@ -465,7 +466,7 @@ namespace OpenAPI.Commands
 				}
 
                 // TODO: Do we need the authorize attribute with the new permission system?
-                int requiredPermission = command.Versions.First().CommandPermission;
+                var requiredPermission = (CommandPermission)command.Versions.First().CommandPermission;
 				if (player.CommandPermission < requiredPermission)
 				{
 					Log.Debug($"Insufficient permissions. Require {requiredPermission} but player had {player.CommandPermission}");
@@ -523,7 +524,7 @@ namespace OpenAPI.Commands
 
 				Overload overload = command.Versions.First().Overloads[commandOverload];
 
-				int requiredPermission = command.Versions.First().CommandPermission;
+				var requiredPermission = (CommandPermission)command.Versions.First().CommandPermission;
 				if (player.CommandPermission < requiredPermission)
 				{
 					Log.Debug($"Insufficient permissions. Require {requiredPermission} but player had {player.CommandPermission}");

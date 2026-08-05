@@ -20,6 +20,7 @@ using MiNET.BlockEntities;
 using MiNET.Blocks;
 using MiNET.Effects;
 using MiNET.Entities;
+using MiNET.Entities.World;
 using MiNET.Items;
 using MiNET.Net;
 using MiNET.Plugins;
@@ -154,9 +155,22 @@ namespace OpenAPI.Player
         /// <inheritdoc />
         public override void HandleMcpeSetPlayerGameType(McpeSetPlayerGameType message)
         {
+	        // Fallback is the "inherit the level's mode" sentinel that StartGame sends as the
+	        // player's mode, and the client acknowledges it verbatim, so it arrives here on every
+	        // join. It is not a mode: storing it leaves GameMode matching nothing at all, which
+	        // silently disables every creative-gated path, block breaking included.
+	        var requested = (GameMode) message.gamemode;
+	        GameMode gameMode = requested == GameMode.Fallback ? Level.GameMode : requested;
+
+	        if (!Enum.IsDefined(gameMode))
+	        {
+		        Log.Warn($"Ignoring SetPlayerGameType with unknown game mode {message.gamemode}");
+		        return;
+	        }
+
 	        EventDispatcher.DispatchEventAsync(
 		        new PlayerGamemodeChangeEvent(
-			        this, GameMode, (GameMode) message.gamemode,
+			        this, GameMode, gameMode,
 			        PlayerGamemodeChangeEvent.PlayerGamemodeChangeTrigger.Self)).Then(
 		        response =>
 		        {
@@ -170,17 +184,11 @@ namespace OpenAPI.Player
 		        });
         }
 
-        /// <inheritdoc />
-        public override void HandleMcpeAdventureSettings(McpeAdventureSettings message)
-        {
-	        if (message.entityUniqueId != EntityId)
-	        {
-		        //We are trying to change another players adventuresettings.
-		        return;
-	        }
-	        
-	        base.HandleMcpeAdventureSettings(message);
-        }
+        // HandleMcpeAdventureSettings used to guard against a client sending another player's
+        // entity id to change their adventure settings. The packet split into
+        // UpdateAdventureSettings and UpdateAbilities back in 1.19.30 and its id is retired, so
+        // there is nothing left for a client to spoof. Abilities are granted by the server and a
+        // client that wants one asks with McpeRequestAbility, which MiNET ignores.
 
         /// <summary>
         ///		Handles any incoming commands.
@@ -429,7 +437,9 @@ namespace OpenAPI.Player
 
         public void SetInvItem(int inventoryId, int slot, Item item)
         {
-	        var newItem = ItemFactory.GetItem(item.Id, item.Metadata, item.Count);
+	        // Rebuilt through the factory rather than stored as given, so a custom item registered
+	        // with OpenItemFactory comes back as its own type. Keyed by registry name since 1.26.
+	        var newItem = ItemFactory.GetItemByName(item.Name, item.Metadata, item.Count);
 	        newItem.ExtraData = item.ExtraData;
 
 	        if (inventoryId == 0) //Player Inventory
@@ -492,14 +502,19 @@ namespace OpenAPI.Player
 					        {
 						        var item = GetContainerItem(record.ContainerId, slot);
 
-						        if (item.Id == wit.NewItem.Id && item.Metadata == wit.NewItem.Metadata
+						        // Name, not RuntimeId: the container item is server built and only
+						        // block items carry a runtime id, so comparing those would match on 0.
+						        if (string.Equals(item.Name, wit.NewItem.Name, StringComparison.OrdinalIgnoreCase)
+						                                      && item.Metadata == wit.NewItem.Metadata
 						                                      && item.Count >= wit.NewItem.Count)
 						        {
 							        item.Count -= newItem.Count;
 
 							        if (DropItem(newItem, item))
 							        {
-								        DropItem(wit.NewItem);
+								        // base: the event was already raised just above, and the
+								        // override would raise it a second time.
+								        base.DropItem(wit.NewItem);
 								        didMatch = true;
 
 								        break;
@@ -718,6 +733,24 @@ namespace OpenAPI.Player
 			//base.DropItem(droppedItem, newInventoryItem);
 		}
 
+		/// <summary>
+		///		Drops an item into the world, raising <see cref="PlayerItemDropEvent"/> first.
+		/// </summary>
+		/// <remarks>
+		///		Inventories are server authoritative since 1.26, so a drop reaches the server as an
+		///		ItemStackRequest DropAction handled by MiNET's ItemStackInventoryManager rather than
+		///		as the world-interaction record HandleNormalTransaction used to see. That manager
+		///		calls this method, which makes it the one place every drop passes through.
+		/// </remarks>
+		/// <returns>The spawned item entity, or null when a handler cancelled the drop.</returns>
+		public override ItemEntity DropItem(Item item)
+		{
+			if (!DropItem(item, new ItemAir()))
+				return null;
+
+			return base.DropItem(item);
+		}
+
 	    /*public override void HandleMcpeServerSettingsRequest(McpeServerSettingsRequest message)
 	    {
 		    PlayerSettingsRequestEvent e = new PlayerSettingsRequestEvent(this, message);
@@ -740,19 +773,69 @@ namespace OpenAPI.Player
 		/// <param name="message"></param>
 	    public override void HandleMcpePlayerAction(McpePlayerAction message)
 	    {
-		    var action = (PlayerAction)message.actionId;
+		    if (HandleBlockAction((PlayerAction) message.actionId, message.coordinates, (BlockFace) message.face))
+			    return;
+
+		    base.HandleMcpePlayerAction(message);
+	    }
+
+		/// <summary>
+		///		Whether OpenAPI takes this action over from MiNET so block breaking runs through
+		///		the event pipeline. Everything else stays with the base implementation.
+		/// </summary>
+		private static bool IsBreakAction(PlayerAction action)
+		{
+			switch (action)
+			{
+				case PlayerAction.StartBreak:
+				case PlayerAction.AbortBreak:
+				case PlayerAction.StopBreak:
+				case PlayerAction.CreativeDestroy:
+				case PlayerAction.PredictDestroyBlock:
+				case PlayerAction.ContinueDestroyBlock:
+					return true;
+				default:
+					return false;
+			}
+		}
+
+		/// <summary>
+		///		Runs a block break action through OpenAPI's events. Shared by the
+		///		<see cref="McpePlayerAction"/> packet and the block actions carried on
+		///		<see cref="McpePlayerAuthInput"/>, which is where a 1.26 client sends them now
+		///		that block breaking is server authoritative.
+		/// </summary>
+		/// <returns>True when OpenAPI handled it and the base implementation must not run.</returns>
+		private bool HandleBlockAction(PlayerAction action, BlockCoordinates coordinates, BlockFace face)
+	    {
+		    if (!IsBreakAction(action))
+			    return false;
 
 			lock (_breakSync)
 			{
 				if (GameMode == GameMode.Creative)
 				{
-					return;
+					// Creative destroys in one hit and the client predicts it, so the destroy
+					// arrives as PredictDestroyBlock. CreativeDestroy is sent for the same swing
+					// and acting on both would break the block twice.
+					if (action == PlayerAction.PredictDestroyBlock)
+						BreakBlock(coordinates, face);
+
+					return true;
 				}
 
 				Block block;
-				if (action == PlayerAction.StartBreak)
+				if (action == PlayerAction.StartBreak || action == PlayerAction.ContinueDestroyBlock)
 				{
-					block = Level.GetBlock(message.coordinates);
+					// ContinueDestroyBlock repeats while the client stays on the same block.
+					// Restarting the timer for those would stop it ever reaching BlockBreakTime.
+					if (IsBreakingBlock && BreakingBlockCoordinates == coordinates)
+					{
+						SendBlockCracking(coordinates, face);
+						return true;
+					}
+
+					block = Level.GetBlock(coordinates);
 					var inHand = Inventory.GetItemInHand();
 					var drops = block.GetDrops(inHand);
 					
@@ -802,12 +885,10 @@ namespace OpenAPI.Player
 
 					McpeLevelEvent message1 = McpeLevelEvent.CreateObject();
 					message1.eventId = 3600;
-					message1.position = message.coordinates;
+					message1.position = coordinates;
 					message1.data = (int) ((double) ushort.MaxValue / (breakTime / multiplier));
-					
+
 					Level.RelayBroadcast(message1);
-					
-					BlockFace face = (BlockFace) message.face;
 
 					IsBreakingBlock = true;
 					BlockBreakTimer.Restart();
@@ -815,9 +896,6 @@ namespace OpenAPI.Player
 					BlockBreakTime = breakTime / multiplier;
 					BreakingFace = face;
 
-			//		Log.Info(
-			//			$"Start Breaking block. Hardness: {hardness} | ToolTypeFactor; {tooltypeFactor} | BreakTime: {breakTime} | Multiplier: {multiplier} | BLockBreakTime: {breakTime / multiplier} | IsBreaking: {IsBreakingBlock}");
-					
 					var blockStartBreak = new BlockStartBreakEvent(this, block);
 					EventDispatcher.DispatchEventAsync(blockStartBreak).Then(result =>
 					{
@@ -827,17 +905,12 @@ namespace OpenAPI.Player
 							return;
 						}
 					});
-					
-					return;
+
+					return true;
 				}
 				else if (action == PlayerAction.AbortBreak)
 				{
-					var elapsed = BlockBreakTimer.ElapsedMilliseconds;
-					var elapsedTicks = elapsed / 50d;
-					
-				//	Log.Info($"!! Abort Break !!! Ticks elapsed: {elapsedTicks} | Required: {BlockBreakTime} | IsBreaking: {IsBreakingBlock}");
-					
-					block = Level.GetBlock(message.coordinates);
+					block = Level.GetBlock(coordinates);
 					if (IsBreakingBlock && BreakingBlockCoordinates == block.Coordinates)
 					{
 						IsBreakingBlock = false;
@@ -852,19 +925,16 @@ namespace OpenAPI.Player
 							}
 						});
 					}
-					
-					return;
+
+					return true;
 				}
-				else if (action == PlayerAction.StopBreak)
+				else if (action == PlayerAction.StopBreak || action == PlayerAction.PredictDestroyBlock)
 				{
 					var elapsed = BlockBreakTimer.ElapsedMilliseconds;
 					var elapsedTicks = elapsed / 50d;
-					
-					//Log.Info($"## !! Stop Break !!! Ticks elapsed: {elapsedTicks} | Required: {BlockBreakTime} | IsBreaking: {IsBreakingBlock}");
-					
+
 					if (IsBreakingBlock)
 					{
-						//BlockFace face = (BlockFace) message.face;
 						if (elapsedTicks >= BlockBreakTime || Math.Abs(elapsedTicks - BlockBreakTime) < 2.5
 						) //Give a max time difference of 2.5 ticks.
 						{
@@ -872,7 +942,9 @@ namespace OpenAPI.Player
 						}
 						else
 						{
-							
+							// Broke faster than the tool allows. Put the block back so the client's
+							// prediction does not stick.
+							RevertBlockBreak(BreakingBlockCoordinates);
 						}
 					}
 					else
@@ -881,11 +953,11 @@ namespace OpenAPI.Player
 						BlockBreakTimer.Reset();
 					}
 
-					return;
+					return true;
 				}
 			}
 
-			base.HandleMcpePlayerAction(message);
+			return false;
 	    }
 
 	    private void SendBlockBreakEnd(BlockCoordinates coordinates)
@@ -897,6 +969,56 @@ namespace OpenAPI.Player
 	        Level.RelayBroadcast(levelEvent);
         }
 
+	    /// <summary>
+	    ///		Shows the crack overlay progressing on a block that is already being broken.
+	    /// </summary>
+	    private void SendBlockCracking(BlockCoordinates coordinates, BlockFace face)
+	    {
+		    McpeLevelEvent levelEvent = McpeLevelEvent.CreateObject();
+		    levelEvent.position = coordinates;
+		    levelEvent.eventId = 2014; //Block cracking
+		    // The face belongs in the high byte of data, but MiNET writes it as
+		    // (byte) (face << 24), which is always 0. Kept off here rather than diverging from the
+		    // bytes MiNET sends for the same event.
+		    levelEvent.data = (int) Level.GetBlock(coordinates).GetRuntimeId();
+		    Level.RelayBroadcast(levelEvent);
+	    }
+
+	    /// <summary>
+	    ///		Re-sends a block the client predicted away. Needed because block breaking is server
+	    ///		authoritative: the client removes the block locally before we agree to it, so a
+	    ///		break we reject has to be undone client side or the two views drift apart.
+	    /// </summary>
+	    private void RevertBlockBreak(BlockCoordinates coordinates)
+	    {
+		    IsBreakingBlock = false;
+		    BlockBreakTimer.Reset();
+
+		    var block = Level.GetBlock(coordinates);
+
+		    McpeUpdateBlock update = McpeUpdateBlock.CreateObject();
+		    // Through BlockFactory, never a raw runtime id: see RevertBlockAction in OpenLevel.
+		    update.blockRuntimeId = BlockFactory.GetNetworkId(block);
+		    update.coordinates = coordinates;
+		    update.blockPriority = 0xb;
+		    SendPacket(update);
+
+		    SendBlockBreakEnd(coordinates);
+	    }
+
+	    /// <summary>
+	    ///		Breaks a block through OpenAPI's <see cref="OpenLevel.BreakBlock"/>, which is what
+	    ///		raises <see cref="BlockBreakEvent"/>. MiNET's own Level.BreakBlock is not virtual
+	    ///		and would skip the event pipeline entirely.
+	    /// </summary>
+	    private void BreakBlock(BlockCoordinates coordinates, BlockFace face)
+	    {
+		    var block = Level.GetBlock(coordinates);
+
+		    if (!Level.BreakBlock(block, face, this, Inventory.GetItemInHand()))
+			    SendBlockBreakEnd(coordinates);
+	    }
+
 	    private void StopBreak(BlockCoordinates coords, bool reset = true)
 		{
 			if (reset)
@@ -905,12 +1027,7 @@ namespace OpenAPI.Player
 				BlockBreakTimer.Reset();
 			}
 
-			var b = Level.GetBlock(coords);
-			
-			Item inHand = Inventory.GetItemInHand();
-			Level.BreakBlock(b, BreakingFace, this, inHand);
-
-           // e.OnComplete();
+			BreakBlock(coords, BreakingFace);
 		}
 
 	    /*protected override bool CanBreakBlock(Block block, Item itemInHand)
@@ -930,7 +1047,7 @@ namespace OpenAPI.Player
 		    return false;
 	    }*/
 
-	    private Dictionary<PlayerInput, PlayerInputState> _inputStates = new Dictionary<PlayerInput, PlayerInputState>()
+	    private readonly Dictionary<PlayerInput, PlayerInputState> _inputStates = new Dictionary<PlayerInput, PlayerInputState>()
 	    {
 	        {PlayerInput.W, PlayerInputState.Up},
 	        {PlayerInput.A, PlayerInputState.Up},
@@ -940,51 +1057,148 @@ namespace OpenAPI.Player
 	    };
 
 	    /// <summary>
-	    ///		Wheter to capture player keyboard input, if true <see cref="HandleMcpePlayerAction"/> will try to capture every keystroke.
+	    ///		Wheter to capture player keyboard input, if true <see cref="HandleMcpePlayerAuthInput"/> will try to capture every keystroke.
 	    /// </summary>
-        public bool CapturePlayerInputMode = false;
-        /// <summary>
-        ///		Handles player input, so we can determine what buttons are pressed by the client.
-        /// </summary>
-        /// <param name="message"></param>
-        public override void HandleMcpePlayerInput(McpePlayerInput message)
-	    {
-	       // SendMessage($"MX: {message.motionX} MZ: {message.motionZ} Flag1: {message.flag1} Flag2: {message.flag2}");
-	        if (CapturePlayerInputMode)
-	        {
-	            if (message.motionX > 0)
-	            {
-	                _inputStates[PlayerInput.A] = PlayerInputState.Down;
-	                _inputStates[PlayerInput.D] = PlayerInputState.Up;
-                }
-                else if (message.motionX < 0)
-	            {
-	                _inputStates[PlayerInput.A] = PlayerInputState.Up;
-                    _inputStates[PlayerInput.D] = PlayerInputState.Down;
-                }
-	            else
-	            {
-	                _inputStates[PlayerInput.A] = PlayerInputState.Up;
-	                _inputStates[PlayerInput.D] = PlayerInputState.Up;
-                }
+	    public bool CapturePlayerInputMode = false;
 
-	           if(message.motionZ > 0)
-	            {
-	                _inputStates[PlayerInput.W] = PlayerInputState.Down;
-	                _inputStates[PlayerInput.S] = PlayerInputState.Up;
-                }
-	            else if (message.motionZ < 0)
-	            {
-	                _inputStates[PlayerInput.W] = PlayerInputState.Up;
-	                _inputStates[PlayerInput.S] = PlayerInputState.Down;
-                }
-	           else
-	           {
-	               _inputStates[PlayerInput.W] = PlayerInputState.Up;
-	               _inputStates[PlayerInput.S] = PlayerInputState.Up;
-                }
-            }
-            base.HandleMcpePlayerInput(message);
+	    /// <summary>
+	    ///		The last known state of one of the keys tracked while
+	    ///		<see cref="CapturePlayerInputMode"/> is enabled.
+	    /// </summary>
+	    public PlayerInputState GetInputState(PlayerInput input)
+	    {
+		    lock (_inputStates)
+		    {
+			    return _inputStates.TryGetValue(input, out var state) ? state : PlayerInputState.Up;
+		    }
+	    }
+
+	    /// <summary>
+	    ///		The 1.26 client sends <see cref="McpePlayerAuthInput"/> every tick and it is the only
+	    ///		movement packet it sends, so this is where movement, keyboard input and block
+	    ///		breaking all arrive.
+	    /// </summary>
+	    /// <param name="message"></param>
+	    public override void HandleMcpePlayerAuthInput(McpePlayerAuthInput message)
+	    {
+		    if (CapturePlayerInputMode)
+			    CapturePlayerInput(message.InputFlags);
+
+		    // Block actions OpenAPI owns are pulled out before the base call: MiNET would break the
+		    // block through its own non-virtual Level.BreakBlock, which never raises BlockBreakEvent.
+		    // The rest (the crack overlay, for one) is left for the base implementation.
+		    List<McpePlayerAuthInput.PlayerBlockAction> blockActions = message.BlockActions;
+		    List<McpePlayerAuthInput.PlayerBlockAction> ownedActions = null;
+
+		    if (blockActions != null)
+		    {
+			    List<McpePlayerAuthInput.PlayerBlockAction> passthrough = null;
+
+			    foreach (var blockAction in blockActions)
+			    {
+				    if (IsBreakAction((PlayerAction) blockAction.ActionType))
+					    (ownedActions ??= new List<McpePlayerAuthInput.PlayerBlockAction>()).Add(blockAction);
+				    else
+					    (passthrough ??= new List<McpePlayerAuthInput.PlayerBlockAction>()).Add(blockAction);
+			    }
+
+			    message.BlockActions = passthrough;
+		    }
+
+		    bool moveRejected = false;
+
+		    try
+		    {
+			    if (IsSpawned && !HealthManager.IsDead)
+			    {
+				    // Y arrives at eye height, the same as MovePlayer's did.
+				    var to = new PlayerLocation(
+					    message.Position.X, message.Position.Y - 1.62f, message.Position.Z,
+					    message.HeadYaw, message.Yaw, message.Pitch);
+
+				    if (HasMoved(KnownPosition, to) && !PlayerMoveEvent(KnownPosition, to))
+				    {
+					    // Rewritten to where the server already has the player so the base call
+					    // applies the move as a no-op. Everything else on this packet (input flags,
+					    // inventory actions) is unrelated to the move and still gets processed.
+					    message.Position = new Vector3(KnownPosition.X, KnownPosition.Y + 1.62f, KnownPosition.Z);
+					    message.Pitch = KnownPosition.Pitch;
+					    message.Yaw = KnownPosition.Yaw;
+					    message.HeadYaw = KnownPosition.HeadYaw;
+
+					    moveRejected = true;
+				    }
+			    }
+
+			    base.HandleMcpePlayerAuthInput(message);
+		    }
+		    finally
+		    {
+			    message.BlockActions = blockActions;
+		    }
+
+		    // Movement is client authoritative, so the client has already moved locally. Without
+		    // correcting it, a rejected move leaves it walking away from where the server has it.
+		    if (moveRejected)
+			    base.Teleport(KnownPosition);
+
+		    if (ownedActions == null)
+			    return;
+
+		    foreach (var blockAction in ownedActions)
+		    {
+			    HandleBlockAction(
+				    (PlayerAction) blockAction.ActionType,
+				    new BlockCoordinates(blockAction.X, blockAction.Y, blockAction.Z),
+				    (BlockFace) blockAction.Face);
+		    }
+	    }
+
+	    /// <summary>
+	    ///		Whether the client reported a position or rotation that differs from what the server
+	    ///		has. PlayerAuthInput arrives every tick whether or not the player moved, and
+	    ///		<see cref="PlayerMoveEvent"/> is only meant to fire when they did.
+	    /// </summary>
+	    private static bool HasMoved(PlayerLocation from, PlayerLocation to)
+	    {
+		    const float threshold = 0.0001f;
+
+		    return Math.Abs(from.X - to.X) > threshold
+		           || Math.Abs(from.Y - to.Y) > threshold
+		           || Math.Abs(from.Z - to.Z) > threshold
+		           || Math.Abs(from.Yaw - to.Yaw) > threshold
+		           || Math.Abs(from.HeadYaw - to.HeadYaw) > threshold
+		           || Math.Abs(from.Pitch - to.Pitch) > threshold;
+	    }
+
+        /// <summary>
+        ///		Translates the auth input flags into key states, so we can determine what buttons are
+        ///		pressed by the client. The flags name the keys directly; before 1.26 this had to be
+        ///		inferred from the motion vector on the retired PlayerInput packet.
+        /// </summary>
+        /// <param name="flags"></param>
+        private void CapturePlayerInput(AuthInputFlags flags)
+	    {
+		    UpdateInputState(PlayerInput.W, (flags & AuthInputFlags.WalkForwards) != 0);
+		    UpdateInputState(PlayerInput.S, (flags & AuthInputFlags.WalkBackwards) != 0);
+		    UpdateInputState(PlayerInput.A, (flags & AuthInputFlags.StrafeLeft) != 0);
+		    UpdateInputState(PlayerInput.D, (flags & AuthInputFlags.StrafeRight) != 0);
+		    UpdateInputState(PlayerInput.Space, (flags & AuthInputFlags.JumpDown) != 0);
+	    }
+
+	    private void UpdateInputState(PlayerInput input, bool isDown)
+	    {
+		    var state = isDown ? PlayerInputState.Down : PlayerInputState.Up;
+
+		    lock (_inputStates)
+		    {
+			    if (_inputStates.TryGetValue(input, out var previous) && previous == state)
+				    return;
+
+			    _inputStates[input] = state;
+		    }
+
+		    EventDispatcher.DispatchEvent(new PlayerInputEvent(this, input, state));
 	    }
 
       /*  public override void HandleMcpeRiderJump(McpeRiderJump message)
@@ -1067,11 +1281,15 @@ namespace OpenAPI.Player
         public override void SendResourcePacksInfo()
         {
 	        McpeResourcePacksInfo info = McpeResourcePacksInfo.CreateObject();
+	        info.worldTemplateId = (UUID) Guid.Empty;
+	        info.worldTemplateVersion = "0.0.0"; // vanilla sends this, not an empty string
 	        if (_serverHaveResources)
 	        {
 		        info.mustAccept = _plugin.ResourcePackProvider.MustAccept;
-		        info.behahaviorpackinfos = new ResourcePackInfos();
-		        info.behahaviorpackinfos.AddRange(_plugin.ResourcePackProvider.GetResourcePackInfos());
+		        // 1.26 dropped the separate behaviour pack list from this packet; texturepacks is
+		        // the only one left, which is where the resource packs belonged anyway.
+		        info.texturepacks = new TexturePackInfos();
+		        info.texturepacks.AddRange(_plugin.ResourcePackProvider.GetResourcePackInfos());
 	        }
 	        
 	        SendPacket(info);
@@ -1080,6 +1298,7 @@ namespace OpenAPI.Player
         public override void SendResourcePackStack()
         {
 	        var info = McpeResourcePackStack.CreateObject();
+	        info.gameVersion = "*"; // vanilla sends this, not the concrete game version
 	        if (_serverHaveResources)
 	        {
 		        info.mustAccept = _plugin.ResourcePackProvider.MustAccept;

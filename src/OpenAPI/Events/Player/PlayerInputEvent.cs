@@ -1,10 +1,12 @@
-﻿using System;
-using OpenAPI.Player;
+﻿using OpenAPI.Player;
 using OpenAPI.Utils;
 
 namespace OpenAPI.Events.Player
 {
-    [Obsolete("Not currrently implemented")]
+    /// <summary>
+    ///		Raised when a tracked key changes state, for players with
+    ///		<see cref="OpenPlayer.CapturePlayerInputMode"/> enabled.
+    /// </summary>
     public class PlayerInputEvent : PlayerEvent
     {
         public PlayerInput Input { get; }

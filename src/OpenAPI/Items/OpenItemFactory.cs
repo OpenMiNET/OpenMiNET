@@ -8,16 +8,34 @@ namespace OpenAPI.Items
 {
 	public class OpenItemFactory : ICustomItemFactory
 	{
-		private ConcurrentDictionary<Tuple<short, short>, Func<Item>> RegisteredItems { get; }
+		public record ItemKey(string Name, short Metadata);
+		private ConcurrentDictionary<ItemKey, Func<Item>> RegisteredItems { get; }
 		public OpenItemFactory()
 		{
-			RegisteredItems = new ConcurrentDictionary<Tuple<short, short>, Func<Item>>();
+			RegisteredItems = new ConcurrentDictionary<ItemKey, Func<Item>>();
 		}
 
-		public Item GetItem(short id, short metadata, int count)
+		/// <summary>
+		///		Items are keyed by registry name since 1.26 rather than by numeric id. MiNET resolves
+		///		a bare name to the minecraft namespace and compares names case insensitively before
+		///		it ever asks us, so keys are normalized the same way or a registration made without
+		///		a namespace would simply never be found.
+		/// </summary>
+		private static ItemKey KeyOf(string name, short metadata)
+		{
+			if (string.IsNullOrEmpty(name))
+				return new ItemKey(string.Empty, metadata);
+
+			if (name.IndexOf(':') < 0)
+				name = "minecraft:" + name;
+
+			return new ItemKey(name.ToLowerInvariant(), metadata);
+		}
+
+		public Item GetItem(string id, short metadata, int count)
 		{
 			Func<Item> itemFactory;
-			if (RegisteredItems.TryGetValue(new Tuple<short, short>(id, metadata), out itemFactory))
+			if (RegisteredItems.TryGetValue(KeyOf(id, metadata), out itemFactory))
 			{
 				var item = itemFactory();
 				item.Metadata = metadata;
@@ -28,18 +46,18 @@ namespace OpenAPI.Items
 			return null;
 		}
 
-		public bool TryRegisterItem(short id, short metadata, Func<Item> itemFactory)
+		public bool TryRegisterItem(string id, short metadata, Func<Item> itemFactory)
 		{
-			return RegisteredItems.TryAdd(new Tuple<short, short>(id, metadata), itemFactory);
+			return RegisteredItems.TryAdd(KeyOf(id, metadata), itemFactory);
 		}
 
 		/// <summary>
 		///		Removes a previously registered item factory.
 		/// </summary>
 		/// <returns>Whether an item was registered for that id and metadata.</returns>
-		public bool TryUnregisterItem(short id, short metadata)
+		public bool TryUnregisterItem(string id, short metadata)
 		{
-			return RegisteredItems.TryRemove(new Tuple<short, short>(id, metadata), out _);
+			return RegisteredItems.TryRemove(KeyOf(id, metadata), out _);
 		}
 
 		/// <summary>

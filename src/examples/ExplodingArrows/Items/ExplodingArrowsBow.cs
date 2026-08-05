@@ -1,3 +1,4 @@
+using System;
 using MiNET;
 using MiNET.Items;
 using MiNET.Utils;
@@ -8,6 +9,8 @@ namespace ExplodingArrows.Items
 {
     public class ExplodingArrowsBow : ItemBow
     {
+        private const string ArrowName = "minecraft:arrow";
+
         private long _useTime = 0;
 
         public override void UseItem(Level world, Player player, BlockCoordinates blockCoordinates)
@@ -32,7 +35,7 @@ namespace ExplodingArrows.Items
                 for (byte i = 0; i < inventory.Slots.Count; i++)
                 {
                     var itemStack = inventory.Slots[i];
-                    if (itemStack.Id == 262)
+                    if (string.Equals(itemStack.Name, ArrowName, StringComparison.OrdinalIgnoreCase))
                     {
                         if (--itemStack.Count <= 0)
                         {
