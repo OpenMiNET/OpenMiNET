@@ -1,5 +1,5 @@
 # OpenMiNET (Previously OpenAPI)
-[![Build status](https://ci.appveyor.com/api/projects/status/rb6xfiogyt6sam30/branch/master?svg=true)](https://ci.appveyor.com/project/kennyvv/openapi/branch/master)
+[![Build status](https://github.com/OpenMiNET/OpenMiNET/actions/workflows/dotnetcore.yml/badge.svg?branch=master)](https://github.com/OpenMiNET/OpenMiNET/actions/workflows/dotnetcore.yml)
 [![nuget](https://img.shields.io/nuget/v/OpenMiNET.OpenAPI.svg)](https://www.nuget.org/packages/OpenMiNET.OpenAPI/)
 
 A Custom Plugin API for MiNET - Making it easier for multiple plugins to work together nicely.
@@ -20,6 +20,9 @@ Acquiring the required binaries.
 
 OpenMiNET requires a custom MiNETServer instance to work properly, so the default MiNET.Server executables won't work.  
 You can either compile OpenAPI.Server yourself or you can download pre-compiled binaries [HERE](https://ci.appveyor.com/project/kennyvv/openapi/branch/master/artifacts)
+
+If you compile it yourself: MiNET is built from source as a git submodule in `lib/MiNET`, so clone with
+`git clone --recurse-submodules`, or run `git submodule update --init --recursive` in an existing clone.
 
 #### Step 2.
 Setting up the server.

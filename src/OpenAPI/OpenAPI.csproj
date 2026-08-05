@@ -33,8 +33,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MiNET" Version="1.0.2304" />
     <PackageReference Include="Mono.Cecil" Version="0.11.4" />
+  </ItemGroup>
+
+  <!-- Two forms of the same reference; see src/Directory.Build.props. -->
+  <ItemGroup Condition="'$(UseMiNETSubmodule)' == 'true'">
+    <ProjectReference Include="..\..\lib\MiNET\src\MiNET\MiNET\MiNET.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(UseMiNETSubmodule)' != 'true'">
+    <PackageReference Include="MiNET" Version="$(MiNETPackageVersion)" />
   </ItemGroup>
 
   <ItemGroup>

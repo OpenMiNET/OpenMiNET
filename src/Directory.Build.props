@@ -1,0 +1,38 @@
+<Project>
+
+  <PropertyGroup>
+    <!--
+      MiNET is a submodule (lib/MiNET) so it can be developed alongside OpenAPI. A ProjectReference
+      to it, however, is emitted into the NuGet packages as a dependency on "MiNET 0.0.0" - the
+      placeholder version in the submodule's own csproj, which does not exist on nuget.org and so
+      cannot be restored by anyone installing OpenMiNET.OpenAPI.
+
+      So the reference has two forms: builds compile against the submodule, and packing sets this
+      to false to reference the published package instead.
+
+      Keep MiNETPackageVersion on a release built from the pinned submodule commit. A successful
+      submodule build says nothing about whether the published package still satisfies OpenAPI, so
+      when OpenAPI starts using submodule API the package lacks, publish MiNET first and bump this.
+      The pack fails loudly in that case rather than shipping a package that promises an API its
+      dependency does not have.
+    -->
+    <UseMiNETSubmodule Condition="'$(UseMiNETSubmodule)' == ''">true</UseMiNETSubmodule>
+    <MiNETPackageVersion>1.26.34.2309</MiNETPackageVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(UseMiNETSubmodule)' != 'true'">
+    <!--
+      Restore writes which form of the reference won into obj/project.assets.json, and that file is
+      what the IDE reads to resolve types. A pack left to share obj/ with normal builds therefore
+      leaves the IDE resolving MiNET to the package while the solution also has the submodule
+      project loaded, and every MiNET type becomes an ambiguous reference until the next restore.
+
+      Giving the package-referenced restore its own obj/ keeps the two from overwriting each other,
+      so working locally always means the submodule no matter what was packed last. This has to
+      live in Directory.Build.props: NuGet reads BaseIntermediateOutputPath before it would see a
+      value set inside the csproj.
+    -->
+    <BaseIntermediateOutputPath>obj/pack/</BaseIntermediateOutputPath>
+  </PropertyGroup>
+
+</Project>
