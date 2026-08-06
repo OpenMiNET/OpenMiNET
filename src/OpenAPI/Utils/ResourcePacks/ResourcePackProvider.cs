@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using log4net;
+using MiNET.Net;
 using MiNET.Utils;
 using Newtonsoft.Json;
 
@@ -166,16 +167,30 @@ namespace OpenAPI.Utils.ResourcePacks
             }
         }
 
-        public IEnumerable<TexturePackInfo> GetResourcePackInfos()
+        /// <summary>
+        ///		Protocol 2168 generates ResourcePacksInfo from Mojang's schema, so the pack entry is
+        ///		a PackInfoData carrying a nested id/version pair rather than the flat TexturePackInfo.
+        ///		The string fields are set empty rather than left null to match what vanilla sends.
+        /// </summary>
+        public IEnumerable<PackInfoData> GetResourcePackInfos()
         {
             foreach (var manifest in Manifests)
             {
-                yield return new TexturePackInfo()
+                yield return new PackInfoData()
                 {
-                    Size = (ulong) manifest.Value.Length,
-                    HasScripts = false,
-                    UUID = manifest.Key.Header.Uuid.ToString(),
-                    Version = string.Join('.', manifest.Key.Header.Version)
+                    packIdVersion = new PackIdVersion()
+                    {
+                        packUuid = new UUID(manifest.Key.Header.Uuid.ToString()),
+                        packVersion = string.Join('.', manifest.Key.Header.Version)
+                    },
+                    packSize = (ulong) manifest.Value.Length,
+                    contentKey = string.Empty,
+                    subpackName = string.Empty,
+                    contentIdentity = string.Empty,
+                    hasScripts = false,
+                    isAddonPack = false,
+                    isRayTracingCapable = false,
+                    cdnUrl = string.Empty
                 };
             }
         }

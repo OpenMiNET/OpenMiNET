@@ -18,6 +18,14 @@
     -->
     <UseMiNETSubmodule Condition="'$(UseMiNETSubmodule)' == ''">true</UseMiNETSubmodule>
     <MiNETPackageVersion>1.26.34.2309</MiNETPackageVersion>
+
+    <!--
+      The SDK excludes only the intermediate directory currently in use from the source glob, and
+      the pack below moves that to obj/pack. Whichever of the two is inactive then still holds a
+      generated AssemblyInfo.cs that the glob picks up, and every assembly attribute collides
+      (CS0579). Excluding the whole of obj covers both wherever the active one points.
+    -->
+    <DefaultItemExcludes>$(DefaultItemExcludes);obj/**</DefaultItemExcludes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(UseMiNETSubmodule)' != 'true'">

@@ -358,7 +358,10 @@ namespace OpenAPI.Player
         {
 	      //  return true;
 	        
-            if (!PlayerMoveEvent(KnownPosition, new PlayerLocation(message.x, message.y, message.z, message.headYaw, message.yaw, message.pitch)))
+            // MovePlayer carries a position vector and a (pitch, yaw) rotation since 2168 rather
+            // than six loose floats. Only reachable for a client old enough to still send the
+            // packet at all; a 1.26 client moves through PlayerAuthInput.
+            if (!PlayerMoveEvent(KnownPosition, new PlayerLocation(message.position.X, message.position.Y, message.position.Z, message.headYaw, message.rotation.Y, message.rotation.X)))
             {
                 return false;
             }
@@ -1243,11 +1246,13 @@ namespace OpenAPI.Player
 	        SendPacket(chunkData);
         }
 
+        // The response is a tagged variant since protocol 2168, so the status is the type rather
+        // than a number, and the pack list rides on the downloading case.
         public override void HandleMcpeResourcePackClientResponse(McpeResourcePackClientResponse message)
         {
-	        if (message.responseStatus == 2)
+	        if (message.response is ResourcePackClientResponseDownloading downloading)
 	        {
-		        foreach (var a in message.resourcepackids)
+		        foreach (var a in downloading.downloadingPacks)
 		        {
 			        string uuid = a.Split('_')[0];
 
@@ -1266,12 +1271,12 @@ namespace OpenAPI.Player
 
 		        return;
 	        }
-	        else if (message.responseStatus == 3)
+	        else if (message.response is ResourcePackClientResponseDownloadingFinished)
 	        {
 		        SendResourcePackStack();
 		        return;
 	        }
-	        else if (message.responseStatus == 4)
+	        else if (message.response is ResourcePackClientResponseResourcePackStackFinished)
 	        {
 		        OpenServer.FastThreadPool.QueueUserWorkItem(() => { Start(null); });
 		        return;
@@ -1281,17 +1286,20 @@ namespace OpenAPI.Player
         public override void SendResourcePacksInfo()
         {
 	        McpeResourcePacksInfo info = McpeResourcePacksInfo.CreateObject();
-	        info.worldTemplateId = (UUID) Guid.Empty;
-	        info.worldTemplateVersion = "0.0.0"; // vanilla sends this, not an empty string
+	        // One nested pair since 2168, where the id and version used to be separate fields.
+	        info.worldTemplateIdAndVersion = new PackIdVersion()
+	        {
+		        packUuid = (UUID) Guid.Empty,
+		        packVersion = "0.0.0" // vanilla sends this, not an empty string
+	        };
+	        // Always a list, even with no packs: the count is on the wire either way.
+	        info.resourcePacks = new List<PackInfoData>();
 	        if (_serverHaveResources)
 	        {
 		        info.mustAccept = _plugin.ResourcePackProvider.MustAccept;
-		        // 1.26 dropped the separate behaviour pack list from this packet; texturepacks is
-		        // the only one left, which is where the resource packs belonged anyway.
-		        info.texturepacks = new TexturePackInfos();
-		        info.texturepacks.AddRange(_plugin.ResourcePackProvider.GetResourcePackInfos());
+		        info.resourcePacks.AddRange(_plugin.ResourcePackProvider.GetResourcePackInfos());
 	        }
-	        
+
 	        SendPacket(info);
         }
 
@@ -1302,12 +1310,15 @@ namespace OpenAPI.Player
 	        if (_serverHaveResources)
 	        {
 		        info.mustAccept = _plugin.ResourcePackProvider.MustAccept;
+		        // ResourcePackStack is still an XML packet, and its id/version pair kept the flat
+		        // shape under the name LegacyPackIdVersion when ResourcePacksInfo moved to the
+		        // generated PackIdVersion.
 		        info.resourcepackidversions = new ResourcePackIdVersions();
-		        info.resourcepackidversions.AddRange(_plugin.ResourcePackProvider.GetResourcePackInfos().Select(x => new PackIdVersion()
+		        info.resourcepackidversions.AddRange(_plugin.ResourcePackProvider.GetResourcePackInfos().Select(x => new LegacyPackIdVersion()
 		        {
-			        Id = x.UUID,
-			        Version = x.Version,
-			        SubPackName = x.SubPackName
+			        Id = x.packIdVersion.packUuid.ToString(),
+			        Version = x.packIdVersion.packVersion,
+			        SubPackName = x.subpackName
 		        }));
 	        }
 
@@ -1322,8 +1333,10 @@ namespace OpenAPI.Player
         /// <param name="gameMode">The gamemode to set for the player</param>
         public void SetGamemode(GameMode gameMode)
         {
-	        GameMode = gameMode;
-	        SendSetPlayerGameType();
+	        // Delegated rather than reimplemented: SetPlayerGameType is the client's request and is
+	        // not legal server to client, so the answer is UpdatePlayerGameType, which the base
+	        // method now sends.
+	        SetGameMode(gameMode);
         }
 
         private EntityDisguise _disguise = null;

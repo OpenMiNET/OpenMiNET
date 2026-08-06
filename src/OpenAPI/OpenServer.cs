@@ -11,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using log4net;
 using MiNET;
+using MiNET.Crafting;
 using MiNET.Items;
 using MiNET.Net;
 using MiNET.Net.RakNet;
@@ -81,6 +82,11 @@ namespace OpenAPI
 
                 OpenApi.OnEnable(this);
 
+                // Load the recipe registry here, after plugins have had their say about it, so the
+                // first player to join doesn't pay for it on the login thread (resolving thousands of
+                // recipes takes about a second).
+                Log.Info($"Loaded {RecipeManager.Recipes.Count} recipes");
+                
                 if (ServerRole == ServerRole.Full || ServerRole == ServerRole.Proxy)
                 {
                     RakConnection listener = new RakConnection(Endpoint, GreyListManager, MotdProvider);
