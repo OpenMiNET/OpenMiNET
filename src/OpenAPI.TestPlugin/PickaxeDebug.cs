@@ -34,7 +34,7 @@ namespace OpenAPI.TestPlugin
         public void OnPlayerSpawn(PlayerSpawnedEvent e)
         {
             e.Player.SetGamemode(GameMode.Survival);
-            e.Player.Inventory.AddItem(new ItemBlock(new Planks())
+            e.Player.Inventory.AddItem(new ItemBlock(new OakPlanks())
             {
                 Count = 64
             }, true);

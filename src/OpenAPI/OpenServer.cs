@@ -79,6 +79,11 @@ namespace OpenAPI
                 }
 
                 MotdProvider = OpenApi.MotdProvider;
+                if (Endpoint != null)
+				{
+					MotdProvider.PortV4 = Endpoint.Port;
+					MotdProvider.PortV6 = Endpoint.Port + 1;
+				}
 
                 OpenApi.OnEnable(this);
 
