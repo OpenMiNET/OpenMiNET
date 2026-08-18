@@ -9,7 +9,7 @@ namespace OpenAPI.Events.Entity
 	public class EntityInteractEvent : EntityEvent
 	{
 		public OpenPlayer SourcePlayer { get; }
-		public McpeInventoryTransaction.ItemUseOnEntityAction Action { get; }
+		public ItemUseOnActorInventoryTransaction.ItemUseOnActorActionType Action { get; }
 		
 		/// <summary>
 		/// 	
@@ -17,7 +17,7 @@ namespace OpenAPI.Events.Entity
 		/// <param name="entity">The entity the player has interacted with</param>
 		/// <param name="source">The player that initiated the interaction</param>
 		/// <param name="action">The action that got initiated</param>
-		public EntityInteractEvent(MiNET.Entities.Entity entity, OpenPlayer source, McpeInventoryTransaction.ItemUseOnEntityAction action) : base(entity)
+		public EntityInteractEvent(MiNET.Entities.Entity entity, OpenPlayer source, ItemUseOnActorInventoryTransaction.ItemUseOnActorActionType action) : base(entity)
 		{
 			SourcePlayer = source;
 			Action = action;

@@ -38,6 +38,11 @@ using OpenAPI.Permission;
 using OpenAPI.Player.Inventory;
 using OpenAPI.Utils;
 using OpenAPI.World;
+// MiNET's regenerated transaction packet named its own record type InventoryAction, which is
+// already the name of OpenAPI's inventory action. Aliased rather than renamed: one is what the
+// client sent, the other is what this server decided to do about it, and both names are right.
+using WireAction = MiNET.Net.InventoryAction;
+using InventoryAction = OpenAPI.Player.Inventory.InventoryAction;
 
 namespace OpenAPI.Player
 {
@@ -423,19 +428,23 @@ namespace OpenAPI.Player
         }
 
         /// <inheritdoc />
+        /// <inheritdoc />
         public override void HandleMcpeInventoryTransaction(McpeInventoryTransaction message)
         {
+	        _legacySetItemSlots = message.legacySetItemSlots ?? new List<LegacySetSlot>();
+
 	        base.HandleMcpeInventoryTransaction(message);
         }
-        
-      
+
 
         public Item GetInvItem(int inventoryId, int slot)
         {
 	        if (inventoryId == 0)
 		        return Inventory.Slots[slot];
 	        
-	        return GetContainerItem(inventoryId, slot);
+	        // The parameter has always been a container slot type rather than a window id - the
+	        // switch it used to reach named 13 crafting and 7 chest. MiNET now says so in the type.
+	        return GetContainerItem((FullContainerName.ContainerEnumName) inventoryId, slot);
         }
 
         public void SetInvItem(int inventoryId, int slot, Item item)
@@ -450,7 +459,7 @@ namespace OpenAPI.Player
 		        Inventory.Slots[slot] = newItem;
 		        return;
 	        }
-	        SetContainerItem(inventoryId, slot, newItem);
+	        SetContainerItem((FullContainerName.ContainerEnumName) inventoryId, slot, newItem);
         }
 
         private void InventoryMisMatch()
@@ -458,8 +467,18 @@ namespace OpenAPI.Player
 	        SendPlayerInventory();
         }
         
+        /// <summary>
+        ///		The legacy slot records of the transaction being handled, if it carried any.
+        /// </summary>
+        /// <remarks>
+        ///		These used to hang off the transaction itself. The regenerated packet puts them where
+        ///		the wire puts them - alongside the transaction rather than inside it - and hands the
+        ///		handler only the transaction, so the one place that wants them has to be told.
+        /// </remarks>
+        private List<LegacySetSlot> _legacySetItemSlots = new List<LegacySetSlot>();
+
         /// <inheritdoc />
-        protected override void HandleNormalTransaction(NormalTransaction normal)
+        protected override void HandleNormalTransaction(NormalTransactionData normal)
         {
 	        ObservableCollection<InventoryAction> actions = new ObservableCollection<InventoryAction>();
 	        actions.CollectionChanged += (sender, args) =>
@@ -472,24 +491,26 @@ namespace OpenAPI.Player
 			        }
 		        }
 	        };
-	        
-	        foreach (var transaction in normal.TransactionRecords)
+
+	        foreach (var transaction in normal.actions ?? new List<WireAction>())
 	        {
-		        var newItem = transaction.NewItem;
-		        var oldItem = transaction.OldItem;
+		        var newItem = transaction.toItem;
+		        var oldItem = transaction.fromItem;
 
 		        if (SlotChangeAction.EqualsExactly(newItem, oldItem))
 		        {
 			        continue;
 		        }
 
-		        switch (transaction)
+		        // A record used to be its own type per source; it is now one type carrying the source
+		        // it came from. Same three cases, read off a field instead of matched on a class.
+		        switch (transaction.source?.sourceType)
 		        {
-			        case WorldInteractionTransactionRecord wit:
+			        case InventorySource.InventorySourceType.WorldInteraction:
 			        {
-				        if (wit.Slot != 0)
+				        if (transaction.slot != 0)
 				        {
-					        Log.Warn($"Got non item-drop in WorldInteractionTransactionRecord!");
+					        Log.Warn($"Got non item-drop in WorldInteraction record!");
 					        InventoryMisMatch();
 
 					        break;
@@ -499,17 +520,20 @@ namespace OpenAPI.Player
 
 				        bool didMatch = false;
 
-				        foreach (var record in normal.RequestRecords)
+				        foreach (var record in _legacySetItemSlots)
 				        {
-					        foreach (var slot in record.Slots)
+					        foreach (var slot in record.slots)
 					        {
-						        var item = GetContainerItem(record.ContainerId, slot);
+						        // The container enum is the byte that used to be read straight out of
+						        // the packet as a container id, so the two name the same thing.
+						        var item = GetContainerItem(
+							        (FullContainerName.ContainerEnumName) record.containerEnum, slot);
 
 						        // Name, not RuntimeId: the container item is server built and only
 						        // block items carry a runtime id, so comparing those would match on 0.
-						        if (string.Equals(item.Name, wit.NewItem.Name, StringComparison.OrdinalIgnoreCase)
-						                                      && item.Metadata == wit.NewItem.Metadata
-						                                      && item.Count >= wit.NewItem.Count)
+						        if (string.Equals(item.Name, newItem.Name, StringComparison.OrdinalIgnoreCase)
+						                                      && item.Metadata == newItem.Metadata
+						                                      && item.Count >= newItem.Count)
 						        {
 							        item.Count -= newItem.Count;
 
@@ -517,14 +541,14 @@ namespace OpenAPI.Player
 							        {
 								        // base: the event was already raised just above, and the
 								        // override would raise it a second time.
-								        base.DropItem(wit.NewItem);
+								        base.DropItem(newItem);
 								        didMatch = true;
 
 								        break;
 							        }
 							        else
 							        {
-								        item.Count += wit.NewItem.Count;
+								        item.Count += newItem.Count;
 							        }
 						        }
 					        }
@@ -533,32 +557,21 @@ namespace OpenAPI.Player
 						        break;
 				        }
 
-				        if (normal.RequestRecords.Count > 0 && !didMatch)
+				        if (_legacySetItemSlots.Count > 0 && !didMatch)
 				        {
-					        Log.Warn($"WorldInteractionTransactionRecord: No matching item found.");
+					        Log.Warn($"WorldInteraction record: No matching item found.");
 					        InventoryMisMatch();
 
 					        return;
 				        }
-
-				        // Log.Info($"WorldInteractionTransactionRecord: (Flags={wit.Flags} Slot={wit.Slot} NewItem={wit.NewItem} OldItem={wit.OldItem} StackId={wit.StackNetworkId})");
 			        } break;
-			        
-			        case ContainerTransactionRecord ctr:
+
+			        case InventorySource.InventorySourceType.ContainerInventory:
 			        {
-				        //  var item = GetInvItem(ctr.InventoryId, ctr.Slot);
-				        /*
-				        if (item.Count != newItem.Count)
-				        {
-					        Log.Warn($"ContainerTransactionRecord invalid! Expected: {item.Count} Got: {newItem.Count} (OldItem={oldItem})");
-					        InventoryMisMatch();
-
-					        return;
-				        }
-				        */
-
-				        actions.Add(new SlotChangeAction(this, ctr.InventoryId, ctr.Slot, oldItem, newItem));
-				        //Log.Info($"ContainerTransactionRecord (InventoryId={ctr.InventoryId} Slot={ctr.Slot} StackId={ctr.StackNetworkId}) (NewItem={ctr.NewItem}) (OldItem={ctr.OldItem})");
+				        actions.Add(
+					        new SlotChangeAction(
+						        this, transaction.source.containerId ?? 0, (int) transaction.slot, oldItem,
+						        newItem));
 			        } break;
 		        }
 	        }
@@ -589,18 +602,18 @@ namespace OpenAPI.Player
         }
 
 
-        protected override void HandleItemUseOnEntityTransaction(ItemUseOnEntityTransaction transaction)
+        protected override void HandleItemUseOnEntityTransaction(ItemUseOnActorInventoryTransaction transaction)
         {
-	        if (!Level.TryGetEntity<Entity>(transaction.EntityId, out var entity) || !entity.IsSpawned || entity.HealthManager.IsDead || entity.HealthManager.IsInvulnerable)
+	        if (!Level.TryGetEntity<Entity>(transaction.runtimeId, out var entity) || !entity.IsSpawned || entity.HealthManager.IsDead || entity.HealthManager.IsInvulnerable)
 	        {
 		        return;
 	        }
-	        //     var entity = Level.GetEntity(transaction.EntityId);
+	        //     var entity = Level.GetEntity(transaction.runtimeId);
 	        //  if (entity == null || !entity.IsSpawned || entity.HealthManager.IsDead || entity.HealthManager.IsInvulnerable)
 	        //      return;
 
-	        var actionType = (McpeInventoryTransaction.ItemUseOnEntityAction) transaction.ActionType;
-			
+	        var actionType = transaction.actionType;
+
 	        EntityInteractEvent interactEvent = new EntityInteractEvent(entity, this, actionType);
 	        EventDispatcher.DispatchEventAsync(interactEvent).Then(result =>
 	        {
@@ -611,29 +624,29 @@ namespace OpenAPI.Player
 	        });
         }
         
-        protected override void HandleItemReleaseTransaction(ItemReleaseTransaction transaction)
+        protected override void HandleItemReleaseTransaction(ItemReleaseInventoryTransaction transaction)
         {
 	        Log.Warn($"Got old ItemReleaseTransaction...");
 	        return;
 		    Item itemInHand = Inventory.GetItemInHand();
-			switch ((McpeInventoryTransaction.ItemReleaseAction) transaction.ActionType)
+			switch (transaction.actionType)
 		    {
-			    case McpeInventoryTransaction.ItemReleaseAction.Release:
+			    case ItemReleaseInventoryTransaction.ItemReleaseActionType.Release:
 			    {
 				    if (!DropItem(itemInHand, new ItemAir()))
 				    {
 					    //HandleNormalTransaction(transaction);
-					    HandleTransactionRecords(transaction.TransactionRecords);
+					    HandleTransactionRecords(transaction.actions);
 					    return;
 				    }
 
 				    break;
 			    }
-			    case McpeInventoryTransaction.ItemReleaseAction.Use:
+			    case ItemReleaseInventoryTransaction.ItemReleaseActionType.Use:
 			    {
 				    if (!UseItem(itemInHand))
 				    {
-					    HandleTransactionRecords(transaction.TransactionRecords);
+					    HandleTransactionRecords(transaction.actions);
 					    //HandleNormalTransaction(transaction);
 					    return;
 				    }
@@ -644,58 +657,58 @@ namespace OpenAPI.Player
 
 		    base.HandleItemReleaseTransaction(transaction);
 	    }
-	    
-	    protected override void HandleItemUseTransaction(ItemUseTransaction transaction)
+
+	    protected override void HandleItemUseTransaction(ItemUseInventoryTransaction transaction)
 	    {
 		    var itemInHand = Inventory.GetItemInHand();
 
-		    switch ((McpeInventoryTransaction.ItemUseAction) transaction.ActionType)
+		    switch (transaction.actionType)
 		    {
-			    case McpeInventoryTransaction.ItemUseAction.Destroy:
+			    case ItemUseInventoryTransaction.ItemUseActionType.Destroy:
 			    {
-				    var target = Level.GetBlock(transaction.Position);
+				    var target = Level.GetBlock(transaction.position);
 
-				    PlayerInteractEvent interactEvent = new PlayerInteractEvent(this, itemInHand, transaction.Position,
-					    (BlockFace) transaction.Face,
+				    PlayerInteractEvent interactEvent = new PlayerInteractEvent(this, itemInHand, transaction.position,
+					    (BlockFace) transaction.face,
 					    (target is Air)
 						    ? PlayerInteractEvent.PlayerInteractType.LeftClickAir
 						    : PlayerInteractEvent.PlayerInteractType.LeftClickBlock);
-				    
+
 				    EventDispatcher.DispatchEventAsync(interactEvent).Then(result =>
 				    {
 					    if (result.IsCancelled)
 						    return;
-					    
+
 					    base.HandleItemUseTransaction(transaction);
 				    });
-				    
+
 				    return;
 			    }
-			    case McpeInventoryTransaction.ItemUseAction.Use:
+			    case ItemUseInventoryTransaction.ItemUseActionType.Use:
 			    {
 				    if (!UseItem(itemInHand))
 				    {
 					    //HandleNormalTransaction(transaction);
-					    HandleTransactionRecords(transaction.TransactionRecords);
+					    HandleTransactionRecords(transaction.actions);
 					    return;
 				    }
 
 				    break;
 			    }
-			    case McpeInventoryTransaction.ItemUseAction.Place:
+			    case ItemUseInventoryTransaction.ItemUseActionType.Place:
 			    {
-				    var target = Level.GetBlock(transaction.Position);
-				    
-				    PlayerInteractEvent interactEvent = new PlayerInteractEvent(this, itemInHand, transaction.Position,
-					    (BlockFace) transaction.Face, (target is Air)
+				    var target = Level.GetBlock(transaction.position);
+
+				    PlayerInteractEvent interactEvent = new PlayerInteractEvent(this, itemInHand, transaction.position,
+					    (BlockFace) transaction.face, (target is Air)
 						    ? PlayerInteractEvent.PlayerInteractType.RightClickAir
 						    : PlayerInteractEvent.PlayerInteractType.RightClickBlock);
-				    
+
 				    EventDispatcher.DispatchEventAsync(interactEvent).Then(result =>
 				    {
 					    if (result.IsCancelled)
 						    return;
-					    
+
 					    base.HandleItemUseTransaction(transaction);
 				    });
 
@@ -705,9 +718,9 @@ namespace OpenAPI.Player
 	    }
 
 	    /// <inheritdoc />
-	    protected override void HandleTransactionRecords(List<TransactionRecord> records)
+	    protected override void HandleTransactionRecords(List<WireAction> records)
 	    {
-		
+
 	    }
 
 	    private bool UseItem(Item usedItem)
@@ -1085,27 +1098,29 @@ namespace OpenAPI.Player
 	    public override void HandleMcpePlayerAuthInput(McpePlayerAuthInput message)
 	    {
 		    if (CapturePlayerInputMode)
-			    CapturePlayerInput(message.InputFlags);
+			    CapturePlayerInput(message.inputData);
 
 		    // Block actions OpenAPI owns are pulled out before the base call: MiNET would break the
 		    // block through its own non-virtual Level.BreakBlock, which never raises BlockBreakEvent.
 		    // The rest (the crack overlay, for one) is left for the base implementation.
-		    List<McpePlayerAuthInput.PlayerBlockAction> blockActions = message.BlockActions;
-		    List<McpePlayerAuthInput.PlayerBlockAction> ownedActions = null;
+		    List<PlayerBlockActionData> blockActions = message.playerBlockActions;
+		    List<PlayerBlockActionData> ownedActions = null;
 
 		    if (blockActions != null)
 		    {
-			    List<McpePlayerAuthInput.PlayerBlockAction> passthrough = null;
+			    List<PlayerBlockActionData> passthrough = null;
 
 			    foreach (var blockAction in blockActions)
 			    {
-				    if (IsBreakAction((PlayerAction) blockAction.ActionType))
-					    (ownedActions ??= new List<McpePlayerAuthInput.PlayerBlockAction>()).Add(blockAction);
+				    // PMMP's PlayerAction numbers, which is what the base handler reads these as too,
+				    // not the generated PlayerActionType enum that shares the field.
+				    if (IsBreakAction((PlayerAction) blockAction.playerActionType))
+					    (ownedActions ??= new List<PlayerBlockActionData>()).Add(blockAction);
 				    else
-					    (passthrough ??= new List<McpePlayerAuthInput.PlayerBlockAction>()).Add(blockAction);
+					    (passthrough ??= new List<PlayerBlockActionData>()).Add(blockAction);
 			    }
 
-			    message.BlockActions = passthrough;
+			    message.playerBlockActions = passthrough;
 		    }
 
 		    bool moveRejected = false;
@@ -1114,20 +1129,20 @@ namespace OpenAPI.Player
 		    {
 			    if (IsSpawned && !HealthManager.IsDead)
 			    {
-				    // Y arrives at eye height, the same as MovePlayer's did.
+				    // Y arrives at eye height, the same as MovePlayer's did, and the rotation vector
+				    // carries pitch in X and yaw in Y.
 				    var to = new PlayerLocation(
-					    message.Position.X, message.Position.Y - 1.62f, message.Position.Z,
-					    message.HeadYaw, message.Yaw, message.Pitch);
+					    message.position.X, message.position.Y - 1.62f, message.position.Z,
+					    message.playerHeadRotation, message.playerRotation.Y, message.playerRotation.X);
 
 				    if (HasMoved(KnownPosition, to) && !PlayerMoveEvent(KnownPosition, to))
 				    {
 					    // Rewritten to where the server already has the player so the base call
 					    // applies the move as a no-op. Everything else on this packet (input flags,
 					    // inventory actions) is unrelated to the move and still gets processed.
-					    message.Position = new Vector3(KnownPosition.X, KnownPosition.Y + 1.62f, KnownPosition.Z);
-					    message.Pitch = KnownPosition.Pitch;
-					    message.Yaw = KnownPosition.Yaw;
-					    message.HeadYaw = KnownPosition.HeadYaw;
+					    message.position = new Vector3(KnownPosition.X, KnownPosition.Y + 1.62f, KnownPosition.Z);
+					    message.playerRotation = new Vector2(KnownPosition.Pitch, KnownPosition.Yaw);
+					    message.playerHeadRotation = KnownPosition.HeadYaw;
 
 					    moveRejected = true;
 				    }
@@ -1137,7 +1152,7 @@ namespace OpenAPI.Player
 		    }
 		    finally
 		    {
-			    message.BlockActions = blockActions;
+			    message.playerBlockActions = blockActions;
 		    }
 
 		    // Movement is client authoritative, so the client has already moved locally. Without
@@ -1151,9 +1166,9 @@ namespace OpenAPI.Player
 		    foreach (var blockAction in ownedActions)
 		    {
 			    HandleBlockAction(
-				    (PlayerAction) blockAction.ActionType,
-				    new BlockCoordinates(blockAction.X, blockAction.Y, blockAction.Z),
-				    (BlockFace) blockAction.Face);
+				    (PlayerAction) blockAction.playerActionType,
+				    blockAction.position,
+				    (BlockFace) blockAction.facing);
 		    }
 	    }
 

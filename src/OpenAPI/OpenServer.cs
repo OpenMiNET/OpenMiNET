@@ -14,9 +14,10 @@ using MiNET;
 using MiNET.Crafting;
 using MiNET.Items;
 using MiNET.Net;
-using MiNET.Net.RakNet;
+using MiNET.Net.NetherNet;
 using MiNET.Plugins;
 using MiNET.Utils;
+using MiNET.Utils.Diagnostics;
 using MiNET.Utils.IO;
 using OpenAPI.Events.Server;
 using OpenAPI.Utils;
@@ -31,7 +32,7 @@ namespace OpenAPI
         public static DedicatedThreadPool FastThreadPool => ReflectionHelper.GetPrivateStaticPropertyValue<DedicatedThreadPool>(typeof(MiNetServer), "FastThreadPool");
 
         public EventHandler OnServerShutdown;
-        private RakConnection _rakListener;
+        private NetherNetListener _listener;
         public OpenServer()
         {
             OpenApi = new OpenApi();
@@ -45,7 +46,7 @@ namespace OpenAPI
         {
             var type = typeof(MiNetServer);
             
-            RakConnection c = ReflectionHelper.GetPrivateFieldValue<RakConnection>(type, this, "_listener");
+            NetherNetListener c = ReflectionHelper.GetPrivateFieldValue<NetherNetListener>(type, this, "_netherNetListener");
             if (c != null) return false;
 
             try
@@ -72,7 +73,6 @@ namespace OpenAPI
 
                     global::MiNET.Items.ItemFactory.CustomItemFactory = OpenApi.ItemFactory;
 
-                    GreyListManager = GreyListManager ?? new GreyListManager(ConnectionInfo);
                     SessionManager = SessionManager ?? new SessionManager();
                     LevelManager = OpenApi.LevelManager;
                     PlayerFactory = OpenApi.PlayerManager;
@@ -82,7 +82,10 @@ namespace OpenAPI
                 if (Endpoint != null)
 				{
 					MotdProvider.PortV4 = Endpoint.Port;
-					MotdProvider.PortV6 = Endpoint.Port + 1;
+
+					// Both the same, because one socket serves both families and nothing is bound on
+					// port + 1.
+					MotdProvider.PortV6 = Endpoint.Port;
 				}
 
                 OpenApi.OnEnable(this);
@@ -94,27 +97,48 @@ namespace OpenAPI
                 
                 if (ServerRole == ServerRole.Full || ServerRole == ServerRole.Proxy)
                 {
-                    RakConnection listener = new RakConnection(Endpoint, GreyListManager, MotdProvider);
+                    NetherNetListener listener = new NetherNetListener(Endpoint);
                     listener.CustomMessageHandlerFactory = session => new BedrockMessageHandler(session, ServerManager, PluginManager);
 
-                   openInfo = new OpenServerInfo(listener, OpenApi,
-                       listener.ConnectionInfo.RakSessions, OpenApi.LevelManager);
-                    
+                    // Plugins serve the server port for anything NetherNet does not claim itself.
+                    listener.RequestHandler = PluginManager.HandleHttpRequest;
 
-                   ConnectionInfo = openInfo;
-                   openInfo.Init();
+                    openInfo = new OpenServerInfo(listener, OpenApi, OpenApi.LevelManager);
 
-                   OpenApi.ServerInfo = openInfo;
-                   
-                   if (!Config.GetProperty("EnableThroughput", true))
-                   {
-                       listener.ConnectionInfo.ThroughPut.Change(Timeout.Infinite, Timeout.Infinite);
-                   }
+                    ConnectionInfo = openInfo;
+                    openInfo.Init();
 
-                    ReflectionHelper.SetPrivateFieldValue(type, this, "_listener", listener);
+                    OpenApi.ServerInfo = openInfo;
+
+                    // The same live count OpenServerInfo reports, handed to the meter so
+                    // transport.sessions.active is the denominator for every per-session rate a
+                    // collector computes.
+                    TransportMetrics.SessionCountProvider = () => listener.Sessions.Count;
+                    TransportMetrics.SendQueueDepthProvider = () =>
+                    {
+                        long depth = 0;
+                        foreach (NetherNetSession session in listener.Sessions.Values) depth += session.SendQueueDepth;
+                        return depth;
+                    };
+                    TransportMetrics.DispatchQueueDepthProvider = () =>
+                    {
+                        long depth = 0;
+                        foreach (NetherNetSession session in listener.Sessions.Values) depth += session.DispatchQueueDepth;
+                        return depth;
+                    };
+
+                    // The mux answers RakNet's legacy unconnected ping on the gameplay UDP port so
+                    // the server still shows in the client's server tab; Mojang shipped no NetherNet
+                    // replacement for it. EnableDiscovery=false turns the responder off entirely.
+                    if (Config.GetProperty("EnableDiscovery", true))
+                    {
+                        listener.Discovery = new NetherNetDiscovery(MotdProvider, ConnectionInfo, () => listener.Sessions.Count);
+                    }
+
+                    ReflectionHelper.SetPrivateFieldValue(type, this, "_netherNetListener", listener);
                     listener.Start();
 
-                    _rakListener = listener;
+                    _listener = listener;
                 }
 
                 openInfo?.OnEnable();
@@ -142,7 +166,7 @@ namespace OpenAPI
             OpenApi.EventDispatcher.DispatchEvent(new ServerClosingEvent(this));
             
             Log.Info($"Stopping server...");
-            _rakListener.Stop();
+            _listener?.Stop();
             var task = Task.Run(
                 () =>
                 {
@@ -152,7 +176,7 @@ namespace OpenAPI
                     }
                     finally
                     {
-                        _rakListener?.Stop();
+                        _listener?.Stop();
                         OnServerShutdown?.Invoke(this, EventArgs.Empty);
                     }
                 });

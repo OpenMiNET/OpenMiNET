@@ -2,7 +2,6 @@
 using System.Net;
 using MiNET;
 using MiNET.Net;
-using MiNET.Net.RakNet;
 
 namespace OpenAPI
 {
